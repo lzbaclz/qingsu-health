@@ -1,0 +1,56 @@
+id: EX04
+family: FX04_followup_worse_new_symptom
+split: examples
+title: 随访：加重 + 新出现腿麻 + 不清楚医嘱
+persona: 42 岁仓库管理员（模拟）
+kind: follow_up
+category: follow_up
+parent:
+  inputs:
+    body_map:
+      - {region_id: lower_back_right, kind: primary}
+    free_text: "右腰酸痛一周，弯腰更明显，没有腿麻。"
+    answers:
+      q_bladder_bowel: "no"
+      q_saddle: "no"
+      q_leg_weakness: "no"
+      q_fever: "no"
+      q_trauma: "no"
+      q_onset_mode: gradual
+      q_trigger: prolonged_sitting
+      q_radiation_present: "no"
+      q_severity_now: 5
+      q_course: stable
+      q_function_impact: mild
+      q_sleep_affected: "no"
+  plan_message: "（医生撰写示例）请一周后在这里更新情况；如出现大小便控制变化或腿突然无力，立即联系门诊。"
+inputs:
+  body_map:
+    - {region_id: lower_back_right, kind: primary}
+    - {region_id: buttock_right, kind: radiation}
+  free_text: "比上次更疼了，串到右边屁股，右腿有点麻。"
+  answers:
+    q_fu_overall: worse
+    q_fu_severity: 7
+    q_fu_new: "yes"
+    q_fu_new_desc: "右腿开始发麻"
+    q_fu_bladder: "no"
+    q_fu_saddle: "no"
+    q_fu_weakness: "no"
+    q_fu_numbness: "yes"
+    q_fu_course: worsening
+    q_fu_function: moderate
+    q_fu_sleep: "yes"
+    q_fu_understood: "no"
+    q_fu_adherence: partial
+ground_truth:
+  facts:
+    fu_change_overall: {status: present, value: worse}
+    severity_now: {status: present, value: 7}
+    fu_new_symptom: {status: present}
+    leg_numbness: {status: present}
+    radiation_present: {status: present}
+    bladder_bowel_change: {status: denied}
+    fu_plan_understood: {status: denied}
+  expected_alerts: []
+notes: "工程占位，需临床审核"

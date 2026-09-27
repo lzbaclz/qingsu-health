@@ -1,0 +1,55 @@
+id: S069
+family: F18_recurrent_lbp_new_radiation
+split: locked
+title: "以前也有过腰痛，这次多了向右大腿后侧串的疼——既往发作与新增放射都要记录"
+persona: "44 岁护士（模拟，非真实患者）"
+kind: pre_visit
+category: new_symptom
+inputs:
+  body_map:
+    - {region_id: lower_back_right, kind: primary}
+    - {region_id: thigh_right_back, kind: radiation}
+  free_text: "腰痛以前也有过，这次多了一个新情况：疼串到右大腿后面，以前从没串过。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_onset_timing: weeks_2_to_6
+    q_onset_mode: gradual
+    q_trigger: lifting
+    q_leg_numbness: "no"
+    q_severity_now: 6
+    q_course: worsening
+    q_character: [aching, sharp]
+    q_aggravating: [sitting, bending]
+    q_relieving: [rest]
+    q_function_impact: moderate
+    q_sleep_affected: "no"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    prior_episodes: {status: present}
+    radiation_present: {status: present}
+    radiation_regions: {status: present, value: [thigh_right_back]}
+    onset_timing: {status: present, value: weeks_2_to_6}
+    pain_side: {status: present, value: right}
+    pain_regions: {status: present}
+    leg_numbness: {status: denied}
+    severity_now: {status: present, value: 6}
+    course: {status: present, value: worsening}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    trigger: {status: present, value: lifting}
+  must_be_unknown: [night_pain, weight_loss, cancer_history]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

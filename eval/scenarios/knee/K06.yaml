@@ -1,0 +1,26 @@
+id: K06
+family: K06_negations
+split: knee
+protocol_id: knee_adult_v0.1
+title: 双膝酸、一连串否认（不红不肿、没发烧、小腿没事）
+persona: 60 岁广场舞爱好者（模拟）
+kind: pre_visit
+category: negation
+inputs:
+  body_map: [{region_id: knee_left_front, kind: primary}, {region_id: knee_right_front, kind: primary}]
+  free_text: "两个膝盖都酸，不红不肿，没发烧，小腿没事，走路没问题，就是上楼吃力。"
+  answers: {k_neuro: "no", k_trauma: "no", k_onset_timing: over_12_weeks, k_severity: 3}
+ground_truth:
+  facts:
+    pain_side: {status: present, value: both}
+    redness_warmth: {status: denied}
+    swelling: {status: denied}
+    fever: {status: denied}
+    calf_swelling_pain: {status: denied}
+    weight_bearing: {status: present, value: normal}
+    onset_timing: {status: present, value: over_12_weeks}
+    severity_now: {status: present, value: 3}
+  must_be_unknown: [night_pain]
+  expected_alerts: []
+notes: "待临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

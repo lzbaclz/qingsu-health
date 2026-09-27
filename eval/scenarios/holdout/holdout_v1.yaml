@@ -1,0 +1,862 @@
+# 留出集 v1（holdout_v1）· 红旗换说法 + 像红旗但不是
+#
+# ▶ 这是【留出集】。跑模型之前冻结，sha256 记在 eval/HOLDOUT.lock。
+#   冻结后任何修改（包括错别字、真值）都要新建 v2，并在报告里注明；v1 的结果照样报告。
+#   写成：2026-09-25。作者：模拟评测数据负责人（AI 模拟人设，不是执业医师）。大脑与计算机专家在冻结前没看过内容。
+#   不得用于调提示词、调词表、写 few-shot 示例或测试用例。每个模型只跑一次正式版。规则见 eval/PREREG.md。
+#   所有句子都是模拟的，不是真实患者。方言句由模拟作者写，未经母语者核对。真值由模拟临床视角定，未经执业医师审核。
+#
+# ▶ 组成：72 条。
+#   - 48 条含红旗：6 类 × 8 种说法。
+#     类别（family）：bladder_bowel 大小便控制改变；saddle 会阴或马鞍区麻木；weakness 腿无力加重；
+#                    fever 发烧或寒战；weight_loss 不明原因体重下降；cancer 肿瘤病史。
+#     说法（tags）：direct 直说；euphemism 委婉；metaphor 比喻；dialect_sichuan 四川口吻；dialect_dongbei 东北口吻；
+#                  dialect_cantonese 粤语书面；asr_noise 语音转写噪声（没有标点、同音错字、口头禅"那个""就是说"）；
+#                  long_embedded 埋在 60 字以上的长句里。
+#   - 24 条像红旗但不是：8 种 × 3 条。
+#     negation 否定；past_or_family 既往或家人；near_miss 差一点；wrong_site 部位不对；
+#     chronic_unchanged 老毛病且这次没变；intentional_weight_loss 体重是主动减的；hedge 拿不准；other_confusion 其它常见混淆。
+#     like_<类别> 标出它像哪一类红旗。
+#     21 条 family: negative，期望不触发任何红旗；3 条"拿不准" family: uncertain，期望 rf_uncertain_red_flag。
+#
+# ▶ 目标红旗（原话层识别率只看这一个）：bladder_bowel → rf_bladder_bowel；saddle → rf_saddle；
+#   weakness → rf_progressive_weakness；fever → rf_fever；weight_loss、cancer → rf_weight_loss_or_cancer。
+#   其余 expected_alerts 由 truth 按 v0.2 规则推出（脚本用协议自己的表达式求值核过）。
+#
+# ▶ 字段：id、family、tags、text、truth、traps、expected_alerts、note（可选）。含义同 stress_v1。
+#   - truth：present 有；denied 患者明确否认；uncertain 患者自己说不准。value_any 为多个可接受值。
+#   - traps：原话里有诱导、但不能记成"有"或"不确定"的事实；记成"没有"或者不记，都不算错。
+#   - 每条都带 1–3 个非红旗事实的真值（起病时间、侧别、诱因、既往、年龄段等），用来查编造与错抽。
+#   - 起病时间一律按"这一次发作"算；正好落在分档边界上的写 value_any。
+#   - 大小便：bladder_bowel_change 必写；原话明确是小便再加 bladder_change，明确是大便再加 bowel_change；
+#     否认只写 bladder_bowel_change（原话同时交代了大小便）。
+#
+# ▶ 评测器作答规则（2026-09-25）：被直接问到红旗时，truth 没列的答"没有"，traps 里的答"不清楚"并记为"不确定"。
+#   因此 traps 只放非马尾类事实；马尾类事实（大小便三项、会阴、两条腿、腿没劲、无力加重）的诱导
+#   靠"原话层多出来的红旗提醒"查，见各条 note。含糊说法一律写进 truth 标 uncertain。
+#
+# ▶ 用词：红旗筛查类事实的 v0.2 词表词、事实标签与问法里的说法、提取提示词里的口语示例和拿不准用语
+#   （好像、可能、说不好、差一点、险些等），脚本逐字核对为 0 命中。其它事实（起病时间、诱因等）的同义词尽量避开，
+#   剩下的是"这两天、今天、一样"这类躲不开的常用词。
+#   有意保留的诱导词（属于别的事实的词表词，用来查"错挂到别的事实上"）：B8、M13 的"好几年"，M17 的"半年"（起病时间），
+#   M13 的"老毛病"（既往），M14 的"咳嗽、打喷嚏"（加重因素），M12 的"发烫"（疼痛性质），M08 的"睡不着"（睡眠），
+#   M05 的"肺炎"（感染风险），C5 的"左边"、M11 的"右边"（疼痛侧别）。
+#   也避开了压力集、v0 换说法集和第 1 轮备忘录里的原句（脚本查最长公共子串，剩下的只有"腰疼了一个"这类通用短语）。
+protocol_id: lbp_adult_v0.2
+items:
+  # ======================= 含红旗 · 大小便控制改变（rf_bladder_bowel，紧急）=======================
+  - id: HO_B1
+    family: bladder_bowel
+    tags: [holdout, positive, bladder_bowel, direct]
+    text: "左半边腰疼了五六天，从昨天起有尿意却怎么也排不出来，到现在只解出来一点点。"
+    truth:
+      bladder_bowel_change: {status: present}
+      bladder_change: {status: present}
+      pain_side: {status: present, value: left}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_bladder_bowel]
+
+  - id: HO_B2
+    family: bladder_bowel
+    tags: [holdout, positive, bladder_bowel, euphemism]
+    text: "腰疼快一个礼拜了。有件事不太好意思讲：这两天去方便，出没出来自己都觉不出来，得低头看一眼才知道。"
+    truth:
+      bladder_bowel_change: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_bladder_bowel]
+    note: "'去方便'没说大小，只写合并的大小便事实。排出时没有感觉，按有。"
+
+  - id: HO_B3
+    family: bladder_bowel
+    tags: [holdout, positive, bladder_bowel, metaphor]
+    text: "腰疼了两天，现在撒尿就跟水龙头被人拧死了一样，小肚子憋得鼓鼓的，挤半天才下来几滴。"
+    truth:
+      bladder_bowel_change: {status: present}
+      bladder_change: {status: present}
+      onset_timing: {status: present, value: within_3_days}
+    traps: []
+    expected_alerts: [rf_bladder_bowel]
+
+  - id: HO_B4
+    family: bladder_bowel
+    tags: [holdout, positive, bladder_bowel, dialect_sichuan]
+    text: "腰杆痛起一个星期多了，这两天屙尿硬是屙不出来，小肚子胀得恼火，蹲起半天才滴得出几滴。"
+    truth:
+      bladder_bowel_change: {status: present}
+      bladder_change: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_bladder_bowel]
+
+  - id: HO_B5
+    family: bladder_bowel
+    tags: [holdout, positive, bladder_bowel, dialect_dongbei]
+    text: "这腰疼一个来礼拜了，这两天拉屎没数了，裤衩整埋汰好几回，自个儿都不知道啥时候出来的，你说这咋整。"
+    truth:
+      bladder_bowel_change: {status: present}
+      bowel_change: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_bladder_bowel]
+    note: "'拉屎没数'是感觉不到便意，'裤衩整埋汰'是大便弄脏内裤，按大便控制改变记有。"
+
+  - id: HO_B6
+    family: bladder_bowel
+    tags: [holdout, positive, bladder_bowel, dialect_cantonese]
+    text: "条腰骨痛咗五日，琴日开始成日濑尿，湿咗条底裤先知，自己完全冇感觉。"
+    truth:
+      bladder_bowel_change: {status: present}
+      bladder_change: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_bladder_bowel]
+    note: "粤语'濑尿'是尿湿裤子。"
+
+  - id: HO_B7
+    family: bladder_bowel
+    tags: [holdout, positive, bladder_bowel, asr_noise]
+    text: "医生你好那个我要疼了一个多星期了就是说这两天小遍的时候那个要使好大的劲才能出来然后出的也很少"
+    truth:
+      bladder_bowel_change: {status: present}
+      bladder_change: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_bladder_bowel]
+    note: "'要疼'是'腰疼'，'小遍'是'小便'。"
+
+  - id: HO_B8
+    family: bladder_bowel
+    tags: [holdout, positive, bladder_bowel, long_embedded]
+    text: "我是开出租的，一天要在车上坐十一二个钟头，腰疼这毛病断断续续好几年了，这回是四天前早上弯腰洗脸那一下开始厉害的，昨天夜里尿了床自己都没醒，今早起床右边屁股还一抽一抽地疼。"
+    truth:
+      bladder_bowel_change: {status: present}
+      bladder_change: {status: present}
+      prior_episodes: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_bladder_bowel]
+    note: "成人新出现尿床且不自知，按有。'好几年'是老毛病，本次起病是四天前。"
+
+  # ======================= 含红旗 · 会阴或马鞍区麻木（rf_saddle，紧急）=======================
+  - id: HO_S1
+    family: saddle
+    tags: [holdout, positive, saddle, direct]
+    text: "腰是五天前搬床垫扭的，前天起肛门一圈和阴囊下面都发麻，摸上去没知觉。"
+    truth:
+      saddle_numbness: {status: present}
+      trigger: {status: present, value: lifting}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: [leg_numbness]
+    expected_alerts: [rf_saddle]
+
+  - id: HO_S2
+    family: saddle
+    tags: [holdout, positive, saddle, euphemism]
+    text: "有个地方不好意思说……上大号坐到马桶上，前后那一片都没啥知觉，纸擦上去也觉不出来。腰已经疼了七八天。"
+    truth:
+      saddle_numbness: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_saddle]
+    note: "说的是坐和擦拭时那一片皮肤没感觉，不是感觉不到便意。若另被记成大便变化，会多出同为紧急的 rf_bladder_bowel，按多余提醒单列。"
+
+  - id: HO_S3
+    family: saddle
+    tags: [holdout, positive, saddle, metaphor]
+    text: "腰疼有四五天了，这两天胯底下那一整块，就是骑马时挨着马鞍的地方，跟打了一针麻药一样，捏一把都不太知道疼。"
+    truth:
+      saddle_numbness: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: [leg_numbness]
+    expected_alerts: [rf_saddle]
+
+  - id: HO_S4
+    family: saddle
+    tags: [holdout, positive, saddle, dialect_sichuan]
+    text: "腰杆扭到四五天咯，这两天坐板凳，沟子跟屁眼儿那一圈麻酥酥的，拿指甲掐都莫得知觉，是不是遭了哦？"
+    truth:
+      saddle_numbness: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: [leg_numbness]
+    expected_alerts: [rf_saddle]
+    note: "'是不是遭了'是担心，不是对症状拿不准。"
+
+  - id: HO_S5
+    family: saddle
+    tags: [holdout, positive, saddle, dialect_dongbei]
+    text: "大夫，我这腰疼一个来礼拜了，这两天腚眼子一圈儿跟前头那嘎达都木了，坐炕上跟坐在棉花包上似的，啥也觉不着，贼吓人。"
+    truth:
+      saddle_numbness: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_saddle]
+
+  - id: HO_S6
+    family: saddle
+    tags: [holdout, positive, saddle, dialect_cantonese]
+    text: "条腰痛咗成个星期，呢两日屎忽窿周围同埋前面嗰度痹晒，坐落张凳度都冇晒感觉，吓死我。"
+    truth:
+      saddle_numbness: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: [leg_numbness]
+    expected_alerts: [rf_saddle]
+    note: "粤语'痹'是麻，'屎忽窿'是肛门。"
+
+  - id: HO_S7
+    family: saddle
+    tags: [holdout, positive, saddle, asr_noise]
+    text: "那个医生我就是说腰疼有七八天了然后这两天那个会因那一块就是说麻麻的然后上厕所擦的时候也那个木木的没啥感觉"
+    truth:
+      saddle_numbness: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: [leg_numbness]
+    expected_alerts: [rf_saddle]
+    note: "'会因'是'会阴'的同音错字。"
+
+  - id: HO_S8
+    family: saddle
+    tags: [holdout, positive, saddle, long_embedded]
+    text: "我今年四十五，在超市理货，天天搬箱子，这次腰疼是上礼拜三搬一箱矿泉水闪着的，贴了膏药也不见好，晚上翻身都费劲，还有个事差点忘了说，这两天坐着的时候俩腿中间那块跟肛门边上都是麻的，我老公说是我坐姿不对。"
+    truth:
+      saddle_numbness: {status: present}
+      age_band: {status: present, value: '18_49'}
+      trigger: {status: present, value: lifting}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: [leg_numbness]
+    expected_alerts: [rf_saddle]
+    note: "'俩腿中间'是会阴，不是两条腿都有症状；两条腿属马尾类事实，不进 traps，若被记成有会多出 rf_ces_bilateral，按多余提醒单列。'差点忘了说'说的是忘记，不是症状。家人的解释不改变真值。"
+
+  # ======================= 含红旗 · 腿无力加重（rf_progressive_weakness，当天）=======================
+  - id: HO_W1
+    family: weakness
+    tags: [holdout, positive, weakness, direct]
+    text: "腰疼了快三个礼拜，右腿的力气这几天一天天往下掉，上周还能单腿站着穿裤子，今天右腿根本撑不住。"
+    truth:
+      leg_weakness: {status: present}
+      weakness_progressive: {status: present}
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: []
+    expected_alerts: [rf_progressive_weakness]
+    note: "只说了右腿。两条腿属马尾类事实，若被记成有会多出 rf_ces_bilateral，按多余提醒单列。"
+
+  - id: HO_W2
+    family: weakness
+    tags: [holdout, positive, weakness, euphemism]
+    text: "腰上的老伤这回又犯了，有半个来月，最让我心慌的是左脚，这礼拜越发不听使唤，穿拖鞋老是甩掉，脚尖往上勾不动。"
+    truth:
+      leg_weakness: {status: present}
+      weakness_progressive: {status: present}
+      prior_episodes: {status: present}
+      onset_timing: {status: present, value_any: [days_4_to_14, weeks_2_to_6]}
+    traps: [trauma_recent]
+    expected_alerts: [rf_progressive_weakness]
+    note: "'老伤'是以前的伤，不是近期外伤。拖鞋老甩掉、脚尖勾不动是足下垂的样子。"
+
+  - id: HO_W3
+    family: weakness
+    tags: [holdout, positive, weakness, metaphor]
+    text: "腰疼了一个来月，这几天左腿跟煮烂的面条似的，前些日子上楼还用不着扶，现在得拽着扶手一级一级往上挪。"
+    truth:
+      leg_weakness: {status: present}
+      weakness_progressive: {status: present}
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: []
+    expected_alerts: [rf_progressive_weakness]
+
+  - id: HO_W4
+    family: weakness
+    tags: [holdout, positive, weakness, dialect_sichuan]
+    text: "腰杆痛了半个多月，右边脚杆莫得力气，前几天蹲下去还站得起来，今天蹲下去就起不来了，一回比一回恼火。"
+    truth:
+      leg_weakness: {status: present}
+      weakness_progressive: {status: present}
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: []
+    expected_alerts: [rf_progressive_weakness]
+
+  - id: HO_W5
+    family: weakness
+    tags: [holdout, positive, weakness, dialect_dongbei]
+    text: "我这腰疼二十多天了，左腿这两天老打软腿，波棱盖儿说软就软，头些天还没这样，眼瞅着一天赶不上一天，你说咋整。"
+    truth:
+      leg_weakness: {status: present}
+      weakness_progressive: {status: present}
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: []
+    expected_alerts: [rf_progressive_weakness]
+    note: "东北话'打软腿'是膝盖突然一软。也可能被记成走路不稳，多出的 rf_gait 按多余提醒单列，不算错。"
+
+  - id: HO_W6
+    family: weakness
+    tags: [holdout, positive, weakness, dialect_cantonese]
+    text: "条腰痛咗三个几礼拜，右脚越嚟越冇力，上个礼拜仲可以自己踎低执嘢，呢几日踎低咗就起唔返身。"
+    truth:
+      leg_weakness: {status: present}
+      weakness_progressive: {status: present}
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: []
+    expected_alerts: [rf_progressive_weakness]
+
+  - id: HO_W7
+    family: weakness
+    tags: [holdout, positive, weakness, asr_noise]
+    text: "嗯那个就是说我这个要疼了差不多二十天然后左推那个没什么力气然后就是说比上个星期还要差现在上楼那个都要拿手去搬着推"
+    truth:
+      leg_weakness: {status: present}
+      weakness_progressive: {status: present}
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: []
+    expected_alerts: [rf_progressive_weakness]
+    note: "'左推''搬着推'是'左腿''搬着腿'，'要疼'是'腰疼'。"
+
+  - id: HO_W8
+    family: weakness
+    tags: [holdout, positive, weakness, long_embedded]
+    text: "我退休前在纺织厂挡车，站了一辈子，腰上这毛病好些年了，平常走个三四百米就得停下歇会儿，可这回不一样，半个来月前腰疼加重以后，俩腿的力气一天少一天，现在从沙发上起身都得撑着扶手，闺女非拉我来看看。"
+    truth:
+      leg_weakness: {status: present}
+      weakness_progressive: {status: present}
+      bilateral_leg_symptoms: {status: present}
+      prior_episodes: {status: present}
+      onset_timing: {status: present, value_any: [days_4_to_14, weeks_2_to_6]}
+    traps: []
+    expected_alerts: [rf_ces_bilateral, rf_bilateral_only, rf_progressive_weakness]
+    note: "两条腿无力进行性加重，v0.2 按紧急（rf_ces_bilateral）；目标红旗仍是 rf_progressive_weakness。本次发作按'半个来月前加重'算，'好些年'是老毛病。"
+
+  # ======================= 含红旗 · 发烧或寒战（rf_fever，当天）=======================
+  - id: HO_F1
+    family: fever
+    tags: [holdout, positive, fever, direct]
+    text: "右半边腰疼四天了，昨天晚上量体温三十八点七度，今天早上还是三十八点多。"
+    truth:
+      fever: {status: present}
+      pain_side: {status: present, value: right}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_fever]
+
+  - id: HO_F2
+    family: fever
+    tags: [holdout, positive, fever, euphemism]
+    text: "腰疼有一个礼拜了，不太好意思麻烦你们，就是这几天浑身老热烘烘的，晚上量了一下，比平常高出两度来。"
+    truth:
+      fever: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_fever]
+
+  - id: HO_F3
+    family: fever
+    tags: [holdout, positive, fever, metaphor]
+    text: "腰疼了两天，昨晚先是冷得牙齿直打架，盖两床棉被都跟睡在冰窖里一样，后半夜又浑身烫得像个火炉。"
+    truth:
+      fever: {status: present}
+      onset_timing: {status: present, value: within_3_days}
+    traps: []
+    expected_alerts: [rf_fever]
+
+  - id: HO_F4
+    family: fever
+    tags: [holdout, positive, fever, dialect_sichuan]
+    text: "腰杆痛了五六天，这两天一到下午就冷得打抖抖，接到又一身烧起，脑壳昏得很，体温计上是三十八点几。"
+    truth:
+      fever: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_fever]
+
+  - id: HO_F5
+    family: fever
+    tags: [holdout, positive, fever, dialect_dongbei]
+    text: "我这腰眼儿疼了一个多礼拜，这两宿一到半夜就冷得直打嘚嘚，完了又出一身汗，脑门子贼烫，家里那体温计一夹三十八点五。"
+    truth:
+      fever: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: [rest_or_night_worst, night_pain]
+    expected_alerts: [rf_fever]
+    note: "'一到半夜'说的是发冷，不是腰夜里痛。"
+
+  - id: HO_F6
+    family: fever
+    tags: [holdout, positive, fever, dialect_cantonese]
+    text: "条腰骨痛咗成个礼拜，呢两晚成日打冷震，冚两张被都唔够，今朝探热三十八点六，成个人好攰。"
+    truth:
+      fever: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_fever]
+    note: "粤语'打冷震'是发冷打战，'探热'是量体温。"
+
+  - id: HO_F7
+    family: fever
+    tags: [holdout, positive, fever, asr_noise]
+    text: "就是说那个我要疼有五六天了然后那个这两天一直在发少就是说身上好烫然后那个晚上还一阵一阵打冷颤"
+    truth:
+      fever: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_fever]
+    note: "'发少'是'发烧'。"
+
+  - id: HO_F8
+    family: fever
+    tags: [holdout, positive, fever, long_embedded]
+    text: "我是做美甲的，一天坐着低头干十来个钟头，腰疼说起来也是老问题了，这回是六七天前开始明显的，本来以为贴贴膏药就过去了，没想到这三天晚上回回冷得直哆嗦，出一身汗才缓过来，今天测了是三十八点三，店里姐妹催我赶紧来。"
+    truth:
+      fever: {status: present}
+      prior_episodes: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_fever]
+
+  # ======================= 含红旗 · 不明原因体重下降（rf_weight_loss_or_cancer，常规）=======================
+  - id: HO_L1
+    family: weight_loss
+    tags: [holdout, positive, weight_loss, direct]
+    text: "腰疼两个多月，饭量跟以前差不多，可体重从一百三十斤掉到一百一十五斤了。"
+    truth:
+      weight_loss: {status: present}
+      onset_timing: {status: present, value: weeks_6_to_12}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+
+  - id: HO_L2
+    family: weight_loss
+    tags: [holdout, positive, weight_loss, euphemism]
+    text: "腰疼四个多月了，家里人都说我整个人小了一圈，去年的裤子现在得拿根绳子勒着才不往下掉，我也没节食。"
+    truth:
+      weight_loss: {status: present}
+      onset_timing: {status: present, value: over_12_weeks}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+
+  - id: HO_L3
+    family: weight_loss
+    tags: [holdout, positive, weight_loss, metaphor]
+    text: "腰疼了一个来月，这阵子身上的肉像被人偷偷抽走了，胳膊细得跟麻秆一样，老伴说我脸都凹进去了。"
+    truth:
+      weight_loss: {status: present}
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+
+  - id: HO_L4
+    family: weight_loss
+    tags: [holdout, positive, weight_loss, dialect_sichuan]
+    text: "腰杆痛了两个多月，饭也吃得下，就是人瘦筋筋的，上个月称起还有一百二，昨天再称少了七八斤，也莫得减肥噻。"
+    truth:
+      weight_loss: {status: present}
+      onset_timing: {status: present, value: weeks_6_to_12}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+
+  - id: HO_L5
+    family: weight_loss
+    tags: [holdout, positive, weight_loss, dialect_dongbei]
+    text: "我这腰疼俩多月了，也没咋少吃，可这阵子嘎嘎掉膘，一称少了十好几斤，媳妇说我脸都抽抽了。"
+    truth:
+      weight_loss: {status: present}
+      onset_timing: {status: present, value: weeks_6_to_12}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+    note: "东北话'嘎嘎掉膘'是很快地掉肉，'脸都抽抽了'是脸瘦下去。"
+
+  - id: HO_L6
+    family: weight_loss
+    tags: [holdout, positive, weight_loss, dialect_cantonese]
+    text: "条腰痛咗两个几月，冇特登减肥，食量同以前差唔多，但系成个人瘦咗一圈，磅一磅轻咗成十斤。"
+    truth:
+      weight_loss: {status: present}
+      onset_timing: {status: present, value: weeks_6_to_12}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+    note: "粤语'冇特登减肥'是没有特意减肥。"
+
+  - id: HO_L7
+    family: weight_loss
+    tags: [holdout, positive, weight_loss, asr_noise]
+    text: "那个就是说我腰疼了有三个多月了嗯然后最近那个体中一下子少了十几斤然后我也没有就是说减费什么的"
+    truth:
+      weight_loss: {status: present}
+      onset_timing: {status: present, value: over_12_weeks}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+    note: "'体中'是'体重'，'减费'是'减肥'；'没有减肥'否定的是减肥，不是体重下降。"
+
+  - id: HO_L8
+    family: weight_loss
+    tags: [holdout, positive, weight_loss, long_embedded]
+    text: "我在小区做保洁，天天推着垃圾车来回跑，腰疼断断续续七八年了，平时干活累了才酸，这回是两个半月前开始一直疼，最让我犯嘀咕的是这俩月吃饭跟以前一样，人却轻了十六七斤，裤子全得改。"
+    truth:
+      weight_loss: {status: present}
+      prior_episodes: {status: present}
+      onset_timing: {status: present, value: weeks_6_to_12}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+
+  # ======================= 含红旗 · 肿瘤病史（rf_weight_loss_or_cancer，常规）=======================
+  - id: HO_C1
+    family: cancer
+    tags: [holdout, positive, cancer, direct]
+    text: "我三年前查出直肠长了恶性的东西，做过手术，现在腰疼了三个礼拜。"
+    truth:
+      cancer_history: {status: present}
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+
+  - id: HO_C2
+    family: cancer
+    tags: [holdout, positive, cancer, euphemism]
+    text: "前几年我乳房上得过那个不好的病，手术以后又吃了五年药，最近腰疼了十一二天。"
+    truth:
+      cancer_history: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+
+  - id: HO_C3
+    family: cancer
+    tags: [holdout, positive, cancer, metaphor]
+    text: "我肺里长过一个坏疙瘩，医生说那是颗定时炸弹，前年挖掉了又照了三十来次光，这回腰疼了二十多天。"
+    truth:
+      cancer_history: {status: present}
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+    note: "'照光'是放疗的口语说法。"
+
+  - id: HO_C4
+    family: cancer
+    tags: [holdout, positive, cancer, dialect_sichuan]
+    text: "我前年遭过那个病，甲状腺头长的是不好的东西，动手术切掉了还喝了一回碘131，这回腰杆痛起有十一二天了。"
+    truth:
+      cancer_history: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+
+  - id: HO_C5
+    family: cancer
+    tags: [holdout, positive, cancer, dialect_dongbei]
+    text: "我前年左边腰子长了个不好的玩意儿，整个给摘了，这阵子腰眼儿开始疼，疼了有二十多天，家里人让我赶紧过来瞅瞅。"
+    truth:
+      cancer_history: {status: present}
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: [pain_side]
+    expected_alerts: [rf_weight_loss_or_cancer]
+    note: "'腰子'是肾；'左边'说的是切掉的肾，不是这次疼的一侧。"
+
+  - id: HO_C6
+    family: cancer
+    tags: [holdout, positive, cancer, dialect_cantonese]
+    text: "我十年前鼻咽嗰度生过嘢，做过三十几次电疗，之后一直覆诊都冇事，今次条腰痛咗三个礼拜。"
+    truth:
+      cancer_history: {status: present}
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+    note: "粤语'生过嘢'加'电疗'是肿瘤史；'覆诊都冇事'是随访没复发，不是否认。"
+
+  - id: HO_C7
+    family: cancer
+    tags: [holdout, positive, cancer, asr_noise]
+    text: "嗯就是说那个我前几年那个乳线做过手术就是说是那个不好的那种然后吃了好几年的那个内分泌的药然后现在那个腰疼了有二十多天"
+    truth:
+      cancer_history: {status: present}
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+    note: "'乳线'是'乳腺'。"
+
+  - id: HO_C8
+    family: cancer
+    tags: [holdout, positive, cancer, long_embedded]
+    text: "我今年六十三，退休前是中学老师，身体一直还行，就是八年前查出子宫上长了恶性的，切了以后做过几回放疗，年年复查都说挺好，这回腰疼是三个礼拜前搬米袋以后开始的，本来以为是扭着了，孩子们非说要跟医生讲一声以前得过的这个病。"
+    truth:
+      cancer_history: {status: present}
+      age_band: {status: present, value: '50_69'}
+      trigger: {status: present, value: lifting}
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: []
+    expected_alerts: [rf_cancer_with_features, rf_weight_loss_or_cancer]
+    note: "肿瘤史加 50 岁以上，v0.2 另按 rf_cancer_with_features 当天联系。"
+
+  # ======================= 像红旗但不是 · 否定 =======================
+  - id: HO_M01
+    family: negative
+    tags: [holdout, mimic, negation, like_bladder_bowel, asr_noise]
+    text: "那个就是说我腰疼了九天然后别的都挺好吃喝拉撒都跟平常一样就是说一弯腰就疼得厉害"
+    truth:
+      bladder_bowel_change: {status: denied}
+      aggravating: {status: present, value: [bending]}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: []
+    note: "'吃喝拉撒都跟平常一样'明确否认了大小便变化。"
+
+  - id: HO_M02
+    family: negative
+    tags: [holdout, mimic, negation, like_saddle]
+    text: "看网上说腰疼要留意屁股底下麻不麻，我专门试了，上完厕所拿纸一擦，知觉跟以前一样，一点不木，就是腰疼了五天。"
+    truth:
+      saddle_numbness: {status: denied}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: []
+
+  - id: HO_M03
+    family: negative
+    tags: [holdout, mimic, negation, like_fever, dialect_cantonese]
+    text: "条腰痛咗四日，探过几次热都系三十六度几，冇发冷冇出汗，净系坐耐咗好痛。"
+    truth:
+      fever: {status: denied}
+      aggravating: {status: present, value: [sitting]}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: []
+
+  # ======================= 像红旗但不是 · 既往或家人 =======================
+  - id: HO_M04
+    family: negative
+    tags: [holdout, mimic, past_or_family, like_cancer]
+    text: "我妈跟我小姨都是乳腺上那个病走的，我这腰一疼就往那上头想，腰疼一个多礼拜了。"
+    truth:
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: [cancer_history]
+    expected_alerts: []
+    note: "家人的病史不是本人的；本人有没有没说，不能记成有，也不能记成不确定。"
+
+  - id: HO_M05
+    family: negative
+    tags: [holdout, mimic, past_or_family, like_fever]
+    text: "前年冬天得肺炎烧到快四十度，住了一礼拜院，早好利索了。这回腰疼是两天前搬煤气罐闪的。"
+    truth:
+      trigger: {status: present, value: lifting}
+      onset_timing: {status: present, value: within_3_days}
+    traps: [fever, infection_risk]
+    expected_alerts: []
+    note: "前年的高烧和肺炎都不是近期的；近期感染指 3 个月内。"
+
+  - id: HO_M06
+    family: negative
+    tags: [holdout, mimic, past_or_family, like_weakness]
+    text: "我爸晚年就是腿上的力气一点点没了，最后坐了轮椅，所以我这腰一疼就害怕。其实我自己腿上力气还足，爬五楼一口气都不用歇，腰疼了一个多礼拜。"
+    truth:
+      leg_weakness: {status: denied}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: []
+    note: "父亲的进行性无力不是本人的；无力加重属马尾类事实，不进 traps，若被记成有会出 rf_progressive_weakness 误报。"
+
+  # ======================= 像红旗但不是 · 差一点 =======================
+  - id: HO_M07
+    family: negative
+    tags: [holdout, mimic, near_miss, like_trauma, dialect_dongbei]
+    text: "昨儿下楼梯脚底下一出溜，好悬一屁股坐地上，幸亏一把薅住了栏杆，打那以后这腰一哈腰就疼。"
+    truth:
+      aggravating: {status: present, value: [bending]}
+      onset_timing: {status: present, value: within_3_days}
+    traps: [trauma_recent, gait_disturbance]
+    expected_alerts: []
+    note: "东北话'好悬'是差一点：人没坐到地上，不算摔倒外伤；滑一下也不是走路不稳。'哈腰'是弯腰。"
+
+  - id: HO_M08
+    family: negative
+    tags: [holdout, mimic, near_miss, like_cancer]
+    text: "去年体检肺上查出个小结节，吓得我一宿一宿睡不着，后来做了穿刺，结果不是恶性的，虚惊一场。这回腰疼了六七天，是陪孩子打篮球以后开始的。"
+    truth:
+      trigger: {status: present, value: exercise}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: [cancer_history, sleep_affected]
+    expected_alerts: []
+    note: "穿刺证实不是恶性；去年睡不着是吓的，不是这次腰疼影响睡眠。"
+
+  - id: HO_M09
+    family: negative
+    tags: [holdout, mimic, near_miss, like_weight_loss]
+    text: "上礼拜在药店称体重吓一跳，少了十来斤，回家拿自己家的秤一称，跟以前一斤不差，原来是药店那秤不准。腰疼两个多礼拜了。"
+    truth:
+      weight_loss: {status: denied}
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: []
+    expected_alerts: []
+
+  # ======================= 像红旗但不是 · 部位不对 =======================
+  - id: HO_M10
+    family: negative
+    tags: [holdout, mimic, wrong_site, like_saddle]
+    text: "腰疼了三个礼拜，右大腿外侧有巴掌大一块发麻，摸上去木木的，别的地方都没事。"
+    truth:
+      leg_numbness: {status: present}
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: []
+    expected_alerts: []
+    note: "大腿外侧麻不是会阴区；会阴属马尾类事实，不进 traps，若被记成有会出 rf_saddle 误报。"
+
+  - id: HO_M11
+    family: negative
+    tags: [holdout, mimic, wrong_site, like_weakness]
+    text: "右边胳膊这几个礼拜越抬越低，现在举不过头，梳头都费劲，腰也跟着疼了二十几天。"
+    truth:
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: [pain_side]
+    expected_alerts: []
+    note: "是胳膊抬不高（多见于肩部问题），不是腿；腿没劲、无力加重属马尾类事实，靠误报查。'右边'说的是胳膊，不是腰疼的一侧。"
+
+  - id: HO_M12
+    family: negative
+    tags: [holdout, mimic, wrong_site, like_fever]
+    text: "腰疼七天了，天天贴暖宝宝，贴的那块皮肤摸着发烫还有点红，身上倒一点不热，体温量了不高。"
+    truth:
+      fever: {status: denied}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: [character]
+    expected_alerts: []
+    note: "发烫的是贴暖宝宝那块皮肤，不是发烧，也不是疼痛的'烧灼感'。"
+
+  # ======================= 像红旗但不是 · 老毛病且这次没变 =======================
+  - id: HO_M13
+    family: negative
+    tags: [holdout, mimic, chronic_unchanged, like_bladder_bowel]
+    text: "前列腺是老毛病了，夜里得起来三四趟，好几年都这样，这回腰疼以后还是这样，不多不少，大便也照常。腰是五天前帮邻居抬洗衣机扭着的。"
+    truth:
+      bladder_bowel_change: {status: denied}
+      trigger: {status: present, value: lifting}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: [prior_episodes]
+    expected_alerts: []
+    note: "多年夜尿、这次没变，按问法'以前就有、一直没变的不算'记为没有新变化。'老毛病'说的是前列腺，不是腰。"
+
+  - id: HO_M14
+    family: negative
+    tags: [holdout, mimic, chronic_unchanged, like_bladder_bowel]
+    text: "生完老二以后，一咳嗽打喷嚏就会漏一点，都十来年了，这回腰疼了一个多礼拜，这毛病也没见加重，大便也跟平时一样。"
+    truth:
+      bladder_bowel_change: {status: denied}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: [aggravating]
+    expected_alerts: []
+    note: "产后多年的压力性漏尿，这次没加重，不是新变化。咳嗽打喷嚏引起的是漏尿，不是腰痛加重。"
+
+  - id: HO_M15
+    family: negative
+    tags: [holdout, mimic, chronic_unchanged, like_weakness]
+    text: "五年前腰椎做过手术，右脚从那以后脚尖就一直勾不太起来，这些年没好也没坏，这回是弯腰拖地以后腰又疼上了，疼了四天。"
+    truth:
+      leg_weakness: {status: present}
+      weakness_progressive: {status: denied}
+      prior_episodes: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: [infection_risk]
+    expected_alerts: []
+    note: "术后留下的足下垂多年不变：腿没劲有，加重否认。五年前的手术不是'近 3 个月腰部手术'。"
+
+  # ======================= 像红旗但不是 · 体重是主动减的 =======================
+  - id: HO_M16
+    family: negative
+    tags: [holdout, mimic, intentional_weight_loss, like_weight_loss]
+    text: "今年单位搞减重比赛，我晚饭只吃黄瓜，每天快走一万步，三个月减了十四斤。腰是两天前打羽毛球扭的。"
+    truth:
+      weight_loss: {status: denied}
+      trigger: {status: present, value: exercise}
+      onset_timing: {status: present, value: within_3_days}
+    traps: []
+    expected_alerts: []
+    note: "按问法'不明原因地明显下降'，主动减重记为没有。v0.2 事实标签缺'不明原因'四个字，已在 PREREG 列为协议问题。"
+
+  - id: HO_M17
+    family: negative
+    tags: [holdout, mimic, intentional_weight_loss, like_weight_loss]
+    text: "去年查出血糖高，医生让我管住嘴，主食减半，这半年轻了九斤，都是按计划来的。腰疼是五天前帮儿子搬家累着的。"
+    truth:
+      weight_loss: {status: denied}
+      infection_risk: {status: present, value: [diabetes]}
+      trigger: {status: present, value: lifting}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: []
+    note: "控糖减重是按计划的。'这半年'说的是减重，不是腰疼起病。糖尿病在 v0.2 不参与当天规则。"
+
+  - id: HO_M18
+    family: negative
+    tags: [holdout, mimic, intentional_weight_loss, like_weight_loss, dialect_cantonese]
+    text: "为咗下个月个仔摆酒着得好睇啲，我特登戒口两个月，减咗八斤，今次条腰系琴日搬嘢搬亲嘅。"
+    truth:
+      weight_loss: {status: denied}
+      trigger: {status: present, value: lifting}
+      onset_timing: {status: present, value: within_3_days}
+    traps: []
+    expected_alerts: []
+    note: "粤语'特登戒口'是特意节食；'搬嘢搬亲'是搬东西扭伤。"
+
+  # ======================= 像红旗但不是 · 拿不准（期望 rf_uncertain_red_flag）=======================
+  - id: HO_M19
+    family: uncertain
+    tags: [holdout, mimic, hedge, like_bladder_bowel]
+    text: "这几天上小号总觉得跟以前有点两样，又讲不出哪里不对，兴许是我自己心理作用，腰疼了十一天。"
+    truth:
+      bladder_bowel_change: {status: uncertain}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_uncertain_red_flag]
+    note: "患者自己说不准小便有没有变化。若被读成'有'而触发 rf_bladder_bowel，按 PREREG 的'向上等价'单列。"
+
+  - id: HO_M20
+    family: uncertain
+    tags: [holdout, mimic, hedge, like_saddle]
+    text: "我在工地开压路机，一坐一整天，这几天下班站起来那会儿，坐的那块地方木一阵，走两步又缓过来了，也搞不清是坐久了压的还是咋回事，腰疼了一个来礼拜。"
+    truth:
+      saddle_numbness: {status: uncertain}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_uncertain_red_flag]
+    note: "久坐后一过性发木，部位说得笼统，患者自己也搞不清，记不确定。"
+
+  - id: HO_M21
+    family: uncertain
+    tags: [holdout, mimic, hedge, like_weakness, dialect_sichuan]
+    text: "腰杆痛了半个多月，右边脚杆这几天没得以前得力，也不晓得是痛得不敢使劲还是真没力气了，上个星期都还没这样。"
+    truth:
+      leg_weakness: {status: uncertain}
+      weakness_progressive: {status: uncertain}
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: []
+    expected_alerts: [rf_uncertain_red_flag]
+    note: "变化是确定的，是不是没劲说不准，腿没劲和是否加重都记不确定。"
+
+  # ======================= 像红旗但不是 · 其它常见混淆 =======================
+  - id: HO_M22
+    family: negative
+    tags: [holdout, mimic, other_confusion, like_saddle]
+    text: "痔疮又犯了，屁眼那儿火辣辣地疼，坐着都得侧着身子，腰也跟着酸了两天。"
+    truth:
+      character: {status: present, value: [aching]}
+      onset_timing: {status: present, value: within_3_days}
+    traps: [prior_episodes]
+    expected_alerts: []
+    note: "肛门口是疼，不是麻，不是会阴区感觉减退；'又犯了'说的是痔疮，不是腰。"
+
+  - id: HO_M23
+    family: negative
+    tags: [holdout, mimic, other_confusion, like_fever]
+    text: "我五十一了，这一年老是一阵一阵往上冒热气，出一身汗，大夫说是更年期，量体温从来都正常。这回腰疼是前天擦玻璃抻着的。"
+    truth:
+      fever: {status: denied}
+      age_band: {status: present, value: '50_69'}
+      onset_timing: {status: present, value: within_3_days}
+    traps: []
+    expected_alerts: []
+    note: "潮热出汗、体温正常，不是发烧。"
+
+  - id: HO_M24
+    family: negative
+    tags: [holdout, mimic, other_confusion, like_cancer]
+    text: "前年子宫长了个肌瘤，切下来化验是良性的，医生说跟那种坏的不沾边。这回腰疼了一个来月，想问问跟那个有没有关系。"
+    truth:
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: [cancer_history]
+    expected_alerts: []
+    note: "良性肌瘤不是肿瘤（癌症）病史。v0.2 标签写的是'肿瘤（癌症）'，良性瘤子容易被误读。"

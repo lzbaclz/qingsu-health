@@ -1,0 +1,51 @@
+id: S064
+family: F16_fall_down_stairs_trauma
+split: locked
+title: "摔倒后腰疼，但程度等几乎全部跳过——外伤规则因程度未知无法触发"
+persona: "55 岁保洁员（模拟，非真实患者）"
+kind: pre_visit
+category: many_skips
+inputs:
+  body_map:
+    - {region_id: lower_back_center, kind: primary}
+    - {region_id: sacrum, kind: primary}
+  free_text: "摔倒以后腰疼。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: __skip__
+    q_leg_weakness: __skip__
+    q_fever: __skip__
+    q_onset_timing: __skip__
+    q_onset_mode: __skip__
+    q_radiation_present: __skip__
+    q_leg_numbness: __skip__
+    q_severity_now: __skip__
+    q_course: __skip__
+    q_character: __skip__
+    q_aggravating: __skip__
+    q_relieving: __skip__
+    q_function_impact: __skip__
+    q_sleep_affected: __skip__
+    q_night_pain: __skip__
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    trauma_recent: {status: present}
+    trigger: {status: present, value: fall_or_trauma}
+    bladder_bowel_change: {status: denied}
+    pain_side: {status: present, value: center}
+    saddle_numbness: {status: unknown}
+    leg_weakness: {status: unknown}
+    fever: {status: unknown}
+    onset_timing: {status: unknown}
+    radiation_present: {status: unknown}
+    leg_numbness: {status: unknown}
+    severity_now: {status: unknown}
+  must_be_unknown: [onset_mode, course, character, aggravating, relieving, function_impact, sleep_affected, night_pain, weight_loss, cancer_history]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核。同 S024：程度被跳过时外伤规则无法触发，建议临床考虑“外伤 + 程度未知”的人工复核规则。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

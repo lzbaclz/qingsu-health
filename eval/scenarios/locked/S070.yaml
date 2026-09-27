@@ -1,0 +1,51 @@
+id: S070
+family: F18_recurrent_lbp_new_radiation
+split: locked
+title: "“右边屁股好像也有点疼，说不好是不是串过去的”——放射与否应记为不确定"
+persona: "44 岁护士（模拟，非真实患者）"
+kind: pre_visit
+category: hedged
+inputs:
+  body_map:
+    - {region_id: lower_back_right, kind: primary}
+  free_text: "腰痛老毛病了，这回右边屁股好像也有点疼，说不好是不是串过去的。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_onset_mode: gradual
+    q_trigger: none_known
+    q_radiation_present: __unknown__
+    q_leg_numbness: "no"
+    q_severity_now: 5
+    q_course: stable
+    q_character: [aching]
+    q_aggravating: [sitting]
+    q_relieving: [rest]
+    q_function_impact: mild
+    q_sleep_affected: "no"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    prior_episodes: {status: present}
+    onset_timing: {status: unknown}  # 2026-09-25 真值修正：原话只说“老毛病、以前犯过”，这一次多久没说（模拟临床负责人第 1 轮审核提出，见 eval/CHANGELOG.md）
+    pain_side: {status: present, value: right}
+    radiation_present: {status: uncertain}
+    radiation_regions: {status: uncertain, value: [buttock_right]}
+    leg_numbness: {status: denied}
+    severity_now: {status: present, value: 5}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+  must_be_unknown: [night_pain, weight_loss, cancer_history]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核。患者对“是否放射”本身表达不确定，表单追问时也只能选“不清楚”——协议/表单目前没有“不确定”选项，系统会把它记为“已问未答”，医生看不到“可能放射到右臀”的线索。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

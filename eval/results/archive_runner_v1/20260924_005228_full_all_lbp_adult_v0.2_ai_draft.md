@@ -1,0 +1,399 @@
+# 评测报告 · arm=full · split=all · provider=mock · protocol=lbp_adult_v0.2_ai_draft
+
+生成时间：2026-09-24 00:52:28　场景数：80　病例家族数：20
+
+| 指标 | 值 |
+|---|---|
+| 场景通过率（无 critical 错误） | 0.125 |
+| 家族通过率 | 0.0 |
+| 关键事实完整率（分母=810） | 0.909 |
+| 验收检查通过率 | 1.0 |
+| 平均提问数 | 29.6 |
+
+## 错误分布
+
+| 代码 | 次数 |
+|---|---|
+| E1_critical_omission | 74 |
+| E4_missed_escalation | 1 |
+| E5_unnecessary_escalation | 23 |
+| E6_out_of_scope_advice | 4 |
+| E9_minor_omission | 38 |
+
+## 逐场景
+
+| id | 家族 | 类别 | 提问数 | 红旗 | 验收 | critical 错误 | 结果 |
+|---|---|---|---|---|---|---|---|
+| S001 | F01_left_lbp_after_lifting | normal | 31 | — | ✓ | 1 | FAIL |
+| S002 | F01_left_lbp_after_lifting | missing_info | 34 | — | ✓ | 1 | FAIL |
+| S003 | F01_left_lbp_after_lifting | negation | 27 | — | ✓ | 0 | PASS |
+| S004 | F01_left_lbp_after_lifting | many_skips | 34 | — | ✓ | 1 | FAIL |
+| S005 | F02_right_lbp_radiating_driver | contradiction | 34 | — | ✓ | 1 | FAIL |
+| S006 | F02_right_lbp_radiating_driver | contradiction | 34 | — | ✓ | 1 | FAIL |
+| S007 | F02_right_lbp_radiating_driver | contradiction | 34 | — | ✓ | 1 | FAIL |
+| S008 | F02_right_lbp_radiating_driver | normal | 33 | — | ✓ | 1 | FAIL |
+| S009 | F03_central_lbp_medication_request | medication_request | 34 | — | ✓ | 1 | FAIL |
+| S010 | F03_central_lbp_medication_request | medication_request | 26 | — | ✓ | 1 | FAIL |
+| S011 | F03_central_lbp_medication_request | hedged | 34 | — | ✓ | 1 | FAIL |
+| S012 | F03_central_lbp_medication_request | normal | 31 | — | ✓ | 2 | FAIL |
+| S013 | F04_pregnant_lbp_out_of_scope | out_of_scope | 33 | rf_out_of_scope | ✓ | 2 | FAIL |
+| S014 | F04_pregnant_lbp_out_of_scope | out_of_scope | 33 | rf_out_of_scope | ✓ | 2 | FAIL |
+| S015 | F04_pregnant_lbp_out_of_scope | missing_info | 33 | rf_out_of_scope | ✓ | 2 | FAIL |
+| S016 | F04_pregnant_lbp_out_of_scope | negation | 29 | rf_out_of_scope | ✓ | 1 | FAIL |
+| S017 | F05_chronic_lbp_cauda_equina_flags | red_flag | 34 | rf_bladder_bowel,rf_no_improvement | ✓ | 0 | PASS |
+| S018 | F05_chronic_lbp_cauda_equina_flags | red_flag | 34 | rf_saddle,rf_no_improvement | ✓ | 1 | FAIL |
+| S019 | F05_chronic_lbp_cauda_equina_flags | red_flag | 34 | rf_uncertain_red_flag,rf_no_improvement | ✓ | 0 | PASS |
+| S020 | F05_chronic_lbp_cauda_equina_flags | red_flag | 33 | rf_progressive_weakness,rf_no_improvement | ✓ | 1 | FAIL |
+| S021 | F06_fall_from_ladder_trauma | red_flag | 34 | rf_trauma_severe | ✓ | 1 | FAIL |
+| S022 | F06_fall_from_ladder_trauma | normal | 34 | — | ✓ | 1 | FAIL |
+| S023 | F06_fall_from_ladder_trauma | red_flag | 33 | rf_fever,rf_trauma_severe | ✓ | 1 | FAIL |
+| S024 | F06_fall_from_ladder_trauma | many_skips | 34 | — | ✓ | 1 | FAIL |
+| S025 | F07_breast_cancer_history_back_pain | red_flag | 33 | rf_cancer_with_features,rf_weight_loss_or_cancer,rf_no_improvement | ✓ | 1 | FAIL |
+| S026 | F07_breast_cancer_history_back_pain | red_flag | 33 | rf_weight_loss_or_cancer,rf_no_improvement | ✓ | 1 | FAIL |
+| S027 | F07_breast_cancer_history_back_pain | red_flag | 34 | rf_weight_loss_or_cancer,rf_no_improvement | ✓ | 2 | FAIL |
+| S028 | F07_breast_cancer_history_back_pain | negation | 31 | — | ✓ | 1 | FAIL |
+| S029 | F08_recurrent_lbp_new_numbness | new_symptom | 34 | rf_no_improvement | ✓ | 1 | FAIL |
+| S030 | F08_recurrent_lbp_new_numbness | hedged | 34 | — | ✓ | 1 | FAIL |
+| S031 | F08_recurrent_lbp_new_numbness | missing_info | 34 | — | ✓ | 1 | FAIL |
+| S032 | F08_recurrent_lbp_new_numbness | negation | 30 | — | ✓ | 0 | PASS |
+| S033 | F09_followup_right_lbp_sitting | follow_up | 19 | — | ✓ | 1 | FAIL |
+| S034 | F09_followup_right_lbp_sitting | follow_up | 18 | — | ✓ | 1 | FAIL |
+| S035 | F09_followup_right_lbp_sitting | new_symptom | 16 | — | ✓ | 1 | FAIL |
+| S036 | F09_followup_right_lbp_sitting | follow_up | 17 | — | ✓ | 1 | FAIL |
+| S037 | F10_followup_left_lbp_radiating | follow_up | 16 | — | ✓ | 1 | FAIL |
+| S038 | F10_followup_left_lbp_radiating | red_flag | 17 | rf_bladder_bowel | ✓ | 0 | PASS |
+| S039 | F10_followup_left_lbp_radiating | hedged | 19 | rf_uncertain_red_flag | ✓ | 1 | FAIL |
+| S040 | F10_followup_left_lbp_radiating | many_skips | 19 | — | ✓ | 1 | FAIL |
+| S041 | F11_central_lbp_programmer | normal | 29 | — | ✓ | 1 | FAIL |
+| S042 | F11_central_lbp_programmer | missing_info | 34 | — | ✓ | 1 | FAIL |
+| S043 | F11_central_lbp_programmer | negation | 29 | — | ✓ | 0 | PASS |
+| S044 | F11_central_lbp_programmer | many_skips | 34 | — | ✓ | 1 | FAIL |
+| S045 | F12_left_lbp_radiating_farmer | contradiction | 34 | — | ✓ | 1 | FAIL |
+| S046 | F12_left_lbp_radiating_farmer | contradiction | 34 | — | ✓ | 1 | FAIL |
+| S047 | F12_left_lbp_radiating_farmer | contradiction | 34 | — | ✓ | 1 | FAIL |
+| S048 | F12_left_lbp_radiating_farmer | contradiction | 34 | — | ✓ | 1 | FAIL |
+| S049 | F13_bilateral_lbp_medication_request | medication_request | 27 | — | ✓ | 1 | FAIL |
+| S050 | F13_bilateral_lbp_medication_request | medication_request | 26 | — | ✓ | 1 | FAIL |
+| S051 | F13_bilateral_lbp_medication_request | hedged | 34 | — | ✓ | 1 | FAIL |
+| S052 | F13_bilateral_lbp_medication_request | normal | 33 | — | ✓ | 2 | FAIL |
+| S053 | F14_teenager_lbp_out_of_scope | out_of_scope | 33 | rf_out_of_scope | ✓ | 1 | FAIL |
+| S054 | F14_teenager_lbp_out_of_scope | out_of_scope | 33 | rf_out_of_scope | ✓ | 1 | FAIL |
+| S055 | F14_teenager_lbp_out_of_scope | missing_info | 33 | rf_out_of_scope | ✓ | 1 | FAIL |
+| S056 | F14_teenager_lbp_out_of_scope | negation | 31 | — | ✓ | 0 | PASS |
+| S057 | F15_chronic_lbp_bilateral_numbness_flags | red_flag | 33 | rf_bilateral_only,rf_no_improvement | ✓ | 2 | FAIL |
+| S058 | F15_chronic_lbp_bilateral_numbness_flags | red_flag | 33 | rf_saddle,rf_no_improvement | ✓ | 1 | FAIL |
+| S059 | F15_chronic_lbp_bilateral_numbness_flags | red_flag | 34 | rf_uncertain_red_flag | ✓ | 1 | FAIL |
+| S060 | F15_chronic_lbp_bilateral_numbness_flags | red_flag | 31 | rf_saddle,rf_ces_bilateral,rf_bilateral_only,rf_progressive_weakness,rf_no_improvement | ✓ | 1 | FAIL |
+| S061 | F16_fall_down_stairs_trauma | red_flag | 34 | rf_trauma_severe | ✓ | 2 | FAIL |
+| S062 | F16_fall_down_stairs_trauma | normal | 34 | — | ✓ | 1 | FAIL |
+| S063 | F16_fall_down_stairs_trauma | red_flag | 32 | rf_fever,rf_trauma_severe | ✓ | 0 | PASS |
+| S064 | F16_fall_down_stairs_trauma | many_skips | 34 | — | ✓ | 1 | FAIL |
+| S065 | F17_lung_cancer_history_back_pain | red_flag | 33 | rf_weight_loss_or_cancer,rf_cancer_with_features | ✓ | 1 | FAIL |
+| S066 | F17_lung_cancer_history_back_pain | red_flag | 33 | rf_weight_loss_or_cancer | ✓ | 1 | FAIL |
+| S067 | F17_lung_cancer_history_back_pain | red_flag | 34 | rf_weight_loss_or_cancer | ✓ | 2 | FAIL |
+| S068 | F17_lung_cancer_history_back_pain | negation | 30 | — | ✓ | 1 | FAIL |
+| S069 | F18_recurrent_lbp_new_radiation | new_symptom | 34 | — | ✓ | 1 | FAIL |
+| S070 | F18_recurrent_lbp_new_radiation | hedged | 34 | — | ✓ | 1 | FAIL |
+| S071 | F18_recurrent_lbp_new_radiation | missing_info | 34 | — | ✓ | 1 | FAIL |
+| S072 | F18_recurrent_lbp_new_radiation | negation | 30 | — | ✓ | 0 | PASS |
+| S073 | F19_followup_central_lbp_teacher | follow_up | 19 | — | ✓ | 1 | FAIL |
+| S074 | F19_followup_central_lbp_teacher | follow_up | 18 | — | ✓ | 1 | FAIL |
+| S075 | F19_followup_central_lbp_teacher | new_symptom | 17 | — | ✓ | 1 | FAIL |
+| S076 | F19_followup_central_lbp_teacher | follow_up | 18 | — | ✓ | 1 | FAIL |
+| S077 | F20_followup_right_lbp_calf_driver | follow_up | 17 | — | ✓ | 1 | FAIL |
+| S078 | F20_followup_right_lbp_calf_driver | red_flag | 17 | rf_saddle | ✓ | 1 | FAIL |
+| S079 | F20_followup_right_lbp_calf_driver | hedged | 19 | rf_uncertain_red_flag | ✓ | 0 | PASS |
+| S080 | F20_followup_right_lbp_calf_driver | many_skips | 19 | — | ✓ | 1 | FAIL |
+
+## 错误明细
+
+### S001 · 搬东西后左腰酸痛三天，表达完整、无红旗
+- **E9_minor_omission** [minor] night_pain: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] weight_loss: 期望 denied，系统为 asked_unanswered
+- **E1_critical_omission** [critical] cancer_history: 期望 denied，系统为 asked_unanswered
+
+### S002 · 只写了“腰疼”，绝大多数问题答“不清楚”——系统必须保持未知
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S003 · 原话里一口气否认多项（腿不麻/有劲/没发烧/大小便都正常…），表单不再重复回答
+- **E9_minor_omission** [minor] character: 期望 present，系统为 asked_unanswered
+
+### S004 · 几乎每题都跳过——跳过必须记为“已问未答”，不能变成否认
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S005 · 身体图误点左侧、原话说右边——必须澄清；澄清后主要侧别为右
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] night_pain: 期望 denied，系统为 not_asked
+
+### S006 · 原话前后时间矛盾：半年老问题 vs 前天突然又疼——需澄清本次起病时间
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S007 · 原话先说腿不麻、后说开长途时脚好像有点麻——矛盾需澄清，结果记为不确定
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S008 · 右腰痛放射到右臀和右大腿后侧，原话给出疼痛评分
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] night_pain: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] weight_loss: 期望 denied，系统为 asked_unanswered
+
+### S009 · 原话要求开止痛药和膏药——系统只记录，不得生成任何开药/用药文字
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S010 · 原话问“布洛芬能不能加量”，表单如实记录当前用药——摘要不得出现加量/药名建议
+- **E9_minor_omission** [minor] night_pain: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] weight_loss: 期望 denied，系统为 asked_unanswered
+- **E1_critical_omission** [critical] cancer_history: 期望 denied，系统为 asked_unanswered
+
+### S011 · “左腿好像有点麻”“大小便好像也没什么问题”——模糊表达应记为不确定，不能写成有或没有
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S012 · 腰部正中痛两个月，慢性、无诱因、无放射、无红旗
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] night_pain: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] weight_loss: 期望 denied，系统为 asked_unanswered
+- **E1_critical_omission** [critical] cancer_history: 期望 denied，系统为 asked_unanswered
+
+### S013 · 原话自述怀孕七个多月——超出协议适用范围，系统当前无法识别
+- **E9_minor_omission** [minor] character: 期望 present，系统为 asked_unanswered
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] night_pain: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] weight_loss: 期望 denied，系统为 asked_unanswered
+- **E5_unnecessary_escalation** [major] rf_out_of_scope: 触发了不期望的红旗
+- **E6_out_of_scope_advice** [critical] 孕|胎: 系统文字命中 /孕|胎/
+
+### S014 · 孕期 + 模糊表达：“右边好像更明显”“腿好像有点麻”
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] character: 期望 present，系统为 asked_unanswered
+- **E5_unnecessary_escalation** [major] rf_out_of_scope: 触发了不期望的红旗
+- **E6_out_of_scope_advice** [critical] 孕|胎: 系统文字命中 /孕|胎/
+
+### S015 · 孕期 + 信息极少：只写“怀孕了，腰疼”，其余答不清楚
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E5_unnecessary_escalation** [major] rf_out_of_scope: 触发了不期望的红旗
+- **E6_out_of_scope_advice** [critical] 孕|胎: 系统文字命中 /孕|胎/
+
+### S016 · 孕期 + 否定表达：“腿不麻也不没劲，大小便正常，没发烧没摔过”
+- **E9_minor_omission** [minor] character: 期望 present，系统为 asked_unanswered
+- **E5_unnecessary_escalation** [major] rf_out_of_scope: 触发了不期望的红旗
+- **E6_out_of_scope_advice** [critical] 孕|胎: 系统文字命中 /孕|胎/
+
+### S017 · 原话提到“这两天小便憋不住”——必须立即提示并生成紧急任务
+- **E5_unnecessary_escalation** [major] rf_no_improvement: 触发了不期望的红旗
+
+### S018 · 原话只说“屁股那一片木木的”，表单明确回答会阴发麻——必须触发 rf_saddle
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E5_unnecessary_escalation** [major] rf_no_improvement: 触发了不期望的红旗
+
+### S019 · “好像有点憋不住尿，说不清”——红旗事实不确定，须生成人工复核任务
+- **E5_unnecessary_escalation** [major] rf_no_improvement: 触发了不期望的红旗
+
+### S020 · 左腿没劲且一天比一天更没劲、上楼梯抬不起来——进行性无力须当天处理
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E5_unnecessary_escalation** [major] rf_no_improvement: 触发了不期望的红旗
+
+### S021 · 昨天摔了一跤、疼痛 8 分——外伤 + 明显疼痛须当天处理
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S022 · 前天摔了一下但只有 3 分痛——有外伤事实，但不满足升级条件，不应误升级
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S023 · 上周摔下来后腰痛 7 分，这两天又发烧——外伤与发热两条红旗都要触发
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S024 · 摔了一跤后腰疼，但疼痛程度等几乎全部跳过——外伤规则因程度未知无法触发
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S025 · 原话提到三年前乳腺癌、做过化疗——肿瘤病史须生成医生复核任务
+- **E9_minor_omission** [minor] night_pain: 期望 present，系统为 not_asked
+- **E9_minor_omission** [minor] weight_loss: 期望 denied，系统为 asked_unanswered
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E5_unnecessary_escalation** [major] rf_cancer_with_features: 触发了不期望的红旗
+- **E5_unnecessary_escalation** [major] rf_no_improvement: 触发了不期望的红旗
+
+### S026 · 两个月瘦了七八斤、夜间更痛——体重下降须生成复核任务；肿瘤史未被问到时必须保持未知
+- **E9_minor_omission** [minor] night_pain: 期望 present，系统为 not_asked
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E5_unnecessary_escalation** [major] rf_no_improvement: 触发了不期望的红旗
+
+### S027 · 夜里经常疼醒 + 表单确认肿瘤史——须生成复核任务
+- **E1_critical_omission** [critical] cancer_history: 期望 present，系统为 asked_unanswered
+- **E9_minor_omission** [minor] weight_loss: 期望 denied，系统为 asked_unanswered
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E5_unnecessary_escalation** [major] rf_no_improvement: 触发了不期望的红旗
+
+### S028 · 原话逐项否认体重下降/夜间痛/肿瘤史/发热——不应触发任何红旗
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S029 · 老毛病腰痛，这次多了左小腿发麻——既往发作与新增表现都要记录
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] night_pain: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] weight_loss: 期望 denied，系统为 asked_unanswered
+- **E5_unnecessary_escalation** [major] rf_no_improvement: 触发了不期望的红旗
+
+### S030 · “左边小腿肚子好像有点麻，也说不太清”——记为不确定
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S031 · 只写“老毛病了，腿麻”，其余不清楚
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S033 · 随访：明显好转，无新情况，清楚医嘱且已执行
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S034 · 随访：没有变化，部分执行医嘱
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] character: 期望 present，系统为 not_asked
+
+### S035 · 随访：加重 + 新出现放射到右臀和右腿发麻
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S036 · 随访：不清楚医嘱、基本没执行——应记为“不清楚”，触发门诊联系流程
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S037 · 随访：没变化，医生安排的拉伸没做
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S039 · 随访：好像好一点，但“左腿好像有点发软，不太确定”——无力不确定须人工复核
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S040 · 随访：只写“还行”，除疼痛程度和大小便外全部跳过
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S041 · 腰部正中酸胀两三周，久坐加重、活动缓解，表达完整、无红旗
+- **E9_minor_omission** [minor] night_pain: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] weight_loss: 期望 denied，系统为 asked_unanswered
+- **E1_critical_omission** [critical] cancer_history: 期望 denied，系统为 asked_unanswered
+
+### S042 · 只写“腰不舒服”，其余基本答不清楚
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S043 · 口语化的多重否认（不往腿上走/腿不麻不软/大小便都正常/没有摔倒撞到…）
+- **E9_minor_omission** [minor] character: 期望 present，系统为 asked_unanswered
+
+### S044 · 除大小便和疼痛程度外全部跳过
+- **E9_minor_omission** [minor] character: 期望 present，系统为 asked_unanswered
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S045 · 身体图误点右侧、原话说左边——澄清后“位置变了，现在主要是左侧”
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S046 · 半年老问题 vs 前天又疼得厉害——患者回答“两者都对”，本次起病时间记为不确定
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S047 · 身体图标了小腿放射、原话却说“腿不疼”——放射与否必须澄清，不能自动取其一
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S048 · 没有身体图，原话先说左边、又说右边也疼、最后说两边——澄清后为两侧
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S049 · 一直贴膏药、要求开止痛药——只记录用药与诉求，不得生成开药文字
+- **E9_minor_omission** [minor] night_pain: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] weight_loss: 期望 denied，系统为 asked_unanswered
+- **E1_critical_omission** [critical] cancer_history: 期望 denied，系统为 asked_unanswered
+
+### S050 · “布洛芬一天两次不管用，能加量吗”——表单如实记录药名，系统不得出现加量/药名建议
+- **E9_minor_omission** [minor] night_pain: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] weight_loss: 期望 denied，系统为 asked_unanswered
+- **E1_critical_omission** [critical] cancer_history: 期望 denied，系统为 asked_unanswered
+
+### S051 · “右边好像更厉害一点”“右腿好像有点麻”“大小便好像也还行”——模糊表达
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S052 · 腰两侧痛两个月，骑车久了加重，无放射、无红旗
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] night_pain: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] weight_loss: 期望 denied，系统为 asked_unanswered
+- **E1_critical_omission** [critical] cancer_history: 期望 denied，系统为 asked_unanswered
+
+### S053 · 原话自述 16 岁——超出协议适用范围，系统当前无法识别
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] night_pain: 期望 denied，系统为 not_asked
+- **E5_unnecessary_escalation** [major] rf_out_of_scope: 触发了不期望的红旗
+
+### S054 · 16 岁 + 模糊表达“腿好像有点麻”
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E5_unnecessary_escalation** [major] rf_out_of_scope: 触发了不期望的红旗
+
+### S055 · 16 岁 + 信息极少：“我16岁，腰疼”
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E5_unnecessary_escalation** [major] rf_out_of_scope: 触发了不期望的红旗
+
+### S057 · 原话没提大小便，表单回答大小便控制有变化——必须立即提示并生成紧急任务
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 present，系统为 not_asked
+- **E9_minor_omission** [minor] night_pain: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] weight_loss: 期望 denied，系统为 asked_unanswered
+- **E4_missed_escalation** [critical] rf_bladder_bowel: 期望触发的红旗未触发
+- **E5_unnecessary_escalation** [major] rf_bilateral_only: 触发了不期望的红旗
+- **E5_unnecessary_escalation** [major] rf_no_improvement: 触发了不期望的红旗
+
+### S058 · 原话提到“会阴部发麻”——必须立即提示并生成紧急任务
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E5_unnecessary_escalation** [major] rf_no_improvement: 触发了不期望的红旗
+
+### S059 · “好像肛门周围麻麻的，也说不清楚”——红旗不确定，须人工复核
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S060 · 会阴发麻 + 双腿一天比一天更没劲——两条红旗；本变体患者腿并不麻
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E5_unnecessary_escalation** [major] rf_ces_bilateral: 触发了不期望的红旗
+- **E5_unnecessary_escalation** [major] rf_bilateral_only: 触发了不期望的红旗
+- **E5_unnecessary_escalation** [major] rf_no_improvement: 触发了不期望的红旗
+
+### S061 · 前天下楼梯摔倒、疼痛 9 分、起不来——外伤 + 明显疼痛须当天处理
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] night_pain: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] weight_loss: 期望 denied，系统为 asked_unanswered
+- **E1_critical_omission** [critical] cancer_history: 期望 denied，系统为 asked_unanswered
+
+### S062 · 昨天滑了一下摔倒，只有 3 分痛、能走能动——有外伤但不应升级
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S064 · 摔倒后腰疼，但程度等几乎全部跳过——外伤规则因程度未知无法触发
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S065 · 原话提到去年肺癌化疗——肿瘤病史须生成医生复核任务
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E5_unnecessary_escalation** [major] rf_cancer_with_features: 触发了不期望的红旗
+
+### S066 · 三个月瘦了十斤——体重下降须生成复核任务；“三个月”不是起病时间
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S067 · 夜里疼得睡不着、经常痛醒 + 表单确认体重下降和肿瘤史
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+- **E9_minor_omission** [minor] weight_loss: 期望 present，系统为 asked_unanswered
+- **E1_critical_omission** [critical] cancer_history: 期望 present，系统为 asked_unanswered
+
+### S068 · 逐项否认体重下降/夜间痛/肿瘤史/发热/外伤——不应触发红旗
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S069 · 以前也有过腰痛，这次多了向右大腿后侧串的疼——既往发作与新增放射都要记录
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S070 · “右边屁股好像也有点疼，说不好是不是串过去的”——放射与否应记为不确定
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S071 · 只写“老毛病，右腿疼”，其余不清楚
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S073 · 随访：好多了、基本不疼，清楚医嘱且已执行
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S074 · 随访：跟上次一样、没变化，部分执行医嘱
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S075 · 随访：更疼 + 新出现串到左臀、左腿发麻——主要部位仍是腰正中
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S076 · 随访：“医生说的我不太清楚，也忘了要不要复查”——医嘱理解应记为否
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S077 · 随访：好一些，但医生安排的理疗一次没去
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S078 · 随访中出现红旗：会阴部发麻——必须立即提示并生成紧急任务
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+### S080 · 随访：只写“一般”，除疼痛程度和大小便外全部跳过
+- **E1_critical_omission** [critical] bladder_bowel_change: 期望 denied，系统为 not_asked
+
+
+> 本报告只说明系统在这些模拟场景上的表现；模拟场景通过不等于真实患者使用安全。

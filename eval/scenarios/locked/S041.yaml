@@ -1,0 +1,60 @@
+id: S041
+family: F11_central_lbp_programmer
+split: locked
+title: "腰部正中酸胀两三周，久坐加重、活动缓解，表达完整、无红旗"
+persona: "29 岁程序员（模拟，非真实患者）"
+kind: pre_visit
+category: normal
+inputs:
+  body_map:
+    - {region_id: lower_back_center, kind: primary}
+  free_text: "腰中间酸胀两三周了，慢慢出现的，坐久了更明显，站起来活动活动就好些，腿不麻，大小便正常，没发烧，没受伤。"
+  answers:
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_trigger: prolonged_sitting
+    q_radiation_present: "no"
+    q_severity_now: 3
+    q_course: stable
+    q_function_impact: none
+    q_sleep_affected: "no"
+    q_night_pain: "no"
+    q_weight_loss: "no"
+    q_cancer_history: "no"
+    q_prior_episodes: "no"
+    q_current_medication: __skip__
+    q_patient_concern: "想知道要不要拍片子"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    pain_side: {status: present, value: center}
+    pain_regions: {status: present, value: [lower_back_center]}
+    onset_timing: {status: present, value: weeks_2_to_6}
+    onset_mode: {status: present, value: gradual}
+    trigger: {status: present, value: prolonged_sitting}
+    character: {status: present, value: [aching]}
+    aggravating: {status: present, value: [sitting]}
+    relieving: {status: present, value: [activity]}
+    radiation_present: {status: denied}
+    leg_numbness: {status: denied}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    severity_now: {status: present, value: 3}
+    course: {status: present, value: stable}
+    function_impact: {status: present, value: none}
+    sleep_affected: {status: denied}
+    night_pain: {status: denied}
+    weight_loss: {status: denied}
+    cancer_history: {status: denied}
+    prior_episodes: {status: denied}
+  must_be_unknown: [current_medication]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

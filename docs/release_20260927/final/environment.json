@@ -1,0 +1,16 @@
+{
+  "python": "3.13.9",
+  "platform": "macOS-15.7.8-arm64-arm-64bit-Mach-O",
+  "packages": {
+    "fastapi": "0.141.1",
+    "uvicorn": "0.53.0",
+    "sqlmodel": "0.0.47",
+    "sqlalchemy": "2.0.54",
+    "pydantic": "2.13.5",
+    "PyYAML": "6.0.3",
+    "httpx": "0.28.1",
+    "anthropic": "1.8.0",
+    "pytest": "9.1.1"
+  },
+  "note": "交付时环境版本。没有安装/升级系统依赖或导出任何密钥。"
+}

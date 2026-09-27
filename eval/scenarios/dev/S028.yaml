@@ -1,0 +1,52 @@
+id: S028
+family: F07_breast_cancer_history_back_pain
+split: dev
+title: "原话逐项否认体重下降/夜间痛/肿瘤史/发热——不应触发任何红旗"
+persona: "58 岁女性，三年前乳腺癌术后（模拟，非真实患者）"
+kind: pre_visit
+category: negation
+inputs:
+  body_map:
+    - {region_id: lower_back_center, kind: primary}
+  free_text: "腰背痛两个月，体重没变，晚上不疼，没有肿瘤病史，没发烧。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_trauma: "no"
+    q_onset_mode: gradual
+    q_trigger: none_known
+    q_radiation_present: "no"
+    q_leg_numbness: "no"
+    q_severity_now: 5
+    q_course: stable
+    q_character: [dull]
+    q_aggravating: [bending]
+    q_relieving: [rest]
+    q_function_impact: mild
+    q_sleep_affected: "no"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    weight_loss: {status: denied}
+    night_pain: {status: denied}
+    cancer_history: {status: denied}
+    fever: {status: denied}
+    onset_timing: {status: present, value: weeks_6_to_12}
+    pain_side: {status: present, value: center}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    trauma_recent: {status: denied}
+    radiation_present: {status: denied}
+    leg_numbness: {status: denied}
+    severity_now: {status: present, value: 5}
+    course: {status: present, value: stable}
+  must_be_unknown: []
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

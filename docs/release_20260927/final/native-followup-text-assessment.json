@@ -1,0 +1,15 @@
+{
+  "at_utc": "2026-09-27T12:27:43.066482+00:00",
+  "raw_file": "native-followup-text.json",
+  "raw_sha256": "389101afb994ac47d43314d54ae43ffda45408f0040e506dda5ced6befaf2a6f",
+  "no_new_inference": true,
+  "checks": {
+    "symptom_input_linked": true,
+    "expected_urgent_rule": true,
+    "prior_denial_preserved": true,
+    "no_routine_question_continues": true,
+    "actual_native_model": true
+  },
+  "passed": true,
+  "assessment_note": "原检查把“否认被保留”错误地限定为总字段必须变成conflicting。实际模型只抽取小便专用字段；原总字段仍为denied且保留直接回答，没有被覆盖，同时已触发预期紧急提醒与紧急核对。保留原报告及其false结果，本文件说明检查口径修正，未改业务规则、模型输出或原始证据。"
+}

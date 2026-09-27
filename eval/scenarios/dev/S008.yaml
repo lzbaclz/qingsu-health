@@ -1,0 +1,61 @@
+id: S008
+family: F02_right_lbp_radiating_driver
+split: dev
+title: "右腰痛放射到右臀和右大腿后侧，原话给出疼痛评分"
+persona: "48 岁长途货车司机（模拟，非真实患者）"
+kind: pre_visit
+category: normal
+inputs:
+  body_map:
+    - {region_id: lower_back_right, kind: primary}
+    - {region_id: buttock_right, kind: radiation}
+    - {region_id: thigh_right_back, kind: radiation}
+  free_text: "右边腰疼有一个多月了，串到右边屁股和右大腿后面，开车时间长了更厉害，疼起来有 6 分。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_onset_mode: gradual
+    q_trigger: prolonged_sitting
+    q_leg_numbness: "yes"
+    q_course: worsening
+    q_character: [aching, sharp]
+    q_aggravating: [sitting]
+    q_relieving: [rest, position]
+    q_function_impact: moderate
+    q_sleep_affected: "yes"
+    q_night_pain: "no"
+    q_weight_loss: "no"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    pain_side: {status: present, value: right}
+    pain_regions: {status: present}
+    onset_timing: {status: present, value: weeks_2_to_6}
+    radiation_present: {status: present}
+    radiation_regions: {status: present, value: [buttock_right, thigh_right_back]}
+    severity_now: {status: present, value: 6}
+    leg_numbness: {status: present}
+    course: {status: present, value: worsening}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    onset_mode: {status: present, value: gradual}
+    trigger: {status: present, value: prolonged_sitting}
+    aggravating: {status: present, value: [sitting]}
+    function_impact: {status: present, value: moderate}
+    sleep_affected: {status: present}
+    night_pain: {status: denied}
+    weight_loss: {status: denied}
+  must_be_unknown: [cancer_history]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

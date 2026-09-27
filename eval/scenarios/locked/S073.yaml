@@ -1,0 +1,73 @@
+id: S073
+family: F19_followup_central_lbp_teacher
+split: locked
+title: "随访：好多了、基本不疼，清楚医嘱且已执行"
+persona: "33 岁小学教师（模拟，非真实患者）"
+kind: follow_up
+category: follow_up
+inputs:
+  body_map:
+    - {region_id: lower_back_center, kind: primary}
+  free_text: "好多了，基本不疼了。"
+  answers:
+    q_fu_overall: better
+    q_fu_severity: 1
+    q_fu_new: "no"
+    q_fu_bladder: "no"
+    q_fu_saddle: "no"
+    q_fu_weakness: "no"
+    q_fu_numbness: "no"
+    q_fu_radiation: "no"
+    q_fu_function: none
+    q_fu_sleep: "no"
+    q_fu_understood: "yes"
+    q_fu_adherence: "yes"
+    q_fu_concern: __skip__
+  clarifications: {}
+  corrections: []
+parent:
+  inputs:
+    body_map:
+      - {region_id: lower_back_center, kind: primary}
+    free_text: "腰中间酸痛两三周，坐久了更明显，腿不麻。"
+    answers:
+      q_bladder_bowel: "no"
+      q_saddle: "no"
+      q_leg_weakness: "no"
+      q_fever: "no"
+      q_trauma: "no"
+      q_onset_mode: gradual
+      q_trigger: prolonged_sitting
+      q_radiation_present: "no"
+      q_severity_now: 4
+      q_course: stable
+      q_relieving: [rest]
+      q_function_impact: mild
+      q_sleep_affected: "no"
+      q_night_pain: "no"
+    clarifications: {}
+    corrections: []
+  plan_message: "（医生撰写）请一周后更新情况；如出现大小便控制变化、会阴部发麻或腿无力，请立即联系门诊。"
+ground_truth:
+  facts:
+    fu_change_overall: {status: present, value: better}
+    course: {status: present, value: improving}
+    severity_now: {status: present, value: 1}
+    fu_new_symptom: {status: denied}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    leg_numbness: {status: denied}
+    radiation_present: {status: denied}
+    function_impact: {status: present, value: none}
+    sleep_affected: {status: denied}
+    fu_plan_understood: {status: present}
+    fu_plan_adherence: {status: present, value: "yes"}
+    pain_side: {status: present, value: center}
+  must_be_unknown: []
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

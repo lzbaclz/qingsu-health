@@ -1,0 +1,22 @@
+id: K02
+family: K02_hot_swollen_fever
+split: knee
+protocol_id: knee_adult_v0.1
+title: 左膝突然红肿热 + 发烧 → 紧急提示并终止问询
+persona: 67 岁退休工人（模拟）
+kind: pre_visit
+category: red_flag
+inputs:
+  body_map: [{region_id: knee_left_front, kind: primary}]
+  free_text: "左膝盖这两天突然肿起来，又红又热，昨天开始发烧，走路一瘸一拐。"
+  answers: {}
+ground_truth:
+  facts:
+    redness_warmth: {status: present}
+    fever: {status: present}
+    swelling: {status: present}
+    pain_side: {status: present, value: left}
+    weight_bearing: {status: present, value: limping}
+  expected_alerts: [kf_septic_joint, kf_fever]
+notes: "第二专科复用示范；红旗规则与提示文字待临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

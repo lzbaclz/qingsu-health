@@ -1,0 +1,23 @@
+id: K08
+family: K08_night_pain_weight_loss
+split: knee
+protocol_id: knee_adult_v0.1
+title: 夜间痛醒 + 体重下降 → 仅供医生复核（不吓患者）
+persona: 58 岁会计（模拟）
+kind: pre_visit
+category: red_flag
+inputs:
+  body_map: [{region_id: knee_right_front, kind: primary}]
+  free_text: "右膝盖疼了两个月，晚上常常疼醒，最近半年瘦了十几斤。"
+  answers: {k_redness: "no", k_fever: "no", k_calf: "no", k_neuro: "no", k_trauma: "no", k_weight: normal, k_severity: 6, k_cancer: "no"}
+ground_truth:
+  facts:
+    night_pain: {status: present}
+    weight_loss: {status: present}
+    onset_timing: {status: present, value: weeks_6_to_12}
+    trauma_recent: {status: denied}
+    weight_bearing: {status: present, value: normal}
+    severity_now: {status: present, value: 6}
+  expected_alerts: [kf_tumor_features]
+notes: "待临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

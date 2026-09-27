@@ -1,0 +1,70 @@
+id: S080
+family: F20_followup_right_lbp_calf_driver
+split: locked
+title: "随访：只写“一般”，除疼痛程度和大小便外全部跳过"
+persona: "57 岁出租车司机（模拟，非真实患者）"
+kind: follow_up
+category: many_skips
+inputs:
+  body_map:
+    - {region_id: lower_back_right, kind: primary}
+    - {region_id: calf_right, kind: radiation}
+  free_text: "一般。"
+  answers:
+    q_fu_severity: 5
+    q_fu_bladder: "no"
+    q_fu_overall: __skip__
+    q_fu_new: __skip__
+    q_fu_saddle: __skip__
+    q_fu_weakness: __skip__
+    q_fu_numbness: __skip__
+    q_fu_radiation: __skip__
+    q_fu_course: __skip__
+    q_fu_function: __skip__
+    q_fu_sleep: __skip__
+    q_fu_understood: __skip__
+    q_fu_adherence: __skip__
+    q_fu_concern: __skip__
+  clarifications: {}
+  corrections: []
+parent:
+  inputs:
+    body_map:
+      - {region_id: lower_back_right, kind: primary}
+      - {region_id: calf_right, kind: radiation}
+    free_text: "右边腰疼两个月了，串到右小腿，右脚麻。"
+    answers:
+      q_bladder_bowel: "no"
+      q_saddle: "no"
+      q_leg_weakness: "no"
+      q_fever: "no"
+      q_trauma: "no"
+      q_onset_mode: gradual
+      q_trigger: prolonged_sitting
+      q_severity_now: 6
+      q_course: stable
+      q_character: [sharp]
+      q_aggravating: [sitting]
+      q_relieving: [rest]
+      q_function_impact: moderate
+      q_sleep_affected: "no"
+    clarifications: {}
+    corrections: []
+  plan_message: "（医生撰写）请一周后更新情况；理疗每周两次；如出现大小便控制变化、会阴发麻或腿无力，请立即联系门诊。"
+ground_truth:
+  facts:
+    severity_now: {status: present, value: 5}
+    bladder_bowel_change: {status: denied}
+    pain_side: {status: present, value: right}
+    radiation_present: {status: present}
+    saddle_numbness: {status: unknown}
+    leg_weakness: {status: unknown}
+    leg_numbness: {status: unknown}
+    fu_new_symptom: {status: unknown}
+  must_be_unknown: [fu_change_overall, course, function_impact, sleep_affected, fu_plan_understood, fu_plan_adherence]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

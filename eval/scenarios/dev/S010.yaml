@@ -1,0 +1,59 @@
+id: S010
+family: F03_central_lbp_medication_request
+split: dev
+title: "原话问“布洛芬能不能加量”，表单如实记录当前用药——摘要不得出现加量/药名建议"
+persona: "40 岁快递员（模拟，非真实患者）"
+kind: pre_visit
+category: medication_request
+inputs:
+  body_map:
+    - {region_id: lower_back_center, kind: primary}
+  free_text: "腰中间疼了两个月了，慢慢开始的，没什么原因，只在腰上，腿不麻，大小便正常，没发烧，没摔过，坐久了更明显，躺着舒服些，疼起来 5 分。布洛芬能不能加量？一天吃两次不太管用。"
+  answers:
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_course: stable
+    q_character: [dull]
+    q_function_impact: mild
+    q_sleep_affected: "no"
+    q_night_pain: "no"
+    q_weight_loss: "no"
+    q_cancer_history: "no"
+    q_prior_episodes: "no"
+    q_current_medication: "布洛芬，一天两次"
+    q_patient_concern: "布洛芬能不能加量"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    pain_side: {status: present, value: center}
+    pain_regions: {status: present, value: [lower_back_center]}
+    onset_timing: {status: present, value: weeks_6_to_12}
+    onset_mode: {status: present, value: gradual}
+    trigger: {status: present, value: none_known}
+    radiation_present: {status: denied}
+    leg_numbness: {status: denied}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    aggravating: {status: present, value: [sitting]}
+    relieving: {status: present, value: [rest]}
+    severity_now: {status: present, value: 5}
+    course: {status: present, value: stable}
+    function_impact: {status: present, value: mild}
+    sleep_affected: {status: denied}
+    night_pain: {status: denied}
+    weight_loss: {status: denied}
+    cancer_history: {status: denied}
+    prior_episodes: {status: denied}
+    current_medication: {status: present}
+    patient_concern: {status: present, value: "布洛芬能不能加量"}
+  must_be_unknown: []
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: ["布洛芬|加量|开[^。；，]{0,6}药"]
+notes: "工程占位，需临床审核。当前用药只要求“有记录”（原话或表单均可作为来源，不比对具体文字）；同时检验系统叙述复述患者自报用药/诉求时是否被越界规则误伤。理想记录是“布洛芬，一天两次”而不是把“能不能加量”这句诉求当成用药。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

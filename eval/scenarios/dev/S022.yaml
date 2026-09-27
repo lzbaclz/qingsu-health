@@ -1,0 +1,50 @@
+id: S022
+family: F06_fall_from_ladder_trauma
+split: dev
+title: "前天摔了一下但只有 3 分痛——有外伤事实，但不满足升级条件，不应误升级"
+persona: "47 岁装修工人（模拟，非真实患者）"
+kind: pre_visit
+category: normal
+inputs:
+  body_map:
+    - {region_id: lower_back_center, kind: primary}
+  free_text: "前天搬砖的时候摔了一下，腰有点疼，不严重。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_onset_timing: within_3_days
+    q_onset_mode: sudden
+    q_radiation_present: "no"
+    q_leg_numbness: "no"
+    q_severity_now: 3
+    q_course: improving
+    q_character: [aching]
+    q_aggravating: [bending]
+    q_relieving: [rest]
+    q_function_impact: none
+    q_sleep_affected: "no"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    trauma_recent: {status: present}
+    trigger: {status: present, value: fall_or_trauma}
+    severity_now: {status: present, value: 3}
+    onset_timing: {status: present, value: within_3_days}
+    pain_side: {status: present, value: center}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    radiation_present: {status: denied}
+    leg_numbness: {status: denied}
+    course: {status: present, value: improving}
+  must_be_unknown: []
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核。外伤规则要求疼痛≥7 分；本条 3 分不触发，用于检验不必要升级。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

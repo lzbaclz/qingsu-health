@@ -1,0 +1,50 @@
+id: S030
+family: F08_recurrent_lbp_new_numbness
+split: dev
+title: "“左边小腿肚子好像有点麻，也说不太清”——记为不确定"
+persona: "45 岁中学教师（模拟，非真实患者）"
+kind: pre_visit
+category: hedged
+inputs:
+  body_map:
+    - {region_id: lower_back_left, kind: primary}
+    - {region_id: calf_left, kind: radiation}
+  free_text: "老毛病腰痛又犯了，这回左边小腿肚子好像有点麻，也说不太清。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_onset_mode: gradual
+    q_trigger: none_known
+    q_leg_numbness: __unknown__
+    q_severity_now: 5
+    q_course: stable
+    q_character: [aching]
+    q_aggravating: [sitting]
+    q_relieving: [rest]
+    q_function_impact: mild
+    q_sleep_affected: "no"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    leg_numbness: {status: uncertain}
+    pain_side: {status: present, value: left}
+    prior_episodes: {status: present}
+    onset_timing: {status: unknown}  # 2026-09-25 真值修正：原话只说“老毛病、以前犯过”，这一次多久没说（模拟临床负责人第 1 轮审核提出，见 eval/CHANGELOG.md）
+    radiation_present: {status: present}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    severity_now: {status: present, value: 5}
+  must_be_unknown: [cancer_history, weight_loss, night_pain]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

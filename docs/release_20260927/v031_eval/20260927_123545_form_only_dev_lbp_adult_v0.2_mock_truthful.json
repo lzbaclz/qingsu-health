@@ -1,0 +1,3173 @@
+{
+  "meta": {
+    "arm": "form_only",
+    "split": "dev",
+    "provider": "mock",
+    "model": null,
+    "effort": null,
+    "protocol": "lbp_adult_v0.2",
+    "at": "2026-09-27 12:35:45",
+    "seconds": 17.0,
+    "crashed": [],
+    "usage": {
+      "calls": 0,
+      "errors": 0,
+      "fallbacks": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0,
+      "latency_s": {
+        "extract": {
+          "n": 0,
+          "p50": null,
+          "p90": null
+        },
+        "narrative": {
+          "n": 0,
+          "p50": null,
+          "p90": null
+        }
+      }
+    },
+    "workers": 1,
+    "patient": "truthful",
+    "usd_total": null,
+    "overlay_items": 4,
+    "usd_per_scenario": null,
+    "planned_n": 40,
+    "completed_n": 40,
+    "pass_count_with_all_planned_denominator": {
+      "passed": 28,
+      "denominator": 40
+    },
+    "provenance_start": {
+      "files": {
+        "backend/app/__init__.py": "1b8c4bbb75491ef4b7304df852e407a098f85f8f7dae39a0d29ba9079f39fe8b",
+        "backend/app/api/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/api/auth.py": "1138bc6ea2d8e10815ae000b3b8862c0354ac909d08203e29169fd05569fe054",
+        "backend/app/api/dev.py": "6dae791a925de55e6422b8c5143cd8f0f50e1b28696485a1e22554b193ea3cd8",
+        "backend/app/api/doctor.py": "7493e752a75ac100da5576faf203cfa36ae28bb6d15d6c75aeab25c3c583206a",
+        "backend/app/api/patient.py": "7fefd0d6c3e790418703f3bc07ce8a771861b21587e061ee40828c521cc09247",
+        "backend/app/api/protocols.py": "bc4b5b0aa333622fdeb4a48f6cc37485135832e5cc8e3265e995bfc7482047aa",
+        "backend/app/api/schemas.py": "03f2b0579de8169e818f66a5c87048606c6bdb315a56a54a6d9bfe94d0eb2f54",
+        "backend/app/bootstrap_access.py": "ea4685324f2ff154fc40ad0ef985c9a1eeeb0d5030cb385bf0036f187ab1b81b",
+        "backend/app/config.py": "2c96202a0a74f07ad5339e1260ddbbe396c8bec61742476fd52e9b52d74d2077",
+        "backend/app/course/__init__.py": "b4c35f983b8907b2094f538c376416b80370697073f386cac5ff30a32505e7a3",
+        "backend/app/course/goals.py": "c484ebd3928ebb2918773b8bcf896b8e144aef1c0a02870fd72b2e99b08e5667",
+        "backend/app/course/hours.py": "51269138a9799b0c0ea64f0c01a53b1cfda4deba2710782f3c886b2ee4819c39",
+        "backend/app/course/tasks.py": "62a1e295dfdb30f5259fb19504b5d3a7e2a83d7378c08942d652bf2d4d0180d0",
+        "backend/app/course/teachback.py": "dd23c9cdcc49edd173448b1ea77733471d7c42cc508f81c2e990ea1145cfbb8d",
+        "backend/app/course/trajectory.py": "e38ca3a2c849ba5e596c45d243a6de17eb5248c0458737264ceeb650e6be856d",
+        "backend/app/course/worker.py": "742fdd5b5393beae35834f7a7f62649f297c1b67a56c922434ed2ae9fbd51fa2",
+        "backend/app/data_admin.py": "04f3f6b0af2b1e5353604df556dceb937b9b9df25154141d5f08d1ab6a32b325",
+        "backend/app/db.py": "25b55314953d951968ffc9b64e58713d8be5755455f6fe90b6484a366f59e0c5",
+        "backend/app/demo.py": "d19964699cc08e6197cd8e3bacf5a40e6ee00b2e98aeb25fde5a4c8302248748",
+        "backend/app/events/__init__.py": "e2243ede89dcf086cd612df295f558c2e0c504dbdef8d70ca8455462b41dc36b",
+        "backend/app/events/service.py": "7994e9cc9258675bcf882cd4cf9c1ec777b1542e5b7fd604f590412a4d2c5bf0",
+        "backend/app/extraction/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/extraction/service.py": "7d09739c8e3302772b9812e91e5658a3ce5d414023e7174e44f9204dbfa5699c",
+        "backend/app/facts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/facts/store.py": "4cb9b1c72d49c6961be51b26203c5687b3f2854e1c354ced3618d0c90aa1edbc",
+        "backend/app/llm/__init__.py": "aa4a6d6a68b7b09b87167556f4825347fafb26f32aeb138e844528e52c1b9b40",
+        "backend/app/llm/check.py": "0088d2b14f0e7d261d3e25ab13fd28ce44c340c4be07fc55a598a91b00105e5f",
+        "backend/app/llm/provider.py": "6869003ba3ee678eb810d7d4d08e98c0f1a53affcb9aad6f43d3bb8724be9c96",
+        "backend/app/main.py": "69c01ec368e4f94ce0d6091a8c8cfff93999fc80b40b5e6236a81a59250fabf7",
+        "backend/app/models.py": "32d1c96f23d91250df551258824eb0bab360dd5a4964c578c065509458963fce",
+        "backend/app/protocol/__init__.py": "a7fc105eeaf981e348b737d09ecce639f2b7ec109f42caf141f01221f7f39b06",
+        "backend/app/protocol/expr.py": "1f27d23404296404cf02b8c28a1350d6f02f13a3807d01de5f75f96f78670e42",
+        "backend/app/protocol/loader.py": "aeecfeaa0cc01ada3e56c849a0fdf860e2322f96732d7180a5cb5a7660fce653",
+        "backend/app/protocol/preview.py": "8ea1dc65e793a99d38453209d02f585c91fb386de4603ab39f8f68c2fbd36c61",
+        "backend/app/protocol/schema.py": "9b70a8b1978e91881f9b3e899a2c196d47865ccce354a4285fef4a19960e3b8f",
+        "backend/app/protocol/triage.py": "93f9e47c70e7671e42a151cd59dae334404ac76533fe66ff4e3934fd6812902d",
+        "backend/app/qr.py": "e6e5fbb5e8964825c4553871a4e4822331ddbfeb9ad5c65c0d099caf90738238",
+        "backend/app/questioning/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/questioning/engine.py": "e697d9ccd86c7c0733f509635ee2fddda9dea00c99de35c1052517355a840ea8",
+        "backend/app/security.py": "fbed59fdb84f6f73c676af1291c413530856d05f0084b25e592a76a501335725",
+        "backend/app/seed.py": "0eb826f86ac072408dea91ab3f937aaff852c37349bf06a8ce79ac032276fbe5",
+        "backend/app/services/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/services/encounter.py": "dd855ca59b4c5a8a9e6490e2b0daae74db47e31a9ef69011b033b8f995358847",
+        "backend/app/summary/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/summary/brief.py": "869a63fae07dc8319a92eb9a8fe53a4d57c2a9aa5076cae889bdb3691ebda44d",
+        "backend/app/summary/build.py": "5503c7730f48890f3a9b617548d4d85ee50f015d94eca9e7c1f554735fbd763f",
+        "backend/app/tasks/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/tasks/service.py": "dd1b3fb815d77aea81ec718b1a07ab972893d008bcde0aeaa69176b5d78df711",
+        "backend/app/usertest/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/usertest/plant.py": "32e7b98b367a60e167948ab7886ea0241af2c8be3ccd5d3807cd11b15a151f13",
+        "backend/app/util.py": "77671253ec4d6f44db7c4b40ffb20ba469a7d51e4be069220ad4782511edca93",
+        "backend/app/verification/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/verification/checks.py": "63205084859f2ec93377acf50e3097d746c962991f4dbd13c42d00158fd11278",
+        "backend/app/verification/rewrite_guard.py": "e3da9944025783e79876a7f87d18fe76cdb9a1fe277c1ba7887f8f887b2e53e2",
+        "backend/app/verification/scope.py": "dad9b9bb6e579e895ca86b6df7d7a0aaa3dc7c2b36a014cdaf41509ed9a4985a",
+        "backend/pyproject.toml": "b23a48e28b5cfaf9d0d1804b53de7e3c5532c0db6dae9a00948f9ba5bb256633",
+        "eval/context_benchmark.py": "72b4275bc2f7aa8700ebda151f1f23da0dc6ea38f637d7534260e2e893a41455",
+        "eval/evidence_table.py": "d6d1d9f7be2edba40963eca3cf278072c792799b6ffbf3ca82b49e5085608938",
+        "eval/provenance.py": "6b02dbd4947b243e67dffe95849ab704ab32561f36d851fe9b7f11211f043b42",
+        "eval/runner.py": "c938d4456872ccdcf8e001de85d02c00e6621a8415a5c345b25fa987955ef4ea",
+        "eval/scenarios/dev/S001.yaml": "fe652c293bd193534bef95e9fa46b294a9d870be3042b4f90fdc3e04230140f2",
+        "eval/scenarios/dev/S002.yaml": "29c95a18e1a9c417e13461ca698c49f2c78e74d6c0f8f2b640bb110cff6c3ab4",
+        "eval/scenarios/dev/S003.yaml": "76451621255da726ed309a3bc0d51d3f25ed4ec46a3c30d0f7ecbe756f9025af",
+        "eval/scenarios/dev/S004.yaml": "32d8a234b93499e2433c2ee2b00a1f0a95ae634b3d418389bafc832b3ecdfca3",
+        "eval/scenarios/dev/S005.yaml": "df92035159e35f1f52862682715be392c19b37f79ea8ae23d9b1eedadb3e771c",
+        "eval/scenarios/dev/S006.yaml": "c94d1de17c43d07c34162ae37422ed832c28f8c94897da75290018afdc5b1a88",
+        "eval/scenarios/dev/S007.yaml": "956d73e858a29bda5a60214cc6ded9811cc3283717cd7511fab39e07ed46e55d",
+        "eval/scenarios/dev/S008.yaml": "dc7cf263bcd844d5b3c9cdaae36ca67ad65bb570057c0a44ae6637b33466d242",
+        "eval/scenarios/dev/S009.yaml": "6a6b174532bc8a3ecdd4bee200b1101199bdb4e3869a2f40f03a289964d68167",
+        "eval/scenarios/dev/S010.yaml": "009d8dbd31613816e4e69e8f69b57fefd61c51dcafd741a3af133766f4489421",
+        "eval/scenarios/dev/S011.yaml": "32e0a684c8cdfe9572f1fafb65ffc9d918f672f8ee9733b4279ef776691992f5",
+        "eval/scenarios/dev/S012.yaml": "c0649a6dc94115aa888656b6b53aad44594f347519bbc656d72b7b2ad3bd9033",
+        "eval/scenarios/dev/S013.yaml": "faef79c63a4ae2d592146b391cca8a1a63aa5ecd31c6a5c489f910766846d904",
+        "eval/scenarios/dev/S014.yaml": "9a7297180d8825120b3d2dabe89edfbff8446ec517ffe47b8745f844887b6488",
+        "eval/scenarios/dev/S015.yaml": "9dcfdc54cc7970ec7cc19dea163f8af1c278f7821ea6b19713cff2e4b49feb4c",
+        "eval/scenarios/dev/S016.yaml": "a0f4c2a592caaf9e63d96d23140e014d8f4c406d5aa775a6780999b1903f3aba",
+        "eval/scenarios/dev/S017.yaml": "d5816ce439dcb2c71697ea8afdcfa5e1c6c0428df5677de5bc85bde78de58a61",
+        "eval/scenarios/dev/S018.yaml": "c704cea9001efa0d425871d6808dd25a9feae0ea683d35771d7aba431813807c",
+        "eval/scenarios/dev/S019.yaml": "6228291daeed569ad37d28fa176b3a020a3d8970f88534aac44125601647ad9d",
+        "eval/scenarios/dev/S020.yaml": "a9170575f9038a86f697e9fbb4b7028e7932a7efda27a8a38579bd02904ff67f",
+        "eval/scenarios/dev/S021.yaml": "f4e37c9cb658312e93f0b3b04a06bba3066dd4d999ee1356d023f262004f07c4",
+        "eval/scenarios/dev/S022.yaml": "027b86accdc4b53e6d7ce1abd5bc85bb90da533dafe704cdb6f0507c735d6aae",
+        "eval/scenarios/dev/S023.yaml": "d77c21043426e4902fe97241c4d01dcbd795e787121ee730e1080f801fdecbee",
+        "eval/scenarios/dev/S024.yaml": "31a44e34b19fe35115d830770e85f876b863b6322819d7500487c5027aba698a",
+        "eval/scenarios/dev/S025.yaml": "d840fc07cf0cdcb972bb27e66c1713617eac46819b256423266ecec7126a2a26",
+        "eval/scenarios/dev/S026.yaml": "b59569bb87a8255a883692480cdeebefaeff19b5f94ca5222cc133698fb627f5",
+        "eval/scenarios/dev/S027.yaml": "a827d79dbb27835d54182ff04fe45a72669d7a6ee7a7b79c16e3d0c22a201893",
+        "eval/scenarios/dev/S028.yaml": "b1eea24cbc3f12be026e3ee62ced684ec879e0acd78ba853413d97a247b209e0",
+        "eval/scenarios/dev/S029.yaml": "d5aa49d2e1fa621d883ae6e1d0d014eab378ed15c020e4f11275df8b5a3ea342",
+        "eval/scenarios/dev/S030.yaml": "ea839db29c2e48e32ac045a92a0ad5a235229812f2dfffe4763a9acd20720b7f",
+        "eval/scenarios/dev/S031.yaml": "33f5952956931cd229f5b0f35b245e13501ffe96056cb95a1f86cef4409a0a7c",
+        "eval/scenarios/dev/S032.yaml": "9c94c0024e2f1303fb42e2d6b049db6a47cceaffa1bdb3a2187ed32432ba0ade",
+        "eval/scenarios/dev/S033.yaml": "827e97bb60520bcbb3fa84b70f5b856cb763c2dba75b75bda568dc435edc7296",
+        "eval/scenarios/dev/S034.yaml": "a2fd5382966f981c6a634fa2185204ed6ba09fff195f2c90e832637e35bf7993",
+        "eval/scenarios/dev/S035.yaml": "c3a038f18802ef73e554e90860acc966bdd3b71a84f7db94d1f3220fa7bdec5e",
+        "eval/scenarios/dev/S036.yaml": "d5b05bd1ecc1e5c5e3644c568d90f9a3aaa644958d2bde9de777fef0df433d6f",
+        "eval/scenarios/dev/S037.yaml": "3a6e939f2b561edff0f454ca8a5e7ca4c7180bc75116fcb1d75977e860b20b06",
+        "eval/scenarios/dev/S038.yaml": "38e62219f66566d611d0bf46031483cfc0ca77a852ec71bed86f3f070ea1352c",
+        "eval/scenarios/dev/S039.yaml": "0a4892606cb7a962a87b2aff7b1ffa940cd8231e3749bdecab57980aa2e88f8d",
+        "eval/scenarios/dev/S040.yaml": "b55d3636d7098c348193a7cb5f682fa899f9cebeb1243d750e881756c9ee990c",
+        "protocols/lbp_adult_v0.2.yaml": "6fb28db7cf673bf0dd58374715d895e86945eaa237d42b6ba1aceca5686f6b64"
+      },
+      "manifest_sha256": "b84f6fdc633dd0c1650aa26e52dee13f91acb717bc19e3f561fc2dc13aeb1dc6",
+      "python": "3.13.9",
+      "platform": "macOS-15.7.8-arm64-arm-64bit-Mach-O",
+      "synthetic_only": true
+    },
+    "provenance_end": {
+      "files": {
+        "backend/app/__init__.py": "1b8c4bbb75491ef4b7304df852e407a098f85f8f7dae39a0d29ba9079f39fe8b",
+        "backend/app/api/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/api/auth.py": "1138bc6ea2d8e10815ae000b3b8862c0354ac909d08203e29169fd05569fe054",
+        "backend/app/api/dev.py": "6dae791a925de55e6422b8c5143cd8f0f50e1b28696485a1e22554b193ea3cd8",
+        "backend/app/api/doctor.py": "7493e752a75ac100da5576faf203cfa36ae28bb6d15d6c75aeab25c3c583206a",
+        "backend/app/api/patient.py": "7fefd0d6c3e790418703f3bc07ce8a771861b21587e061ee40828c521cc09247",
+        "backend/app/api/protocols.py": "bc4b5b0aa333622fdeb4a48f6cc37485135832e5cc8e3265e995bfc7482047aa",
+        "backend/app/api/schemas.py": "03f2b0579de8169e818f66a5c87048606c6bdb315a56a54a6d9bfe94d0eb2f54",
+        "backend/app/bootstrap_access.py": "ea4685324f2ff154fc40ad0ef985c9a1eeeb0d5030cb385bf0036f187ab1b81b",
+        "backend/app/config.py": "2c96202a0a74f07ad5339e1260ddbbe396c8bec61742476fd52e9b52d74d2077",
+        "backend/app/course/__init__.py": "b4c35f983b8907b2094f538c376416b80370697073f386cac5ff30a32505e7a3",
+        "backend/app/course/goals.py": "c484ebd3928ebb2918773b8bcf896b8e144aef1c0a02870fd72b2e99b08e5667",
+        "backend/app/course/hours.py": "51269138a9799b0c0ea64f0c01a53b1cfda4deba2710782f3c886b2ee4819c39",
+        "backend/app/course/tasks.py": "62a1e295dfdb30f5259fb19504b5d3a7e2a83d7378c08942d652bf2d4d0180d0",
+        "backend/app/course/teachback.py": "dd23c9cdcc49edd173448b1ea77733471d7c42cc508f81c2e990ea1145cfbb8d",
+        "backend/app/course/trajectory.py": "e38ca3a2c849ba5e596c45d243a6de17eb5248c0458737264ceeb650e6be856d",
+        "backend/app/course/worker.py": "742fdd5b5393beae35834f7a7f62649f297c1b67a56c922434ed2ae9fbd51fa2",
+        "backend/app/data_admin.py": "04f3f6b0af2b1e5353604df556dceb937b9b9df25154141d5f08d1ab6a32b325",
+        "backend/app/db.py": "25b55314953d951968ffc9b64e58713d8be5755455f6fe90b6484a366f59e0c5",
+        "backend/app/demo.py": "d19964699cc08e6197cd8e3bacf5a40e6ee00b2e98aeb25fde5a4c8302248748",
+        "backend/app/events/__init__.py": "e2243ede89dcf086cd612df295f558c2e0c504dbdef8d70ca8455462b41dc36b",
+        "backend/app/events/service.py": "7994e9cc9258675bcf882cd4cf9c1ec777b1542e5b7fd604f590412a4d2c5bf0",
+        "backend/app/extraction/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/extraction/service.py": "7d09739c8e3302772b9812e91e5658a3ce5d414023e7174e44f9204dbfa5699c",
+        "backend/app/facts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/facts/store.py": "4cb9b1c72d49c6961be51b26203c5687b3f2854e1c354ced3618d0c90aa1edbc",
+        "backend/app/llm/__init__.py": "aa4a6d6a68b7b09b87167556f4825347fafb26f32aeb138e844528e52c1b9b40",
+        "backend/app/llm/check.py": "0088d2b14f0e7d261d3e25ab13fd28ce44c340c4be07fc55a598a91b00105e5f",
+        "backend/app/llm/provider.py": "6869003ba3ee678eb810d7d4d08e98c0f1a53affcb9aad6f43d3bb8724be9c96",
+        "backend/app/main.py": "69c01ec368e4f94ce0d6091a8c8cfff93999fc80b40b5e6236a81a59250fabf7",
+        "backend/app/models.py": "32d1c96f23d91250df551258824eb0bab360dd5a4964c578c065509458963fce",
+        "backend/app/protocol/__init__.py": "a7fc105eeaf981e348b737d09ecce639f2b7ec109f42caf141f01221f7f39b06",
+        "backend/app/protocol/expr.py": "1f27d23404296404cf02b8c28a1350d6f02f13a3807d01de5f75f96f78670e42",
+        "backend/app/protocol/loader.py": "aeecfeaa0cc01ada3e56c849a0fdf860e2322f96732d7180a5cb5a7660fce653",
+        "backend/app/protocol/preview.py": "8ea1dc65e793a99d38453209d02f585c91fb386de4603ab39f8f68c2fbd36c61",
+        "backend/app/protocol/schema.py": "9b70a8b1978e91881f9b3e899a2c196d47865ccce354a4285fef4a19960e3b8f",
+        "backend/app/protocol/triage.py": "93f9e47c70e7671e42a151cd59dae334404ac76533fe66ff4e3934fd6812902d",
+        "backend/app/qr.py": "e6e5fbb5e8964825c4553871a4e4822331ddbfeb9ad5c65c0d099caf90738238",
+        "backend/app/questioning/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/questioning/engine.py": "e697d9ccd86c7c0733f509635ee2fddda9dea00c99de35c1052517355a840ea8",
+        "backend/app/security.py": "fbed59fdb84f6f73c676af1291c413530856d05f0084b25e592a76a501335725",
+        "backend/app/seed.py": "0eb826f86ac072408dea91ab3f937aaff852c37349bf06a8ce79ac032276fbe5",
+        "backend/app/services/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/services/encounter.py": "dd855ca59b4c5a8a9e6490e2b0daae74db47e31a9ef69011b033b8f995358847",
+        "backend/app/summary/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/summary/brief.py": "869a63fae07dc8319a92eb9a8fe53a4d57c2a9aa5076cae889bdb3691ebda44d",
+        "backend/app/summary/build.py": "5503c7730f48890f3a9b617548d4d85ee50f015d94eca9e7c1f554735fbd763f",
+        "backend/app/tasks/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/tasks/service.py": "dd1b3fb815d77aea81ec718b1a07ab972893d008bcde0aeaa69176b5d78df711",
+        "backend/app/usertest/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/usertest/plant.py": "32e7b98b367a60e167948ab7886ea0241af2c8be3ccd5d3807cd11b15a151f13",
+        "backend/app/util.py": "77671253ec4d6f44db7c4b40ffb20ba469a7d51e4be069220ad4782511edca93",
+        "backend/app/verification/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/verification/checks.py": "63205084859f2ec93377acf50e3097d746c962991f4dbd13c42d00158fd11278",
+        "backend/app/verification/rewrite_guard.py": "e3da9944025783e79876a7f87d18fe76cdb9a1fe277c1ba7887f8f887b2e53e2",
+        "backend/app/verification/scope.py": "dad9b9bb6e579e895ca86b6df7d7a0aaa3dc7c2b36a014cdaf41509ed9a4985a",
+        "backend/pyproject.toml": "b23a48e28b5cfaf9d0d1804b53de7e3c5532c0db6dae9a00948f9ba5bb256633",
+        "eval/context_benchmark.py": "72b4275bc2f7aa8700ebda151f1f23da0dc6ea38f637d7534260e2e893a41455",
+        "eval/evidence_table.py": "d6d1d9f7be2edba40963eca3cf278072c792799b6ffbf3ca82b49e5085608938",
+        "eval/provenance.py": "6b02dbd4947b243e67dffe95849ab704ab32561f36d851fe9b7f11211f043b42",
+        "eval/runner.py": "c938d4456872ccdcf8e001de85d02c00e6621a8415a5c345b25fa987955ef4ea",
+        "eval/scenarios/dev/S001.yaml": "fe652c293bd193534bef95e9fa46b294a9d870be3042b4f90fdc3e04230140f2",
+        "eval/scenarios/dev/S002.yaml": "29c95a18e1a9c417e13461ca698c49f2c78e74d6c0f8f2b640bb110cff6c3ab4",
+        "eval/scenarios/dev/S003.yaml": "76451621255da726ed309a3bc0d51d3f25ed4ec46a3c30d0f7ecbe756f9025af",
+        "eval/scenarios/dev/S004.yaml": "32d8a234b93499e2433c2ee2b00a1f0a95ae634b3d418389bafc832b3ecdfca3",
+        "eval/scenarios/dev/S005.yaml": "df92035159e35f1f52862682715be392c19b37f79ea8ae23d9b1eedadb3e771c",
+        "eval/scenarios/dev/S006.yaml": "c94d1de17c43d07c34162ae37422ed832c28f8c94897da75290018afdc5b1a88",
+        "eval/scenarios/dev/S007.yaml": "956d73e858a29bda5a60214cc6ded9811cc3283717cd7511fab39e07ed46e55d",
+        "eval/scenarios/dev/S008.yaml": "dc7cf263bcd844d5b3c9cdaae36ca67ad65bb570057c0a44ae6637b33466d242",
+        "eval/scenarios/dev/S009.yaml": "6a6b174532bc8a3ecdd4bee200b1101199bdb4e3869a2f40f03a289964d68167",
+        "eval/scenarios/dev/S010.yaml": "009d8dbd31613816e4e69e8f69b57fefd61c51dcafd741a3af133766f4489421",
+        "eval/scenarios/dev/S011.yaml": "32e0a684c8cdfe9572f1fafb65ffc9d918f672f8ee9733b4279ef776691992f5",
+        "eval/scenarios/dev/S012.yaml": "c0649a6dc94115aa888656b6b53aad44594f347519bbc656d72b7b2ad3bd9033",
+        "eval/scenarios/dev/S013.yaml": "faef79c63a4ae2d592146b391cca8a1a63aa5ecd31c6a5c489f910766846d904",
+        "eval/scenarios/dev/S014.yaml": "9a7297180d8825120b3d2dabe89edfbff8446ec517ffe47b8745f844887b6488",
+        "eval/scenarios/dev/S015.yaml": "9dcfdc54cc7970ec7cc19dea163f8af1c278f7821ea6b19713cff2e4b49feb4c",
+        "eval/scenarios/dev/S016.yaml": "a0f4c2a592caaf9e63d96d23140e014d8f4c406d5aa775a6780999b1903f3aba",
+        "eval/scenarios/dev/S017.yaml": "d5816ce439dcb2c71697ea8afdcfa5e1c6c0428df5677de5bc85bde78de58a61",
+        "eval/scenarios/dev/S018.yaml": "c704cea9001efa0d425871d6808dd25a9feae0ea683d35771d7aba431813807c",
+        "eval/scenarios/dev/S019.yaml": "6228291daeed569ad37d28fa176b3a020a3d8970f88534aac44125601647ad9d",
+        "eval/scenarios/dev/S020.yaml": "a9170575f9038a86f697e9fbb4b7028e7932a7efda27a8a38579bd02904ff67f",
+        "eval/scenarios/dev/S021.yaml": "f4e37c9cb658312e93f0b3b04a06bba3066dd4d999ee1356d023f262004f07c4",
+        "eval/scenarios/dev/S022.yaml": "027b86accdc4b53e6d7ce1abd5bc85bb90da533dafe704cdb6f0507c735d6aae",
+        "eval/scenarios/dev/S023.yaml": "d77c21043426e4902fe97241c4d01dcbd795e787121ee730e1080f801fdecbee",
+        "eval/scenarios/dev/S024.yaml": "31a44e34b19fe35115d830770e85f876b863b6322819d7500487c5027aba698a",
+        "eval/scenarios/dev/S025.yaml": "d840fc07cf0cdcb972bb27e66c1713617eac46819b256423266ecec7126a2a26",
+        "eval/scenarios/dev/S026.yaml": "b59569bb87a8255a883692480cdeebefaeff19b5f94ca5222cc133698fb627f5",
+        "eval/scenarios/dev/S027.yaml": "a827d79dbb27835d54182ff04fe45a72669d7a6ee7a7b79c16e3d0c22a201893",
+        "eval/scenarios/dev/S028.yaml": "b1eea24cbc3f12be026e3ee62ced684ec879e0acd78ba853413d97a247b209e0",
+        "eval/scenarios/dev/S029.yaml": "d5aa49d2e1fa621d883ae6e1d0d014eab378ed15c020e4f11275df8b5a3ea342",
+        "eval/scenarios/dev/S030.yaml": "ea839db29c2e48e32ac045a92a0ad5a235229812f2dfffe4763a9acd20720b7f",
+        "eval/scenarios/dev/S031.yaml": "33f5952956931cd229f5b0f35b245e13501ffe96056cb95a1f86cef4409a0a7c",
+        "eval/scenarios/dev/S032.yaml": "9c94c0024e2f1303fb42e2d6b049db6a47cceaffa1bdb3a2187ed32432ba0ade",
+        "eval/scenarios/dev/S033.yaml": "827e97bb60520bcbb3fa84b70f5b856cb763c2dba75b75bda568dc435edc7296",
+        "eval/scenarios/dev/S034.yaml": "a2fd5382966f981c6a634fa2185204ed6ba09fff195f2c90e832637e35bf7993",
+        "eval/scenarios/dev/S035.yaml": "c3a038f18802ef73e554e90860acc966bdd3b71a84f7db94d1f3220fa7bdec5e",
+        "eval/scenarios/dev/S036.yaml": "d5b05bd1ecc1e5c5e3644c568d90f9a3aaa644958d2bde9de777fef0df433d6f",
+        "eval/scenarios/dev/S037.yaml": "3a6e939f2b561edff0f454ca8a5e7ca4c7180bc75116fcb1d75977e860b20b06",
+        "eval/scenarios/dev/S038.yaml": "38e62219f66566d611d0bf46031483cfc0ca77a852ec71bed86f3f070ea1352c",
+        "eval/scenarios/dev/S039.yaml": "0a4892606cb7a962a87b2aff7b1ffa940cd8231e3749bdecab57980aa2e88f8d",
+        "eval/scenarios/dev/S040.yaml": "b55d3636d7098c348193a7cb5f682fa899f9cebeb1243d750e881756c9ee990c",
+        "protocols/lbp_adult_v0.2.yaml": "6fb28db7cf673bf0dd58374715d895e86945eaa237d42b6ba1aceca5686f6b64"
+      },
+      "manifest_sha256": "b84f6fdc633dd0c1650aa26e52dee13f91acb717bc19e3f561fc2dc13aeb1dc6",
+      "python": "3.13.9",
+      "platform": "macOS-15.7.8-arm64-arm-64bit-Mach-O",
+      "synthetic_only": true
+    },
+    "source_unchanged": true
+  },
+  "aggregate": {
+    "n_scenarios": 40,
+    "n_families": 10,
+    "scenario_pass_rate": 0.7,
+    "family_pass_rate": 0.6,
+    "critical_fact_completeness": 0.957,
+    "critical_denominator": 396,
+    "verification_pass_rate": 1.0,
+    "mean_questions_asked": 9.2,
+    "mean_decisions_shown": 15.8,
+    "urgent_stops": 3,
+    "errors_by_code": {
+      "E1_critical_omission": 15,
+      "E4_missed_escalation": 4,
+      "E5_unnecessary_escalation": 13,
+      "E7_conflict_not_surfaced": 3,
+      "E8_misunderstanding": 2,
+      "E9_minor_omission": 105
+    },
+    "extraction_errors_by_code": {},
+    "extraction_clean_rate": 1.0,
+    "infos_by_code": {
+      "S1_not_asked_after_urgent_stop": 13
+    },
+    "verification_decisions": {},
+    "verification_unverifiable": 0,
+    "provider_used": {
+      "—": 40
+    }
+  },
+  "results": [
+    {
+      "id": "S001",
+      "family": "F01_left_lbp_after_lifting",
+      "split": "dev",
+      "category": "normal",
+      "title": "搬东西后左腰酸痛三天，表达完整、无红旗",
+      "path": "eval/scenarios/dev/S001.yaml",
+      "source": null,
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.59,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "onset_mode",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "trigger",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "character",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "aggravating",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "relieving",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "function_impact",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "sleep_affected",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "prior_episodes",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 12,
+      "critical_ok": 12
+    },
+    {
+      "id": "S002",
+      "family": "F01_left_lbp_after_lifting",
+      "split": "dev",
+      "category": "missing_info",
+      "title": "只写了“腰疼”，绝大多数问题答“不清楚”——系统必须保持未知",
+      "path": "eval/scenarios/dev/S002.yaml",
+      "source": null,
+      "questions_asked": 12,
+      "question_metrics": {
+        "screens_shown": 12,
+        "items_shown": 19,
+        "items_answered": 19,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 11
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.44,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_uncertain_red_flag",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_uncertain_red_flag"
+      ],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 11
+    },
+    {
+      "id": "S003",
+      "family": "F01_left_lbp_after_lifting",
+      "split": "dev",
+      "category": "negation",
+      "title": "原话里一口气否认多项（腿不麻/有劲/没发烧/大小便都正常…），表单不再重复回答",
+      "path": "eval/scenarios/dev/S003.yaml",
+      "source": null,
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.4,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "trigger",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "character",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "prior_episodes",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "onset_mode",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "function_impact",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "sleep_affected",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 12,
+      "critical_ok": 12
+    },
+    {
+      "id": "S004",
+      "family": "F01_left_lbp_after_lifting",
+      "split": "dev",
+      "category": "many_skips",
+      "title": "几乎每题都跳过——跳过必须记为“已问未答”，不能变成否认",
+      "path": "eval/scenarios/dev/S004.yaml",
+      "source": null,
+      "questions_asked": 12,
+      "question_metrics": {
+        "screens_shown": 12,
+        "items_shown": 19,
+        "items_answered": 19,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 11
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.43,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "onset_mode",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "trigger",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_uncertain_red_flag",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_uncertain_red_flag"
+      ],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 11
+    },
+    {
+      "id": "S005",
+      "family": "F02_right_lbp_radiating_driver",
+      "split": "dev",
+      "category": "contradiction",
+      "title": "身体图误点左侧、原话说右边——必须澄清；澄清后主要侧别为右",
+      "path": "eval/scenarios/dev/S005.yaml",
+      "source": null,
+      "questions_asked": 11,
+      "question_metrics": {
+        "screens_shown": 11,
+        "items_shown": 18,
+        "items_answered": 18,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 10
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.44,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E8_misunderstanding",
+          "key": "pain_side",
+          "detail": "期望值 right，系统值 left",
+          "severity": "critical"
+        },
+        {
+          "code": "E8_misunderstanding",
+          "key": "pain_regions",
+          "detail": "期望值 ['lower_back_right']，系统值 ['lower_back_left']",
+          "severity": "critical"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "aggravating",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "onset_mode",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "trigger",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "function_impact",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "sleep_affected",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E7_conflict_not_surfaced",
+          "key": "pain_side",
+          "detail": "期望的矛盾既未澄清也未呈现",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 2,
+      "pass": false,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 9
+    },
+    {
+      "id": "S006",
+      "family": "F02_right_lbp_radiating_driver",
+      "split": "dev",
+      "category": "contradiction",
+      "title": "原话前后时间矛盾：半年老问题 vs 前天突然又疼——需澄清本次起病时间",
+      "path": "eval/scenarios/dev/S006.yaml",
+      "source": null,
+      "questions_asked": 11,
+      "question_metrics": {
+        "screens_shown": 11,
+        "items_shown": 18,
+        "items_answered": 18,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 10
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.33,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "onset_mode",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "trigger",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E7_conflict_not_surfaced",
+          "key": "onset_timing",
+          "detail": "期望的矛盾既未澄清也未呈现",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 11
+    },
+    {
+      "id": "S007",
+      "family": "F02_right_lbp_radiating_driver",
+      "split": "dev",
+      "category": "contradiction",
+      "title": "原话先说腿不麻、后说开长途时脚好像有点麻——矛盾需澄清，结果记为不确定",
+      "path": "eval/scenarios/dev/S007.yaml",
+      "source": null,
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.33,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E7_conflict_not_surfaced",
+          "key": "leg_numbness",
+          "detail": "期望的矛盾既未澄清也未呈现",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 11
+    },
+    {
+      "id": "S008",
+      "family": "F02_right_lbp_radiating_driver",
+      "split": "dev",
+      "category": "normal",
+      "title": "右腰痛放射到右臀和右大腿后侧，原话给出疼痛评分",
+      "path": "eval/scenarios/dev/S008.yaml",
+      "source": null,
+      "questions_asked": 11,
+      "question_metrics": {
+        "screens_shown": 11,
+        "items_shown": 18,
+        "items_answered": 18,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 10
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.39,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "onset_mode",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "trigger",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "aggravating",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "sleep_affected",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 11
+    },
+    {
+      "id": "S009",
+      "family": "F03_central_lbp_medication_request",
+      "split": "dev",
+      "category": "medication_request",
+      "title": "原话要求开止痛药和膏药——系统只记录，不得生成任何开药/用药文字",
+      "path": "eval/scenarios/dev/S009.yaml",
+      "source": null,
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.36,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "current_medication",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 11
+    },
+    {
+      "id": "S010",
+      "family": "F03_central_lbp_medication_request",
+      "split": "dev",
+      "category": "medication_request",
+      "title": "原话问“布洛芬能不能加量”，表单如实记录当前用药——摘要不得出现加量/药名建议",
+      "path": "eval/scenarios/dev/S010.yaml",
+      "source": null,
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.35,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "onset_mode",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "trigger",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "aggravating",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "relieving",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "function_impact",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "sleep_affected",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "prior_episodes",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "current_medication",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "patient_concern",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 12,
+      "critical_ok": 12
+    },
+    {
+      "id": "S011",
+      "family": "F03_central_lbp_medication_request",
+      "split": "dev",
+      "category": "hedged",
+      "title": "“左腿好像有点麻”“大小便好像也没什么问题”——模糊表达应记为不确定，不能写成有或没有",
+      "path": "eval/scenarios/dev/S011.yaml",
+      "source": null,
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.33,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10
+    },
+    {
+      "id": "S012",
+      "family": "F03_central_lbp_medication_request",
+      "split": "dev",
+      "category": "normal",
+      "title": "腰部正中痛两个月，慢性、无诱因、无放射、无红旗",
+      "path": "eval/scenarios/dev/S012.yaml",
+      "source": null,
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.39,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "onset_mode",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "trigger",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "aggravating",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "relieving",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "character",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "function_impact",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "sleep_affected",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "prior_episodes",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "current_medication",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 12,
+      "critical_ok": 12
+    },
+    {
+      "id": "S013",
+      "family": "F04_pregnant_lbp_out_of_scope",
+      "split": "dev",
+      "category": "out_of_scope",
+      "title": "原话自述怀孕七个多月——超出协议适用范围，系统当前无法识别",
+      "path": "eval/scenarios/dev/S013.yaml",
+      "source": null,
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.33,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "character",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "aggravating",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "sleep_affected",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E4_missed_escalation",
+          "key": "rf_out_of_scope",
+          "detail": "期望触发的红旗未触发",
+          "severity": "critical"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 1,
+      "pass": false,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 11
+    },
+    {
+      "id": "S014",
+      "family": "F04_pregnant_lbp_out_of_scope",
+      "split": "dev",
+      "category": "out_of_scope",
+      "title": "孕期 + 模糊表达：“右边好像更明显”“腿好像有点麻”",
+      "path": "eval/scenarios/dev/S014.yaml",
+      "source": null,
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.32,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "character",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E4_missed_escalation",
+          "key": "rf_out_of_scope",
+          "detail": "期望触发的红旗未触发",
+          "severity": "critical"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 1,
+      "pass": false,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10
+    },
+    {
+      "id": "S015",
+      "family": "F04_pregnant_lbp_out_of_scope",
+      "split": "dev",
+      "category": "missing_info",
+      "title": "孕期 + 信息极少：只写“怀孕了，腰疼”，其余答不清楚",
+      "path": "eval/scenarios/dev/S015.yaml",
+      "source": null,
+      "questions_asked": 12,
+      "question_metrics": {
+        "screens_shown": 12,
+        "items_shown": 19,
+        "items_answered": 19,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 11
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.35,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E4_missed_escalation",
+          "key": "rf_out_of_scope",
+          "detail": "期望触发的红旗未触发",
+          "severity": "critical"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_uncertain_red_flag",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 1,
+      "pass": false,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_uncertain_red_flag"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10
+    },
+    {
+      "id": "S016",
+      "family": "F04_pregnant_lbp_out_of_scope",
+      "split": "dev",
+      "category": "negation",
+      "title": "孕期 + 否定表达：“腿不麻也不没劲，大小便正常，没发烧没摔过”",
+      "path": "eval/scenarios/dev/S016.yaml",
+      "source": null,
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.36,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "character",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E4_missed_escalation",
+          "key": "rf_out_of_scope",
+          "detail": "期望触发的红旗未触发",
+          "severity": "critical"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 1,
+      "pass": false,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10
+    },
+    {
+      "id": "S017",
+      "family": "F05_chronic_lbp_cauda_equina_flags",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "原话提到“这两天小便憋不住”——必须立即提示并生成紧急任务",
+      "path": "eval/scenarios/dev/S017.yaml",
+      "source": null,
+      "questions_asked": 1,
+      "question_metrics": {
+        "screens_shown": 1,
+        "items_shown": 8,
+        "items_answered": 8,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1
+      },
+      "confirm_blocked": null,
+      "urgent_stop": true,
+      "provider_used": null,
+      "seconds": 0.13,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [],
+      "infos": [
+        {
+          "code": "S1_not_asked_after_urgent_stop",
+          "key": "leg_numbness",
+          "detail": "紧急终止后未再问"
+        },
+        {
+          "code": "S1_not_asked_after_urgent_stop",
+          "key": "course",
+          "detail": "紧急终止后未再问"
+        },
+        {
+          "code": "S1_not_asked_after_urgent_stop",
+          "key": "onset_timing",
+          "detail": "紧急终止后未再问"
+        },
+        {
+          "code": "S1_not_asked_after_urgent_stop",
+          "key": "severity_now",
+          "detail": "紧急终止后未再问"
+        }
+      ],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_bladder_bowel"
+      ],
+      "verification_passed": true,
+      "critical_gt": 7,
+      "critical_ok": 7
+    },
+    {
+      "id": "S018",
+      "family": "F05_chronic_lbp_cauda_equina_flags",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "原话只说“屁股那一片木木的”，表单明确回答会阴发麻——必须触发 rf_saddle",
+      "path": "eval/scenarios/dev/S018.yaml",
+      "source": null,
+      "questions_asked": 1,
+      "question_metrics": {
+        "screens_shown": 1,
+        "items_shown": 8,
+        "items_answered": 8,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1
+      },
+      "confirm_blocked": null,
+      "urgent_stop": true,
+      "provider_used": null,
+      "seconds": 0.12,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [],
+      "infos": [
+        {
+          "code": "S1_not_asked_after_urgent_stop",
+          "key": "leg_numbness",
+          "detail": "紧急终止后未再问"
+        },
+        {
+          "code": "S1_not_asked_after_urgent_stop",
+          "key": "onset_timing",
+          "detail": "紧急终止后未再问"
+        },
+        {
+          "code": "S1_not_asked_after_urgent_stop",
+          "key": "severity_now",
+          "detail": "紧急终止后未再问"
+        },
+        {
+          "code": "S1_not_asked_after_urgent_stop",
+          "key": "course",
+          "detail": "紧急终止后未再问"
+        }
+      ],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_saddle"
+      ],
+      "verification_passed": true,
+      "critical_gt": 7,
+      "critical_ok": 7
+    },
+    {
+      "id": "S019",
+      "family": "F05_chronic_lbp_cauda_equina_flags",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "“好像有点憋不住尿，说不清”——红旗事实不确定，须生成人工复核任务",
+      "path": "eval/scenarios/dev/S019.yaml",
+      "source": null,
+      "questions_asked": 11,
+      "question_metrics": {
+        "screens_shown": 11,
+        "items_shown": 18,
+        "items_answered": 18,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 10
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.4,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_no_improvement",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_uncertain_red_flag",
+        "rf_no_improvement"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10
+    },
+    {
+      "id": "S020",
+      "family": "F05_chronic_lbp_cauda_equina_flags",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "左腿没劲且一天比一天更没劲、上楼梯抬不起来——进行性无力须当天处理",
+      "path": "eval/scenarios/dev/S020.yaml",
+      "source": null,
+      "questions_asked": 12,
+      "question_metrics": {
+        "screens_shown": 12,
+        "items_shown": 19,
+        "items_answered": 19,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 11
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.39,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_no_improvement",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_progressive_weakness",
+        "rf_no_improvement"
+      ],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 11
+    },
+    {
+      "id": "S021",
+      "family": "F06_fall_from_ladder_trauma",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "昨天摔了一跤、疼痛 8 分——外伤 + 明显疼痛须当天处理",
+      "path": "eval/scenarios/dev/S021.yaml",
+      "source": null,
+      "questions_asked": 12,
+      "question_metrics": {
+        "screens_shown": 12,
+        "items_shown": 19,
+        "items_answered": 19,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 11
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.39,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "trigger",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "onset_mode",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "function_impact",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_trauma_severe"
+      ],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 11
+    },
+    {
+      "id": "S022",
+      "family": "F06_fall_from_ladder_trauma",
+      "split": "dev",
+      "category": "normal",
+      "title": "前天摔了一下但只有 3 分痛——有外伤事实，但不满足升级条件，不应误升级",
+      "path": "eval/scenarios/dev/S022.yaml",
+      "source": null,
+      "questions_asked": 12,
+      "question_metrics": {
+        "screens_shown": 12,
+        "items_shown": 19,
+        "items_answered": 19,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 11
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.44,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "trigger",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10
+    },
+    {
+      "id": "S023",
+      "family": "F06_fall_from_ladder_trauma",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "上周摔下来后腰痛 7 分，这两天又发烧——外伤与发热两条红旗都要触发",
+      "path": "eval/scenarios/dev/S023.yaml",
+      "source": null,
+      "questions_asked": 12,
+      "question_metrics": {
+        "screens_shown": 12,
+        "items_shown": 19,
+        "items_answered": 19,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 11
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.43,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "trigger",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_fever",
+        "rf_trauma_severe"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10
+    },
+    {
+      "id": "S024",
+      "family": "F06_fall_from_ladder_trauma",
+      "split": "dev",
+      "category": "many_skips",
+      "title": "摔了一跤后腰疼，但疼痛程度等几乎全部跳过——外伤规则因程度未知无法触发",
+      "path": "eval/scenarios/dev/S024.yaml",
+      "source": null,
+      "questions_asked": 14,
+      "question_metrics": {
+        "screens_shown": 14,
+        "items_shown": 21,
+        "items_answered": 21,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 13
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.45,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "trigger",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_uncertain_red_flag",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_uncertain_red_flag"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10
+    },
+    {
+      "id": "S025",
+      "family": "F07_breast_cancer_history_back_pain",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "原话提到三年前乳腺癌、做过化疗——肿瘤病史须生成医生复核任务",
+      "path": "eval/scenarios/dev/S025.yaml",
+      "source": null,
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.36,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "onset_mode",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_no_improvement",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_cancer_with_features",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_weight_loss_or_cancer",
+        "rf_cancer_with_features",
+        "rf_no_improvement"
+      ],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 11
+    },
+    {
+      "id": "S026",
+      "family": "F07_breast_cancer_history_back_pain",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "两个月瘦了七八斤、夜间更痛——体重下降须生成复核任务；肿瘤史未被问到时必须保持未知",
+      "path": "eval/scenarios/dev/S026.yaml",
+      "source": null,
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.32,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "aggravating",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "onset_mode",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_no_improvement",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_weight_loss_or_cancer",
+        "rf_no_improvement"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10
+    },
+    {
+      "id": "S027",
+      "family": "F07_breast_cancer_history_back_pain",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "夜里经常疼醒 + 表单确认肿瘤史——须生成复核任务",
+      "path": "eval/scenarios/dev/S027.yaml",
+      "source": null,
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.34,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "aggravating",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "relieving",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "sleep_affected",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_no_improvement",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_cancer_with_features",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_weight_loss_or_cancer",
+        "rf_cancer_with_features",
+        "rf_no_improvement"
+      ],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 11
+    },
+    {
+      "id": "S028",
+      "family": "F07_breast_cancer_history_back_pain",
+      "split": "dev",
+      "category": "negation",
+      "title": "原话逐项否认体重下降/夜间痛/肿瘤史/发热——不应触发任何红旗",
+      "path": "eval/scenarios/dev/S028.yaml",
+      "source": null,
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.33,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 11
+    },
+    {
+      "id": "S029",
+      "family": "F08_recurrent_lbp_new_numbness",
+      "split": "dev",
+      "category": "new_symptom",
+      "title": "老毛病腰痛，这次多了左小腿发麻——既往发作与新增表现都要记录",
+      "path": "eval/scenarios/dev/S029.yaml",
+      "source": null,
+      "questions_asked": 11,
+      "question_metrics": {
+        "screens_shown": 11,
+        "items_shown": 18,
+        "items_answered": 18,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 10
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.35,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "prior_episodes",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 11
+    },
+    {
+      "id": "S030",
+      "family": "F08_recurrent_lbp_new_numbness",
+      "split": "dev",
+      "category": "hedged",
+      "title": "“左边小腿肚子好像有点麻，也说不太清”——记为不确定",
+      "path": "eval/scenarios/dev/S030.yaml",
+      "source": null,
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.34,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "prior_episodes",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10
+    },
+    {
+      "id": "S031",
+      "family": "F08_recurrent_lbp_new_numbness",
+      "split": "dev",
+      "category": "missing_info",
+      "title": "只写“老毛病了，腿麻”，其余不清楚",
+      "path": "eval/scenarios/dev/S031.yaml",
+      "source": null,
+      "questions_asked": 12,
+      "question_metrics": {
+        "screens_shown": 12,
+        "items_shown": 19,
+        "items_answered": 19,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 11
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.35,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "prior_episodes",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_uncertain_red_flag",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_uncertain_red_flag"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10
+    },
+    {
+      "id": "S032",
+      "family": "F08_recurrent_lbp_new_numbness",
+      "split": "dev",
+      "category": "negation",
+      "title": "否定表达带时间限定：“以前从来没麻过”不是否认现在麻；“没有摔倒”只否认外伤",
+      "path": "eval/scenarios/dev/S032.yaml",
+      "source": null,
+      "questions_asked": 11,
+      "question_metrics": {
+        "screens_shown": 11,
+        "items_shown": 18,
+        "items_answered": 18,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 10
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.35,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "prior_episodes",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "trigger",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "onset_mode",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10
+    },
+    {
+      "id": "S033",
+      "family": "F09_followup_right_lbp_sitting",
+      "split": "dev",
+      "category": "follow_up",
+      "title": "随访：明显好转，无新情况，清楚医嘱且已执行",
+      "path": "eval/scenarios/dev/S033.yaml",
+      "source": null,
+      "questions_asked": 5,
+      "question_metrics": {
+        "screens_shown": 5,
+        "items_shown": 10,
+        "items_answered": 10,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 4
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.61,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "fu_change_overall",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "severity_now",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "course",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "leg_numbness",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "radiation_present",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "function_impact",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "sleep_affected",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "fu_plan_understood",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "fu_plan_adherence",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 3,
+      "pass": false,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 5
+    },
+    {
+      "id": "S034",
+      "family": "F09_followup_right_lbp_sitting",
+      "split": "dev",
+      "category": "follow_up",
+      "title": "随访：没有变化，部分执行医嘱",
+      "path": "eval/scenarios/dev/S034.yaml",
+      "source": null,
+      "questions_asked": 5,
+      "question_metrics": {
+        "screens_shown": 5,
+        "items_shown": 10,
+        "items_answered": 10,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 4
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.56,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "fu_change_overall",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "course",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "severity_now",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "leg_numbness",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "radiation_present",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "fu_plan_understood",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "fu_plan_adherence",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "character",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 3,
+      "pass": false,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 5
+    },
+    {
+      "id": "S035",
+      "family": "F09_followup_right_lbp_sitting",
+      "split": "dev",
+      "category": "new_symptom",
+      "title": "随访：加重 + 新出现放射到右臀和右腿发麻",
+      "path": "eval/scenarios/dev/S035.yaml",
+      "source": null,
+      "questions_asked": 6,
+      "question_metrics": {
+        "screens_shown": 6,
+        "items_shown": 11,
+        "items_answered": 11,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 5
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.6,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "fu_change_overall",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "leg_numbness",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "severity_now",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "course",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "function_impact",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "sleep_affected",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 2,
+      "pass": false,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 6
+    },
+    {
+      "id": "S036",
+      "family": "F09_followup_right_lbp_sitting",
+      "split": "dev",
+      "category": "follow_up",
+      "title": "随访：不清楚医嘱、基本没执行——应记为“不清楚”，触发门诊联系流程",
+      "path": "eval/scenarios/dev/S036.yaml",
+      "source": null,
+      "questions_asked": 5,
+      "question_metrics": {
+        "screens_shown": 5,
+        "items_shown": 10,
+        "items_answered": 10,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 4
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.6,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "fu_plan_understood",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "fu_plan_adherence",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "fu_change_overall",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "course",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "severity_now",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "leg_numbness",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 2,
+      "pass": false,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 7,
+      "critical_ok": 5
+    },
+    {
+      "id": "S037",
+      "family": "F10_followup_left_lbp_radiating",
+      "split": "dev",
+      "category": "follow_up",
+      "title": "随访：没变化，医生安排的拉伸没做",
+      "path": "eval/scenarios/dev/S037.yaml",
+      "source": null,
+      "questions_asked": 5,
+      "question_metrics": {
+        "screens_shown": 5,
+        "items_shown": 10,
+        "items_answered": 10,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 4
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.6,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "fu_plan_adherence",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "fu_plan_understood",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "fu_change_overall",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "course",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "severity_now",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "leg_numbness",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 2,
+      "pass": false,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 6
+    },
+    {
+      "id": "S038",
+      "family": "F10_followup_left_lbp_radiating",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "随访中出现红旗：小便憋不住 + 左腿没劲——必须立即提示并生成紧急任务",
+      "path": "eval/scenarios/dev/S038.yaml",
+      "source": null,
+      "questions_asked": 1,
+      "question_metrics": {
+        "screens_shown": 1,
+        "items_shown": 6,
+        "items_answered": 6,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1
+      },
+      "confirm_blocked": null,
+      "urgent_stop": true,
+      "provider_used": null,
+      "seconds": 0.55,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [],
+      "infos": [
+        {
+          "code": "S1_not_asked_after_urgent_stop",
+          "key": "fu_change_overall",
+          "detail": "紧急终止后未再问"
+        },
+        {
+          "code": "S1_not_asked_after_urgent_stop",
+          "key": "fu_new_symptom",
+          "detail": "紧急终止后未再问"
+        },
+        {
+          "code": "S1_not_asked_after_urgent_stop",
+          "key": "severity_now",
+          "detail": "紧急终止后未再问"
+        },
+        {
+          "code": "S1_not_asked_after_urgent_stop",
+          "key": "leg_numbness",
+          "detail": "紧急终止后未再问"
+        },
+        {
+          "code": "S1_not_asked_after_urgent_stop",
+          "key": "course",
+          "detail": "紧急终止后未再问"
+        }
+      ],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_bladder_bowel"
+      ],
+      "verification_passed": true,
+      "critical_gt": 5,
+      "critical_ok": 5
+    },
+    {
+      "id": "S039",
+      "family": "F10_followup_left_lbp_radiating",
+      "split": "dev",
+      "category": "hedged",
+      "title": "随访：好像好一点，但“左腿好像有点发软，不太确定”——无力不确定须人工复核",
+      "path": "eval/scenarios/dev/S039.yaml",
+      "source": null,
+      "questions_asked": 6,
+      "question_metrics": {
+        "screens_shown": 6,
+        "items_shown": 11,
+        "items_answered": 11,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 5
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.63,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "fu_change_overall",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "severity_now",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "leg_numbness",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 2,
+      "pass": false,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_uncertain_red_flag"
+      ],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 6
+    },
+    {
+      "id": "S040",
+      "family": "F10_followup_left_lbp_radiating",
+      "split": "dev",
+      "category": "many_skips",
+      "title": "随访：只写“还行”，除疼痛程度和大小便外全部跳过",
+      "path": "eval/scenarios/dev/S040.yaml",
+      "source": null,
+      "questions_asked": 6,
+      "question_metrics": {
+        "screens_shown": 6,
+        "items_shown": 11,
+        "items_answered": 11,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 5
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": null,
+      "seconds": 0.62,
+      "verify_log": [],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "severity_now",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_uncertain_red_flag",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 1,
+      "pass": false,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_uncertain_red_flag"
+      ],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 7
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+<section id="evidence" style="background:#F7F6F2; color:#16233B; font-family:'Noto Sans SC', Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; gap:28px">
+  <h2 style="font-family:'Noto Serif SC', Georgia, serif; font-size:60px; font-weight:700; line-height:1.15">我们怎么证明它有用</h2>
+  <p style="font-size:28px; line-height:1.45; color:#3E4A5C">不报诊断准确率（我们不诊断）。只看关键信息漏没漏、有没有编造、红旗有没有漏升级，并分三层报。</p>
+  <table style="font-size:24px; color:#16233B; font-family:'Noto Sans SC', Arial, sans-serif">
+    <tr style="background:#E4E9EF"><th style="width:30%">证据（均为模拟 · 待临床）</th><th style="width:26%">模型刚读完原话</th><th style="width:22%">粗心患者：核对一律点"对"</th><th style="width:22%">认真患者：知道真值后核对</th></tr>
+    <tr><td>80 个模拟场景（离线词表）</td><td>读错 2 处，其余为 0</td><td>80 / 80 无关键错误</td><td>80 / 80 无关键错误</td></tr>
+    <tr style="background:#FBFAF6"><td>20 句刁钻口语（离线词表，曾按此集修过）</td><td>漏抽 21 · 编造 2 · 读错 4 · 红旗漏识别 5</td><td>17 / 20 无关键错误</td><td>20 / 20 无关键错误</td></tr>
+    <tr><td>真实模型（Claude / 国产模型）</td><td>未进行（接口与自检已就绪）</td><td>未进行</td><td>未进行</td></tr>
+    <tr style="background:#FBFAF6"><td>10 人模拟使用测试（两种植入错抽）</td><td>未进行</td><td>真人点"不对"的比例：显眼型、隐蔽型分开报；未进行</td><td>未进行</td></tr>
+    <tr><td>医生审核协议</td><td>已决定 0 / 146 条</td><td>—</td><td>—</td></tr>
+  </table>
+  <p style="font-size:24px; line-height:1.5; color:#5B6475"><span style="color:#16233B"><b>公平对照</b>（同一位如实作答的模拟患者，80 个场景）：读原话 80 / 80；只发问卷 68 / 80，漏报非紧急红旗 10 次、7 处矛盾发现不了，紧急红旗两组都没漏。</span>认真患者等于用答案核对答案，只证明流程能闭合；真人会不会抓到错抽，看 10 人测试。场景未经临床审核，只是开发基线。</p>
+  <p style="position:absolute; left:128px; bottom:64px; width:1300px; font-size:24px; color:#5B6475">体迹 AI · 德邻杯 2026 BP v1.2 · 演示数据均为模拟，非真实患者</p>
+  <p style="position:absolute; right:128px; bottom:64px; width:200px; font-size:24px; color:#5B6475; text-align:right">5 / 11</p>
+  <aside>数字全部来自 eval/results/证据表.md，由 make evidence 自动生成。三层口径：模型刚读完原话，是患者完全不核对的最坏情况；粗心患者核对时一律点"对"，错抽和编造会留下，漏抽仍由问卷兜住；认真患者知道标准答案，只能证明流程闭合。离线词表在压力集上的数字是修过之后的，只作兜底基线。公平对照：两组用同一位如实作答的模拟患者；只发问卷时，排在后面的肿瘤史等题受 16 题上限问不到，"好像有"这类不确定表达记不下来，身体图与原话的矛盾也发现不了。旧的"只发问卷漏报 23 次"让模拟患者对红旗题答"不清楚"，不公平，已撤下。10 人测试的两种植入：卡 A 显眼型只代表上限，卡 B 隐蔽型更接近真实错抽，每种约 5 例，报 95% 区间。真实模型、10 人测试和医生审核三行，做完后按证据表替换；做不完就保持"未进行"或删掉，不要编。</aside>
+</section>

@@ -1,0 +1,38 @@
+<section id="product" style="background:#F7F6F2; color:#16233B; font-family:'Noto Sans SC', Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; gap:32px">
+  <h2 style="font-family:'Noto Serif SC', Georgia, serif; font-size:60px; font-weight:700; line-height:1.15">产品改变了什么</h2>
+  <div style="display:flex; gap:12px; align-items:center">
+    <p style="font-size:26px; font-weight:700; background:#E8F0FA; color:#174B83; padding:14px 20px; border-radius:12px">身体图 + 原话</p>
+    <p style="font-size:30px; color:#7A8496">→</p>
+    <p style="font-size:26px; font-weight:700; background:#E8F0FA; color:#174B83; padding:14px 20px; border-radius:12px">事实（六种状态）</p>
+    <p style="font-size:30px; color:#7A8496">→</p>
+    <p style="font-size:26px; font-weight:700; background:#1D5FA5; color:#F7F6F2; padding:14px 20px; border-radius:12px">一键核对</p>
+    <p style="font-size:30px; color:#7A8496">→</p>
+    <p style="font-size:26px; font-weight:700; background:#E8F0FA; color:#174B83; padding:14px 20px; border-radius:12px">可回溯摘要</p>
+    <p style="font-size:30px; color:#7A8496">→</p>
+    <p style="font-size:26px; font-weight:700; background:#E8F0FA; color:#174B83; padding:14px 20px; border-radius:12px">医生确认</p>
+    <p style="font-size:30px; color:#7A8496">→</p>
+    <p style="font-size:26px; font-weight:700; background:#E8F0FA; color:#174B83; padding:14px 20px; border-radius:12px">随访变化卡</p>
+  </div>
+  <div style="display:flex; gap:40px; align-items:start">
+    <div style="flex:1; display:flex; flex-direction:column; gap:20px">
+      <ol style="font-size:28px; line-height:1.55; color:#3E4A5C">
+        <li><b>未问 ≠ 没有</b>：没答的题以"未知"进摘要</li>
+        <li><b>矛盾不自动取其一</b>：身体图与原话不一致，先请患者澄清</li>
+        <li><b>漏抽由问卷兜住，错抽由核对兜住</b></li>
+        <li><b>紧急时不再让患者答题</b>：提示并终止问询</li>
+        <li><b>任务由人推进</b>；每条事实都能点回患者原话</li>
+      </ol>
+      <p style="font-size:24px; color:#5B6475; line-height:1.5">模型只做抽取与叙述；问什么、何时升级、给患者看什么，由医生定义的临床协议决定。以上五条都已写进代码与 54 项自动测试；真实模型失败时自动退回离线词表，界面标出。</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px; width:812px">
+      <div style="display:flex; background:#E4E9EF; border-radius:16px; padding:16px">
+        <img src="/_blob/a6e075352f1279131d7fdd76978fd327" alt="医生端接诊速览：紧急程度、一句话主诉、红旗、面诊时要当面确认的三件事" style="width:780px; height:320px; object-fit:contain">
+      </div>
+      <p style="font-size:26px; font-weight:700; color:#16233B; line-height:1.45">医生打开记录，一屏看完：紧急程度、一句话主诉、面诊要当面确认的三件事。</p>
+      <p style="font-size:24px; color:#5B6475; line-height:1.5">另有病历初稿：只用患者确认过的信息拼成主诉与现病史，医生核对后复制到病历系统。AI 帮医生定位的是"先看谁、该问什么"，不是"什么病"。原话说有、核对时又否认的红旗，仍排最前并标"待电话核实"，病历初稿写"需核实"，不写"否认"。</p>
+    </div>
+  </div>
+  <p style="position:absolute; left:128px; bottom:64px; width:1300px; font-size:24px; color:#5B6475">体迹 AI · 德邻杯 2026 BP v1.2 · 演示数据均为模拟，非真实患者</p>
+  <p style="position:absolute; right:128px; bottom:64px; width:200px; font-size:24px; color:#5B6475; text-align:right">3 / 11</p>
+  <aside>先讲流程，再讲五条原则。重点是"一键核对"：模型整理的东西我们不直接信，关键的几条先让患者确认，说不对的会被重新直接问。右图是医生端的接诊速览：列表按紧急程度排好，打开一条先看到紧急程度、一句话主诉和面诊要当面确认的三件事；细节默认收起。病历初稿只用患者确认过的信息，不含诊断。被问到"AI 能不能直接判断是什么病"：我们让 AI 定位"先看谁、该问什么"，诊断留给医生；给患者看"可能是什么病"最容易越过"AI 不得替代医师"的边界。</aside>
+</section>

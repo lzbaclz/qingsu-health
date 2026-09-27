@@ -1,0 +1,23 @@
+id: K07
+family: K07_side_conflict
+split: knee
+protocol_id: knee_adult_v0.1
+title: 身体图点了左膝、原话说右膝 → 澄清后以右为准，左侧标记同步清除
+persona: 33 岁程序员（模拟）
+kind: pre_visit
+category: contradiction
+inputs:
+  body_map: [{region_id: knee_left_front, kind: primary}]
+  free_text: "右边膝盖前几天开始疼，走路没问题。"
+  clarifications: {pain_side: keep_second}
+  answers: {k_redness: "no", k_fever: "no", k_calf: "no", k_neuro: "no", k_trauma: "no", k_severity: 4}
+ground_truth:
+  facts:
+    pain_side: {status: present, value: right}
+    pain_regions: {status: present, value: [knee_right_front]}
+    weight_bearing: {status: present, value: normal}
+    severity_now: {status: present, value: 4}
+  expected_alerts: []
+  expected_conflicts: [pain_side]
+notes: "复用腰背痛协议里写好的'澄清侧别后同步部位'逻辑，未改代码"
+review: {clinical_reviewed_by: null, reviewed_at: null}

@@ -1,0 +1,50 @@
+id: S058
+family: F15_chronic_lbp_bilateral_numbness_flags
+split: locked
+title: "原话提到“会阴部发麻”——必须立即提示并生成紧急任务"
+persona: "63 岁退休工人（模拟，非真实患者）"
+kind: pre_visit
+category: red_flag
+inputs:
+  body_map:
+    - {region_id: lower_back_center, kind: primary}
+    - {region_id: thigh_left_back, kind: radiation}
+    - {region_id: thigh_right_back, kind: radiation}
+  free_text: "腰痛半年，两腿发麻，最近会阴部发麻，坐着像垫了东西。"
+  answers:
+    q_bladder_bowel: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_severity_now: 7
+    q_course: worsening
+    q_onset_mode: gradual
+    q_trigger: none_known
+    q_character: [aching, dull]
+    q_aggravating: [walking, standing]
+    q_relieving: [rest]
+    q_function_impact: moderate
+    q_sleep_affected: "yes"
+    q_night_pain: "no"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    saddle_numbness: {status: present}
+    leg_numbness: {status: present}
+    onset_timing: {status: present, value: over_12_weeks}
+    radiation_present: {status: present}
+    severity_now: {status: present, value: 7}
+    bladder_bowel_change: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    pain_side: {status: present, value: center}
+    course: {status: present, value: worsening}
+  must_be_unknown: []
+  expected_alerts: [rf_saddle]
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

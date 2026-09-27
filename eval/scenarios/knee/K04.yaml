@@ -1,0 +1,19 @@
+id: K04
+family: K04_calf_swelling
+split: knee
+protocol_id: knee_adult_v0.1
+title: 长途飞行后腘窝痛 + 小腿又肿又疼 → 紧急提示
+persona: 45 岁销售（模拟）
+kind: pre_visit
+category: red_flag
+inputs:
+  body_map: [{region_id: knee_left_back, kind: primary}]
+  free_text: "刚坐了十几个小时飞机，左边腿弯后面疼，小腿又肿又疼。"
+  answers: {}
+ground_truth:
+  facts:
+    calf_swelling_pain: {status: present}
+    pain_side: {status: present, value: left}
+  expected_alerts: [kf_dvt]
+notes: "待临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

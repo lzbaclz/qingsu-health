@@ -1,0 +1,67 @@
+{
+  "application_version": "0.3.1",
+  "protocol_version": "0.2.6",
+  "backend": {
+    "pytest_passed": 218,
+    "seconds": 10.19,
+    "junit": "v031-tests.xml"
+  },
+  "frontend": {
+    "build": "passed",
+    "lint": "passed",
+    "bundle": "index-D99ejgvb.js"
+  },
+  "protocol_reproduction": "final/protocol-reproducibility.json",
+  "make_seed": {
+    "result": "passed",
+    "database": "backend/.local/demo-v031-p026.db",
+    "credential_path": "backend/.local/demo-v031-p026-access.txt",
+    "credential_content_in_report": false
+  },
+  "limitations": [
+    "synthetic development data only",
+    "does not establish clinical efficacy or real understanding",
+    "native 24-case run at protocol 0.2.5 shares identical inference inputs and code with 0.2.6; separate new-text-entry native check recorded",
+    "arbitrary native date picker not fully automated"
+  ],
+  "browser_dates": {
+    "status": "passed_via_explicit_today_yesterday_controls",
+    "first_date": "2026-09-26",
+    "second_date": "2026-09-27",
+    "values": [
+      15,
+      25
+    ],
+    "delta": 10,
+    "claim": "same goal and condition; self-report numeric difference only",
+    "native_arbitrary_date_picker": "not_automated_after_two_prior_unsuccessful_fill_attempts"
+  },
+  "current_flow_checks": {
+    "cases": 6,
+    "passed": 6,
+    "path": "v031-current-flows.json"
+  },
+  "native_new_text_entry": {
+    "protocol": "0.2.6",
+    "model": "gpt-oss:20b",
+    "calls": 2,
+    "errors": 0,
+    "raw": "final/native-followup-text.json",
+    "assessment": "final/native-followup-text-assessment.json",
+    "boundary": "the original checker conflated retaining a denial with requiring a same-key conflict; corrected assessment reads original evidence and does not rerun inference"
+  },
+  "native_code_snapshot": {
+    "matched_files": 63,
+    "total_files": 63,
+    "manifest": "final/native-source-verification.json"
+  },
+  "browser_new_text_entry": {
+    "protocol": "0.2.6",
+    "negative_safety_items_answered": 6,
+    "new_text": "今天才开始小便憋不住。",
+    "urgent_verification_shown": true,
+    "routine_questioning_stopped": true,
+    "screenshot": "final/new-text-urgent.jpg",
+    "external_call_made": false
+  }
+}

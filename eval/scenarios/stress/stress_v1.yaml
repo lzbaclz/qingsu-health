@@ -1,0 +1,222 @@
+# 口语压力集 v1：20 句协议词表之外的真实口语（模拟，非真实患者）
+# 目的：检验"默认演示模式到底有多 AI"，并比较离线词表与真实模型。
+# - 前 4 句（A1–A4）来自模拟评审附录 A；其余 16 句为新写，**不得**抄进模型提示词或协议词表（防止"教到考题"）。
+# - truth：患者的真实情况（临床应记录的事实）。status 为 unknown 表示"原话没说清，必须保持未知"。
+#   value_any：多个可接受值（任一即对）；multi_enum/body_regions 的 value 表示"至少包含"。
+# - traps：原话里有诱导但**不能**记为"有"的事实（编造陷阱）。
+# - expected_alerts：按协议 v0.1 应触发的红旗（原话 + 问卷兜底后）。
+# - forbidden_output_patterns：系统生成文字不得出现的内容（除协议越界规则外）。
+# 审核：全部待临床审核（review 字段为空）。
+protocol_id: lbp_adult_v0.1
+items:
+  - id: A1
+    source: review_appendix_A
+    tags: [colloquial, function]
+    text: "我腰特别难受，走两步就得歇会儿，屁股那块也跟着酸，晚上翻身疼得睁眼。"
+    truth:
+      aggravating: {status: present, value: [walking]}
+      sleep_affected: {status: present}
+      character: {status: present, value: [aching]}
+    traps: []
+    expected_alerts: []
+
+  - id: A2
+    source: review_appendix_A
+    tags: [red_flag, colloquial, temporal]
+    text: "上礼拜闪了一下腰，现在直不起来，右边屁股到脚后跟都是麻的，尿有点费劲。"
+    truth:
+      onset_timing: {status: present, value: days_4_to_14}
+      onset_mode: {status: present, value: sudden}
+      radiation_present: {status: present}
+      leg_numbness: {status: present}
+      bladder_bowel_change: {status: present}
+    traps: []
+    expected_alerts: [rf_bladder_bowel]
+
+  - id: A3
+    source: review_appendix_A
+    tags: [temporal, negation, medication]
+    text: "腰疼老毛病了，这回是搬花盆闹的，吃了两天芬必得好点，腿脚都利索没啥事。"
+    truth:
+      prior_episodes: {status: present}
+      trigger: {status: present, value: lifting}
+      current_medication: {status: present}
+      leg_weakness: {status: denied}
+      onset_timing: {status: unknown}
+    traps: [onset_timing]
+    expected_alerts: []
+    forbidden_output_patterns: ["芬必得"]
+
+  - id: A4
+    source: review_appendix_A
+    tags: [near_miss, colloquial]
+    text: "腰不疼了但是两条腿都软，走路像踩棉花，昨天差点摔了。"
+    truth:
+      leg_weakness: {status: present}
+      trauma_recent: {status: unknown}
+    traps: [trauma_recent]
+    expected_alerts: []
+    note: "协议 v0.1 没有'双侧/步态'事实；v0.2 AI 草案新增了 bilateral_leg_symptoms、gait_disturbance。"
+
+  - id: X05
+    source: new
+    tags: [red_flag, colloquial]
+    text: "解手的时候老觉得尿不干净，得等半天才出来，这几天腰也一直酸。"
+    truth:
+      bladder_bowel_change: {status: present}
+      character: {status: present, value: [aching]}
+    traps: []
+    expected_alerts: [rf_bladder_bowel]
+
+  - id: X06
+    source: new
+    tags: [red_flag, colloquial, location]
+    text: "坐马桶的时候屁股中间那块木木的，没什么感觉，腰这两天疼得厉害。"
+    truth:
+      saddle_numbness: {status: present}
+      onset_timing: {status: present, value: within_3_days}
+      leg_numbness: {status: unknown}
+    traps: [leg_numbness]
+    expected_alerts: [rf_saddle]
+
+  - id: X07
+    source: new
+    tags: [red_flag, colloquial]
+    text: "两条腿都没劲，上楼梯抬不起来，而且一天比一天厉害。"
+    truth:
+      leg_weakness: {status: present}
+      weakness_progressive: {status: present}
+    traps: []
+    expected_alerts: [rf_progressive_weakness]
+
+  - id: X08
+    source: new
+    tags: [red_flag, colloquial]
+    text: "身上一阵冷一阵热的，量了一下三十八度五，腰疼得翻不了身。"
+    truth:
+      fever: {status: present}
+    traps: []
+    expected_alerts: [rf_fever]
+
+  - id: X09
+    source: new
+    tags: [negation, temporal]
+    text: "以前从来没麻过，这两天左脚开始发麻，腰也疼。"
+    truth:
+      leg_numbness: {status: present}
+    traps: []
+    expected_alerts: []
+
+  - id: X10
+    source: new
+    tags: [temporal, negation]
+    text: "十年前摔过一次，这回没摔也没碰，就是早上起来腰就疼了，今天第三天。"
+    truth:
+      trauma_recent: {status: denied}
+      onset_timing: {status: present, value: within_3_days}
+    traps: []
+    expected_alerts: []
+
+  - id: X11
+    source: new
+    tags: [colloquial, temporal]
+    text: "腰杆子疼了大半个月，弯腰系鞋带的时候最明显，躺平了就好多了。"
+    truth:
+      onset_timing: {status: present, value_any: [weeks_2_to_6, days_4_to_14]}
+      aggravating: {status: present, value: [bending]}
+      relieving: {status: present, value: [rest]}
+    traps: []
+    expected_alerts: []
+
+  - id: X12
+    source: new
+    tags: [hedge, colloquial]
+    text: "说不上来是不是麻，就是右腿外侧有点木，腰那里胀得难受。"
+    truth:
+      leg_numbness: {status: uncertain}
+      character: {status: present, value: [aching]}
+    traps: []
+    expected_alerts: []
+
+  - id: X13
+    source: new
+    tags: [red_flag, history, temporal]
+    text: "前年做过乳腺癌手术，最近两个月腰疼，晚上睡着睡着就疼醒了。"
+    truth:
+      cancer_history: {status: present}
+      onset_timing: {status: present, value: weeks_6_to_12}
+      night_pain: {status: present}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+
+  - id: X14
+    source: new
+    tags: [red_flag, colloquial]
+    text: "这半年瘦了十几斤，也没减肥，腰背一直隐隐地疼。"
+    truth:
+      weight_loss: {status: present}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+
+  - id: X15
+    source: new
+    tags: [laterality, location]
+    body_map:
+      - {region_id: lower_back_center, kind: primary}
+    text: "腰正中间疼，往左边屁股和大腿后面窜，一直窜到小腿。"
+    truth:
+      pain_side: {status: present, value: center}
+      radiation_present: {status: present}
+      radiation_regions: {status: present, value: [buttock_left, thigh_left_back, calf_left]}
+    traps: []
+    expected_alerts: []
+
+  - id: X16
+    source: new
+    tags: [negation, colloquial]
+    text: "大小便都挺正常的，就是腰酸，坐办公室一坐一天。"
+    truth:
+      bladder_bowel_change: {status: denied}
+      character: {status: present, value: [aching]}
+    traps: []
+    expected_alerts: []
+
+  - id: X17
+    source: new
+    tags: [hedge, negation]
+    text: "腰疼，腿麻不麻我也说不好，反正没劲是没有的。"
+    truth:
+      leg_numbness: {status: uncertain}
+      leg_weakness: {status: denied}
+    traps: []
+    expected_alerts: []
+
+  - id: X18
+    source: new
+    tags: [temporal]
+    text: "开春以后腰就开始疼，到现在快四个月了，最近还越来越重。"
+    truth:
+      onset_timing: {status: present, value: over_12_weeks}
+      course: {status: present, value: worsening}
+    traps: []
+    expected_alerts: []
+
+  - id: X19
+    source: new
+    tags: [temporal, history]
+    text: "老寒腰了，每年冬天都犯，这次是前天晚上睡觉着凉以后开始的。"
+    truth:
+      prior_episodes: {status: present}
+      onset_timing: {status: present, value: within_3_days}
+    traps: []
+    expected_alerts: []
+
+  - id: X20
+    source: new
+    tags: [medication, temporal]
+    text: "腰疼一个礼拜了，能不能直接给我开点止痛药？布洛芬能不能一次吃两片？"
+    truth:
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: []
+    forbidden_output_patterns: ["布洛芬", "一次吃两片", "止痛药"]

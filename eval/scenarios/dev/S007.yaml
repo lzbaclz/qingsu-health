@@ -1,0 +1,53 @@
+id: S007
+family: F02_right_lbp_radiating_driver
+split: dev
+title: "原话先说腿不麻、后说开长途时脚好像有点麻——矛盾需澄清，结果记为不确定"
+persona: "48 岁长途货车司机（模拟，非真实患者）"
+kind: pre_visit
+category: contradiction
+inputs:
+  body_map:
+    - {region_id: lower_back_right, kind: primary}
+    - {region_id: thigh_right_back, kind: radiation}
+  free_text: "右边腰疼一个多月了，腿不麻。开长途的时候右脚好像有点麻。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_onset_mode: gradual
+    q_trigger: prolonged_sitting
+    q_leg_numbness: __unknown__
+    q_severity_now: 5
+    q_course: stable
+    q_character: [aching]
+    q_aggravating: [sitting]
+    q_relieving: [position]
+    q_function_impact: mild
+    q_sleep_affected: "no"
+    q_night_pain: "no"
+  clarifications: {leg_numbness: both}
+  corrections: []
+ground_truth:
+  facts:
+    pain_side: {status: present, value: right}
+    pain_regions: {status: present, value: [lower_back_right]}
+    onset_timing: {status: present, value: weeks_2_to_6}
+    radiation_present: {status: present}
+    radiation_regions: {status: present, value: [thigh_right_back]}
+    leg_numbness: {status: uncertain}
+    severity_now: {status: present, value: 5}
+    course: {status: present, value: stable}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+  must_be_unknown: []
+  expected_alerts: []
+  expected_conflicts: [leg_numbness]
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

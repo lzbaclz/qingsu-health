@@ -1,0 +1,49 @@
+id: S060
+family: F15_chronic_lbp_bilateral_numbness_flags
+split: locked
+title: "会阴发麻 + 双腿一天比一天更没劲——两条红旗；本变体患者腿并不麻"
+persona: "63 岁退休工人（模拟，非真实患者）"
+kind: pre_visit
+category: red_flag
+inputs:
+  body_map:
+    - {region_id: lower_back_center, kind: primary}
+  free_text: "腰痛半年，会阴部发麻，两条腿一天比一天更没劲，抬不起来。"
+  answers:
+    q_bladder_bowel: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_radiation_present: "no"
+    q_leg_numbness: "no"
+    q_severity_now: 7
+    q_course: worsening
+    q_onset_mode: gradual
+    q_trigger: none_known
+    q_character: [aching, dull]
+    q_aggravating: [walking, standing]
+    q_relieving: [rest]
+    q_function_impact: moderate
+    q_sleep_affected: "yes"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    saddle_numbness: {status: present}
+    leg_weakness: {status: present}
+    weakness_progressive: {status: present}
+    leg_numbness: {status: denied}
+    radiation_present: {status: denied}
+    bladder_bowel_change: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    onset_timing: {status: present, value: over_12_weeks}
+    severity_now: {status: present, value: 7}
+    pain_side: {status: present, value: center}
+    course: {status: present, value: worsening}
+  must_be_unknown: []
+  expected_alerts: [rf_progressive_weakness, rf_saddle]
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核。“会阴部发麻”里的“发麻”不是腿麻；患者若被问到腿麻会答“没有”。系统若把会阴麻写成腿麻，属抽取错位。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

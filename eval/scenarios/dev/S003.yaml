@@ -1,0 +1,50 @@
+id: S003
+family: F01_left_lbp_after_lifting
+split: dev
+title: "原话里一口气否认多项（腿不麻/有劲/没发烧/大小便都正常…），表单不再重复回答"
+persona: "35 岁办公室职员（模拟，非真实患者）"
+kind: pre_visit
+category: negation
+inputs:
+  body_map:
+    - {region_id: lower_back_left, kind: primary}
+  free_text: "前两天开始腰左边酸，是搬东西弄的。腿不麻，腿也有劲，没发烧，没摔过，大小便都正常，只在腰上疼，晚上不疼，体重没变，没有肿瘤，以前没有过。"
+  answers:
+    q_saddle: "no"
+    q_onset_mode: sudden
+    q_severity_now: 3
+    q_course: improving
+    q_function_impact: none
+    q_sleep_affected: "no"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    pain_side: {status: present, value: left}
+    pain_regions: {status: present, value: [lower_back_left]}
+    onset_timing: {status: present, value: within_3_days}
+    trigger: {status: present, value: lifting}
+    character: {status: present, value: [aching]}
+    leg_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    bladder_bowel_change: {status: denied}
+    radiation_present: {status: denied}
+    night_pain: {status: denied}
+    weight_loss: {status: denied}
+    cancer_history: {status: denied}
+    prior_episodes: {status: denied}
+    saddle_numbness: {status: denied}
+    onset_mode: {status: present, value: sudden}
+    severity_now: {status: present, value: 3}
+    course: {status: present, value: improving}
+    function_impact: {status: present, value: none}
+    sleep_affected: {status: denied}
+  must_be_unknown: [aggravating, relieving, current_medication]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核。原话已否认的项目脚本故意不再作答（默认“不清楚”），用于检验否定表达是否被抽取；“大小便都正常”这类口语若抽不出即为系统缺陷。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

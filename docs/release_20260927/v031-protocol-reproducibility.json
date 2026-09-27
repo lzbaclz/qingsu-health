@@ -1,0 +1,8 @@
+{
+  "protocol": "lbp_adult_v0.2",
+  "version": "0.2.5",
+  "default_sha256": "6fb28db7cf673bf0dd58374715d895e86945eaa237d42b6ba1aceca5686f6b64",
+  "reproduced_sha256": "6fb28db7cf673bf0dd58374715d895e86945eaa237d42b6ba1aceca5686f6b64",
+  "byte_identical": true,
+  "method": "loaded build_v02 module, redirected OUT and REPORT to fresh temporary directory, ran build(), compared bytes; default file not overwritten"
+}

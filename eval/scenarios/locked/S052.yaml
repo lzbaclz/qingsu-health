@@ -1,0 +1,63 @@
+id: S052
+family: F13_bilateral_lbp_medication_request
+split: locked
+title: "腰两侧痛两个月，骑车久了加重，无放射、无红旗"
+persona: "38 岁外卖员（模拟，非真实患者）"
+kind: pre_visit
+category: normal
+inputs:
+  body_map:
+    - {region_id: lower_back_left, kind: primary}
+    - {region_id: lower_back_right, kind: primary}
+  free_text: "腰两边疼两个月了，慢慢出现的，送外卖骑车久了更明显，躺下休息一下舒服点，腿不麻，没串到腿上。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_trigger: prolonged_sitting
+    q_severity_now: 4
+    q_course: stable
+    q_character: [dull, aching]
+    q_aggravating: [sitting]
+    q_function_impact: mild
+    q_sleep_affected: "no"
+    q_night_pain: "no"
+    q_weight_loss: "no"
+    q_cancer_history: "no"
+    q_prior_episodes: "no"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    pain_side: {status: present, value: both}
+    pain_regions: {status: present, value: [lower_back_left, lower_back_right]}
+    onset_timing: {status: present, value: weeks_6_to_12}
+    onset_mode: {status: present, value: gradual}
+    trigger: {status: present, value: prolonged_sitting}
+    relieving: {status: present, value: [rest]}
+    leg_numbness: {status: denied}
+    radiation_present: {status: denied}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    severity_now: {status: present, value: 4}
+    course: {status: present, value: stable}
+    character: {status: present, value: [aching, dull]}
+    aggravating: {status: present, value: [sitting]}
+    function_impact: {status: present, value: mild}
+    sleep_affected: {status: denied}
+    night_pain: {status: denied}
+    weight_loss: {status: denied}
+    cancer_history: {status: denied}
+    prior_episodes: {status: denied}
+  must_be_unknown: [current_medication, patient_concern]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

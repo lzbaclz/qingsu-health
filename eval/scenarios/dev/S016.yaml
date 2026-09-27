@@ -1,0 +1,44 @@
+id: S016
+family: F04_pregnant_lbp_out_of_scope
+split: dev
+title: "孕期 + 否定表达：“腿不麻也不没劲，大小便正常，没发烧没摔过”"
+persona: "30 岁孕 28 周女性（模拟，非真实患者）"
+kind: pre_visit
+category: negation
+inputs:
+  body_map:
+    - {region_id: lower_back_left, kind: primary}
+    - {region_id: lower_back_right, kind: primary}
+  free_text: "怀孕七个月，腰酸三四周了，腿不麻也不没劲，大小便正常，没发烧没摔过。"
+  answers:
+    q_saddle: "no"
+    q_onset_mode: gradual
+    q_trigger: none_known
+    q_radiation_present: "no"
+    q_severity_now: 4
+    q_course: stable
+    q_function_impact: mild
+    q_sleep_affected: "yes"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    pain_side: {status: present, value: both}
+    onset_timing: {status: present, value: weeks_2_to_6}
+    character: {status: present, value: [aching]}
+    leg_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    bladder_bowel_change: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    saddle_numbness: {status: denied}
+    radiation_present: {status: denied}
+    severity_now: {status: present, value: 4}
+    course: {status: present, value: stable}
+  must_be_unknown: [cancer_history, weight_loss, night_pain]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: ["孕|胎"]
+notes: "工程占位，需临床审核。协议缺少适用范围核查事实（年龄/孕期），需临床/工程补充；本条只要求不编造、不越界、不对孕期作任何评论。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

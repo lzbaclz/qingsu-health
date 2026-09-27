@@ -1,0 +1,56 @@
+id: S029
+family: F08_recurrent_lbp_new_numbness
+split: dev
+title: "老毛病腰痛，这次多了左小腿发麻——既往发作与新增表现都要记录"
+persona: "45 岁中学教师（模拟，非真实患者）"
+kind: pre_visit
+category: new_symptom
+inputs:
+  body_map:
+    - {region_id: lower_back_left, kind: primary}
+    - {region_id: calf_left, kind: radiation}
+  free_text: "腰痛是老毛病了，以前也犯过几次，这次跟以前不同，多了左小腿发麻。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_onset_mode: gradual
+    q_trigger: none_known
+    q_severity_now: 6
+    q_course: worsening
+    q_character: [aching, sharp]
+    q_aggravating: [sitting, bending]
+    q_relieving: [rest]
+    q_function_impact: moderate
+    q_sleep_affected: "no"
+    q_night_pain: "no"
+    q_weight_loss: "no"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    leg_numbness: {status: present}
+    prior_episodes: {status: present}
+    onset_timing: {status: unknown}  # 2026-09-25 真值修正：原话只说“老毛病、以前犯过”，这一次多久没说（模拟临床负责人第 1 轮审核提出，见 eval/CHANGELOG.md）
+    radiation_present: {status: present}
+    radiation_regions: {status: present, value: [calf_left]}
+    pain_side: {status: present, value: left}
+    pain_regions: {status: present}
+    severity_now: {status: present, value: 6}
+    course: {status: present, value: worsening}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    night_pain: {status: denied}
+    weight_loss: {status: denied}
+  must_be_unknown: [cancer_history]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核。“老毛病”按协议词表对应“超过 3 个月”；本次发作的具体起病时间临床上另需追问，协议目前没有区分“本次发作”与“病史”。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

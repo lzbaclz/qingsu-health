@@ -1,0 +1,842 @@
+# =====================================================================
+# 体迹 AI · 临床协议：成年腰背痛 · 就诊前采集 + 诊后随访（示范版 v0.1）
+# ---------------------------------------------------------------------
+# 状态：draft —— 本文件由工程团队按公开的常见问诊结构起草，作为**占位示例**，
+#       每一条 clinical_review_required: true 的内容都必须由临床队友审核、
+#       修改或删除后，才能用于真实用户。切勿把本文件当作医学建议。
+# 修改方式：直接编辑本 YAML；保存后运行 `make protocol-check` 或调用
+#       POST /api/protocols/validate 检查格式是否合法。
+# =====================================================================
+protocol_id: lbp_adult_v0.1
+version: "0.1.0"
+status: draft
+title: 成年腰背痛 · 就诊前症状采集与诊后随访
+specialty: 康复科 / 疼痛科 / 骨科门诊（待临床队友确认）
+language: zh-CN
+
+owners:
+  clinical_lead: "待填写：临床队友姓名（临床产品负责人）"
+  clinical_reviewer: "待填写：第二位独立临床复核者"
+  engineering: "李子清"
+
+review:
+  last_reviewed: null
+  next_review: null
+  sources:
+    - "待临床队友填写：本协议参考的指南/教材/科室流程及版本"
+
+# ---------------------------------------------------------------------
+# 一、适用范围（医生交付物 #1）
+# ---------------------------------------------------------------------
+scope:
+  setting: "小型康复/全科/疼痛门诊，患者在就诊前自行填写；诊后由门诊邀请进入随访"
+  service_hours: "工作日 9:00–17:30（示例，按门诊实际填写）"
+  inclusion:
+    - "18 岁及以上"
+    - "本次主诉为腰背部疼痛或不适"
+    - "已由门诊邀请使用（就诊前）或已经医生评估并纳入随访（诊后）"
+  exclusion:
+    - "未满 18 岁"
+    - "孕期（开始页已先行排除，是否纳入待临床确认）"
+    - "近期重大外伤后首次就诊（待临床确认）"
+    - "由他人代填且本人无法确认内容"
+  service_notice: >-
+    这个工具用来帮助你在见医生之前把不舒服的情况说清楚，并把你的描述整理给医生核对。
+    它不做诊断，不提供治疗或用药建议。你填写的内容会由门诊医生查看。
+    非工作时间提交的内容，医生会在下一个工作日查看。
+  emergency_notice: >-
+    如果出现以下任一情况，请不要等待线上回复，立即联系门诊或前往就近急诊：
+    大小便控制出现问题、会阴/肛门周围发麻、双腿突然无力、伴高热、剧烈外伤后疼痛。
+  out_of_scope_message: >-
+    根据你的回答，这个工具目前不适用于你的情况。请直接联系门诊预约或说明情况。
+  contact_label: 演示门诊
+  contact_phone: "0755-00000000"   # 演示占位号码（不可拨通）；真实部署由门诊填写。为空时紧急终止页只显示急救电话
+  eligibility:                     # 开始页逐条确认；选"不对"不进入采集（第二轮评审：临床审核前先挡住未成年人与孕期）
+    - id: adult
+      text: 我已年满 18 岁
+      if_not: 这个工具目前只适用于 18 岁及以上的成年人。请由家长直接联系门诊；如有紧急情况请拨打 120。
+    - id: not_pregnant
+      text: 我目前没有怀孕
+      no_label: 不对，正在怀孕或可能怀孕
+      if_not: 孕期的腰背痛需要医生直接评估，这个工具暂不适用。请直接联系门诊；如有紧急情况请拨打 120。
+  emergency_phone: "120"
+
+max_questions: 16
+
+# ---------------------------------------------------------------------
+# 二、身体地图与事实的对应
+# ---------------------------------------------------------------------
+body_map:
+  regions_fact_key: pain_regions
+  side_fact_key: pain_side
+  radiation_fact_key: radiation_regions
+  regions_of_interest:
+    - lower_back_left
+    - lower_back_center
+    - lower_back_right
+    - sacrum
+    - buttock_left
+    - buttock_right
+    - thigh_left_back
+    - thigh_right_back
+    - knee_left_back
+    - knee_right_back
+    - calf_left
+    - calf_right
+    - heel_left
+    - heel_right
+
+# ---------------------------------------------------------------------
+# 三、事实清单（医生交付物 #3：事实表达规范）
+#   type: bool | enum | multi_enum | number | scale | text | body_regions
+#   required: 摘要必须明确其状态（含"未知"）；critical: 评测关键事实
+#   lexicon / synonyms: 供离线抽取与测试用的口语词表（临床可补充）
+# ---------------------------------------------------------------------
+facts:
+  # ---- 位置 ----
+  - key: pain_regions
+    label: 疼痛部位
+    record_label: 疼痛部位   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: body_regions
+    category: location
+    required: true
+    critical: true
+    options:   # 这里只列文字抽取需要的同义词；完整区域见 body_regions.yaml
+      - {value: lower_back_left,   label: 左腰,       synonyms: [左边腰, 左侧腰, 腰左边, 腰左侧, 左腰]}
+      - {value: lower_back_right,  label: 右腰,       synonyms: [右边腰, 右侧腰, 腰右边, 腰右侧, 右腰]}
+      - {value: lower_back_center, label: 腰部正中,   synonyms: [腰正中, 腰中间, 整个腰, 腰部正中]}
+      - {value: buttock_left,      label: 左臀,       synonyms: [左边屁股, 左臀, 左侧屁股]}
+      - {value: buttock_right,     label: 右臀,       synonyms: [右边屁股, 右臀, 右侧屁股]}
+      - {value: thigh_left_back,   label: 左大腿（后）, synonyms: [左大腿后面, 左腿后面]}
+      - {value: thigh_right_back,  label: 右大腿（后）, synonyms: [右大腿后面, 右腿后面]}
+      - {value: calf_left,         label: 左小腿（后）, synonyms: [左小腿]}
+      - {value: calf_right,        label: 右小腿（后）, synonyms: [右小腿]}
+    notes: "由身体图标记为主；文字中提到的部位作为补充证据"
+
+  - key: pain_side
+    label: 疼痛主要在哪一侧
+    record_label: 侧别   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: enum
+    category: location
+    required: true
+    critical: true
+    options:
+      - {value: left,   label: 左侧,   synonyms: [左边, 左侧, 左面]}
+      - {value: right,  label: 右侧,   synonyms: [右边, 右侧, 右面]}
+      - {value: both,   label: 两侧,   synonyms: [两边, 两侧, 双侧, 左右都]}
+      - {value: center, label: 正中,   synonyms: [正中间, 中间, 正中]}
+    notes: "由身体图自动推导；与文字描述不一致时触发澄清，而不是自动取其一"
+
+  - key: radiation_present
+    label: 疼痛是否向臀部或腿部放射
+    record_label: 放射痛   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: bool
+    category: radiation
+    required: true
+    critical: true
+    lexicon:
+      present_terms: [放射, 串到, 窜到, 蹿到, 串过去, 串过来, 窜过去, 往下串, 往腿, 往屁股, 牵到, 传到腿, 到腿, 到脚, 腿也疼, 腿也痛, 腿好像也, 屁股也, 屁股好像也]
+      denied_terms: [不放射, 没有放射, 只在腰, 腿不疼, 腿不痛]
+
+  - key: radiation_regions
+    label: 放射到的部位
+    record_label: 放射部位   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: body_regions
+    category: radiation
+    options:
+      - {value: buttock_left,     label: 左臀,        synonyms: [左边屁股]}
+      - {value: buttock_right,    label: 右臀,        synonyms: [右边屁股]}
+      - {value: thigh_left_back,  label: 左大腿（后）, synonyms: [左大腿后]}
+      - {value: thigh_right_back, label: 右大腿（后）, synonyms: [右大腿后]}
+      - {value: calf_left,        label: 左小腿（后）, synonyms: [左小腿后]}
+      - {value: calf_right,       label: 右小腿（后）, synonyms: [右小腿后]}
+      - {value: heel_left,        label: 左足跟,      synonyms: [左脚跟]}
+      - {value: heel_right,       label: 右足跟,      synonyms: [右脚跟]}
+
+  # ---- 起病与病程 ----
+  - key: onset_timing
+    label: 这次不舒服开始多久了
+    record_label: 病程   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: enum
+    category: onset
+    required: true
+    critical: true
+    lexicon:
+      context_terms: [痛, 疼, 酸, 不舒服, 难受, 僵, 腰, 背]   # 只在提到腰背不适的句子里抽取时间词
+    options:
+      - {value: within_3_days,  label: 3 天以内,      synonyms: [今天, 昨天, 前天, 前两天, 这两天, 刚刚, 一两天]}
+      - {value: days_4_to_14,   label: 4 天到 2 周,   synonyms: [这几天, 一周, 一个星期, 十来天, 几天了]}
+      - {value: weeks_2_to_6,   label: 2 到 6 周,     synonyms: [两三周, 三四周, 一个月, 一个多月, 个把月, 月余]}
+      - {value: weeks_6_to_12,  label: 6 到 12 周,    synonyms: [两个月, 两三个月, 三个月]}
+      - {value: over_12_weeks,  label: 超过 3 个月,   synonyms: [半年, 一年, 好几年, 很久了, 老毛病, 常年]}
+
+  - key: onset_mode
+    label: 起病方式
+    record_label: 起病方式   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: enum
+    category: onset
+    required: true
+    options:
+      - {value: sudden,  label: 突然出现, synonyms: [突然, 一下子, 闪到, 闪了, 扭了]}
+      - {value: gradual, label: 慢慢出现, synonyms: [慢慢, 逐渐, 不知不觉, 越来越]}
+
+  - key: trigger
+    label: 出现前有没有明显诱因
+    record_label: 诱因   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: enum
+    category: onset
+    required: true
+    options:
+      - {value: lifting,          label: 搬抬重物,   synonyms: [搬东西, 搬重物, 提重物, 抬东西, 搬家, 抱孩子]}
+      - {value: fall_or_trauma,   label: 摔倒/外伤,  synonyms: [摔了, 摔倒, 跌倒, 撞到, 外伤, 车祸]}
+      - {value: prolonged_sitting, label: 久坐/久站, synonyms: [坐了很久, 久坐, 坐太久, 站了一天, 久站]}
+      - {value: exercise,         label: 运动后,     synonyms: [打球, 跑步, 健身, 运动后, 锻炼后]}
+      - {value: none_known,       label: 没有明显诱因, synonyms: [没什么原因, 不知道怎么, 莫名其妙, 没有诱因]}
+
+  - key: course
+    label: 最近的变化趋势
+    record_label: 近期趋势   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: enum
+    category: timing
+    required: true
+    options:
+      - {value: improving,   label: 在好转,   synonyms: [好转, 减轻, 轻了, 好一些, 好多了]}
+      - {value: stable,      label: 差不多没变, synonyms: [差不多, 一样, 没变化, 老样子]}
+      - {value: worsening,   label: 在加重,   synonyms: [加重, 更疼, 更痛, 越来越疼, 越来越痛, 严重了]}
+      - {value: fluctuating, label: 时好时坏, synonyms: [时好时坏, 反反复复, 反复]}
+
+  # ---- 性质与程度 ----
+  - key: character
+    label: 疼痛的感觉
+    record_label: 疼痛性质   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: multi_enum
+    category: character
+    options:
+      - {value: aching,  label: 酸胀/酸痛, synonyms: [酸, 酸胀, 酸痛, 发酸]}
+      - {value: sharp,   label: 刺痛/锐痛, synonyms: [刺痛, 针扎, 锐痛, 刀割]}
+      - {value: dull,    label: 钝痛/闷痛, synonyms: [钝痛, 闷痛, 闷闷的]}
+      - {value: burning, label: 烧灼感,    synonyms: [烧灼, 火烧, 发烫]}
+      - {value: stiff,   label: 僵硬,      synonyms: [僵硬, 发僵, 僵, 转不动, 弯不下]}
+
+  - key: severity_now
+    label: 现在的疼痛程度（0 完全不痛 – 10 无法忍受）
+    record_label: 目前疼痛评分（0–10）   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: scale
+    category: severity
+    required: true
+    critical: true
+    min: 0
+    max: 10
+
+  - key: aggravating
+    label: 什么情况会加重
+    record_label: 加重因素   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: multi_enum
+    category: aggravating
+    options:
+      - {value: sitting,  label: 坐久,      synonyms: [坐久, 久坐, 坐时间长, 坐一会儿就]}
+      - {value: standing, label: 站久,      synonyms: [站久, 久站, 站时间长]}
+      - {value: bending,  label: 弯腰,      synonyms: [弯腰, 弯下去, 系鞋带]}
+      - {value: walking,  label: 走路,      synonyms: [走路, 走久, 走远]}
+      - {value: coughing, label: 咳嗽/打喷嚏, synonyms: [咳嗽, 打喷嚏, 用力]}
+      - {value: night,    label: 夜间,      synonyms: [夜里, 晚上更, 夜间, 半夜]}
+      - {value: morning,  label: 早晨起床时, synonyms: [早上起来, 起床时, 早晨]}
+
+  - key: relieving
+    label: 什么情况会缓解
+    record_label: 缓解因素   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: multi_enum
+    category: relieving
+    options:
+      - {value: rest,     label: 休息/躺下, synonyms: [躺着, 躺下, 休息一下, 睡一觉]}
+      - {value: activity, label: 活动一下,   synonyms: [走走, 活动活动, 动一动]}
+      - {value: heat,     label: 热敷,      synonyms: [热敷, 暖宝宝, 热水袋]}
+      - {value: position, label: 换姿势,    synonyms: [换个姿势, 换姿势]}
+      - {value: medication, label: 用药后, synonyms: [吃药后, 吃了药, 贴膏药后]}
+      - {value: none,     label: 没什么能缓解, synonyms: [怎么都不行, 没什么用, 都不缓解]}
+
+  # ---- 神经相关表现（临床必须审核）----
+  - key: leg_numbness
+    label: 腿或脚是否发麻
+    record_label: 下肢麻木   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: bool
+    category: associated
+    required: true
+    critical: true
+    lexicon:
+      present_terms: [麻木, 发麻, 麻]
+      denied_terms: [不麻, 没有麻, 没麻, 不发麻, 没有腿麻, 没有脚麻, 腿不麻, 脚不麻]
+      context_terms: [腿, 脚]        # 只在提到腿/脚的短句里抽取，避免"会阴发麻"被当作腿麻
+
+  - key: leg_weakness
+    label: 腿是否无力
+    record_label: 下肢无力   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: bool
+    category: associated
+    required: true
+    critical: true
+    lexicon:
+      present_terms: [没劲, 无力, 使不上劲, 腿软, 抬不起来, 发软]
+      denied_terms: [有劲, 不无力, 腿有力, 不软, 没软, 不发软, 没有无力, 不没劲]
+
+  - key: weakness_progressive
+    label: 无力是否在加重
+    record_label: 无力进行性加重   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: bool
+    category: red_flag
+    critical: true
+    lexicon:
+      present_terms: [越来越没劲, 越来越无力, 无力加重, 更没劲]
+      denied_terms: [没劲没加重, 无力没有加重]
+
+  - key: bladder_bowel_change
+    label: 大小便控制是否出现变化
+    record_label: 大小便功能改变   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: bool
+    category: red_flag
+    required: true
+    critical: true
+    lexicon:
+      present_terms: [尿不出, 排尿困难, 失禁, 憋不住尿, 憋不住, 大便失禁, 拉裤子, 小便有问题, 大小便有问题, 尿失禁]
+      denied_terms: [大小便正常, 大小便都正常, 大小便没问题, 大小便都没问题, 二便正常, 小便正常, 大便正常, 大小便没事]
+    notes: "红旗事实：任何 present 立即触发 rf_bladder_bowel"
+
+  - key: saddle_numbness
+    label: 会阴/肛门周围是否发麻
+    record_label: 会阴/肛周麻木   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: bool
+    category: red_flag
+    required: true
+    critical: true
+    lexicon:
+      present_terms: [会阴麻, 肛门周围麻, 骑车坐垫的地方麻, 大腿内侧麻, 私处麻, 屁股中间麻, 会阴部发麻]
+      denied_terms: [会阴不麻, 那里不麻]
+
+  - key: fever
+    label: 是否发热
+    record_label: 发热   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: bool
+    category: red_flag
+    required: true
+    critical: true
+    lexicon:
+      present_terms: [发烧, 发热, 低烧, 高烧, 体温高]
+      denied_terms: [没发烧, 不发烧, 没有发烧, 没发热]
+
+  - key: weight_loss
+    label: 近期是否体重明显下降
+    record_label: 体重明显下降   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: bool
+    category: red_flag
+    lexicon:
+      present_terms: [体重下降, 瘦了, 掉秤, 体重掉]
+      denied_terms: [体重没变, 没瘦]
+
+  - key: night_pain
+    label: 是否夜间痛醒
+    record_label: 夜间痛醒   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: bool
+    category: red_flag
+    lexicon:
+      present_terms: [痛醒, 疼醒, 夜里疼得睡不着, 晚上疼得睡不着]
+      denied_terms: [晚上不疼, 夜里不疼, 睡觉没事]
+
+  - key: trauma_recent
+    label: 近期是否有摔倒/外伤
+    record_label: 近期摔倒/外伤   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: bool
+    category: red_flag
+    required: true
+    critical: true
+    lexicon:
+      present_terms: [摔了, 摔倒, 跌倒, 撞到, 外伤, 车祸, 摔了一跤]
+      denied_terms: [没摔, 没有摔, 没受伤, 没有外伤]
+
+  - key: cancer_history
+    label: 是否有肿瘤病史
+    record_label: 肿瘤病史   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: bool
+    category: history
+    lexicon:
+      present_terms: [肿瘤, 癌, 化疗]
+      denied_terms: [没有肿瘤, 没得过癌]
+
+  # ---- 既往与功能 ----
+  - key: prior_episodes
+    label: 以前是否有过类似情况
+    record_label: 既往类似发作   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: bool
+    category: history
+    lexicon:
+      present_terms: [以前也, 老毛病, 之前也有过, 犯过, 复发]
+      denied_terms: [第一次, 以前没有, 从来没]
+
+  - key: prior_treatment
+    label: 以前做过哪些处理
+    record_label: 既往处理   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: text
+    category: history
+
+  - key: current_medication
+    label: 目前正在用的药物（仅记录，不做建议）
+    record_label: 目前用药（患者自述）   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: text
+    category: medication
+    lexicon:
+      present_terms: [在吃, 吃着, 吃了, 在用, 用着, 贴着, 贴了, 止痛药, 膏药, 消炎药, 布洛芬, 芬必得, 扶他林]
+    notes: "只记录患者自述，交医生/药师核对；系统不解读、不建议；叙述中不出现药名"
+
+  - key: function_impact
+    label: 对日常活动的影响
+    record_label: 日常活动受限   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: enum
+    category: function
+    required: true
+    options:
+      - {value: none,     label: 基本不影响, synonyms: [不影响, 还好, 没影响]}
+      - {value: mild,     label: 有点影响,   synonyms: [有点影响, 有些影响]}
+      - {value: moderate, label: 明显影响,   synonyms: [明显影响, 影响挺大, 很受影响]}
+      - {value: severe,   label: 基本无法正常活动, synonyms: [下不了床, 不能动, 走不了路, 起不来]}
+
+  - key: sleep_affected
+    label: 是否影响睡眠
+    record_label: 影响睡眠   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: bool
+    category: function
+    lexicon:
+      present_terms: [睡不着, 睡不好, 影响睡眠, 翻身疼]
+      denied_terms: [睡觉没事, 不影响睡觉, 睡得着]
+
+  - key: patient_concern
+    label: 最担心/最希望医生解决的问题
+    record_label: 患者最关心的问题   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: text
+    category: expectation
+
+  # ---- 随访专用 ----
+  - key: fu_change_overall
+    label: 和上次相比整体感觉
+    record_label: 与上次相比   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: enum
+    category: followup
+    required: true
+    options:
+      - {value: better, label: 好一些, synonyms: [好一些, 好点了, 好转, 轻了]}
+      - {value: same,   label: 差不多, synonyms: [差不多, 一样, 没变化]}
+      - {value: worse,  label: 更差了, synonyms: [更疼, 更差, 加重, 更严重]}
+
+  - key: fu_new_symptom
+    label: 是否出现上次没有的新情况
+    record_label: 新出现的情况   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: bool
+    category: followup
+    required: true
+    critical: true
+    lexicon:
+      present_terms: [新出现, 多了一个, 以前没有的, 这两天开始]
+      denied_terms: [没有新的, 没有其他]
+
+  - key: fu_new_symptom_desc
+    label: 新情况的描述
+    record_label: 新情况描述   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: text
+    category: followup
+
+  - key: fu_plan_understood
+    label: 是否清楚医生安排的下一步
+    record_label: 理解医生安排   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: bool
+    category: followup
+    required: true
+    lexicon:
+      present_terms: [清楚, 知道, 明白]
+      denied_terms: [不清楚, 不知道, 不明白, 忘了]
+
+  - key: fu_plan_adherence
+    label: 医生安排的事项执行情况
+    record_label: 医嘱执行情况   # 写进病历初稿时用的短标签（工程拟，医生可改）
+    type: enum
+    category: followup
+    required: true
+    options:
+      - {value: "yes",   label: 都做到了,   synonyms: [都做了, 按要求, 做到了]}
+      - {value: partial, label: 做到一部分, synonyms: [有时候, 一部分, 偶尔]}
+      - {value: "no",    label: 基本没做,   synonyms: [没做, 没有做, 没来得及]}
+
+# ---------------------------------------------------------------------
+# 四、问询流程（医生交付物 #2）
+#   规则：系统只问事实状态仍为"未知"的问题；priority 小的先问；
+#   when 为触发条件；每题允许"不清楚"和"跳过"（记为 asked_unanswered）。
+# ---------------------------------------------------------------------
+questions:
+  # 红旗类先问（priority 10–19）
+  - id: q_bladder_bowel
+    fact_key: bladder_bowel_change
+    type: yes_no
+    priority: 10
+    text: 最近大小便的控制有没有出现变化（比如尿不出来、憋不住、或大便失禁）？
+    purpose: 待临床填写
+
+  - id: q_saddle
+    fact_key: saddle_numbness
+    type: yes_no
+    priority: 11
+    text: 会阴部或肛门周围（骑自行车时接触坐垫的部位）有没有发麻？
+    purpose: 待临床填写
+
+  - id: q_leg_weakness
+    fact_key: leg_weakness
+    type: yes_no
+    priority: 12
+    text: 腿有没有觉得没劲、软、抬不起来？
+
+  - id: q_weakness_progressive
+    fact_key: weakness_progressive
+    type: yes_no
+    priority: 13
+    when: facts.leg_weakness.present
+    text: 这种没劲的感觉是不是在加重？
+
+  - id: q_fever
+    fact_key: fever
+    type: yes_no
+    priority: 14
+    text: 这段时间有没有发烧？
+
+  - id: q_trauma
+    fact_key: trauma_recent
+    type: yes_no
+    priority: 15
+    text: 最近有没有摔倒、撞到或其他外伤？
+
+  # 核心描述（priority 20–49）
+  - id: q_onset_timing
+    fact_key: onset_timing
+    type: single_choice
+    priority: 20
+    text: 这次腰背不舒服大概开始多久了？
+
+  - id: q_onset_mode
+    fact_key: onset_mode
+    type: single_choice
+    priority: 21
+    text: 是突然出现的，还是慢慢出现的？
+
+  - id: q_trigger
+    fact_key: trigger
+    type: single_choice
+    priority: 22
+    text: 出现之前有没有什么明显的诱因？
+
+  - id: q_side
+    fact_key: pain_side
+    type: single_choice
+    priority: 23
+    text: 疼痛主要在哪一侧？
+
+  - id: q_radiation_present
+    fact_key: radiation_present
+    type: yes_no
+    priority: 24
+    text: 疼痛有没有从腰往屁股或腿上串？
+
+  - id: q_radiation_regions
+    fact_key: radiation_regions
+    type: body_regions
+    priority: 25
+    when: facts.radiation_present.present
+    text: 请在身体图上标出串到的位置。
+
+  - id: q_leg_numbness
+    fact_key: leg_numbness
+    type: yes_no
+    priority: 26
+    text: 腿或脚有没有发麻？
+
+  - id: q_severity_now
+    fact_key: severity_now
+    type: scale
+    priority: 27
+    text: 现在疼到什么程度？0 是完全不痛，10 是无法忍受。
+
+  - id: q_course
+    fact_key: course
+    type: single_choice
+    priority: 28
+    text: 最近几天整体是在好转、加重，还是差不多？
+
+  - id: q_character
+    fact_key: character
+    type: multi_choice
+    priority: 30
+    text: 疼痛是哪种感觉？可以多选。
+
+  - id: q_aggravating
+    fact_key: aggravating
+    type: multi_choice
+    priority: 31
+    text: 什么情况下会更明显？可以多选。
+
+  - id: q_relieving
+    fact_key: relieving
+    type: multi_choice
+    priority: 32
+    text: 什么情况下会缓解一些？可以多选。
+
+  - id: q_function_impact
+    fact_key: function_impact
+    type: single_choice
+    priority: 33
+    text: 对你的日常活动影响有多大？
+
+  - id: q_sleep_affected
+    fact_key: sleep_affected
+    type: yes_no
+    priority: 34
+    text: 有没有影响睡眠？
+
+  # 既往与其他（priority 50+）
+  - id: q_night_pain
+    fact_key: night_pain
+    type: yes_no
+    priority: 50
+    text: 有没有夜里疼醒的情况？
+
+  - id: q_weight_loss
+    fact_key: weight_loss
+    type: yes_no
+    priority: 51
+    text: 最近几个月体重有没有不明原因地明显下降？
+
+  - id: q_cancer_history
+    fact_key: cancer_history
+    type: yes_no
+    priority: 52
+    text: 以前有没有诊断过肿瘤？
+
+  - id: q_prior_episodes
+    fact_key: prior_episodes
+    type: yes_no
+    priority: 53
+    text: 以前有没有出现过类似的情况？
+
+  - id: q_prior_treatment
+    fact_key: prior_treatment
+    type: text
+    priority: 54
+    when: facts.prior_episodes.present
+    text: 以前做过哪些检查或处理？效果如何？
+
+  - id: q_current_medication
+    fact_key: current_medication
+    type: text
+    priority: 55
+    text: 目前有没有在用什么药或贴剂？（只做记录，医生会核对；这里不提供用药建议）
+
+  - id: q_patient_concern
+    fact_key: patient_concern
+    type: text
+    priority: 60
+    allow_skip: true
+    text: 你最担心的是什么？或者最希望医生帮你解决什么？
+
+# ---------------------------------------------------------------------
+# 五、矛盾澄清模板：同一事实出现两种说法时的问法
+# ---------------------------------------------------------------------
+clarifications:
+  - fact_key: pain_side
+    text: "关于疼痛在哪一侧，你的{first_source}是「{first}」，{second_source}提到「{second}」。现在的情况是？"
+    options:
+      - {label: "两侧都有", resolve: both}
+      - {label: "位置变了，现在主要是「{second}」", resolve: changed_to_second}
+      - {label: "之前点错/说错了，应该是「{second}」", resolve: keep_second}
+      - {label: "后面说错了，应该是「{first}」", resolve: keep_first}
+      - {label: "不确定", resolve: unknown}
+
+# ---------------------------------------------------------------------
+# 六、需要人工处理的情况（医生交付物 #4）——全部待临床审核
+#   severity: urgent（立即提示患者就医 + 任务）| same_day | routine
+# ---------------------------------------------------------------------
+red_flags:
+  - id: rf_bladder_bowel
+    label: 大小便控制变化
+    when: facts.bladder_bowel_change.present
+    severity: urgent
+    action: immediate_notice_and_task
+    on_trigger: stop_questioning      # 已提示"立即就医"后不再让患者答题（模拟评审 P0-4）
+    patient_message: >-
+      你提到大小便的控制出现了变化。这类情况需要尽快由医生当面评估，请不要等待线上回复：
+      请立即电话联系门诊，或前往就近医院急诊。（此提示文字待临床审核）
+  - id: rf_saddle
+    label: 会阴/肛门周围发麻
+    when: facts.saddle_numbness.present
+    severity: urgent
+    action: immediate_notice_and_task
+    on_trigger: stop_questioning
+    patient_message: >-
+      你提到会阴或肛门周围发麻。这类情况需要尽快由医生当面评估，请不要等待线上回复：
+      请立即电话联系门诊，或前往就近医院急诊。（此提示文字待临床审核）
+  - id: rf_progressive_weakness
+    label: 腿部无力且在加重
+    when: facts.weakness_progressive.present
+    severity: same_day
+    action: immediate_notice_and_task
+    patient_message: >-
+      你提到腿没劲并且在加重。请今天内联系门诊说明情况，以便医生尽快安排评估。（待临床审核）
+  - id: rf_fever
+    label: 伴发热
+    when: facts.fever.present
+    severity: same_day
+    action: immediate_notice_and_task
+    patient_message: >-
+      你提到有发热。请今天内联系门诊说明情况。（待临床审核）
+  - id: rf_trauma_severe
+    label: 外伤后明显疼痛
+    when: facts.trauma_recent.present and facts.severity_now.gte(7)
+    severity: same_day
+    action: immediate_notice_and_task
+    patient_message: >-
+      你提到近期有外伤且疼痛明显。请今天内联系门诊说明情况。（待临床审核）
+  - id: rf_weight_loss_or_cancer
+    label: 体重下降 / 肿瘤病史 / 夜间痛醒
+    when: facts.weight_loss.present or facts.cancer_history.present or facts.night_pain.present
+    severity: routine
+    action: task_only
+    patient_message: "（仅供医生复核，不向患者展示）"
+  - id: rf_uncertain_red_flag
+    label: 红旗事实表达不确定
+    when: facts.bladder_bowel_change.uncertain or facts.saddle_numbness.uncertain or facts.leg_weakness.uncertain
+    severity: same_day
+    action: task_only
+    patient_message: "（仅供医生复核：患者对关键问题表达不确定，需人工确认）"
+
+# ---------------------------------------------------------------------
+# 七、越界检查：系统生成的、面向患者的文字不得出现以下内容
+# ---------------------------------------------------------------------
+scope_guard:
+  forbidden_patterns:
+    - "诊断为|确诊|你得了|你患有|你是.*(症|病)"
+    - "椎间盘突出|腰肌劳损|坐骨神经痛|腰椎管狭窄|强直性脊柱炎"
+    - "服用|口服|每日\\d+次|每天\\d+次|\\d+\\s*(mg|毫克)|布洛芬|对乙酰氨基酚|双氯芬酸|塞来昔布"
+    - "建议你(吃|用|贴)|开药|处方"
+  allowed_content_ids: []
+
+# ---------------------------------------------------------------------
+# 八、宣教内容（待临床审核；首版只放不涉及诊疗建议的流程说明）
+# ---------------------------------------------------------------------
+education:
+  - id: ed_bring_records
+    text: 就诊时如有既往的影像或检查报告，请一并带上，方便医生核对。
+    source: 门诊流程说明（待填写）
+  - id: ed_followup_notice
+    when: facts.fu_plan_understood.denied
+    text: 你表示不太清楚医生安排的下一步。门诊工作人员会在工作时间内联系你确认。
+    source: 门诊流程说明（待填写）
+
+# ---------------------------------------------------------------------
+# 九、随访：重点对比哪些事实，问哪些问题
+# ---------------------------------------------------------------------
+followup:
+  default_interval_days: 7
+  # 给患者说明的术语对照表（第三轮评审 T5；AI 草案，待医生逐条审定）：医生说明里出现这些词时，在后面加一句大白话。
+  # 只解释医生已经写下的词，不增加任何医学内容；这是"改写"的默认方式，不调用模型。
+  plain_language:
+    - {term: 复查, plain: 回到门诊再看一次}
+    - {term: 复诊, plain: 回到门诊再看一次}
+    - {term: 随访, plain: 按约好的时间在这里告诉医生最近的情况}
+    - {term: 放射痛, plain: 疼痛从腰往屁股或腿上串}
+    - {term: 麻木, plain: 发麻、感觉变迟钝}
+    - {term: 会阴, plain: 两腿之间、肛门前面的部位}
+    - {term: 核心肌群, plain: 腰腹部深处帮着稳住腰的肌肉}
+    - {term: 急性期, plain: 刚开始疼的这段时间}
+    - {term: 热敷, plain: 用热毛巾或热水袋敷在疼的地方}
+    - {term: 冷敷, plain: 用毛巾包着冰袋敷在疼的地方}
+    - {term: 保守治疗, plain: 先不做手术的治疗}
+    - {term: 影像检查, plain: 拍片、CT 或核磁这类检查}
+  change_facts:
+    - severity_now
+    - course
+    - pain_regions
+    - pain_side
+    - radiation_present
+    - leg_numbness
+    - leg_weakness
+    - bladder_bowel_change
+    - saddle_numbness
+    - function_impact
+    - sleep_affected
+  questions:
+    - {id: q_fu_overall,   fact_key: fu_change_overall,    type: single_choice, priority: 10, stage: follow_up, text: 和上次相比，整体感觉怎么样？}
+    - {id: q_fu_severity,  fact_key: severity_now,         type: scale,         priority: 11, stage: follow_up, text: 现在疼到什么程度？0 完全不痛，10 无法忍受。}
+    - {id: q_fu_new,       fact_key: fu_new_symptom,       type: yes_no,        priority: 12, stage: follow_up, text: 有没有出现上次没有的新情况？}
+    - {id: q_fu_new_desc,  fact_key: fu_new_symptom_desc,  type: text,          priority: 13, stage: follow_up, when: facts.fu_new_symptom.present, text: 请用自己的话说说新出现的情况。}
+    - {id: q_fu_bladder,   fact_key: bladder_bowel_change, type: yes_no,        priority: 14, stage: follow_up, text: 大小便的控制有没有出现变化？}
+    - {id: q_fu_saddle,    fact_key: saddle_numbness,      type: yes_no,        priority: 15, stage: follow_up, text: 会阴部或肛门周围有没有发麻？}
+    - {id: q_fu_weakness,  fact_key: leg_weakness,         type: yes_no,        priority: 16, stage: follow_up, text: 腿有没有没劲、软、抬不起来？}
+    - {id: q_fu_numbness,  fact_key: leg_numbness,         type: yes_no,        priority: 17, stage: follow_up, text: 腿或脚有没有发麻？}
+    - {id: q_fu_radiation, fact_key: radiation_present,    type: yes_no,        priority: 18, stage: follow_up, text: 疼痛有没有往屁股或腿上串？}
+    - {id: q_fu_course,    fact_key: course,               type: single_choice, priority: 19, stage: follow_up, text: 最近几天整体趋势是？}
+    - {id: q_fu_function,  fact_key: function_impact,      type: single_choice, priority: 20, stage: follow_up, text: 对日常活动的影响有多大？}
+    - {id: q_fu_sleep,     fact_key: sleep_affected,       type: yes_no,        priority: 21, stage: follow_up, text: 有没有影响睡眠？}
+    - {id: q_fu_understood, fact_key: fu_plan_understood,  type: yes_no,        priority: 30, stage: follow_up, text: 你清楚医生上次安排的下一步（复诊/注意事项）吗？}
+    - {id: q_fu_adherence, fact_key: fu_plan_adherence,    type: single_choice, priority: 31, stage: follow_up, text: 医生安排的事项，这段时间执行得怎么样？}
+    - {id: q_fu_concern,   fact_key: patient_concern,      type: text,          priority: 40, stage: follow_up, text: 这次还有什么想告诉医生的？}
+
+# ---------------------------------------------------------------------
+# 十、摘要顺序与评测定义（医生交付物 #6：评价标准）
+# ---------------------------------------------------------------------
+summary:
+  chief_complaint_label: 腰背部不适
+  key_facts_order:
+    - onset_timing
+    - onset_mode
+    - trigger
+    - pain_side
+    - pain_regions
+    - radiation_present
+    - radiation_regions
+    - character
+    - severity_now
+    - course
+    - aggravating
+    - relieving
+    - leg_numbness
+    - leg_weakness
+    - weakness_progressive
+    - bladder_bowel_change
+    - saddle_numbness
+    - fever
+    - trauma_recent
+    - night_pain
+    - weight_loss
+    - cancer_history
+    - prior_episodes
+    - prior_treatment
+    - current_medication
+    - function_impact
+    - sleep_affected
+    - patient_concern
+  narrative_enabled: true
+
+evaluation:
+  critical_facts:
+    - pain_side
+    - radiation_present
+    - onset_timing
+    - severity_now
+    - leg_numbness
+    - leg_weakness
+    - bladder_bowel_change
+    - saddle_numbness
+    - fever
+    - trauma_recent
+  error_taxonomy:
+    - {code: E1_critical_omission,     label: 关键事实遗漏,           severity: critical}
+    - {code: E2_fabrication,           label: 编造患者没说过的事实,   severity: critical}
+    - {code: E3_unknown_as_denied,     label: 未问/未答被写成否认,    severity: critical}
+    - {code: E4_missed_escalation,     label: 应升级未升级,           severity: critical}
+    - {code: E5_unnecessary_escalation, label: 不必要升级,            severity: major}
+    - {code: E6_out_of_scope_advice,   label: 越权给出诊断/用药建议,  severity: critical}
+    - {code: E7_conflict_not_surfaced, label: 矛盾未呈现给医生,       severity: major}
+    - {code: E8_misunderstanding,      label: 理解错误（值抽错）,     severity: major}
+    - {code: E9_minor_omission,        label: 非关键事实遗漏,         severity: minor}

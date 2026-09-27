@@ -1,0 +1,42 @@
+id: EX01
+family: FX01_left_lbp_after_lifting
+split: examples
+title: 搬重物后左腰酸痛，无红旗（格式示例）
+persona: 35 岁办公室职员（模拟，非真实患者）
+kind: pre_visit
+category: normal
+inputs:
+  body_map:
+    - {region_id: lower_back_left, kind: primary}
+  free_text: "前两天搬东西后左边腰酸，坐久了更明显，躺着好一些，腿不麻。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_onset_mode: sudden
+    q_radiation_present: "no"
+    q_severity_now: 4
+    q_function_impact: mild
+    q_sleep_affected: "no"
+ground_truth:
+  facts:
+    pain_side: {status: present, value: left}
+    pain_regions: {status: present, value: [lower_back_left]}
+    trigger: {status: present, value: lifting}
+    onset_timing: {status: present, value: within_3_days}
+    leg_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    radiation_present: {status: denied}
+    severity_now: {status: present, value: 4}
+  must_be_unknown: [weight_loss, cancer_history]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

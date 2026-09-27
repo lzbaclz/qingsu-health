@@ -1,0 +1,62 @@
+id: S001
+family: F01_left_lbp_after_lifting
+split: dev
+title: "搬东西后左腰酸痛三天，表达完整、无红旗"
+persona: "35 岁办公室职员（模拟，非真实患者）"
+kind: pre_visit
+category: normal
+inputs:
+  body_map:
+    - {region_id: lower_back_left, kind: primary}
+  free_text: "前两天搬东西后左边腰就开始酸痛，坐久了更明显，躺着舒服点，腿不麻，大小便正常。"
+  answers:
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_onset_mode: sudden
+    q_radiation_present: "no"
+    q_severity_now: 4
+    q_course: stable
+    q_function_impact: mild
+    q_sleep_affected: "no"
+    q_night_pain: "no"
+    q_weight_loss: "no"
+    q_cancer_history: "no"
+    q_prior_episodes: "no"
+    q_current_medication: __skip__
+    q_patient_concern: "想知道要不要拍片子"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    pain_side: {status: present, value: left}
+    pain_regions: {status: present, value: [lower_back_left]}
+    onset_timing: {status: present, value: within_3_days}
+    onset_mode: {status: present, value: sudden}
+    trigger: {status: present, value: lifting}
+    character: {status: present, value: [aching]}
+    aggravating: {status: present, value: [sitting]}
+    relieving: {status: present, value: [rest]}
+    radiation_present: {status: denied}
+    leg_numbness: {status: denied}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    severity_now: {status: present, value: 4}
+    course: {status: present, value: stable}
+    function_impact: {status: present, value: mild}
+    sleep_affected: {status: denied}
+    night_pain: {status: denied}
+    weight_loss: {status: denied}
+    cancer_history: {status: denied}
+    prior_episodes: {status: denied}
+  must_be_unknown: [current_medication]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

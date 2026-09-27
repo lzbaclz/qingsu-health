@@ -1,0 +1,697 @@
+# 疗程安全网 · 临床内容（模拟临床稿）
+#
+# 【模拟】本文件由「模拟临床负责人」写成：AI 以一位有十五年经验的康复医学与疼痛科主任医师视角模拟，不是执业医师意见。
+#   - meta.simulated: true；每条说明以「模拟：」开头；给患者看的整段文字以「（模拟临床稿）」结尾，按钮和标题不加。
+#   - 上线、演示或写进 BP 之前，必须由真实医生逐条复核替换；在那之前不得写成「医生已决定」。
+#   - 理由、分歧、评测里 26 次 E5 的逐类判断，见 docs/team/round1/模拟临床负责人_疗程安全网.md。
+#
+# 怎么被用：protocols/review/build_v02.py 会把下面这些键并进 lbp_adult_v0.2：
+#   - COURSE_KEYS（time_budget … respondent）→ course；checkin.new_facts → facts；checkin.questions → followup.questions；
+#   - checkin.drop_from_followup → 从 followup.questions 删掉；pre_visit_red_flag_grid、checkin.red_flag_grid、private_preface → screening；
+#   - scale_anchors → 同一事实的 0–10 分题的 anchors。
+#   其余标「扩展」的键不会被并入，是给工程的规格：每条都写了「引擎不支持时现在会怎样」。
+#
+# 以 protocols/lbp_adult_v0.2.yaml（2026-09-25 09:11 版）为准：这里引用的红旗 id、题 id、事实 key 都在 v0.2 里，
+# 或在 checkin.new_facts / checkin.questions / pre_visit_baseline_questions 里定义。
+
+meta:
+  simulated: true
+  author: "模拟临床负责人（AI 医学视角，待真实医生替换）"
+  date: "2026-09-25"
+  protocol: lbp_adult_v0.2
+  memo: "docs/team/round1/模拟临床负责人_疗程安全网.md"
+  extensions:   # 模板之外新增的键（不进 COURSE_KEYS，引擎支持前不生效）；优先级见备忘录 §12
+    - "service_exceptions：节假日、临近停诊、长停诊、没配时段——都关系到「让患者打一个没人接的电话」"
+    - "route_by_time：腿越来越没劲开诊找门诊、停诊去急诊（schema 只收标量，这里给出分时段去向）"
+    - "urgent_page.ed_on_site / clinic_on_site / clinic_long_closure：人在门诊里、长停诊两种情形的页面（值合法，引擎目前只选四种）"
+    - "after_hours_messages：停诊时替换 v0.2 原话（原话里「请今天内打电话联系门诊」在停诊时是死路）"
+    - "urgent_buttons、ed_hospital_hint：按钮做什么；门诊推荐的急诊医院"
+    - "checkin.screens / grid_title / drop_reasons / carry_over / done_messages；pre_visit_grid_title"
+    - "pre_visit_baseline_questions：首诊补问过去 7 天平均痛和活动影响，否则轨迹卡没有基线"
+    - "baseline_policy、recovery_rule_policies、recovery_rules_pending、checkin_rules"
+    - "schedule_options、no_response_extra、slip_lines、metrics_to_log"
+
+time_budget:   # 模拟：给患者看。签到在全部「没有」时 5 屏约 1 分钟；有阳性时多出的追问屏不算超预算
+  pre_visit: "约 3 分钟"
+  checkin: "约 1 分钟"
+
+service_windows:   # 模拟：示例，与 v0.2 scope.service_hours 一致。含义是「有人看队列、能回电的时段」，不只是营业时间。
+                   # 有午休的门诊拆成两段；晚上、周日也开的推拿理疗门诊按实际填。days：1=周一 … 7=周日。
+  - {days: [1, 2, 3, 4, 5, 6], start: "08:30", end: "17:30"}
+
+service_exceptions:   # 扩展。模拟：以下三条都关系到「页面让患者打门诊电话，却没人接」
+  closed_dates: []              # 法定节假日、临时停诊日，按门诊排班填 "YYYY-MM-DD"。不填时节假日会被当成开诊日——真实的安全缺口，上线前必填
+  closing_buffer_minutes: 60    # 只用于 clinic 类红旗和当天类任务：离停诊不到 60 分钟按停诊处理（与 v0.2 P2「停诊前 1 小时内提交的，下一个开诊日处理」一致）。急诊类不受影响
+  long_closure_hours: 16        # 距下一个开诊超过 16 小时（周六晚到周一、长假），clinic 类改用 clinic_long_closure：当天级的事不能等两天
+  no_windows_means_closed: true # 没配服务时段时一律按停诊处理。现在的引擎按开诊处理（hours.py：open_now is None → in），请改
+
+red_flag_routes:   # 模拟：ed = 这件事门诊处理不了或不能等：现在去医院（急诊，发烧可去发热门诊），走不了路打 120，门诊电话降为次要。
+                   # clinic = 由门诊接：开诊时找门诊（人在门诊里就告诉前台），停诊时门诊开门后主动回电，页面写清哪些情况不要等。
+                   # task_only 的规则不给患者看页面，去向只决定任务怎么派。schema 只收标量；分时段去向见 route_by_time。
+  rf_bladder_bowel: ed               # 疑似马尾：新出现的大小便变化，漏诊代价是永久失禁
+  rf_saddle: ed                      # 疑似马尾：两腿之间、肛门周围发麻
+  rf_ces_sexual: clinic              # task_only：当天电话私下再问大小便和下身感觉；签到红旗一屏已直接问过这两项
+  rf_ces_bilateral: ed               # 两条腿都有症状 + 大小便/下身/越来越没劲
+  rf_bilateral_only: clinic          # 当天联系；停诊时等开门回电，页面写清什么情况不要等
+  rf_progressive_weakness: ed        # 标量取安全的一边：开诊时本该找门诊（v0.2 原话），停诊时去急诊。引擎按去向出页、又不认 route_by_time 时，开诊也会出急诊页——多跑一趟医院，好过停诊时被告知「等电话」。现在当天级不出页，只显示 v0.2 原话（已写「门诊已下班的，请今天去急诊」）
+  rf_gait: clinic
+  rf_fever: ed                       # 康复、疼痛、推拿门诊处理不了发烧；发热门诊多为 24 小时（人设判断，待核实），不用等门诊
+  rf_infection_risk_with_pain: clinic  # task_only；同时发烧的，rf_fever 已走急诊
+  rf_fracture_risk: clinic
+  rf_trauma_severe: clinic           # 严重外伤开始页已分流急诊；「疼得动不了」写在原话里
+  rf_cancer_with_features: clinic
+  rf_weight_loss_or_cancer: clinic   # routine，task_only
+  rf_inflammatory_pattern: clinic    # routine，task_only
+  rf_thoracic: clinic                # routine，task_only
+  rf_out_of_scope: clinic            # routine；应当用不紧急的「不适用」结束页，不用下面的紧急页（见备忘录 §7）
+  rf_uncertain_red_flag: clinic      # 说不准：开诊时回电确认；停诊时等开门回电，v0.2 原话已写「变明确或加重就去急诊」。拿不准，见备忘录 §11
+  rf_no_improvement: clinic          # routine，task_only；签到里由 rr_slow_recovery 接替
+
+route_by_time:   # 扩展。模拟：两个时段去向不同的规则。引擎支持后覆盖 red_flag_routes 里的标量
+  rf_progressive_weakness: {in_hours: clinic, after_hours: ed}   # 单侧进行性无力 24 小时内专科评估即可：开诊时门诊医生当天查；停诊时只剩急诊能在 24 小时内看
+
+urgent_page:
+  # 模拟：选哪一页 = 去向 × 情形。情形按顺序判断：
+  #   1 在门诊里（on_site）：首诊候诊或治疗前签到，入口是前台平板（kiosk）或门诊内签到码；判断不了就当不在门诊
+  #   2 开诊（in_hours）；clinic 类另扣 service_exceptions.closing_buffer_minutes
+  #   3 长停诊（long_closure）：停诊且距下一个开诊超过 long_closure_hours，只有 clinic 类有单独页面
+  #   4 停诊（after_hours）
+  # 同时触发多条时 ed 优先。页面下方列什么：开诊时列 v0.2 的 patient_message；停诊时有 after_hours_messages 的用它；
+  # 在门诊里和长停诊只列红旗标签。next_open（如「明天 08:30」「周一 08:30」）由引擎另给，请显示在标题下方，文案里不写占位符。
+  # 引擎目前只选前四种，而且只在紧急终止时出页（当天级只显示原话，见备忘录 §8.2）；为此前四种已兼容后三种情形（开诊页写了「人在门诊里的，直接告诉前台」，停诊页写了周末放假怎么办）。
+  ed_in_hours:
+    headline: "请现在就去医院"
+    body: "你说的情况需要今天当面检查，不能等到下次治疗。现在就去附近有急诊的综合医院（发烧的也可以去发热门诊）；走不了路或没人送，就打 120。门诊已经收到提醒，会尽快打电话给你。人在门诊里的，直接告诉前台，今天先不做治疗。（模拟临床稿）"
+    primary: "拨打 120"
+    secondary: "打电话给门诊"
+  ed_after_hours:
+    headline: "门诊已下班，请现在就去医院"
+    body: "你说的情况不能等到门诊开门。现在就去附近有急诊的综合医院（发烧的也可以去发热门诊）；走不了路或没人送，就打 120。门诊现在没人接电话，不用再打；开门后，门诊的医生或护士会先打电话问你去医院的情况。（模拟临床稿）"
+    primary: "拨打 120"
+    secondary: "我自己去医院"
+  clinic_in_hours:
+    headline: "请今天和门诊联系"
+    body: "你说的情况需要医生今天知道。请打电话给门诊，说说你刚才填的情况；门诊也已经收到提醒，会打给你。下次治疗前，医生会先看看你。人在门诊里的，直接告诉前台或治疗师。情况突然变重的，别等电话，直接去急诊。（模拟临床稿）"
+    primary: "打电话给门诊"
+    secondary: "我等门诊打给我"
+  clinic_after_hours:
+    headline: "门诊已下班，开门后会先打给你"
+    body: "你说的情况，门诊开门后，医生或护士会先打电话问你；没有下面这些情况的，可以先等电话。门诊要隔一天以上才开门的（周末、放假），请在 24 小时内去附近综合医院看门诊。少走动，起床、上厕所慢一点，扶稳。出现这些情况，别等电话，马上去急诊或打 120：尿不出来或憋不住、两腿之间或肛门周围发麻、两条腿都没劲或站不稳、发高烧打寒战、疼得动不了。（模拟临床稿）"
+    primary: "知道了，等门诊电话"
+    secondary: "拨打 120"
+  ed_on_site:            # 扩展情形：人在门诊里
+    headline: "请马上告诉工作人员"
+    body: "你说的情况需要今天去医院当面检查，今天的推拿、牵引、针灸等治疗先不做。请把这个页面给前台或治疗师看，门诊会帮你安排去医院。（模拟临床稿）"
+    primary: "叫工作人员过来"
+    secondary: "我不在门诊，拨打 120"
+  clinic_on_site:        # 扩展情形：人在门诊里
+    headline: "今天治疗前，请医生先看一下"
+    body: "你说的情况需要医生先当面看看，再决定今天怎么治疗。请告诉前台或治疗师，稍等一下。（模拟临床稿）"
+    primary: "叫工作人员过来"
+    secondary: "我不在门诊"
+  clinic_long_closure:   # 扩展情形：周六晚到周一、长假
+    headline: "门诊隔一天以上才开门，这件事别等那么久"
+    body: "你说的情况最好在 24 小时内让医生当面看看。请去附近综合医院看门诊（骨科、脊柱外科或疼痛科都可以），医院门诊不开就去急诊。出现这些情况，别等，马上去急诊或打 120：尿不出来或憋不住、两腿之间或肛门周围发麻、两条腿都没劲或站不稳、发高烧打寒战、疼得动不了。门诊开门后也会打电话问你。（模拟临床稿）"
+    primary: "知道了，24 小时内去医院看"
+    secondary: "拨打 120"
+
+reassurance: "你做得对，说出来就好。现在先照上面做，别的不用再填了。（模拟临床稿）"   # 工程 schema 把它放在顶层；只在终止页显示
+
+urgent_buttons:   # 扩展。模拟：每次点击都记录（已有 urgent_action 埋点），结案和回访时能看到患者点了什么
+  "拨打 120": "tel:120（scope.emergency_phone）"
+  "打电话给门诊": "tel:门诊电话（scope.contact_phone）；没配置时不显示这个按钮"
+  "我自己去医院": "记录「患者选择自行前往」，再显示一张「到了医院给医生看」的卡：列出红旗原话里「告诉医生……」那一句"
+  "我等门诊打给我": "记录确认，不拨号"
+  "知道了，等门诊电话": "记录确认，不拨号"
+  "知道了，24 小时内去医院看": "记录确认，不拨号"
+  "叫工作人员过来": "前台队列置顶这一行并响提示，记录时间"
+  "我不在门诊，拨打 120": "tel:120，并把这次记为不在门诊"
+  "我不在门诊": "改按不在门诊显示（开诊页或停诊页），并记录"
+
+ed_hospital_hint: null   # 扩展。门诊填写：离门诊最近、24 小时能做急诊核磁的综合医院名称和地址。为空时页面不显示这一行。120 会按就近原则送，未必能做核磁
+
+after_hours_messages:   # 扩展。模拟：停诊（隔夜）时代替 v0.2 的 patient_message。v0.2 原话是按开诊写的，停诊时让患者「今天内打电话联系门诊」是死路。
+                        # 没列出的规则，v0.2 原话在停诊时也成立（rf_bladder_bowel、rf_saddle、rf_ces_bilateral、rf_uncertain_red_flag），照用。
+  rf_progressive_weakness: "你提到腿越来越使不上劲。门诊已下班，这件事不要等到开门：请今天就去附近有急诊的综合医院，告诉医生「我腰痛，腿越来越没劲」。几个小时内明显加重、两条腿都没劲、站不稳，或出现大小便变化、下身发麻，请立即拨打 120。（模拟临床稿）"
+  rf_fever: "你提到有发烧。腰背痛同时发烧，需要今天查清原因：请现在去附近医院的发热门诊或急诊，告诉医生「我腰痛，还发烧」。发冷打寒战、高烧不退、精神很差，或出现腿没劲、大小便变化，请立即拨打 120。（模拟临床稿）"
+  rf_bilateral_only: "你提到两条腿都有疼痛、发麻或没劲。门诊开门后会先打电话给你，由医生判断要不要尽快检查。如果两条腿突然都没劲、站不稳，或者出现大小便变化、下身发麻，不要等电话，立即去急诊。（模拟临床稿）"
+  rf_gait: "你提到最近走路不稳、拖着脚走或容易绊倒。门诊开门后会先打电话给你。这段时间注意防摔：起床、上厕所慢一点，扶稳。如果站不稳、走不了路，或同时出现两条腿没劲、大小便变化，立即去急诊。（模拟临床稿）"
+  rf_fracture_risk: "你提到最近摔过或受过伤，年龄或骨骼情况让骨折的可能需要多留意。门诊开门后会先打电话给你，安排检查。这段时间少走动；如果疼得动不了、站不起来，或出现腿麻、腿没劲、大小便变化，直接去急诊。（模拟临床稿）"
+  rf_trauma_severe: "你提到最近受过伤，现在疼得比较厉害。门诊开门后会先打电话给你。如果是车祸、从高处摔下这类严重外伤，或疼得动不了、腿麻没劲、大小便有变化，请直接去急诊或拨打 120。（模拟临床稿）"
+  rf_cancer_with_features: "你提到以前得过肿瘤。结合你这次说的情况，医生希望尽早了解：门诊开门后会先打电话给你，尽快安排。这是为了稳妥，不代表已经有了结论。如果出现腿没劲、走路不稳或大小便变化，请立即去急诊。（模拟临床稿）"
+
+callback_task:   # 模拟：停诊时段触发的紧急、当天红旗（引擎两类都建），开门后第一件事
+  title: "停诊时段的红旗：开门后先打电话，问现在怎么样、去没去医院"
+  due_minutes_after_open: 30
+  assignee_role: nurse   # 没有护士的门诊由当班医助或医生承担
+  checklist:   # 扩展（schema 会忽略）：给护士的通话要点
+    - "去医院了吗？去了哪家，医生怎么说，做了什么检查"
+    - "现在怎么样：大小便、两腿之间的感觉、两条腿有没有劲"
+    - "没去的：问清原因，再说一次要去，同时报告当班医生"
+    - "结果填进结案表；今天能不能做治疗，由医生定"
+
+checkin:
+  # 模拟：每次治疗前签到，或在家扫同一个码。全部答「没有」时 5 屏：
+  #   1 红旗一屏（6 行）→ 2 整体变化（7 级）→ 3 过去 7 天平均痛 → 4 活动受影响 → 5 新情况一句话（有才展开文字框）
+  # 红旗一屏放第 1 屏：与引擎顺序一致（tier 1 先于 tier 2），也最安全——大小便有变化的人不该先答完三道打分题才被叫去医院。
+  # 有阳性时多出来的屏（腿没劲 → 「是不是一天比一天明显」；摔过 → 「现在几分」）不算超预算，那正是该多问的时候。
+  screens:   # 扩展：屏幕安排说明
+    - {n: 1, show: "red_flag_grid", note: "私密提示（private_preface）只显示在这一屏上方；「再确认几件事」那一屏不要再显示"}
+    - {n: 2, show: [q_ci_pgic], note: "页顶一行小字显示「谁在填」，沿用上次选择，可切换，不单独占一屏"}
+    - {n: 3, show: [q_ci_pain_avg_7d], note: "竖排疼痛温度计，带 scale_anchors 文字"}
+    - {n: 4, show: [q_ci_interference_7d]}
+    - {n: 5, show: [q_fu_new, q_fu_new_desc], note: "选「有」后在同一屏出现文字框，提示可以按话筒说；在家定期签到（schedule_days）时加一行「和第一次比，疼的位置变了吗？没变 / 变了，重新标一下」"}
+  grid_title: "每一行都请选一下：有、没有，或不确定。"   # 扩展：签到红旗一屏的标题。现在的默认标题「这次腰背痛以来有没有出现」与腿、摔倒三行的「上次来门诊以后」冲突
+  new_facts:
+    - key: pgic
+      label: "和第一次来门诊时比，整体感觉"
+      record_label: "自评整体变化（与首诊比）"
+      type: enum
+      category: followup
+      required: true
+      critical: false
+      options:
+        - {value: much_better, label: "好了很多"}
+        - {value: better, label: "好了不少"}
+        - {value: slightly_better, label: "好了一点"}
+        - {value: same, label: "没什么变化"}
+        - {value: slightly_worse, label: "差了一点"}
+        - {value: worse, label: "差了不少"}
+        - {value: much_worse, label: "差了很多"}
+      patient_prompt: "和第一次来门诊的时候比，你现在整体感觉怎么样？"
+      clinical_review_required: true
+      notes: "模拟：采纳生物学组的 7 级患者整体变化印象（PGIC），替换签到里 3 级的「和上次比」。两处修改：① 参照点是首诊，不是上一次——每 2–3 天一次的疗程里「和上次比」几乎总是「差不多」，看不出累积变化；PGIC 作判读锚点也要求以开始治疗为参照；② 只认直接回答，不从原话抽取（原话里的「好多了」分不清是跟哪次比）。标签用「很多 / 不少 / 一点」三档，对称，老人一眼能分。"
+    - key: pain_avg_7d
+      label: "过去 7 天平均疼几分（0–10）"
+      record_label: "近 7 天平均痛"
+      type: scale
+      category: severity
+      required: false
+      critical: false
+      min: 0
+      max: 10
+      patient_prompt: "过去 7 天，腰背痛平均下来大概几分？0 是一点不疼，10 是疼得受不了。"
+      clinical_review_required: true
+      notes: "模拟：结局指标。过去 7 天平均比「现在几分」稳，治疗后一两天的酸痛不会把曲线拉歪（仿 PEG 的疼痛题，Krebs 2009）。每次签到都问，窗口会重叠，判读只拿最近一次和基线比，不受影响。只认直接回答，抽取时跳过（「疼得要命」不等于 10 分）。首诊也要问一次作基线，见 pre_visit_baseline_questions。required 设 false：首诊还没加这道题之前，确认页不会给每个人列一条「未回答」。"
+    - key: interference_7d
+      label: "过去 7 天腰痛耽误日常的事（0–10）"
+      record_label: "近 7 天活动受影响"
+      type: scale
+      category: function
+      required: false
+      critical: false
+      min: 0
+      max: 10
+      patient_prompt: "过去 7 天，腰背痛耽误你做日常的事（上班、做家务、走路、出门）有多厉害？0 是一点不耽误，10 是什么都做不了。"
+      clinical_review_required: true
+      notes: "模拟：结局指标，仿 PEG 的「影响日常活动」一题（Krebs 2009），不是验证过的中文版。不用 PEG 的「生活乐趣」题：签到只有 1 分钟，这题偏情绪，问了没有回应路径。例子里不放「睡觉」，免得和疼痛混在一起。只认直接回答，抽取时跳过。"
+  questions:
+    # ---- 红旗一屏（tier 1、是否型、逐行必答；priority 即行序）
+    - id: q_ci_bladder_bowel
+      fact_key: bladder_bowel_change
+      type: yes_no
+      text: "现在大小便有没有不对劲？比如尿不出来、要很用力才尿得出、尿的时候没感觉、憋不住或漏尿，或者大便憋不住、感觉不到要大便。（这次腰痛之前就一直这样的，不算）"
+      stage: follow_up
+      tier: 1
+      priority: 1
+      when: null
+      allow_unknown: true
+      allow_skip: false
+      purpose: "马尾综合征：大小便变化"
+      review_note: "模拟：问「现在」而不是「上次来门诊以后新出现」：上次签到漏报、一直没好的，这一次还能接住；这次腰痛之前就一直这样的（例如前列腺增生的老人）排除在外。代价：已经查过、仍然存在的症状每次签到都会再报一次——靠任务卡显示上次处理结果来减负，不靠压住提醒。"
+    - id: q_ci_saddle
+      fact_key: saddle_numbness
+      type: yes_no
+      text: "现在两腿之间、肛门周围或大腿根内侧，有没有发麻、感觉变迟钝，或者上完厕所擦的时候感觉和平时不一样？（这次腰痛之前就一直这样的，不算）"
+      stage: follow_up
+      tier: 1
+      priority: 2
+      when: null
+      allow_unknown: true
+      allow_skip: false
+      purpose: "马尾综合征：下身感觉变化"
+      review_note: "模拟：理由同大小便一行；补回「擦的时候感觉不一样」——v0.2 随访版漏了这半句，首诊版有。"
+    - id: q_ci_leg_weakness
+      fact_key: leg_weakness
+      type: yes_no
+      text: "上次来门诊以后，腿或脚有没有新出现使不上劲，或者比以前更没劲？比如踮不起脚尖、脚尖抬不起来、上楼腿发软。"
+      stage: follow_up
+      tier: 1
+      priority: 3
+      when: null
+      allow_unknown: true
+      allow_skip: false
+      purpose: "新出现或加重的无力：治疗前请医生复评"
+      review_note: "模拟：问「新出现或更没劲」而不是「有没有没劲」——坐骨神经痛的人不少首诊就有没劲，每次都答「有」，追问和提醒就每次都响。注意：签到里这个事实的意思是「变化」，变化卡不要拿它和首诊的「有没有」直接比（见备忘录 §2.3）。"
+    - id: q_ci_bilateral
+      fact_key: bilateral_leg_symptoms
+      type: yes_no
+      text: "上次来门诊以后，是不是变成两条腿都疼、麻或没劲了，或者两条腿都比以前更重了？"
+      stage: follow_up
+      tier: 1
+      priority: 4
+      when: null
+      allow_unknown: true
+      allow_skip: false
+      purpose: "新出现或加重的双侧症状"
+      review_note: "模拟：理由同腿没劲一行。「两条腿都比以前更重」是为慢性椎管狭窄的老人留的：他们本来两条腿就有症状，加重时要能答「有」，这样再加上「越来越没劲」就会按急诊处理（rf_ces_bilateral）。"
+    - id: q_ci_fever
+      fact_key: fever
+      type: yes_no
+      text: "这几天有没有发烧（38℃ 以上），或者发冷打寒战？"
+      stage: follow_up
+      tier: 1
+      priority: 5
+      when: null
+      allow_unknown: true
+      allow_skip: false
+      purpose: "感染（疗程中做过注射、针刺的尤其要问）"
+      review_note: "模拟：补 38℃ 界线和「发冷打寒战」，与首诊问法一致。"
+    - id: q_ci_fall
+      fact_key: trauma_recent
+      type: yes_no
+      text: "上次来门诊以后，有没有摔倒、撞到或受伤？哪怕只是轻轻摔了一下。"
+      stage: follow_up
+      tier: 1
+      priority: 6
+      when: null
+      allow_unknown: true
+      allow_skip: false
+      purpose: "两次治疗之间的新外伤：上手法、牵引之前要知道"
+      review_note: "模拟：新加的一行。老人两次治疗之间摔一下、疼得更厉害，今天再上手法或牵引，可能压在一个新的压缩性骨折上。只问两次之间的新外伤，首诊的外伤不带过来。"
+    # ---- 红旗一屏里的追问（引擎放在「再确认几件事」那一屏）
+    - id: q_ci_weakness_progressive
+      fact_key: weakness_progressive
+      type: yes_no
+      text: "这种没劲是不是一天比一天明显？比如脚越来越抬不起来、走路越来越容易拖脚或绊到。"
+      stage: follow_up
+      tier: 1
+      priority: 7
+      when: "facts.leg_weakness.present or facts.leg_weakness.uncertain"
+      allow_unknown: true
+      allow_skip: false
+      purpose: "进行性无力"
+      review_note: "模拟：补上 v0.2 审核意见 P1-5 要的「随访里问是否加重」。"
+    - id: q_ci_severity_after_fall
+      fact_key: severity_now
+      type: scale
+      text: "摔了以后，现在疼到几分？0 是一点不疼，10 是疼得受不了。"
+      stage: follow_up
+      tier: 1
+      priority: 8
+      when: "facts.trauma_recent.present"
+      allow_unknown: true
+      allow_skip: true
+      purpose: "给 rf_trauma_severe 用（外伤 + 现在 ≥7 分）"
+      review_note: "模拟：签到平时不问「现在几分」，只在摔过之后问。"
+    # ---- 结局与新情况（tier 2，签到共 5 道，不会碰到 6 题上限）
+    - id: q_ci_pgic
+      fact_key: pgic
+      type: single_choice
+      text: "和第一次来门诊的时候比，你现在整体感觉怎么样？"
+      stage: follow_up
+      tier: 2
+      priority: 20
+      when: null
+      allow_unknown: true
+      allow_skip: true
+      purpose: "患者整体变化印象（PGIC），恢复轨迹的锚点"
+      review_note: "模拟：7 个选项竖排，每个按钮不小于 56 像素高。"
+    - id: q_ci_pain_avg_7d
+      fact_key: pain_avg_7d
+      type: scale
+      text: "过去 7 天，腰背痛平均下来大概几分？0 是一点不疼，10 是疼得受不了。"
+      stage: follow_up
+      tier: 2
+      priority: 21
+      when: null
+      allow_unknown: true
+      allow_skip: true
+      purpose: "恢复轨迹：疼痛"
+      review_note: "模拟：竖排温度计，带文字锚点。"
+    - id: q_ci_interference_7d
+      fact_key: interference_7d
+      type: scale
+      text: "过去 7 天，腰背痛耽误你做日常的事（上班、做家务、走路、出门）有多厉害？0 是一点不耽误，10 是什么都做不了。"
+      stage: follow_up
+      tier: 2
+      priority: 22
+      when: null
+      allow_unknown: true
+      allow_skip: true
+      purpose: "恢复轨迹：活动受影响"
+      review_note: "模拟：同上。"
+    - id: q_fu_new            # 保留 v0.2 的 id，只改问法（意思没变：上次以后有没有新情况）；build_v02 按 id 覆盖
+      fact_key: fu_new_symptom
+      type: yes_no
+      text: "上次来门诊以后，还有什么新情况吗？比如治疗以后哪里不舒服、吃药以后不舒服、哪里新疼了或麻了。"
+      stage: follow_up
+      tier: 2
+      priority: 23
+      when: null
+      allow_unknown: false
+      allow_skip: true
+      purpose: "治疗反应与其他新情况；患者自己的话"
+      review_note: "模拟：点名治疗反应和药物反应——疗程里最常见的新情况就是它们；也点名「哪里新麻了」，签到不再单独问腿麻、串痛。原话照常走模型抽取和红旗专查。"
+    - id: q_fu_new_desc       # 保留 v0.2 的 id，只改问法
+      fact_key: fu_new_symptom_desc
+      type: text
+      extract_answer: true
+      text: "用一句话说说新情况（可以按键盘上的话筒直接说）。"
+      stage: follow_up
+      tier: 2
+      priority: 24
+      when: "facts.fu_new_symptom.present"
+      allow_unknown: false
+      allow_skip: true
+      purpose: "患者原话"
+      review_note: "模拟：和上一题同一屏展开。"
+  red_flag_grid: [q_ci_bladder_bowel, q_ci_saddle, q_ci_leg_weakness, q_ci_bilateral, q_ci_fever, q_ci_fall]
+  drop_from_followup:   # v0.2 的 19 道随访题，签到时不再问 17 道（q_fu_new、q_fu_new_desc 保留 id、改问法，见上）。逐条理由见 drop_reasons（build_v02 只接受 id 列表）
+    - q_fu_overall
+    - q_fu_severity
+    - q_fu_bladder
+    - q_fu_saddle
+    - q_fu_weakness
+    - q_fu_numbness
+    - q_fu_radiation
+    - q_fu_course
+    - q_fu_function
+    - q_fu_sleep
+    - q_fu_understood
+    - q_fu_adherence
+    - q_fu_concern
+    - q_fu_bilateral
+    - q_fu_gait
+    - q_fu_fever
+    - q_fu_side_effect
+  drop_reasons:   # 扩展：逐条理由
+    q_fu_overall: "由 q_ci_pgic 代替：7 级、以首诊为参照；3 级「和上次比」在每 2–3 天一次的疗程里几乎总是「差不多」"
+    q_fu_severity: "由 q_ci_pain_avg_7d 代替：过去 7 天平均比「现在几分」稳；「现在几分」只在摔倒后问（q_ci_severity_after_fall）"
+    q_fu_bladder: "由 q_ci_bladder_bowel 代替：参照点从「上次看病以后」改为「现在有没有，这次腰痛之前就一直这样的不算」；疗程里「上次看病」会被理解成首诊，上次签到漏报、一直没好的也接不住"
+    q_fu_saddle: "由 q_ci_saddle 代替：理由同上，并补回「擦的时候感觉不一样」"
+    q_fu_weakness: "由 q_ci_leg_weakness 代替：改问「新出现或比以前更没劲」，首诊就有没劲的人不会每次都触发"
+    q_fu_numbness: "签到不问：腿麻不是红旗；新出现的腿麻由「新情况」一句话和原话抽取接住，再和首诊比（recovery_rules_pending 里的 rr_new_nerve_vs_baseline）"
+    q_fu_radiation: "签到不问：理由同上；身体图重标时照样记录"
+    q_fu_course: "签到不问：与整体变化、过去 7 天平均痛重复"
+    q_fu_function: "由 q_ci_interference_7d 代替：0–10 分能算变化，4 级「影响多大」没有信度数据（数学组意见）"
+    q_fu_sleep: "签到不问：时间预算；睡不好多半已反映在平均痛和活动影响里"
+    q_fu_understood: "签到不问：疗程中每 2–3 天见一次治疗师，下一步当面说清；医生面诊后的随访若另外保留，再用它"
+    q_fu_adherence: "签到不问：不涉及安全，治疗时当面问"
+    q_fu_concern: "由 q_fu_new_desc（改过问法）覆盖"
+    q_fu_bilateral: "由 q_ci_bilateral 代替：改问「变成两条腿都有，或两条腿都更重」，理由同腿没劲"
+    q_fu_gait: "签到不问：新出现走路不稳几乎总伴随腿没劲或两条腿症状，这两行已问，触发后医生当面查步态；原话里说「走不稳」仍由抽取接住并触发 rf_gait。单列会超过 6 行"
+    q_fu_fever: "由 q_ci_fever 代替：补 38℃ 界线和「发冷打寒战」，与首诊一致"
+    q_fu_side_effect: "由 q_fu_new（改过问法）覆盖：问法点名治疗以后、吃药以后的不舒服；在家签到写了新情况的，由 checkin_rules.rc_new_situation_home 派护士当天看"
+  carry_over:   # 扩展。模拟：签到里评估 v0.2 红旗时，从首诊带过来的「不会变」的事实（只用于规则判断，不在签到卡上显示为「本次」）
+    facts: [age_band, cancer_history, osteoporosis_or_fragility, infection_risk]
+    from: "疗程起点的首诊；之后医生确认过的就诊有更新的，用更新的"
+    fresh_trigger_required: true   # 规则里至少有一个「有」或「不确定」的触发事实来自这次签到（直接回答或原话），才生成新提醒
+    note: "模拟：两件事必须一起上，或者都不上。只带不查新鲜：50 岁以上的肿瘤病人每次签到都触发 rf_cancer_with_features（当天）。都不带（现状）：摔倒的 70 岁老人在签到里触发不了 rf_fracture_risk，因为签到里没有年龄。"
+  done_messages:   # 扩展：签到结束页（没有触发任何提醒时）
+    on_site: "谢谢。今天的情况已经交给治疗师。（模拟临床稿）"
+    home: "谢谢，门诊会看你填的情况。出现安全卡上的情况，别等，马上去医院。（模拟临床稿）"
+    new_situation_ack: "你写的新情况，门诊会看。如果是吃药以后大便发黑、吐血、全身起疹子或喘不上气，别等，马上去急诊。（模拟临床稿）"
+
+pre_visit_red_flag_grid: [q_bladder_bowel, q_saddle, q_bilateral, q_leg_weakness, q_fever, q_trauma, q_cancer_history2, q_weight_loss2]
+  # 模拟：v0.2 里 tier 1、是否型、没有 when 条件的 8 道，顺序照 v0.2 priority。年龄段是单选、应并进开始页；
+  # 有 when 的追问（越来越没劲、走路不稳、性功能、骨质疏松）在「再确认几件事」那一屏；感染风险是多选，单独一屏。
+
+pre_visit_grid_title: "下面几项，每位腰背痛的人都会被问到，是为了不漏掉少见但要尽快处理的情况。每一行都请照实选一下。（模拟临床稿）"
+  # 扩展，P0。现在的默认标题「这次腰背痛以来有没有出现？」配上「你本人以前有没有得过肿瘤」一行，
+  # 以前得过癌、这次没有新发的人会答「没有」——而肿瘤史是唯一明显抬高恶性概率的一项。每行自带时间范围，标题不要再加。
+  # 也去掉了我第 1 轮建议的「大多数人都是'没有'」：它会把人往「没有」上推。
+
+pre_visit_baseline_questions:   # 扩展，P0（否则恢复轨迹没有基线）：工程需在 build_v02 里并进首诊 questions
+  - id: q_pv_pain_avg_7d
+    fact_key: pain_avg_7d
+    type: scale
+    text: "过去 7 天，腰背痛平均下来大概几分？0 是一点不疼，10 是疼得受不了。（疼了还不到 7 天的，按开始疼以后算）"
+    stage: pre_visit
+    tier: 1
+    priority: 30
+    when: null
+    allow_unknown: true
+    allow_skip: true
+    purpose: "恢复轨迹基线：疼痛"
+    review_note: "模拟：tier 1 不占 6 题上限，排在红旗之后、其余题之前，约 5 秒。括号里那句是给首测用的，免得把还没疼的日子平均进去。"
+  - id: q_pv_interference_7d
+    fact_key: interference_7d
+    type: scale
+    text: "过去 7 天，腰背痛耽误你做日常的事（上班、做家务、走路、出门）有多厉害？0 是一点不耽误，10 是什么都做不了。（疼了还不到 7 天的，按开始疼以后算）"
+    stage: pre_visit
+    tier: 1
+    priority: 31
+    when: null
+    allow_unknown: true
+    allow_skip: true
+    purpose: "恢复轨迹基线：活动受影响"
+    review_note: "模拟：同上。"
+
+scale_anchors:   # 模拟：0–10 分题的文字锚点，给患者看（竖排温度计）。severity_now 的锚点也会用到首诊「现在几分」那道题
+  pain_avg_7d: {0: "一点都不疼", 2: "有点疼，不太碍事", 4: "挺疼，还能忍着做事", 6: "很疼，做事受影响", 8: "非常疼，很多事做不了", 10: "疼得受不了"}
+  interference_7d: {0: "一点不耽误", 2: "稍微耽误一点", 4: "有些事得慢着做、少做", 6: "不少事做不了或要人帮", 8: "大部分事做不了", 10: "什么都做不了"}
+  severity_now: {0: "一点都不疼", 2: "有点疼，不太碍事", 4: "挺疼，还能忍着做事", 6: "很疼，做事受影响", 8: "非常疼，很多事做不了", 10: "疼得受不了"}
+
+outcomes:   # 模拟：恢复轨迹卡追踪的结局。rule 选 both：「有意义改善」要求降 ≥2 分且 ≥30%，理由见备忘录 §3.2
+  - key: pain_avg_7d
+    label: "近 7 天平均痛"
+    direction: lower_better
+    mcid_abs: 2
+    mcid_pct: 30
+    rule: both
+    baseline_keys: []   # 不用首诊的「现在几分」（severity_now）顶替：它在首诊时往往偏高，会让改善看起来更大、变差看起来更小。基线靠首诊补问（pre_visit_baseline_questions）
+    source: "Ostelo 2008 Spine 33(1):90–94：腰痛 NRS 最小重要变化 2 分，另建议以改善 30% 为门槛（未重新核对原文）"
+  - key: interference_7d
+    label: "腰痛耽误日常的事"
+    direction: lower_better
+    mcid_abs: 2
+    mcid_pct: 30
+    rule: both
+    baseline_keys: []   # 首诊的 function_impact 是 4 级选项，量纲不同，不能顶替
+    source: "借用疼痛 NRS 的口径（Ostelo 2008）；题目仿 PEG 的「影响日常活动」一题（Krebs 2009），不是验证过的中文版，单题没有公认的最小重要变化，待真实医生定"
+  - key: pgic
+    label: "自评整体变化（与首诊比）"
+    direction: higher_better
+    categories: {much_better: improved, better: improved, slightly_better: same, same: same, slightly_worse: same, worse: worse, much_worse: worse}
+    source: "Farrar 2001 Pain 94:149–158：患者自评「明显好转」及以上，约对应疼痛降 2 分或 30%；「好一点」「差一点」在测量误差之内，归「差不多」（未重新核对原文）"
+
+baseline_policy:   # 扩展。模拟
+  baseline: "疗程起点首诊问到的值"
+  fallback: "首诊没问到（旧记录、首诊被紧急红旗终止）：用疗程里第一次签到的值，卡片注明「基线取自第 N 次签到」"
+  substitute: "severity_now 只能在引擎做到「替代基线只判变差、不判改善」之后才可以填进 baseline_keys；现在的 verdict() 两个方向都判，所以不填"
+
+reference_curves: null   # 模拟：不采纳 CMAJ 2024 人群参考线。理由见备忘录 §3.5；卡片改画「这位患者自己的改善线」（基线降 2 分且降 30% 的那条线）
+
+recovery_rules:   # 模拟：只生成任务和小票上的一行，不做预测、不给患者看判断。引擎现在每次签到都会重新评估，见 recovery_rule_policies
+  - id: rr_worse_vs_baseline
+    label: "比首诊明显变差"
+    outcome: pain_avg_7d
+    worse_abs: 2
+    severity: same_day
+    slip_line: "治疗前请医生复评"
+    assignee_role: therapist   # 治疗师拿着小票、要先停手找医生；医生同时收到（cc）
+    task_title: "近 7 天平均痛比首诊高 2 分以上：治疗前请医生复评"
+  - id: rr_slow_recovery
+    label: "第 3 周仍未达到改善线"
+    outcome: pain_avg_7d
+    min_day: 21
+    max_improvement_pct: 30
+    severity: routine
+    assignee_role: doctor
+    task_title: "距首诊 21 天以上，平均痛仍未达到医生设定的改善线：请回顾治疗方案（不是预测）"
+  - id: rr_pain_spreading
+    label: "疼的部位比首诊多"
+    region_count_increase_gte: 2
+    severity: routine
+    assignee_role: doctor
+    task_title: "身体图标的疼痛部位比首诊多 2 处以上：请医生看一下"
+
+recovery_rule_policies:   # 扩展，P0/P1。模拟：现在的 evaluate_recovery_rules 只在同一次签到里去重，每次签到都会再建一条
+  dedupe: "同一疗程、同一条规则有未结案任务时不再新建，把这次签到的数值追加到原任务上"
+  cooldown_days: {rr_slow_recovery: 21, rr_pain_spreading: 14}   # 结案后这么多天内不再建
+  min_baseline: {rr_slow_recovery: 4}   # 基线低于 4 分的轻症，不提示「恢复慢」
+  slow_recovery_definition: "与判读一致：距首诊 ≥21 天且结论不是「有意义改善」（没有同时降 ≥2 分和 ≥30%）。现在只看百分比，基线 5 分降到 3.5 分（降 1.5 分、30%）会被当成已改善"
+  merge_same_visit: "同一次签到触发多条（红旗、签到规则、恢复规则），按最高级别合成一条任务，列出全部原因和原话"
+
+recovery_rules_pending:   # 扩展：需要引擎新能力后再并入 recovery_rules
+  - id: rr_worse_function_vs_baseline
+    label: "活动受影响比首诊明显加重"
+    outcome: interference_7d
+    worse_abs: 2
+    severity: same_day
+    slip_line: "治疗前请医生复评"
+    assignee_role: therapist
+    needs: "与 rr_worse_vs_baseline 合成一条任务（merge_same_visit），否则两个分数一起变差时会建两条"
+  - id: rr_new_nerve_vs_baseline
+    label: "出现首诊时没有的腿麻或串痛"
+    new_vs_baseline_any: [leg_numbness, radiation_present]
+    new_regions_any: [calf_left, calf_right, shin_left, shin_right, heel_left, heel_right, foot_left_top, foot_right_top]
+    severity: routine
+    due: before_next_session
+    slip_line: "治疗前请医生复评"
+    assignee_role: therapist
+    patient_message: "你说出现了新的腿麻或串痛。下次治疗前，医生会先看看你。如果腿越来越没劲、两条腿都有，或者大小便有变化，不要等，马上去急诊。（模拟临床稿）"
+    needs: "「新」= 这次签到（直接回答、原话或身体图重标）为有，首诊不是有；首诊未知也算新，只提示一次。膝盖以下新出现的串痛算神经根新受累"
+
+checkin_rules:   # 扩展。模拟：签到才有的「变化」类提醒，用 v0.2 表达式写，在签到这一次的事实上评估（和红旗一样），只生成任务和小票上的一行
+  - id: rc_new_weakness
+    label: "腿脚新没劲或更没劲"
+    when: "facts.leg_weakness.present and not facts.weakness_progressive.present"
+    severity: same_day
+    route: clinic
+    action: immediate_notice_and_task
+    slip_line: "治疗前请医生复评"
+    patient_message: "你说腿脚比以前更没劲，或者新出现没劲。医生要先当面看看，再做下一次治疗；门诊会打电话和你约时间。如果没劲一天比一天明显、两条腿都没劲、站不稳，或出现大小便变化、下身发麻，不要等，立即去急诊。（模拟临床稿）"
+  - id: rc_new_bilateral
+    label: "新出现两条腿症状，或两条腿都更重"
+    when: "facts.bilateral_leg_symptoms.present"
+    severity: same_day
+    route: clinic
+    action: immediate_notice_and_task
+    slip_line: "治疗前请医生复评"
+    patient_message: "你说现在两条腿都疼、麻或没劲，或者比以前更重。医生要先当面看看，再做下一次治疗；门诊会打电话和你约时间。如果两条腿突然都没劲、站不稳，或出现大小便变化、下身发麻，不要等，立即去急诊。（模拟临床稿）"
+    note: "模拟：v0.2 的 rf_bilateral_only 要看起病时间或「在加重」，签到里这两项都不问，所以在签到里永远不触发；由这条接住。同时有大小便、下身或越来越没劲时，rf_ces_bilateral 照常按急诊"
+  - id: rc_new_fall
+    label: "上次来以后摔过或受过伤"
+    when: "facts.trauma_recent.present"
+    severity: routine
+    due: before_next_session
+    route: clinic
+    action: immediate_notice_and_task
+    slip_line: "治疗前请医生复评（先不做手法、牵引）"
+    patient_message: "你说上次来以后摔过或受过伤。下次治疗前，医生会先看看你，再决定能不能做手法和牵引。如果疼得动不了、站不起来，或出现腿麻、腿没劲、大小便变化，直接去急诊。（模拟临床稿）"
+    note: "模拟：50 岁以上、骨质疏松、长期激素的，rf_fracture_risk 另按当天处理（需要 carry_over 带年龄过来）；现在 ≥7 分的，rf_trauma_severe 当天处理"
+  - id: rc_pgic_worse
+    label: "自评比刚来时明显差了"
+    when: "facts.pgic.any(['worse', 'much_worse'])"
+    severity: same_day
+    due: before_next_session
+    route: clinic
+    action: immediate_notice_and_task
+    slip_line: "治疗前请医生复评"
+    patient_message: "你说比刚来的时候差了不少。下次治疗前，医生会先看看你；等不到下次的，可以打电话给门诊约早一点。（模拟临床稿）"
+    note: "模拟：「差了一点」不触发，在测量误差之内；手法后一两天的酸痛很常见（人设经验）"
+  - id: rc_new_situation_home
+    label: "在家签到写了新情况"
+    when: "facts.fu_new_symptom.present"
+    contexts: [in_hours, after_hours, long_closure]   # 人在门诊里时不建任务：治疗师在小票上读到，治疗前当面问
+    severity: routine
+    due: end_of_day
+    assignee_role: nurse
+    action: task_only
+    note: "模拟：有人读患者写的话；读到红旗内容照常升级，读到药物反应按医生意见处理。停诊时写的，开门后当天读"
+
+schedule_days: [7, 14, 28, 42, 84]   # 模拟：在家签到的日子，从首诊日算；疗程内每次治疗前也签到
+
+schedule_options:   # 扩展
+  skip_if_checked_in_within_days: 3   # 3 天内在门诊签过到的，这一次在家签到不再发
+  due: "当天 21:00 前"
+  body_map_prompt: true               # 定期签到第 5 屏加「和第一次比，疼的位置变了吗」
+  stop_if: "患者说不用再问（记录原话），或医生结束随访"
+  note: "模拟：做注射、神经阻滞的疼痛门诊，术后 48–72 小时的回访要另写一组题（注射处红肿、发烧、腿没劲、糖尿病人的血糖），这一轮不做"
+
+no_response:
+  hours_after_due: 48
+  title: "在家签到到期 2 天没回音：前台打电话问问近况"
+  assignee_role: frontdesk
+
+no_response_extra:   # 扩展。模拟
+  due_days: 1
+  script: "接通后按签到的屏逐条念给患者听，替他选（「谁在填」选「门诊工作人员帮我填」）；说到安全卡上的任何情况，当场转护士或医生"
+  closure_options:
+    - {value: better_stop, label: "好多了，不打算再来"}
+    - {value: booked, label: "约了下次治疗或复查"}
+    - {value: elsewhere, label: "去别的地方看了"}
+    - {value: handed_over, label: "说到不舒服，已转护士或医生"}
+    - {value: unreached, label: "两次没接通（记录时间），结束，记为失访"}
+  max_attempts: 2
+
+task_routing:   # 模拟：角色只用 frontdesk、nurse、therapist、doctor。没有护士的门诊，nurse 由当班医助或医生承担
+  urgent:
+    assignee_role: nurse
+    due_minutes_in_hours: 30        # 以有手机提醒为前提（v0.2 P2）；提醒上线前，给患者的文字只说「会尽快打电话」，不写分钟数
+    after_hours: next_open_plus_30
+    on_site: {assignee_role: doctor, due: now}   # 人在门诊里：当班医生立刻看，不打电话
+    unreached_escalate_to: doctor   # 两次打不通转医生
+  same_day:
+    assignee_role: nurse
+    due: end_of_day
+    due_minutes_in_hours: 120       # 与 v0.2 P2「当天类 2 小时内电话」一致：取「2 小时内」与「停诊前」较早的；现在引擎只用停诊前
+    after_hours: next_open_plus_120 # 引擎另建开门 30 分钟的回访任务，两条请合成一条（见 recovery_rule_policies.merge_same_visit）
+    on_site: {assignee_role: doctor, due: before_treatment}
+  routine:
+    assignee_role: doctor
+    due_days: 2                     # 若下次治疗更早，以下次治疗前为准
+  recovery:
+    assignee_role: doctor
+    due: before_next_session
+    fallback_due_days: 2            # 没有已约的下次治疗时，2 天内
+
+closure:   # 模拟：红旗任务结案表单。结构照引擎 validate_closure：reached / advice；没联系上的选项带 unreached: true
+  reached:
+    options:
+      - {value: patient, label: "联系上患者本人"}
+      - {value: family, label: "联系上家属"}
+      - {value: in_person, label: "患者在门诊，当面处理"}
+      - {value: not_reached, label: "没联系上", unreached: true}
+    min_attempts_if_unreached: 2
+  unreached_rule: "两次没接通（间隔至少 10 分钟，时间自动记）：发一条短信或微信（unreached_sms），并转医生。紧急类和当天类没联系上时不能直接结案，要由医生在 advice 里选处理意见（引擎现在允许两次后直接结案，请改）"
+  unreached_sms: "你好，这里是门诊。你今天填的情况需要尽快处理，我们打了两次电话没接通。请按页面上的提示尽快就医，方便时回电。（模拟临床稿）"
+  advice:
+    options:
+      - {value: ed_now, label: "请立即去急诊或拨打 120（或已帮忙叫 120）", requires_reason: false}
+      - {value: hospital_today, label: "请今天去医院（急诊、发热门诊或专科门诊）", requires_reason: false}
+      - {value: clinic_today, label: "请今天来门诊，医生当面看", requires_reason: false}
+      - {value: before_next_session, label: "下次治疗前医生先看，在那之前不做手法和牵引", requires_reason: false}
+      - {value: already_at_hospital, label: "患者已在医院就诊", requires_reason: false}
+      - {value: no_urgent_action, label: "医生判断不必紧急处理", requires_reason: true, allowed_roles: [doctor]}
+      - {value: patient_declined, label: "已说明风险，患者不愿按建议就医", requires_reason: true}
+  outcome_followup:
+    label: "次日是否已就诊"
+    ask_when: "建议是 ed_now、hospital_today、clinic_today 时必填；其余选「不适用」"
+    options:
+      - {value: seen_hospital, label: "已去医院（写医院和医生怎么说）", closes_task: true}
+      - {value: seen_clinic, label: "已来本门诊，医生看过", closes_task: true}
+      - {value: not_seen_better, label: "没去，说已经好了", closes_task: false}
+      - {value: not_seen_not_better, label: "没去，没好或更重", closes_task: false}
+      - {value: unreachable, label: "还没联系上", closes_task: false}
+      - {value: not_applicable, label: "不适用", closes_task: true}
+  auto_record: ["每次拨打的时间", "处理人（登录账号）", "结案时间"]
+  note: "模拟：「医生判断不必紧急处理」只有医生能选且必须写理由——这是降级，出事时最要说清楚。「患者不愿就医」要写说了什么，保护按流程做事的人。「没去、说已经好了」不结案：让急诊去看的人没去，医生要亲自定下一步"
+
+safety_card:   # 模拟：替代常驻红色横幅。默认收起成一行；点开可存到相册。用身体感觉的说法；7 种情况覆盖 v0.2 全程紧急提示 ①–⑥（① 拆成尿不出来、憋不住两条），最后一行写去哪
+  collapsed: "出现这些情况，立刻就医 ›"
+  items:
+    - "尿不出来，或者要很用力才尿得出来"
+    - "憋不住尿或大便，或者尿了、拉了自己都没感觉"
+    - "两腿之间、肛门周围发麻发木，上完厕所擦的时候感觉和平时不一样"
+    - "两条腿突然都没劲，站不稳、走不了路"
+    - "发高烧、发冷打寒战，或者人一下子没了精神"
+    - "从来没有过的剧痛突然出现，或者同时胸口痛、喘不上气、肚子痛、出冷汗、要晕倒"
+    - "车祸、从高处摔下、被重物砸到以后腰背痛"
+    - "→ 去附近有急诊的综合医院；走不了路或没人送，就打 120。不用先问门诊。"
+  save_hint: "长按存到手机相册，或者截个屏；家里人也存一份。拿不准算不算的时候，宁可去医院看一次。（模拟临床稿）"
+
+private_preface: "下面两行问大小便和下身的感觉，有点私密。每位腰背痛的人都会被这样问，照实选就好。（模拟临床稿）"
+  # 首诊和签到的红旗一屏头两行都是这两题，所以「下面两行」成立。只显示在第一屏；「再确认几件事」那一屏不要显示（引擎现在每屏都显示）
+
+respondent:
+  options:
+    - {value: self, label: "我自己"}
+    - {value: family, label: "家人帮我填（我就在旁边）"}
+    - {value: staff, label: "门诊工作人员帮我填"}
+  proxy_note: "家属代述，患者本人在场确认。大小便、下身感觉两行由家属代答的，回电或面诊时请再单独问本人一次。（模拟）"
+  family_consent: "我是患者本人，我在旁边，同意家人帮我填"   # 扩展（schema 会忽略）：选家属代填时必须勾选
+  staff_note: "门诊工作人员代录：逐条念给患者听，按患者的回答选。（模拟）"   # 扩展
+
+slip_lines:   # 扩展。模拟：签到小票上给治疗师看的一行
+  ed: "紧急 · 今天不做治疗 · 请医生马上看，安排去医院"
+  clinic: "治疗前请医生复评"
+  example: "第 4 次 · 平均痛 6（首诊 4，↑2）· 新：右腿麻 → 治疗前请医生复评"
+
+metrics_to_log:   # 扩展。模拟：试点第一天起记，不预设目标数字
+  - "每 100 次签到：急诊页几次、当天任务几次、「治疗前请医生复评」几次，按在门诊里 / 开诊 / 停诊分开"
+  - "只因「不确定」触发的当天任务占几成，电话后有几例真的需要处理"
+  - "紧急任务从触发到第一次「已联系」的时间；停诊回访任务开门后多久打出"
+  - "红旗任务结案时选「医生判断不必紧急处理」的比例和理由"

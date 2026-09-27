@@ -1,0 +1,416 @@
+{
+  "source": "本项目 2026-09-27 自编中文沟通最小差异开发集，非真实患者、非独立留出集；24 句／12 对。根据语言含义预先写标签，不以系统输出反推。后续改动须升版。",
+  "items": [
+    {
+      "id": "C01A",
+      "pair": "C01",
+      "category": "主体",
+      "key": "leg_numbness",
+      "text": "我腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C01B",
+      "pair": "C01",
+      "category": "主体",
+      "key": "leg_numbness",
+      "text": "我妈腿麻。",
+      "expected": {
+        "subject": "other",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "not_asked"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C02A",
+      "pair": "C02",
+      "category": "转述主体",
+      "key": "leg_numbness",
+      "text": "我妈说我腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C02B",
+      "pair": "C02",
+      "category": "转述主体",
+      "key": "leg_numbness",
+      "text": "我说我妈腿麻。",
+      "expected": {
+        "subject": "other",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "not_asked",
+          "uncertain"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C03A",
+      "pair": "C03",
+      "category": "发生与报告",
+      "key": "leg_numbness",
+      "text": "今天才开始腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "new"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C03B",
+      "pair": "C03",
+      "category": "发生与报告",
+      "key": "leg_numbness",
+      "text": "今天才提起去年腿麻的事。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "historical"
+        ],
+        "current_allowed": [
+          "uncertain"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C04A",
+      "pair": "C04",
+      "category": "是否仍在",
+      "key": "leg_numbness",
+      "text": "去年腿就麻，现在还这样。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "ongoing"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C04B",
+      "pair": "C04",
+      "category": "是否仍在",
+      "key": "leg_numbness",
+      "text": "去年腿就麻，现在没有了。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "past"
+        ],
+        "current_allowed": [
+          "not_asked",
+          "denied"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C05A",
+      "pair": "C05",
+      "category": "变化方向",
+      "key": "leg_numbness",
+      "text": "以前腿麻，这次更明显了。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "worsening"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C05B",
+      "pair": "C05",
+      "category": "变化方向",
+      "key": "leg_numbness",
+      "text": "以前腿麻，这次减轻了。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "improving"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C06A",
+      "pair": "C06",
+      "category": "没有与不确定",
+      "key": "leg_numbness",
+      "text": "我没有腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "denied"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C06B",
+      "pair": "C06",
+      "category": "没有与不确定",
+      "key": "leg_numbness",
+      "text": "我不知道是不是腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "uncertain"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C07A",
+      "pair": "C07",
+      "category": "假设与事实",
+      "key": "leg_numbness",
+      "text": "如果以后腿麻，我再联系医生。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "not_asked"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C07B",
+      "pair": "C07",
+      "category": "假设与事实",
+      "key": "leg_numbness",
+      "text": "今天开始腿麻，我要联系医生。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "new"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C08A",
+      "pair": "C08",
+      "category": "历史未明与持续",
+      "key": "leg_numbness",
+      "text": "我以前腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "historical"
+        ],
+        "current_allowed": [
+          "uncertain"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C08B",
+      "pair": "C08",
+      "category": "历史未明与持续",
+      "key": "leg_numbness",
+      "text": "我以前腿麻，现在一直没变。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "ongoing"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C09A",
+      "pair": "C09",
+      "category": "他人时间",
+      "key": "leg_numbness",
+      "text": "我妈今天开始腿麻。",
+      "expected": {
+        "subject": "other",
+        "time_allowed": [
+          "new"
+        ],
+        "current_allowed": [
+          "not_asked"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C09B",
+      "pair": "C09",
+      "category": "他人时间",
+      "key": "leg_numbness",
+      "text": "我今天开始腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "new"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C10A",
+      "pair": "C10",
+      "category": "医生条件句",
+      "key": "leg_numbness",
+      "text": "医生说如果腿麻就联系门诊。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "not_asked"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C10B",
+      "pair": "C10",
+      "category": "医生条件句",
+      "key": "leg_numbness",
+      "text": "我对医生说最近才开始腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "new"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C11A",
+      "pair": "C11",
+      "category": "泛称与本人",
+      "key": "leg_numbness",
+      "text": "别人说腿麻很难受。",
+      "expected": {
+        "subject": "other",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "not_asked",
+          "uncertain"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C11B",
+      "pair": "C11",
+      "category": "泛称与本人",
+      "key": "leg_numbness",
+      "text": "我现在腿麻很难受。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C12A",
+      "pair": "C12",
+      "category": "否认与程度",
+      "key": "leg_numbness",
+      "text": "我现在不腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "denied"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    },
+    {
+      "id": "C12B",
+      "pair": "C12",
+      "category": "否认与程度",
+      "key": "leg_numbness",
+      "text": "我现在有点腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "annotation": "作者与 AI 开发标签；未独立临床审核"
+    }
+  ]
+}

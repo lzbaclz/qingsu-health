@@ -1,0 +1,70 @@
+id: S079
+family: F20_followup_right_lbp_calf_driver
+split: locked
+title: "随访：好像好点了，但“好像有点憋不住尿，不太确定”——须人工复核"
+persona: "57 岁出租车司机（模拟，非真实患者）"
+kind: follow_up
+category: hedged
+inputs:
+  body_map:
+    - {region_id: lower_back_right, kind: primary}
+    - {region_id: calf_right, kind: radiation}
+  free_text: "好像好点了，就是好像有点憋不住尿，不太确定。"
+  answers:
+    q_fu_overall: better
+    q_fu_severity: 4
+    q_fu_new: __unknown__
+    q_fu_bladder: __unknown__
+    q_fu_saddle: "no"
+    q_fu_weakness: "no"
+    q_fu_numbness: "yes"
+    q_fu_radiation: "yes"
+    q_fu_course: improving
+    q_fu_function: mild
+    q_fu_sleep: "no"
+    q_fu_understood: "yes"
+    q_fu_adherence: partial
+  clarifications: {}
+  corrections: []
+parent:
+  inputs:
+    body_map:
+      - {region_id: lower_back_right, kind: primary}
+      - {region_id: calf_right, kind: radiation}
+    free_text: "右边腰疼两个月了，串到右小腿，右脚麻。"
+    answers:
+      q_bladder_bowel: "no"
+      q_saddle: "no"
+      q_leg_weakness: "no"
+      q_fever: "no"
+      q_trauma: "no"
+      q_onset_mode: gradual
+      q_trigger: prolonged_sitting
+      q_severity_now: 6
+      q_course: stable
+      q_character: [sharp]
+      q_aggravating: [sitting]
+      q_relieving: [rest]
+      q_function_impact: moderate
+      q_sleep_affected: "no"
+    clarifications: {}
+    corrections: []
+  plan_message: "（医生撰写）请一周后更新情况；理疗每周两次；如出现大小便控制变化、会阴发麻或腿无力，请立即联系门诊。"
+ground_truth:
+  facts:
+    bladder_bowel_change: {status: uncertain}
+    fu_change_overall: {status: present, value: better}
+    severity_now: {status: present, value: 4}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    leg_numbness: {status: present}
+    radiation_present: {status: present}
+    fu_new_symptom: {status: unknown}
+    pain_side: {status: present, value: right}
+  must_be_unknown: []
+  expected_alerts: [rf_uncertain_red_flag]
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

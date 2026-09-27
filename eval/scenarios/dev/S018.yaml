@@ -1,0 +1,49 @@
+id: S018
+family: F05_chronic_lbp_cauda_equina_flags
+split: dev
+title: "原话只说“屁股那一片木木的”，表单明确回答会阴发麻——必须触发 rf_saddle"
+persona: "60 岁退休教师（模拟，非真实患者）"
+kind: pre_visit
+category: red_flag
+inputs:
+  body_map:
+    - {region_id: lower_back_center, kind: primary}
+    - {region_id: thigh_left_back, kind: radiation}
+  free_text: "腰痛三个月，左腿发麻，最近坐着的时候屁股那一片木木的。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "yes"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_severity_now: 7
+    q_course: worsening
+    q_onset_mode: gradual
+    q_trigger: none_known
+    q_character: [aching, sharp]
+    q_aggravating: [walking, standing]
+    q_relieving: [rest]
+    q_function_impact: moderate
+    q_sleep_affected: "yes"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    saddle_numbness: {status: present}
+    bladder_bowel_change: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    leg_numbness: {status: present}
+    radiation_present: {status: present}
+    onset_timing: {status: present, value: weeks_6_to_12}
+    severity_now: {status: present, value: 7}
+    course: {status: present, value: worsening}
+    pain_side: {status: present, value: center}
+  must_be_unknown: []
+  expected_alerts: [rf_saddle]
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核。“屁股那一片木木的”是会阴/鞍区麻木的口语化表达，抽取器抽不出也不算错，但表单回答“是”后必须升级。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

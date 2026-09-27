@@ -1,0 +1,53 @@
+id: S045
+family: F12_left_lbp_radiating_farmer
+split: locked
+title: "身体图误点右侧、原话说左边——澄清后“位置变了，现在主要是左侧”"
+persona: "52 岁农民（模拟，非真实患者）"
+kind: pre_visit
+category: contradiction
+inputs:
+  body_map:
+    - {region_id: lower_back_right, kind: primary}
+  free_text: "左边腰疼一个多月了，串到左小腿，干活久了更厉害。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_onset_mode: gradual
+    q_trigger: lifting
+    q_radiation_regions: [calf_left]
+    q_leg_numbness: "yes"
+    q_severity_now: 6
+    q_course: worsening
+    q_character: [aching, sharp]
+    q_aggravating: [bending, standing]
+    q_relieving: [rest]
+    q_function_impact: moderate
+  clarifications: {pain_side: changed_to_second}
+  corrections: []
+ground_truth:
+  facts:
+    pain_side: {status: present, value: left}
+    pain_regions: {status: present}
+    onset_timing: {status: present, value: weeks_2_to_6}
+    radiation_present: {status: present}
+    radiation_regions: {status: present, value: [calf_left]}
+    leg_numbness: {status: present}
+    severity_now: {status: present, value: 6}
+    course: {status: present, value: worsening}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    onset_mode: {status: present, value: gradual}
+    trigger: {status: present, value: lifting}
+  must_be_unknown: [sleep_affected, night_pain, weight_loss, cancer_history]
+  expected_alerts: []
+  expected_conflicts: [pain_side]
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

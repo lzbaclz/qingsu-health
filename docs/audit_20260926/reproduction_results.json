@@ -1,0 +1,164 @@
+{
+  "date": "2026-09-26",
+  "scope": "isolated synthetic data; mock only; dev API disabled",
+  "protocol": {
+    "id": "lbp_adult_v0.2",
+    "status": "draft",
+    "max_questions": 6,
+    "screening": {
+      "grid_enabled": true,
+      "grid_title": "下面几种情况，这次腰背痛以来有没有出现？每一行都请选一下。",
+      "grid_followup_title": "再确认几件事：",
+      "grid_preface": null,
+      "pre_visit_grid": [],
+      "checkin_grid": []
+    },
+    "no_response": null,
+    "course_configuration": {
+      "service_windows": 0,
+      "outcomes": 0,
+      "recovery_rules": 0,
+      "task_routing": []
+    }
+  },
+  "draft_protocol_creation": {
+    "status_code": 200,
+    "protocol_status": "draft"
+  },
+  "unauthenticated_doctor_reads": {
+    "list_http": 200,
+    "detail_http": 200
+  },
+  "cross_encounter_notification": {
+    "requests": [
+      {
+        "event": "seen",
+        "http": 200
+      },
+      {
+        "event": "acknowledged",
+        "http": 200
+      }
+    ],
+    "notification_belongs_to_A": true,
+    "final_status": "acknowledged",
+    "history_actor_uses_B": true
+  },
+  "unverified_task_closure": {
+    "steps": [
+      {
+        "to": "viewed",
+        "http": 200
+      },
+      {
+        "to": "contacted",
+        "http": 200
+      },
+      {
+        "to": "completed",
+        "http": 200
+      }
+    ],
+    "status": "completed",
+    "closure": {
+      "reached": "unreached",
+      "reached_label": "没联系上",
+      "attempts": 2,
+      "advice": null,
+      "advice_label": null,
+      "reason": null,
+      "note": null,
+      "outcome_followup": null,
+      "by": "随意填写的操作者",
+      "at": "2026-09-26T10:52:19Z"
+    }
+  },
+  "default_no_response_check": {
+    "rule_enabled": false,
+    "empty_child_status": "draft",
+    "control_reminders": 0,
+    "abandoned_reminders": 0
+  },
+  "same_day_deadline": {
+    "created_local": "2026-09-28 09:00 +08:00",
+    "due": null,
+    "hours_until_due": null,
+    "label": null,
+    "protocol_service_hours": "开诊时间内（示例：周一至周六 8:30–17:30，以门诊实际为准）由当班护士或医助查看队列：紧急类收到提醒后 30 分钟内电话，当天类 2 小时内电话，常规类由医生每天两次核对（上午开诊前、下午停诊前）；停诊时间和节假日提交的，下一个开诊日上午优先处理；紧急提示全程显示，不依赖有人在线。（模拟临床稿，上线前按门诊实际人手改）",
+    "routing": null
+  },
+  "candidate_configuration_ONLY_not_current_default": {
+    "reminder_counts": {
+      "control": 1,
+      "abandoned": 0
+    },
+    "empty_child_status": "draft",
+    "same_day_due_hours": 8.5,
+    "same_day_label": "今天停诊前",
+    "routing_due_minutes": 120,
+    "note": "仅临时装载候选 course 配置的条件性复现；当前默认配置仍未启用这些规则。"
+  },
+  "question_burden_one_synthetic_path": {
+    "counter": 6,
+    "screens": 9,
+    "item_decisions": 16,
+    "trace": [
+      {
+        "kind": "verification",
+        "id": "verify:normal:1",
+        "decisions": 1
+      },
+      {
+        "kind": "red_flag_grid",
+        "id": "grid:pre_visit:1",
+        "decisions": 8
+      },
+      {
+        "kind": "protocol",
+        "id": "q_age_band",
+        "decisions": 1
+      },
+      {
+        "kind": "protocol",
+        "id": "q_radiation_present",
+        "decisions": 1
+      },
+      {
+        "kind": "protocol",
+        "id": "q_leg_numbness",
+        "decisions": 1
+      },
+      {
+        "kind": "protocol",
+        "id": "q_severity_now",
+        "decisions": 1
+      },
+      {
+        "kind": "protocol",
+        "id": "q_rest_night",
+        "decisions": 1
+      },
+      {
+        "kind": "protocol",
+        "id": "q_function_impact",
+        "decisions": 1
+      },
+      {
+        "kind": "protocol",
+        "id": "q_patient_concern",
+        "decisions": 1
+      }
+    ],
+    "note": "不含适用范围、身体图、自由描述、最终确认；不是患者平均值，也不是计时试验。"
+  },
+  "sha256": {
+    "backend/app/api/patient.py": "13bf354911cc95437f659b084cad21ab3aa4a71024c1ccb7761175323b20922a",
+    "backend/app/api/doctor.py": "2f4a2a72704940f65efe91b20fb9f576b3e529d78d0841dc6c946826356c5b47",
+    "backend/app/course/tasks.py": "b38f7dae43b76ba5b088e39d1943c38b4626e5929845cfdde80e986960c120c4",
+    "backend/app/services/encounter.py": "cdef07ddbc392cee0874d03653da697f5123edabf889dc55231b909327cb0aed",
+    "backend/app/questioning/engine.py": "8770a1b6b16c6743c589fa1efa1d706307e190ef479427cf0bd7a5959af7a392",
+    "backend/app/llm/provider.py": "6e56235e710f6b26138abe4ee4e992ae33d68b2e0fc42f4bb2dc5eece3cac79b",
+    "protocols/lbp_adult_v0.2.yaml": "f52bfeec25b82b39ab5e3526566a052db306713ef8f86334d9dee02ddd9de74d",
+    "eval/runner.py": "70d0e280812b0291e0603c12471a5b87b073e28c7a0fb42936538ecffd1ae99a"
+  }
+}

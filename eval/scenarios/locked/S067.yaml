@@ -1,0 +1,56 @@
+id: S067
+family: F17_lung_cancer_history_back_pain
+split: locked
+title: "夜里疼得睡不着、经常痛醒 + 表单确认体重下降和肿瘤史"
+persona: "66 岁退休男性，去年肺癌化疗后（模拟，非真实患者）"
+kind: pre_visit
+category: red_flag
+inputs:
+  body_map:
+    - {region_id: lower_back_center, kind: primary}
+  free_text: "腰背痛一个多月，夜里疼得睡不着，经常痛醒。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_onset_mode: gradual
+    q_trigger: none_known
+    q_radiation_present: "no"
+    q_leg_numbness: "no"
+    q_severity_now: 6
+    q_course: worsening
+    q_character: [dull]
+    q_function_impact: moderate
+    q_relieving: [none]
+    q_weight_loss: "yes"
+    q_cancer_history: "yes"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    onset_timing: {status: present, value: weeks_2_to_6}
+    pain_side: {status: present, value: center}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    radiation_present: {status: denied}
+    leg_numbness: {status: denied}
+    severity_now: {status: present, value: 6}
+    course: {status: present, value: worsening}
+    onset_mode: {status: present, value: gradual}
+    night_pain: {status: present}
+    sleep_affected: {status: present}
+    aggravating: {status: present, value: [night]}
+    weight_loss: {status: present}
+    cancer_history: {status: present}
+  must_be_unknown: []
+  expected_alerts: [rf_weight_loss_or_cancer]
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

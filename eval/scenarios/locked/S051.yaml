@@ -1,0 +1,51 @@
+id: S051
+family: F13_bilateral_lbp_medication_request
+split: locked
+title: "“右边好像更厉害一点”“右腿好像有点麻”“大小便好像也还行”——模糊表达"
+persona: "38 岁外卖员（模拟，非真实患者）"
+kind: pre_visit
+category: hedged
+inputs:
+  body_map:
+    - {region_id: lower_back_left, kind: primary}
+    - {region_id: lower_back_right, kind: primary}
+  free_text: "腰两边疼了两个月，右边好像更厉害一点，右腿好像有点麻，大小便好像也还行。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_leg_numbness: __unknown__
+    q_onset_mode: gradual
+    q_trigger: none_known
+    q_radiation_present: "no"
+    q_severity_now: 5
+    q_course: stable
+    q_character: [dull]
+    q_aggravating: [sitting]
+    q_relieving: [rest]
+    q_function_impact: mild
+    q_sleep_affected: "no"
+  clarifications: {pain_side: both}
+  corrections: []
+ground_truth:
+  facts:
+    pain_side: {status: present, value: both}
+    onset_timing: {status: present, value: weeks_6_to_12}
+    leg_numbness: {status: uncertain}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    radiation_present: {status: denied}
+    severity_now: {status: present, value: 5}
+    course: {status: present, value: stable}
+  must_be_unknown: [weight_loss, cancer_history, night_pain]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核。“右边好像更厉害”与身体图两侧不矛盾；若系统追问，患者答“两侧都有”。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

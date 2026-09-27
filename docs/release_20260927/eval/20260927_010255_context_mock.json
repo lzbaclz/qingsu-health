@@ -1,0 +1,3529 @@
+{
+  "meta": {
+    "dataset_source": "本项目 2026-09-27 自编中文沟通最小差异开发集，非真实患者、非独立留出集；24 句／12 对。根据语言含义预先写标签，不以系统输出反推。后续改动须升版。",
+    "planned_n": 24,
+    "provider": "mock",
+    "at_utc": "2026-09-27T01:02:55.290260+00:00",
+    "provenance_start": {
+      "files": {
+        "backend/app/__init__.py": "1b8c4bbb75491ef4b7304df852e407a098f85f8f7dae39a0d29ba9079f39fe8b",
+        "backend/app/api/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/api/auth.py": "1138bc6ea2d8e10815ae000b3b8862c0354ac909d08203e29169fd05569fe054",
+        "backend/app/api/dev.py": "6dae791a925de55e6422b8c5143cd8f0f50e1b28696485a1e22554b193ea3cd8",
+        "backend/app/api/doctor.py": "7493e752a75ac100da5576faf203cfa36ae28bb6d15d6c75aeab25c3c583206a",
+        "backend/app/api/patient.py": "7fefd0d6c3e790418703f3bc07ce8a771861b21587e061ee40828c521cc09247",
+        "backend/app/api/protocols.py": "bc4b5b0aa333622fdeb4a48f6cc37485135832e5cc8e3265e995bfc7482047aa",
+        "backend/app/api/schemas.py": "03f2b0579de8169e818f66a5c87048606c6bdb315a56a54a6d9bfe94d0eb2f54",
+        "backend/app/bootstrap_access.py": "ea4685324f2ff154fc40ad0ef985c9a1eeeb0d5030cb385bf0036f187ab1b81b",
+        "backend/app/config.py": "2c96202a0a74f07ad5339e1260ddbbe396c8bec61742476fd52e9b52d74d2077",
+        "backend/app/course/__init__.py": "b4c35f983b8907b2094f538c376416b80370697073f386cac5ff30a32505e7a3",
+        "backend/app/course/goals.py": "c484ebd3928ebb2918773b8bcf896b8e144aef1c0a02870fd72b2e99b08e5667",
+        "backend/app/course/hours.py": "51269138a9799b0c0ea64f0c01a53b1cfda4deba2710782f3c886b2ee4819c39",
+        "backend/app/course/tasks.py": "62a1e295dfdb30f5259fb19504b5d3a7e2a83d7378c08942d652bf2d4d0180d0",
+        "backend/app/course/teachback.py": "00e63cc2568cc41268ed3a134035ec64381bfb7bdc62bffedea8799198694f08",
+        "backend/app/course/trajectory.py": "e38ca3a2c849ba5e596c45d243a6de17eb5248c0458737264ceeb650e6be856d",
+        "backend/app/course/worker.py": "742fdd5b5393beae35834f7a7f62649f297c1b67a56c922434ed2ae9fbd51fa2",
+        "backend/app/data_admin.py": "04f3f6b0af2b1e5353604df556dceb937b9b9df25154141d5f08d1ab6a32b325",
+        "backend/app/db.py": "25b55314953d951968ffc9b64e58713d8be5755455f6fe90b6484a366f59e0c5",
+        "backend/app/demo.py": "d19964699cc08e6197cd8e3bacf5a40e6ee00b2e98aeb25fde5a4c8302248748",
+        "backend/app/events/__init__.py": "e2243ede89dcf086cd612df295f558c2e0c504dbdef8d70ca8455462b41dc36b",
+        "backend/app/events/service.py": "7994e9cc9258675bcf882cd4cf9c1ec777b1542e5b7fd604f590412a4d2c5bf0",
+        "backend/app/extraction/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/extraction/service.py": "7d09739c8e3302772b9812e91e5658a3ce5d414023e7174e44f9204dbfa5699c",
+        "backend/app/facts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/facts/store.py": "4cb9b1c72d49c6961be51b26203c5687b3f2854e1c354ced3618d0c90aa1edbc",
+        "backend/app/llm/__init__.py": "aa4a6d6a68b7b09b87167556f4825347fafb26f32aeb138e844528e52c1b9b40",
+        "backend/app/llm/check.py": "0088d2b14f0e7d261d3e25ab13fd28ce44c340c4be07fc55a598a91b00105e5f",
+        "backend/app/llm/provider.py": "6869003ba3ee678eb810d7d4d08e98c0f1a53affcb9aad6f43d3bb8724be9c96",
+        "backend/app/main.py": "4a86fedb582e957e3f1b024c8b3c2fa7c54d75b0cbe1d228f607979d6969b532",
+        "backend/app/models.py": "32d1c96f23d91250df551258824eb0bab360dd5a4964c578c065509458963fce",
+        "backend/app/protocol/__init__.py": "a7fc105eeaf981e348b737d09ecce639f2b7ec109f42caf141f01221f7f39b06",
+        "backend/app/protocol/expr.py": "1f27d23404296404cf02b8c28a1350d6f02f13a3807d01de5f75f96f78670e42",
+        "backend/app/protocol/loader.py": "aeecfeaa0cc01ada3e56c849a0fdf860e2322f96732d7180a5cb5a7660fce653",
+        "backend/app/protocol/preview.py": "8ea1dc65e793a99d38453209d02f585c91fb386de4603ab39f8f68c2fbd36c61",
+        "backend/app/protocol/schema.py": "14a13ee36029c0d04c77ecf56bd12b572e988fe840ab5a16194bf3e9f8554ce5",
+        "backend/app/protocol/triage.py": "93f9e47c70e7671e42a151cd59dae334404ac76533fe66ff4e3934fd6812902d",
+        "backend/app/qr.py": "e6e5fbb5e8964825c4553871a4e4822331ddbfeb9ad5c65c0d099caf90738238",
+        "backend/app/questioning/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/questioning/engine.py": "796f16f32ee7de633fd2ddfc359bdda7fc421e6c344fdb1c4a778b853cea7215",
+        "backend/app/security.py": "fbed59fdb84f6f73c676af1291c413530856d05f0084b25e592a76a501335725",
+        "backend/app/seed.py": "efc5d456fdc984deaef4515ae2fb5520ac4bca956c7a65018463bc3763b5f1af",
+        "backend/app/services/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/services/encounter.py": "dd855ca59b4c5a8a9e6490e2b0daae74db47e31a9ef69011b033b8f995358847",
+        "backend/app/summary/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/summary/brief.py": "869a63fae07dc8319a92eb9a8fe53a4d57c2a9aa5076cae889bdb3691ebda44d",
+        "backend/app/summary/build.py": "5503c7730f48890f3a9b617548d4d85ee50f015d94eca9e7c1f554735fbd763f",
+        "backend/app/tasks/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/tasks/service.py": "dd1b3fb815d77aea81ec718b1a07ab972893d008bcde0aeaa69176b5d78df711",
+        "backend/app/usertest/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/usertest/plant.py": "32e7b98b367a60e167948ab7886ea0241af2c8be3ccd5d3807cd11b15a151f13",
+        "backend/app/util.py": "77671253ec4d6f44db7c4b40ffb20ba469a7d51e4be069220ad4782511edca93",
+        "backend/app/verification/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/verification/checks.py": "63205084859f2ec93377acf50e3097d746c962991f4dbd13c42d00158fd11278",
+        "backend/app/verification/rewrite_guard.py": "e3da9944025783e79876a7f87d18fe76cdb9a1fe277c1ba7887f8f887b2e53e2",
+        "backend/app/verification/scope.py": "dad9b9bb6e579e895ca86b6df7d7a0aaa3dc7c2b36a014cdaf41509ed9a4985a",
+        "backend/pyproject.toml": "31831418610cd491a27e9254b689562482030822c53fff5acdb7b0567c2aa984",
+        "eval/context_benchmark.py": "58741d602dba861b248ff14599e2a2b81701bbae65ffd383d8e7fb51bc5bd7cf",
+        "eval/evidence_table.py": "d6d1d9f7be2edba40963eca3cf278072c792799b6ffbf3ca82b49e5085608938",
+        "eval/provenance.py": "6b02dbd4947b243e67dffe95849ab704ab32561f36d851fe9b7f11211f043b42",
+        "eval/runner.py": "c938d4456872ccdcf8e001de85d02c00e6621a8415a5c345b25fa987955ef4ea",
+        "eval/scenarios/context/context_dev_v1.json": "e94413eebcf50805c08a76af1ffca875dadf5a8c354f0cc4b4a050ec569637fa",
+        "protocols/lbp_adult_v0.2.yaml": "12183147a129d640938e4e0a82b8355fc077d44970fb2bca37f144b42514b226"
+      },
+      "manifest_sha256": "8f0f892f33de893058e810ca5206ae23993d2a53f7836f944bca8e5e5658afd0",
+      "python": "3.13.9",
+      "platform": "macOS-15.7.8-arm64-arm-64bit-Mach-O",
+      "synthetic_only": true
+    },
+    "protocol_sha256": "12183147a129d640938e4e0a82b8355fc077d44970fb2bca37f144b42514b226",
+    "method": "每句实际调用主抽取和可用的红旗专查一次；同一原始候选在三个策略中配对重放，不冒充三次独立模型推理。未运行封存留出集。",
+    "provenance_end": {
+      "files": {
+        "backend/app/__init__.py": "1b8c4bbb75491ef4b7304df852e407a098f85f8f7dae39a0d29ba9079f39fe8b",
+        "backend/app/api/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/api/auth.py": "1138bc6ea2d8e10815ae000b3b8862c0354ac909d08203e29169fd05569fe054",
+        "backend/app/api/dev.py": "6dae791a925de55e6422b8c5143cd8f0f50e1b28696485a1e22554b193ea3cd8",
+        "backend/app/api/doctor.py": "7493e752a75ac100da5576faf203cfa36ae28bb6d15d6c75aeab25c3c583206a",
+        "backend/app/api/patient.py": "7fefd0d6c3e790418703f3bc07ce8a771861b21587e061ee40828c521cc09247",
+        "backend/app/api/protocols.py": "bc4b5b0aa333622fdeb4a48f6cc37485135832e5cc8e3265e995bfc7482047aa",
+        "backend/app/api/schemas.py": "03f2b0579de8169e818f66a5c87048606c6bdb315a56a54a6d9bfe94d0eb2f54",
+        "backend/app/bootstrap_access.py": "ea4685324f2ff154fc40ad0ef985c9a1eeeb0d5030cb385bf0036f187ab1b81b",
+        "backend/app/config.py": "2c96202a0a74f07ad5339e1260ddbbe396c8bec61742476fd52e9b52d74d2077",
+        "backend/app/course/__init__.py": "b4c35f983b8907b2094f538c376416b80370697073f386cac5ff30a32505e7a3",
+        "backend/app/course/goals.py": "c484ebd3928ebb2918773b8bcf896b8e144aef1c0a02870fd72b2e99b08e5667",
+        "backend/app/course/hours.py": "51269138a9799b0c0ea64f0c01a53b1cfda4deba2710782f3c886b2ee4819c39",
+        "backend/app/course/tasks.py": "62a1e295dfdb30f5259fb19504b5d3a7e2a83d7378c08942d652bf2d4d0180d0",
+        "backend/app/course/teachback.py": "00e63cc2568cc41268ed3a134035ec64381bfb7bdc62bffedea8799198694f08",
+        "backend/app/course/trajectory.py": "e38ca3a2c849ba5e596c45d243a6de17eb5248c0458737264ceeb650e6be856d",
+        "backend/app/course/worker.py": "742fdd5b5393beae35834f7a7f62649f297c1b67a56c922434ed2ae9fbd51fa2",
+        "backend/app/data_admin.py": "04f3f6b0af2b1e5353604df556dceb937b9b9df25154141d5f08d1ab6a32b325",
+        "backend/app/db.py": "25b55314953d951968ffc9b64e58713d8be5755455f6fe90b6484a366f59e0c5",
+        "backend/app/demo.py": "d19964699cc08e6197cd8e3bacf5a40e6ee00b2e98aeb25fde5a4c8302248748",
+        "backend/app/events/__init__.py": "e2243ede89dcf086cd612df295f558c2e0c504dbdef8d70ca8455462b41dc36b",
+        "backend/app/events/service.py": "7994e9cc9258675bcf882cd4cf9c1ec777b1542e5b7fd604f590412a4d2c5bf0",
+        "backend/app/extraction/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/extraction/service.py": "7d09739c8e3302772b9812e91e5658a3ce5d414023e7174e44f9204dbfa5699c",
+        "backend/app/facts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/facts/store.py": "4cb9b1c72d49c6961be51b26203c5687b3f2854e1c354ced3618d0c90aa1edbc",
+        "backend/app/llm/__init__.py": "aa4a6d6a68b7b09b87167556f4825347fafb26f32aeb138e844528e52c1b9b40",
+        "backend/app/llm/check.py": "0088d2b14f0e7d261d3e25ab13fd28ce44c340c4be07fc55a598a91b00105e5f",
+        "backend/app/llm/provider.py": "6869003ba3ee678eb810d7d4d08e98c0f1a53affcb9aad6f43d3bb8724be9c96",
+        "backend/app/main.py": "4a86fedb582e957e3f1b024c8b3c2fa7c54d75b0cbe1d228f607979d6969b532",
+        "backend/app/models.py": "32d1c96f23d91250df551258824eb0bab360dd5a4964c578c065509458963fce",
+        "backend/app/protocol/__init__.py": "a7fc105eeaf981e348b737d09ecce639f2b7ec109f42caf141f01221f7f39b06",
+        "backend/app/protocol/expr.py": "1f27d23404296404cf02b8c28a1350d6f02f13a3807d01de5f75f96f78670e42",
+        "backend/app/protocol/loader.py": "aeecfeaa0cc01ada3e56c849a0fdf860e2322f96732d7180a5cb5a7660fce653",
+        "backend/app/protocol/preview.py": "8ea1dc65e793a99d38453209d02f585c91fb386de4603ab39f8f68c2fbd36c61",
+        "backend/app/protocol/schema.py": "14a13ee36029c0d04c77ecf56bd12b572e988fe840ab5a16194bf3e9f8554ce5",
+        "backend/app/protocol/triage.py": "93f9e47c70e7671e42a151cd59dae334404ac76533fe66ff4e3934fd6812902d",
+        "backend/app/qr.py": "e6e5fbb5e8964825c4553871a4e4822331ddbfeb9ad5c65c0d099caf90738238",
+        "backend/app/questioning/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/questioning/engine.py": "796f16f32ee7de633fd2ddfc359bdda7fc421e6c344fdb1c4a778b853cea7215",
+        "backend/app/security.py": "fbed59fdb84f6f73c676af1291c413530856d05f0084b25e592a76a501335725",
+        "backend/app/seed.py": "efc5d456fdc984deaef4515ae2fb5520ac4bca956c7a65018463bc3763b5f1af",
+        "backend/app/services/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/services/encounter.py": "dd855ca59b4c5a8a9e6490e2b0daae74db47e31a9ef69011b033b8f995358847",
+        "backend/app/summary/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/summary/brief.py": "869a63fae07dc8319a92eb9a8fe53a4d57c2a9aa5076cae889bdb3691ebda44d",
+        "backend/app/summary/build.py": "5503c7730f48890f3a9b617548d4d85ee50f015d94eca9e7c1f554735fbd763f",
+        "backend/app/tasks/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/tasks/service.py": "dd1b3fb815d77aea81ec718b1a07ab972893d008bcde0aeaa69176b5d78df711",
+        "backend/app/usertest/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/usertest/plant.py": "32e7b98b367a60e167948ab7886ea0241af2c8be3ccd5d3807cd11b15a151f13",
+        "backend/app/util.py": "77671253ec4d6f44db7c4b40ffb20ba469a7d51e4be069220ad4782511edca93",
+        "backend/app/verification/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/verification/checks.py": "63205084859f2ec93377acf50e3097d746c962991f4dbd13c42d00158fd11278",
+        "backend/app/verification/rewrite_guard.py": "e3da9944025783e79876a7f87d18fe76cdb9a1fe277c1ba7887f8f887b2e53e2",
+        "backend/app/verification/scope.py": "dad9b9bb6e579e895ca86b6df7d7a0aaa3dc7c2b36a014cdaf41509ed9a4985a",
+        "backend/pyproject.toml": "31831418610cd491a27e9254b689562482030822c53fff5acdb7b0567c2aa984",
+        "eval/context_benchmark.py": "58741d602dba861b248ff14599e2a2b81701bbae65ffd383d8e7fb51bc5bd7cf",
+        "eval/evidence_table.py": "d6d1d9f7be2edba40963eca3cf278072c792799b6ffbf3ca82b49e5085608938",
+        "eval/provenance.py": "6b02dbd4947b243e67dffe95849ab704ab32561f36d851fe9b7f11211f043b42",
+        "eval/runner.py": "c938d4456872ccdcf8e001de85d02c00e6621a8415a5c345b25fa987955ef4ea",
+        "eval/scenarios/context/context_dev_v1.json": "e94413eebcf50805c08a76af1ffca875dadf5a8c354f0cc4b4a050ec569637fa",
+        "protocols/lbp_adult_v0.2.yaml": "12183147a129d640938e4e0a82b8355fc077d44970fb2bca37f144b42514b226"
+      },
+      "manifest_sha256": "8f0f892f33de893058e810ca5206ae23993d2a53f7836f944bca8e5e5658afd0",
+      "python": "3.13.9",
+      "platform": "macOS-15.7.8-arm64-arm-64bit-Mach-O",
+      "synthetic_only": true
+    },
+    "source_unchanged": true,
+    "usage": {
+      "calls": 0,
+      "errors": 0,
+      "fallbacks": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0,
+      "latency_s": {
+        "extract": {
+          "n": 0,
+          "p50": null,
+          "p90": null
+        },
+        "narrative": {
+          "n": 0,
+          "p50": null,
+          "p90": null
+        }
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "C01A",
+      "pair": "C01",
+      "text": "我腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "我腿麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.001,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "我腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 2,
+                "priority": 2,
+                "should_ask": true,
+                "reason": "候选解释会改变协议处理路径",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "我腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 2,
+                "priority": 2,
+                "should_ask": true,
+                "reason": "候选解释会改变协议处理路径",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C01B",
+      "pair": "C01",
+      "text": "我妈腿麻。",
+      "expected": {
+        "subject": "other",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "not_asked"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "我妈腿麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": false,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "not_asked",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "other",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "我妈腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "other",
+                    "time_relation": "new",
+                    "actions": []
+                  },
+                  {
+                    "subject": "other",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "other",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "other",
+                    "time_relation": "worsening",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": true,
+                "reason": "候选解释会改变协议处理路径",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "not_asked",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "other",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "我妈腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "other",
+                    "time_relation": "new",
+                    "actions": []
+                  },
+                  {
+                    "subject": "other",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "other",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "other",
+                    "time_relation": "worsening",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "候选解释对应同一处理；保留未明细节给医护",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C02A",
+      "pair": "C02",
+      "text": "我妈说我腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "我妈说我腿麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "我妈说我腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 2,
+                "priority": 2,
+                "should_ask": true,
+                "reason": "候选解释会改变协议处理路径",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "我妈说我腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 2,
+                "priority": 2,
+                "should_ask": true,
+                "reason": "候选解释会改变协议处理路径",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C02B",
+      "pair": "C02",
+      "text": "我说我妈腿麻。",
+      "expected": {
+        "subject": "other",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "not_asked",
+          "uncertain"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "我说我妈腿麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": false,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "not_asked",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "other",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "我说我妈腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "other",
+                    "time_relation": "new",
+                    "actions": []
+                  },
+                  {
+                    "subject": "other",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "other",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "other",
+                    "time_relation": "worsening",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": true,
+                "reason": "候选解释会改变协议处理路径",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "not_asked",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "other",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "我说我妈腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "other",
+                    "time_relation": "new",
+                    "actions": []
+                  },
+                  {
+                    "subject": "other",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "other",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "other",
+                    "time_relation": "worsening",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "候选解释对应同一处理；保留未明细节给医护",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C03A",
+      "pair": "C03",
+      "text": "今天才开始腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "new"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "今天才开始腿麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "new",
+              "quote": "今天才开始腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 2,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "new",
+              "quote": "今天才开始腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 2,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C03B",
+      "pair": "C03",
+      "text": "今天才提起去年腿麻的事。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "historical"
+        ],
+        "current_allowed": [
+          "uncertain"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "今天才提起去年腿麻的事",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": false,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "uncertain",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "historical",
+              "quote": "今天才提起去年腿麻的事",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 2,
+                "priority": 2,
+                "should_ask": true,
+                "reason": "候选解释会改变协议处理路径",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "uncertain",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "historical",
+              "quote": "今天才提起去年腿麻的事",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 2,
+                "priority": 2,
+                "should_ask": true,
+                "reason": "候选解释会改变协议处理路径",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C04A",
+      "pair": "C04",
+      "text": "去年腿就麻，现在还这样。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "ongoing"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "去年腿就麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "ongoing",
+              "quote": "去年腿就麻，现在还这样",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "ongoing",
+              "quote": "去年腿就麻，现在还这样",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C04B",
+      "pair": "C04",
+      "text": "去年腿就麻，现在没有了。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "past"
+        ],
+        "current_allowed": [
+          "not_asked",
+          "denied"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "去年腿就麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": false,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "not_asked",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "past",
+              "quote": "去年腿就麻，现在没有了",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "not_asked",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "past",
+              "quote": "去年腿就麻，现在没有了",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C05A",
+      "pair": "C05",
+      "text": "以前腿麻，这次更明显了。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "worsening"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "以前腿麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "worsening",
+              "quote": "以前腿麻，这次更明显了",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 2,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "worsening",
+              "quote": "以前腿麻，这次更明显了",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 2,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C05B",
+      "pair": "C05",
+      "text": "以前腿麻，这次减轻了。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "improving"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "以前腿麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            },
+            {
+              "key": "course",
+              "status": "present",
+              "value": "improving",
+              "quote": "这次减轻了",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            },
+            {
+              "key": "fu_change_overall",
+              "status": "present",
+              "value": "better",
+              "quote": "这次减轻了",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.004,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": null,
+          "other_current_assertions": [
+            {
+              "key": "course",
+              "status": "present",
+              "value": "improving"
+            },
+            {
+              "key": "fu_change_overall",
+              "status": "present",
+              "value": "better"
+            }
+          ],
+          "events": []
+        },
+        "all": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [
+            {
+              "key": "course",
+              "status": "present",
+              "value": "improving"
+            },
+            {
+              "key": "fu_change_overall",
+              "status": "present",
+              "value": "better"
+            }
+          ],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "improving",
+              "quote": "以前腿麻，这次减轻了",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "improving",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [
+            {
+              "key": "course",
+              "status": "present",
+              "value": "improving"
+            },
+            {
+              "key": "fu_change_overall",
+              "status": "present",
+              "value": "better"
+            }
+          ],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "improving",
+              "quote": "以前腿麻，这次减轻了",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "improving",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C06A",
+      "pair": "C06",
+      "text": "我没有腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "denied"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "denied",
+              "value": null,
+              "quote": "我没有腿麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "denied",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "denied",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "我没有腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "候选解释对应同一处理；保留未明细节给医护",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "denied",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "我没有腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "候选解释对应同一处理；保留未明细节给医护",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C06B",
+      "pair": "C06",
+      "text": "我不知道是不是腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "uncertain"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "uncertain",
+              "value": true,
+              "quote": "我不知道是不是腿麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            },
+            {
+              "key": "fu_plan_understood",
+              "status": "denied",
+              "value": null,
+              "quote": "我不知道是不是腿麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "uncertain",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": null,
+          "other_current_assertions": [
+            {
+              "key": "fu_plan_understood",
+              "status": "denied",
+              "value": null
+            }
+          ],
+          "events": []
+        },
+        "all": {
+          "status": "uncertain",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [
+            {
+              "key": "fu_plan_understood",
+              "status": "denied",
+              "value": null
+            }
+          ],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "我不知道是不是腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 2,
+                "priority": 2,
+                "should_ask": true,
+                "reason": "候选解释会改变协议处理路径",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "uncertain",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [
+            {
+              "key": "fu_plan_understood",
+              "status": "denied",
+              "value": null
+            }
+          ],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "我不知道是不是腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 2,
+                "priority": 2,
+                "should_ask": true,
+                "reason": "候选解释会改变协议处理路径",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C07A",
+      "pair": "C07",
+      "text": "如果以后腿麻，我再联系医生。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "not_asked"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "如果以后腿麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.001,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": false,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "not_asked",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "hypothetical",
+              "time_relation": "unknown",
+              "quote": "如果以后腿麻，我再联系医生",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "这是条件句中的假设提及，未作为当前症状",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "not_asked",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "hypothetical",
+              "time_relation": "unknown",
+              "quote": "如果以后腿麻，我再联系医生",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "这是条件句中的假设提及，未作为当前症状",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C07B",
+      "pair": "C07",
+      "text": "今天开始腿麻，我要联系医生。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "new"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "今天开始腿麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "new",
+              "quote": "今天开始腿麻，我要联系医生",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 2,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "new",
+              "quote": "今天开始腿麻，我要联系医生",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 2,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C08A",
+      "pair": "C08",
+      "text": "我以前腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "historical"
+        ],
+        "current_allowed": [
+          "uncertain"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "我以前腿麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": false,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "uncertain",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "historical",
+              "quote": "我以前腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 2,
+                "priority": 2,
+                "should_ask": true,
+                "reason": "候选解释会改变协议处理路径",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "uncertain",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "historical",
+              "quote": "我以前腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 2,
+                "priority": 2,
+                "should_ask": true,
+                "reason": "候选解释会改变协议处理路径",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C08B",
+      "pair": "C08",
+      "text": "我以前腿麻，现在一直没变。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "ongoing"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "我以前腿麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "ongoing",
+              "quote": "我以前腿麻，现在一直没变",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "ongoing",
+              "quote": "我以前腿麻，现在一直没变",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C09A",
+      "pair": "C09",
+      "text": "我妈今天开始腿麻。",
+      "expected": {
+        "subject": "other",
+        "time_allowed": [
+          "new"
+        ],
+        "current_allowed": [
+          "not_asked"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "我妈今天开始腿麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": false,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "not_asked",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "other",
+              "assertion_type": "asserted",
+              "time_relation": "new",
+              "quote": "我妈今天开始腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "other",
+                    "time_relation": "new",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "not_asked",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "other",
+              "assertion_type": "asserted",
+              "time_relation": "new",
+              "quote": "我妈今天开始腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "other",
+                    "time_relation": "new",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C09B",
+      "pair": "C09",
+      "text": "我今天开始腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "new"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "我今天开始腿麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "new",
+              "quote": "我今天开始腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 2,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "new",
+              "quote": "我今天开始腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 2,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C10A",
+      "pair": "C10",
+      "text": "医生说如果腿麻就联系门诊。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "not_asked"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "医生说如果腿麻就联系门诊",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": false,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "not_asked",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "hypothetical",
+              "time_relation": "unknown",
+              "quote": "医生说如果腿麻就联系门诊",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "这是条件句中的假设提及，未作为当前症状",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "not_asked",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "hypothetical",
+              "time_relation": "unknown",
+              "quote": "医生说如果腿麻就联系门诊",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "这是条件句中的假设提及，未作为当前症状",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C10B",
+      "pair": "C10",
+      "text": "我对医生说最近才开始腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "new"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "我对医生说最近才开始腿麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "new",
+              "quote": "我对医生说最近才开始腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 2,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "new",
+              "quote": "我对医生说最近才开始腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 2,
+                "should_ask": false,
+                "reason": "原话已有明确主体或时间线索，仍供核对",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C11A",
+      "pair": "C11",
+      "text": "别人说腿麻很难受。",
+      "expected": {
+        "subject": "other",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "not_asked",
+          "uncertain"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "别人说腿麻很难受",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": false,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "not_asked",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "other",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "别人说腿麻很难受",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "other",
+                    "time_relation": "new",
+                    "actions": []
+                  },
+                  {
+                    "subject": "other",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "other",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "other",
+                    "time_relation": "worsening",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": true,
+                "reason": "候选解释会改变协议处理路径",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "not_asked",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "other",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "别人说腿麻很难受",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "other",
+                    "time_relation": "new",
+                    "actions": []
+                  },
+                  {
+                    "subject": "other",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "other",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "other",
+                    "time_relation": "worsening",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "候选解释对应同一处理；保留未明细节给医护",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C11B",
+      "pair": "C11",
+      "text": "我现在腿麻很难受。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "我现在腿麻很难受",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "我现在腿麻很难受",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 2,
+                "priority": 2,
+                "should_ask": true,
+                "reason": "候选解释会改变协议处理路径",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "我现在腿麻很难受",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 2,
+                "priority": 2,
+                "should_ask": true,
+                "reason": "候选解释会改变协议处理路径",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C12A",
+      "pair": "C12",
+      "text": "我现在不腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "denied"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "denied",
+              "value": null,
+              "quote": "我现在不腿麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.001,
+      "arms": {
+        "no_context": {
+          "status": "denied",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "denied",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "我现在不腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "候选解释对应同一处理；保留未明细节给医护",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "denied",
+          "value": null,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "我现在不腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": []
+                  }
+                ],
+                "distinct_action_sets": 1,
+                "priority": 3,
+                "should_ask": false,
+                "reason": "候选解释对应同一处理；保留未明细节给医护",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C12B",
+      "pair": "C12",
+      "text": "我现在有点腿麻。",
+      "expected": {
+        "subject": "patient",
+        "time_allowed": [
+          "unknown"
+        ],
+        "current_allowed": [
+          "present"
+        ]
+      },
+      "raw": {
+        "main": {
+          "facts": [
+            {
+              "key": "leg_numbness",
+              "status": "present",
+              "value": true,
+              "quote": "我现在有点腿麻",
+              "subject": null,
+              "time_relation": null,
+              "time_text": "",
+              "context_quote": ""
+            }
+          ],
+          "unmapped_mentions": []
+        },
+        "red_flag": null
+      },
+      "inference_seconds": 0.0,
+      "arms": {
+        "no_context": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": null,
+          "other_current_assertions": [],
+          "events": []
+        },
+        "all": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "我现在有点腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 2,
+                "priority": 2,
+                "should_ask": true,
+                "reason": "候选解释会改变协议处理路径",
+                "protocol_sha256": "4defdbb870a597937591d5a5626cffe2d025149de9fbf2cddcaa74fd1fac12a7",
+                "strategy": "all"
+              }
+            }
+          ]
+        },
+        "action_sensitive": {
+          "status": "present",
+          "value": true,
+          "projection_ok": true,
+          "context_ok": true,
+          "other_current_assertions": [],
+          "events": [
+            {
+              "subject": "patient",
+              "assertion_type": "asserted",
+              "time_relation": "unknown",
+              "quote": "我现在有点腿麻",
+              "issues": [],
+              "trace": {
+                "variants": [
+                  {
+                    "subject": "patient",
+                    "time_relation": "new",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "ongoing",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "past",
+                    "actions": []
+                  },
+                  {
+                    "subject": "patient",
+                    "time_relation": "worsening",
+                    "actions": [
+                      {
+                        "id": "event:changed_limb_symptom",
+                        "label": "新增或加重的肢体症状需要医生复核（模拟规则）",
+                        "severity": "routine",
+                        "role": "doctor",
+                        "stop": false
+                      }
+                    ]
+                  }
+                ],
+                "distinct_action_sets": 2,
+                "priority": 2,
+                "should_ask": true,
+                "reason": "候选解释会改变协议处理路径",
+                "protocol_sha256": "494586283510b75ae466bd18950f67d1d0c52dce26ef40d64b55877b3fcbc782",
+                "strategy": "action_sensitive"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "aggregate": {
+    "planned_n": 24,
+    "attempted_n": 24,
+    "failed_n": 0,
+    "arms": {
+      "no_context": {
+        "projection_ok": 15,
+        "context_ok": null,
+        "denominator": 24,
+        "candidate_clarifications": 0
+      },
+      "all": {
+        "projection_ok": 24,
+        "context_ok": 24,
+        "denominator": 24,
+        "candidate_clarifications": 10
+      },
+      "action_sensitive": {
+        "projection_ok": 24,
+        "context_ok": 24,
+        "denominator": 24,
+        "candidate_clarifications": 7
+      }
+    }
+  }
+}

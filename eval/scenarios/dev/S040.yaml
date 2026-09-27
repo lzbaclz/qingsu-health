@@ -1,0 +1,70 @@
+id: S040
+family: F10_followup_left_lbp_radiating
+split: dev
+title: "随访：只写“还行”，除疼痛程度和大小便外全部跳过"
+persona: "50 岁厨师（模拟，非真实患者）"
+kind: follow_up
+category: many_skips
+inputs:
+  body_map:
+    - {region_id: lower_back_left, kind: primary}
+    - {region_id: thigh_left_back, kind: radiation}
+  free_text: "还行。"
+  answers:
+    q_fu_severity: 5
+    q_fu_bladder: "no"
+    q_fu_overall: __skip__
+    q_fu_new: __skip__
+    q_fu_saddle: __skip__
+    q_fu_weakness: __skip__
+    q_fu_numbness: __skip__
+    q_fu_radiation: __skip__
+    q_fu_course: __skip__
+    q_fu_function: __skip__
+    q_fu_sleep: __skip__
+    q_fu_understood: __skip__
+    q_fu_adherence: __skip__
+    q_fu_concern: __skip__
+  clarifications: {}
+  corrections: []
+parent:
+  inputs:
+    body_map:
+      - {region_id: lower_back_left, kind: primary}
+      - {region_id: thigh_left_back, kind: radiation}
+    free_text: "左边腰疼一个月了，串到左大腿后面，站久了更厉害。"
+    answers:
+      q_bladder_bowel: "no"
+      q_saddle: "no"
+      q_leg_weakness: "no"
+      q_fever: "no"
+      q_trauma: "no"
+      q_onset_mode: gradual
+      q_trigger: prolonged_sitting
+      q_leg_numbness: "no"
+      q_severity_now: 6
+      q_course: stable
+      q_character: [aching]
+      q_relieving: [rest]
+      q_function_impact: moderate
+      q_sleep_affected: "no"
+    clarifications: {}
+    corrections: []
+  plan_message: "（医生撰写）请一周后更新情况；如出现大小便控制变化、会阴发麻或腿无力加重，请立即联系门诊。"
+ground_truth:
+  facts:
+    severity_now: {status: present, value: 5}
+    bladder_bowel_change: {status: denied}
+    pain_side: {status: present, value: left}
+    radiation_present: {status: present}
+    saddle_numbness: {status: unknown}
+    leg_weakness: {status: unknown}
+    leg_numbness: {status: unknown}
+    fu_new_symptom: {status: unknown}
+  must_be_unknown: [fu_change_overall, course, function_impact, sleep_affected, fu_plan_understood, fu_plan_adherence]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核。身体图仍标了放射区域，因此放射为“有”；其余跳过项必须保持未知。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

@@ -1,0 +1,54 @@
+id: S026
+family: F07_breast_cancer_history_back_pain
+split: dev
+title: "两个月瘦了七八斤、夜间更痛——体重下降须生成复核任务；肿瘤史未被问到时必须保持未知"
+persona: "58 岁女性，三年前乳腺癌术后（模拟，非真实患者）"
+kind: pre_visit
+category: red_flag
+inputs:
+  body_map:
+    - {region_id: lower_back_center, kind: primary}
+  free_text: "腰背痛两个月，晚上更明显，最近两个月瘦了七八斤，没刻意减肥。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_trigger: none_known
+    q_radiation_present: "no"
+    q_leg_numbness: "no"
+    q_severity_now: 6
+    q_character: [dull]
+    q_relieving: [none]
+    q_function_impact: moderate
+    q_sleep_affected: "yes"
+    q_onset_mode: gradual
+    q_course: worsening
+    q_night_pain: "yes"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    weight_loss: {status: present}
+    night_pain: {status: present}
+    aggravating: {status: present, value: [night]}
+    onset_timing: {status: present, value: weeks_6_to_12}
+    onset_mode: {status: present, value: gradual}
+    course: {status: present, value: worsening}
+    pain_side: {status: present, value: center}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    radiation_present: {status: denied}
+    leg_numbness: {status: denied}
+    severity_now: {status: present, value: 6}
+  must_be_unknown: [cancer_history]
+  expected_alerts: [rf_weight_loss_or_cancer]
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核。“两个月瘦了”里的时间词修饰体重变化，不应改写起病时间。肿瘤史问题优先级低，受 16 题上限影响可能问不到——这是协议层面需要临床确认的取舍。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

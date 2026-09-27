@@ -1,0 +1,1476 @@
+{
+  "meta": {
+    "arm": "full",
+    "split": "stress",
+    "provider": "compat",
+    "model": "qwen3:4b",
+    "effort": null,
+    "protocol": "lbp_adult_v0.1",
+    "at": "2026-09-25 01:39:40",
+    "seconds": 356.5,
+    "crashed": [],
+    "usage": {
+      "calls": 40,
+      "errors": 0,
+      "fallbacks": 0,
+      "input_tokens": 61636,
+      "output_tokens": 5256,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0,
+      "latency_s": {
+        "extract": {
+          "n": 20,
+          "p50": 12.76,
+          "p90": 21.65
+        },
+        "narrative": {
+          "n": 20,
+          "p50": 2.93,
+          "p90": 4.3
+        }
+      }
+    },
+    "workers": 1,
+    "patient": "careless",
+    "usd_total": null,
+    "usd_per_scenario": null
+  },
+  "aggregate": {
+    "n_scenarios": 20,
+    "n_families": 20,
+    "scenario_pass_rate": 0.7,
+    "family_pass_rate": 0.7,
+    "critical_fact_completeness": 0.741,
+    "critical_denominator": 27,
+    "verification_pass_rate": 1.0,
+    "mean_questions_asked": 15.1,
+    "urgent_stops": 2,
+    "errors_by_code": {
+      "E2_fabrication": 2,
+      "E3_unknown_as_denied": 2,
+      "E4_missed_escalation": 1,
+      "E5_unnecessary_escalation": 1,
+      "E8_misunderstanding": 6
+    },
+    "extraction_errors_by_code": {
+      "X1_miss": 7,
+      "X2_fabrication": 2,
+      "X4_text_escalation_miss": 1,
+      "X8_misread": 7
+    },
+    "extraction_clean_rate": 0.65,
+    "infos_by_code": {
+      "S1_not_asked_after_urgent_stop": 2
+    },
+    "verification_decisions": {
+      "confirm": 53
+    },
+    "verification_unverifiable": 0,
+    "provider_used": {
+      "compat:qwen3:4b": 20
+    }
+  },
+  "results": [
+    {
+      "id": "A1",
+      "family": "stress_A1",
+      "split": "stress",
+      "category": "colloquial,function",
+      "title": "我腰特别难受，走两步就得歇会儿，屁股那块也跟着酸，晚上翻身疼",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "review_appendix_A",
+      "questions_asked": 17,
+      "question_kinds": {
+        "verification": 1,
+        "protocol": 16
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 25.79,
+      "verify_log": [
+        {
+          "fact_key": "onset_timing",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "pain_side",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "pain_regions",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "night_pain",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [
+        {
+          "code": "X8_misread",
+          "key": "aggravating",
+          "detail": "期望至少包含 ['walking']，抽成 ['sitting']",
+          "severity": "major"
+        },
+        {
+          "code": "X1_miss",
+          "key": "sleep_affected",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "minor"
+        },
+        {
+          "code": "X1_miss",
+          "key": "character",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "minor"
+        }
+      ],
+      "errors": [
+        {
+          "code": "E8_misunderstanding",
+          "key": "aggravating",
+          "detail": "期望值 ['walking']，系统值 ['sitting']",
+          "severity": "major"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_weight_loss_or_cancer",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3112,
+        "output_tokens": 522,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            21.645940333604813
+          ],
+          "narrative": [
+            3.833885000087321
+          ]
+        }
+      },
+      "alerts": [
+        "rf_weight_loss_or_cancer"
+      ],
+      "verification_passed": true,
+      "critical_gt": 0,
+      "critical_ok": 0
+    },
+    {
+      "id": "A2",
+      "family": "stress_A2",
+      "split": "stress",
+      "category": "red_flag,colloquial,temporal",
+      "title": "上礼拜闪了一下腰，现在直不起来，右边屁股到脚后跟都是麻的，尿",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "review_appendix_A",
+      "questions_asked": 1,
+      "question_kinds": {
+        "verification": 1
+      },
+      "confirm_blocked": null,
+      "urgent_stop": true,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 16.73,
+      "verify_log": [
+        {
+          "fact_key": "bladder_bowel_change",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [
+        {
+          "code": "X1_miss",
+          "key": "radiation_present",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "major"
+        }
+      ],
+      "errors": [],
+      "infos": [
+        {
+          "code": "S1_not_asked_after_urgent_stop",
+          "key": "radiation_present",
+          "detail": "紧急终止后未再问"
+        }
+      ],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3038,
+        "output_tokens": 226,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            14.34801770746708
+          ],
+          "narrative": [
+            2.309770207852125
+          ]
+        }
+      },
+      "alerts": [
+        "rf_bladder_bowel"
+      ],
+      "verification_passed": true,
+      "critical_gt": 3,
+      "critical_ok": 3
+    },
+    {
+      "id": "A3",
+      "family": "stress_A3",
+      "split": "stress",
+      "category": "temporal,negation,medication",
+      "title": "腰疼老毛病了，这回是搬花盆闹的，吃了两天芬必得好点，腿脚都利",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "review_appendix_A",
+      "questions_asked": 17,
+      "question_kinds": {
+        "verification": 1,
+        "protocol": 16
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 18.98,
+      "verify_log": [
+        {
+          "fact_key": "leg_numbness",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "leg_weakness",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [
+        {
+          "code": "X8_misread",
+          "key": "leg_weakness",
+          "detail": "期望 denied，抽成 present",
+          "severity": "critical"
+        }
+      ],
+      "errors": [
+        {
+          "code": "E8_misunderstanding",
+          "key": "leg_weakness",
+          "detail": "期望 denied，系统为 present",
+          "severity": "critical"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 1,
+      "pass": false,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3104,
+        "output_tokens": 334,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            15.799675790593028
+          ],
+          "narrative": [
+            2.995662832632661
+          ]
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 2,
+      "critical_ok": 1
+    },
+    {
+      "id": "A4",
+      "family": "stress_A4",
+      "split": "stress",
+      "category": "near_miss,colloquial",
+      "title": "腰不疼了但是两条腿都软，走路像踩棉花，昨天差点摔了。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "review_appendix_A",
+      "questions_asked": 17,
+      "question_kinds": {
+        "verification": 1,
+        "protocol": 16
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 15.16,
+      "verify_log": [
+        {
+          "fact_key": "onset_timing",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "leg_weakness",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "trauma_recent",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [
+        {
+          "code": "X2_fabrication",
+          "key": "trauma_recent",
+          "detail": "原话没说清，却抽成 present:True",
+          "severity": "critical"
+        }
+      ],
+      "errors": [
+        {
+          "code": "E2_fabrication",
+          "key": "trauma_recent",
+          "detail": "系统记录为存在：True",
+          "severity": "critical"
+        },
+        {
+          "code": "E2_fabrication",
+          "key": "trauma_recent",
+          "detail": "系统记录为存在：True",
+          "severity": "critical"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 2,
+      "pass": false,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3076,
+        "output_tokens": 220,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            12.318461082875729
+          ],
+          "narrative": [
+            2.6919543743133545
+          ]
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 2,
+      "critical_ok": 1
+    },
+    {
+      "id": "X05",
+      "family": "stress_X05",
+      "split": "stress",
+      "category": "red_flag,colloquial",
+      "title": "解手的时候老觉得尿不干净，得等半天才出来，这几天腰也一直酸。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 1,
+      "question_kinds": {
+        "verification": 1
+      },
+      "confirm_blocked": null,
+      "urgent_stop": true,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 14.0,
+      "verify_log": [
+        {
+          "fact_key": "bladder_bowel_change",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [
+        {
+          "code": "X1_miss",
+          "key": "character",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "minor"
+        }
+      ],
+      "errors": [],
+      "infos": [
+        {
+          "code": "S1_not_asked_after_urgent_stop",
+          "key": "character",
+          "detail": "紧急终止后未再问"
+        }
+      ],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3031,
+        "output_tokens": 169,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            11.736875957809389
+          ],
+          "narrative": [
+            2.189605957828462
+          ]
+        }
+      },
+      "alerts": [
+        "rf_bladder_bowel"
+      ],
+      "verification_passed": true,
+      "critical_gt": 1,
+      "critical_ok": 1
+    },
+    {
+      "id": "X06",
+      "family": "stress_X06",
+      "split": "stress",
+      "category": "red_flag,colloquial,location",
+      "title": "坐马桶的时候屁股中间那块木木的，没什么感觉，腰这两天疼得厉害",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 11,
+      "question_kinds": {
+        "verification": 2,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 37.13,
+      "verify_log": [
+        {
+          "fact_key": "onset_timing",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "pain_side",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "pain_regions",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "severity_now",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "leg_numbness",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "saddle_numbness",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "fever",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "trauma_recent",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "night_pain",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "weight_loss",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [
+        {
+          "code": "X8_misread",
+          "key": "saddle_numbness",
+          "detail": "期望 present，抽成 denied",
+          "severity": "critical"
+        },
+        {
+          "code": "X2_fabrication",
+          "key": "leg_numbness",
+          "detail": "原话没说清，却抽成 denied:False",
+          "severity": "critical"
+        },
+        {
+          "code": "X4_text_escalation_miss",
+          "key": "rf_saddle",
+          "detail": "原话层未识别红旗（问卷可兜住）",
+          "severity": "major"
+        }
+      ],
+      "errors": [
+        {
+          "code": "E8_misunderstanding",
+          "key": "saddle_numbness",
+          "detail": "期望 present，系统为 denied",
+          "severity": "critical"
+        },
+        {
+          "code": "E3_unknown_as_denied",
+          "key": "leg_numbness",
+          "detail": "未问/未答被写成否认",
+          "severity": "critical"
+        },
+        {
+          "code": "E3_unknown_as_denied",
+          "key": "leg_numbness",
+          "detail": "未问/未答被写成否认",
+          "severity": "critical"
+        },
+        {
+          "code": "E4_missed_escalation",
+          "key": "rf_saddle",
+          "detail": "期望触发的红旗未触发",
+          "severity": "critical"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 4,
+      "pass": false,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3123,
+        "output_tokens": 746,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            31.46543666627258
+          ],
+          "narrative": [
+            5.5201002499088645
+          ]
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 3,
+      "critical_ok": 1
+    },
+    {
+      "id": "X07",
+      "family": "stress_X07",
+      "split": "stress",
+      "category": "red_flag,colloquial",
+      "title": "两条腿都没劲，上楼梯抬不起来，而且一天比一天厉害。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 17,
+      "question_kinds": {
+        "verification": 1,
+        "protocol": 16
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 13.6,
+      "verify_log": [
+        {
+          "fact_key": "leg_weakness",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "weakness_progressive",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [],
+      "errors": [],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3080,
+        "output_tokens": 169,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            10.522614000365138
+          ],
+          "narrative": [
+            2.933659791946411
+          ]
+        }
+      },
+      "alerts": [
+        "rf_progressive_weakness"
+      ],
+      "verification_passed": true,
+      "critical_gt": 1,
+      "critical_ok": 1
+    },
+    {
+      "id": "X08",
+      "family": "stress_X08",
+      "split": "stress",
+      "category": "red_flag,colloquial",
+      "title": "身上一阵冷一阵热的，量了一下三十八度五，腰疼得翻不了身。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 17,
+      "question_kinds": {
+        "verification": 1,
+        "protocol": 16
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 16.24,
+      "verify_log": [
+        {
+          "fact_key": "pain_side",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "pain_regions",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "radiation_present",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "fever",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [],
+      "errors": [],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3060,
+        "output_tokens": 208,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            12.755715291015804
+          ],
+          "narrative": [
+            3.338725416921079
+          ]
+        }
+      },
+      "alerts": [
+        "rf_fever"
+      ],
+      "verification_passed": true,
+      "critical_gt": 1,
+      "critical_ok": 1
+    },
+    {
+      "id": "X09",
+      "family": "stress_X09",
+      "split": "stress",
+      "category": "negation,temporal",
+      "title": "以前从来没麻过，这两天左脚开始发麻，腰也疼。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 17,
+      "question_kinds": {
+        "verification": 1,
+        "protocol": 16
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 13.75,
+      "verify_log": [
+        {
+          "fact_key": "pain_regions",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "leg_numbness",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [],
+      "errors": [],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3079,
+        "output_tokens": 159,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            11.46873729210347
+          ],
+          "narrative": [
+            2.1229320829734206
+          ]
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 1,
+      "critical_ok": 1
+    },
+    {
+      "id": "X10",
+      "family": "stress_X10",
+      "split": "stress",
+      "category": "temporal,negation",
+      "title": "十年前摔过一次，这回没摔也没碰，就是早上起来腰就疼了，今天第",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 17,
+      "question_kinds": {
+        "verification": 1,
+        "protocol": 16
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 21.49,
+      "verify_log": [
+        {
+          "fact_key": "onset_timing",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "trauma_recent",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [],
+      "errors": [],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3078,
+        "output_tokens": 282,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            17.007644707337022
+          ],
+          "narrative": [
+            4.302330708131194
+          ]
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 2,
+      "critical_ok": 2
+    },
+    {
+      "id": "X11",
+      "family": "stress_X11",
+      "split": "stress",
+      "category": "colloquial,temporal",
+      "title": "腰杆子疼了大半个月，弯腰系鞋带的时候最明显，躺平了就好多了。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 17,
+      "question_kinds": {
+        "verification": 1,
+        "protocol": 16
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 19.1,
+      "verify_log": [
+        {
+          "fact_key": "onset_timing",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "pain_regions",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [],
+      "errors": [],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3099,
+        "output_tokens": 305,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            14.754414708353579
+          ],
+          "narrative": [
+            4.200624708086252
+          ]
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 1,
+      "critical_ok": 1
+    },
+    {
+      "id": "X12",
+      "family": "stress_X12",
+      "split": "stress",
+      "category": "hedge,colloquial",
+      "title": "说不上来是不是麻，就是右腿外侧有点木，腰那里胀得难受。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 17,
+      "question_kinds": {
+        "verification": 1,
+        "protocol": 16
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 14.01,
+      "verify_log": [
+        {
+          "fact_key": "pain_side",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "pain_regions",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "leg_numbness",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [
+        {
+          "code": "X8_misread",
+          "key": "leg_numbness",
+          "detail": "期望 uncertain，抽成 present",
+          "severity": "critical"
+        },
+        {
+          "code": "X1_miss",
+          "key": "character",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "minor"
+        }
+      ],
+      "errors": [],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3079,
+        "output_tokens": 169,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            11.710934500209987
+          ],
+          "narrative": [
+            2.166259207762778
+          ]
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 1,
+      "critical_ok": 1
+    },
+    {
+      "id": "X13",
+      "family": "stress_X13",
+      "split": "stress",
+      "category": "red_flag,history,temporal",
+      "title": "前年做过乳腺癌手术，最近两个月腰疼，晚上睡着睡着就疼醒了。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 17,
+      "question_kinds": {
+        "verification": 1,
+        "protocol": 16
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 14.12,
+      "verify_log": [
+        {
+          "fact_key": "onset_timing",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "night_pain",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [
+        {
+          "code": "X8_misread",
+          "key": "onset_timing",
+          "detail": "期望值 weeks_6_to_12，抽成 weeks_2_to_6",
+          "severity": "critical"
+        }
+      ],
+      "errors": [
+        {
+          "code": "E8_misunderstanding",
+          "key": "onset_timing",
+          "detail": "期望值 weeks_6_to_12，系统值 weeks_2_to_6",
+          "severity": "critical"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 1,
+      "pass": false,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3099,
+        "output_tokens": 171,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            11.866130542010069
+          ],
+          "narrative": [
+            2.1066194167360663
+          ]
+        }
+      },
+      "alerts": [
+        "rf_weight_loss_or_cancer"
+      ],
+      "verification_passed": true,
+      "critical_gt": 1,
+      "critical_ok": 0
+    },
+    {
+      "id": "X14",
+      "family": "stress_X14",
+      "split": "stress",
+      "category": "red_flag,colloquial",
+      "title": "这半年瘦了十几斤，也没减肥，腰背一直隐隐地疼。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 17,
+      "question_kinds": {
+        "verification": 1,
+        "protocol": 16
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 14.51,
+      "verify_log": [
+        {
+          "fact_key": "onset_timing",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "pain_regions",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "weight_loss",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [],
+      "errors": [],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3077,
+        "output_tokens": 171,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            12.206024374812841
+          ],
+          "narrative": [
+            2.156465624459088
+          ]
+        }
+      },
+      "alerts": [
+        "rf_weight_loss_or_cancer"
+      ],
+      "verification_passed": true,
+      "critical_gt": 0,
+      "critical_ok": 0
+    },
+    {
+      "id": "X15",
+      "family": "stress_X15",
+      "split": "stress",
+      "category": "laterality,location",
+      "title": "腰正中间疼，往左边屁股和大腿后面窜，一直窜到小腿。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 17,
+      "question_kinds": {
+        "verification": 1,
+        "protocol": 16
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 15.47,
+      "verify_log": [
+        {
+          "fact_key": "radiation_present",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [],
+      "errors": [],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3085,
+        "output_tokens": 200,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            12.773120791651309
+          ],
+          "narrative": [
+            2.5557934157550335
+          ]
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 2,
+      "critical_ok": 2
+    },
+    {
+      "id": "X16",
+      "family": "stress_X16",
+      "split": "stress",
+      "category": "negation,colloquial",
+      "title": "大小便都挺正常的，就是腰酸，坐办公室一坐一天。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 17,
+      "question_kinds": {
+        "verification": 1,
+        "protocol": 16
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 14.1,
+      "verify_log": [
+        {
+          "fact_key": "onset_timing",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "pain_regions",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [
+        {
+          "code": "X1_miss",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，没抽到（问卷可兜住）",
+          "severity": "major"
+        },
+        {
+          "code": "X1_miss",
+          "key": "character",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "minor"
+        }
+      ],
+      "errors": [],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3072,
+        "output_tokens": 177,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            11.910963334143162
+          ],
+          "narrative": [
+            2.0306045841425657
+          ]
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 1,
+      "critical_ok": 1
+    },
+    {
+      "id": "X17",
+      "family": "stress_X17",
+      "split": "stress",
+      "category": "hedge,negation",
+      "title": "腰疼，腿麻不麻我也说不好，反正没劲是没有的。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 17,
+      "question_kinds": {
+        "verification": 1,
+        "protocol": 16
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 16.11,
+      "verify_log": [
+        {
+          "fact_key": "pain_regions",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "leg_numbness",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "leg_weakness",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [
+        {
+          "code": "X8_misread",
+          "key": "leg_weakness",
+          "detail": "期望 denied，抽成 present",
+          "severity": "critical"
+        }
+      ],
+      "errors": [
+        {
+          "code": "E8_misunderstanding",
+          "key": "leg_weakness",
+          "detail": "期望 denied，系统为 present",
+          "severity": "critical"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 1,
+      "pass": false,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3057,
+        "output_tokens": 217,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            11.711626958101988
+          ],
+          "narrative": [
+            4.271501750685275
+          ]
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 2,
+      "critical_ok": 1
+    },
+    {
+      "id": "X18",
+      "family": "stress_X18",
+      "split": "stress",
+      "category": "temporal",
+      "title": "开春以后腰就开始疼，到现在快四个月了，最近还越来越重。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 17,
+      "question_kinds": {
+        "verification": 1,
+        "protocol": 16
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 15.82,
+      "verify_log": [
+        {
+          "fact_key": "onset_timing",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "pain_regions",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [
+        {
+          "code": "X8_misread",
+          "key": "onset_timing",
+          "detail": "期望值 over_12_weeks，抽成 within_3_days",
+          "severity": "critical"
+        }
+      ],
+      "errors": [
+        {
+          "code": "E8_misunderstanding",
+          "key": "onset_timing",
+          "detail": "期望值 over_12_weeks，系统值 within_3_days",
+          "severity": "critical"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 1,
+      "pass": false,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3067,
+        "output_tokens": 173,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            13.363465792499483
+          ],
+          "narrative": [
+            2.2945279171690345
+          ]
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 1,
+      "critical_ok": 0
+    },
+    {
+      "id": "X19",
+      "family": "stress_X19",
+      "split": "stress",
+      "category": "temporal,history",
+      "title": "老寒腰了，每年冬天都犯，这次是前天晚上睡觉着凉以后开始的。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 17,
+      "question_kinds": {
+        "verification": 1,
+        "protocol": 16
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 25.2,
+      "verify_log": [
+        {
+          "fact_key": "onset_timing",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "pain_regions",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "trauma_recent",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [],
+      "errors": [],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3108,
+        "output_tokens": 414,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            20.83752154186368
+          ],
+          "narrative": [
+            4.204584083519876
+          ]
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 1,
+      "critical_ok": 1
+    },
+    {
+      "id": "X20",
+      "family": "stress_X20",
+      "split": "stress",
+      "category": "medication,temporal",
+      "title": "腰疼一个礼拜了，能不能直接给我开点止痛药？布洛芬能不能一次吃",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 17,
+      "question_kinds": {
+        "verification": 1,
+        "protocol": 16
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "compat:qwen3:4b",
+      "seconds": 15.0,
+      "verify_log": [
+        {
+          "fact_key": "onset_timing",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [],
+      "errors": [],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 3112,
+        "output_tokens": 224,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [
+            11.689040708355606
+          ],
+          "narrative": [
+            3.1630566250532866
+          ]
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 1,
+      "critical_ok": 1
+    }
+  ]
+}

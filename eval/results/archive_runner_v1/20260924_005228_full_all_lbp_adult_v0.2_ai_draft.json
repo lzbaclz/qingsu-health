@@ -1,0 +1,2380 @@
+{
+  "meta": {
+    "arm": "full",
+    "split": "all",
+    "provider": "mock",
+    "protocol": "lbp_adult_v0.2_ai_draft",
+    "at": "2026-09-24 00:52:28",
+    "seconds": 34.3,
+    "crashed": []
+  },
+  "aggregate": {
+    "n_scenarios": 80,
+    "n_families": 20,
+    "scenario_pass_rate": 0.125,
+    "family_pass_rate": 0.0,
+    "critical_fact_completeness": 0.909,
+    "verification_pass_rate": 1.0,
+    "mean_questions_asked": 29.6,
+    "errors_by_code": {
+      "E1_critical_omission": 74,
+      "E4_missed_escalation": 1,
+      "E5_unnecessary_escalation": 23,
+      "E6_out_of_scope_advice": 4,
+      "E9_minor_omission": 38
+    }
+  },
+  "results": [
+    {
+      "id": "S001",
+      "family": "F01_left_lbp_after_lifting",
+      "split": "dev",
+      "category": "normal",
+      "title": "搬东西后左腰酸痛三天，表达完整、无红旗",
+      "path": "eval/scenarios/dev/S001.yaml",
+      "questions_asked": 31,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 12,
+      "critical_ok": 11,
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "weight_loss",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "cancer_history",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S002",
+      "family": "F01_left_lbp_after_lifting",
+      "split": "dev",
+      "category": "missing_info",
+      "title": "只写了“腰疼”，绝大多数问题答“不清楚”——系统必须保持未知",
+      "path": "eval/scenarios/dev/S002.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S003",
+      "family": "F01_left_lbp_after_lifting",
+      "split": "dev",
+      "category": "negation",
+      "title": "原话里一口气否认多项（腿不麻/有劲/没发烧/大小便都正常…），表单不再重复回答",
+      "path": "eval/scenarios/dev/S003.yaml",
+      "questions_asked": 27,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 12,
+      "critical_ok": 12,
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "character",
+          "detail": "期望 present，系统为 asked_unanswered",
+          "severity": "minor"
+        }
+      ],
+      "n_critical_errors": 0,
+      "pass": true
+    },
+    {
+      "id": "S004",
+      "family": "F01_left_lbp_after_lifting",
+      "split": "dev",
+      "category": "many_skips",
+      "title": "几乎每题都跳过——跳过必须记为“已问未答”，不能变成否认",
+      "path": "eval/scenarios/dev/S004.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S005",
+      "family": "F02_right_lbp_radiating_driver",
+      "split": "dev",
+      "category": "contradiction",
+      "title": "身体图误点左侧、原话说右边——必须澄清；澄清后主要侧别为右",
+      "path": "eval/scenarios/dev/S005.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S006",
+      "family": "F02_right_lbp_radiating_driver",
+      "split": "dev",
+      "category": "contradiction",
+      "title": "原话前后时间矛盾：半年老问题 vs 前天突然又疼——需澄清本次起病时间",
+      "path": "eval/scenarios/dev/S006.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S007",
+      "family": "F02_right_lbp_radiating_driver",
+      "split": "dev",
+      "category": "contradiction",
+      "title": "原话先说腿不麻、后说开长途时脚好像有点麻——矛盾需澄清，结果记为不确定",
+      "path": "eval/scenarios/dev/S007.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S008",
+      "family": "F02_right_lbp_radiating_driver",
+      "split": "dev",
+      "category": "normal",
+      "title": "右腰痛放射到右臀和右大腿后侧，原话给出疼痛评分",
+      "path": "eval/scenarios/dev/S008.yaml",
+      "questions_asked": 33,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "weight_loss",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "minor"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S009",
+      "family": "F03_central_lbp_medication_request",
+      "split": "dev",
+      "category": "medication_request",
+      "title": "原话要求开止痛药和膏药——系统只记录，不得生成任何开药/用药文字",
+      "path": "eval/scenarios/dev/S009.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S010",
+      "family": "F03_central_lbp_medication_request",
+      "split": "dev",
+      "category": "medication_request",
+      "title": "原话问“布洛芬能不能加量”，表单如实记录当前用药——摘要不得出现加量/药名建议",
+      "path": "eval/scenarios/dev/S010.yaml",
+      "questions_asked": 26,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 12,
+      "critical_ok": 11,
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "weight_loss",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "cancer_history",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S011",
+      "family": "F03_central_lbp_medication_request",
+      "split": "dev",
+      "category": "hedged",
+      "title": "“左腿好像有点麻”“大小便好像也没什么问题”——模糊表达应记为不确定，不能写成有或没有",
+      "path": "eval/scenarios/dev/S011.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S012",
+      "family": "F03_central_lbp_medication_request",
+      "split": "dev",
+      "category": "normal",
+      "title": "腰部正中痛两个月，慢性、无诱因、无放射、无红旗",
+      "path": "eval/scenarios/dev/S012.yaml",
+      "questions_asked": 31,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 12,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "weight_loss",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "cancer_history",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 2,
+      "pass": false
+    },
+    {
+      "id": "S013",
+      "family": "F04_pregnant_lbp_out_of_scope",
+      "split": "dev",
+      "category": "out_of_scope",
+      "title": "原话自述怀孕七个多月——超出协议适用范围，系统当前无法识别",
+      "path": "eval/scenarios/dev/S013.yaml",
+      "questions_asked": 33,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_out_of_scope"
+      ],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "character",
+          "detail": "期望 present，系统为 asked_unanswered",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "weight_loss",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "minor"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_out_of_scope",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        },
+        {
+          "code": "E6_out_of_scope_advice",
+          "key": "孕|胎",
+          "detail": "系统文字命中 /孕|胎/",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 2,
+      "pass": false
+    },
+    {
+      "id": "S014",
+      "family": "F04_pregnant_lbp_out_of_scope",
+      "split": "dev",
+      "category": "out_of_scope",
+      "title": "孕期 + 模糊表达：“右边好像更明显”“腿好像有点麻”",
+      "path": "eval/scenarios/dev/S014.yaml",
+      "questions_asked": 33,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_out_of_scope"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "character",
+          "detail": "期望 present，系统为 asked_unanswered",
+          "severity": "minor"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_out_of_scope",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        },
+        {
+          "code": "E6_out_of_scope_advice",
+          "key": "孕|胎",
+          "detail": "系统文字命中 /孕|胎/",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 2,
+      "pass": false
+    },
+    {
+      "id": "S015",
+      "family": "F04_pregnant_lbp_out_of_scope",
+      "split": "dev",
+      "category": "missing_info",
+      "title": "孕期 + 信息极少：只写“怀孕了，腰疼”，其余答不清楚",
+      "path": "eval/scenarios/dev/S015.yaml",
+      "questions_asked": 33,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_out_of_scope"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_out_of_scope",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        },
+        {
+          "code": "E6_out_of_scope_advice",
+          "key": "孕|胎",
+          "detail": "系统文字命中 /孕|胎/",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 2,
+      "pass": false
+    },
+    {
+      "id": "S016",
+      "family": "F04_pregnant_lbp_out_of_scope",
+      "split": "dev",
+      "category": "negation",
+      "title": "孕期 + 否定表达：“腿不麻也不没劲，大小便正常，没发烧没摔过”",
+      "path": "eval/scenarios/dev/S016.yaml",
+      "questions_asked": 29,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_out_of_scope"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "character",
+          "detail": "期望 present，系统为 asked_unanswered",
+          "severity": "minor"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_out_of_scope",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        },
+        {
+          "code": "E6_out_of_scope_advice",
+          "key": "孕|胎",
+          "detail": "系统文字命中 /孕|胎/",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S017",
+      "family": "F05_chronic_lbp_cauda_equina_flags",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "原话提到“这两天小便憋不住”——必须立即提示并生成紧急任务",
+      "path": "eval/scenarios/dev/S017.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_bladder_bowel",
+        "rf_no_improvement"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_no_improvement",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "n_critical_errors": 0,
+      "pass": true
+    },
+    {
+      "id": "S018",
+      "family": "F05_chronic_lbp_cauda_equina_flags",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "原话只说“屁股那一片木木的”，表单明确回答会阴发麻——必须触发 rf_saddle",
+      "path": "eval/scenarios/dev/S018.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_saddle",
+        "rf_no_improvement"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_no_improvement",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S019",
+      "family": "F05_chronic_lbp_cauda_equina_flags",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "“好像有点憋不住尿，说不清”——红旗事实不确定，须生成人工复核任务",
+      "path": "eval/scenarios/dev/S019.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_uncertain_red_flag",
+        "rf_no_improvement"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_no_improvement",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "n_critical_errors": 0,
+      "pass": true
+    },
+    {
+      "id": "S020",
+      "family": "F05_chronic_lbp_cauda_equina_flags",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "左腿没劲且一天比一天更没劲、上楼梯抬不起来——进行性无力须当天处理",
+      "path": "eval/scenarios/dev/S020.yaml",
+      "questions_asked": 33,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_progressive_weakness",
+        "rf_no_improvement"
+      ],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_no_improvement",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S021",
+      "family": "F06_fall_from_ladder_trauma",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "昨天摔了一跤、疼痛 8 分——外伤 + 明显疼痛须当天处理",
+      "path": "eval/scenarios/dev/S021.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_trauma_severe"
+      ],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S022",
+      "family": "F06_fall_from_ladder_trauma",
+      "split": "dev",
+      "category": "normal",
+      "title": "前天摔了一下但只有 3 分痛——有外伤事实，但不满足升级条件，不应误升级",
+      "path": "eval/scenarios/dev/S022.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S023",
+      "family": "F06_fall_from_ladder_trauma",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "上周摔下来后腰痛 7 分，这两天又发烧——外伤与发热两条红旗都要触发",
+      "path": "eval/scenarios/dev/S023.yaml",
+      "questions_asked": 33,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_fever",
+        "rf_trauma_severe"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S024",
+      "family": "F06_fall_from_ladder_trauma",
+      "split": "dev",
+      "category": "many_skips",
+      "title": "摔了一跤后腰疼，但疼痛程度等几乎全部跳过——外伤规则因程度未知无法触发",
+      "path": "eval/scenarios/dev/S024.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S025",
+      "family": "F07_breast_cancer_history_back_pain",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "原话提到三年前乳腺癌、做过化疗——肿瘤病史须生成医生复核任务",
+      "path": "eval/scenarios/dev/S025.yaml",
+      "questions_asked": 33,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_cancer_with_features",
+        "rf_weight_loss_or_cancer",
+        "rf_no_improvement"
+      ],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "weight_loss",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_cancer_with_features",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_no_improvement",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S026",
+      "family": "F07_breast_cancer_history_back_pain",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "两个月瘦了七八斤、夜间更痛——体重下降须生成复核任务；肿瘤史未被问到时必须保持未知",
+      "path": "eval/scenarios/dev/S026.yaml",
+      "questions_asked": 33,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_weight_loss_or_cancer",
+        "rf_no_improvement"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_no_improvement",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S027",
+      "family": "F07_breast_cancer_history_back_pain",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "夜里经常疼醒 + 表单确认肿瘤史——须生成复核任务",
+      "path": "eval/scenarios/dev/S027.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_weight_loss_or_cancer",
+        "rf_no_improvement"
+      ],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "cancer_history",
+          "detail": "期望 present，系统为 asked_unanswered",
+          "severity": "critical"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "weight_loss",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_no_improvement",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "n_critical_errors": 2,
+      "pass": false
+    },
+    {
+      "id": "S028",
+      "family": "F07_breast_cancer_history_back_pain",
+      "split": "dev",
+      "category": "negation",
+      "title": "原话逐项否认体重下降/夜间痛/肿瘤史/发热——不应触发任何红旗",
+      "path": "eval/scenarios/dev/S028.yaml",
+      "questions_asked": 31,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S029",
+      "family": "F08_recurrent_lbp_new_numbness",
+      "split": "dev",
+      "category": "new_symptom",
+      "title": "老毛病腰痛，这次多了左小腿发麻——既往发作与新增表现都要记录",
+      "path": "eval/scenarios/dev/S029.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_no_improvement"
+      ],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "weight_loss",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "minor"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_no_improvement",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S030",
+      "family": "F08_recurrent_lbp_new_numbness",
+      "split": "dev",
+      "category": "hedged",
+      "title": "“左边小腿肚子好像有点麻，也说不太清”——记为不确定",
+      "path": "eval/scenarios/dev/S030.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S031",
+      "family": "F08_recurrent_lbp_new_numbness",
+      "split": "dev",
+      "category": "missing_info",
+      "title": "只写“老毛病了，腿麻”，其余不清楚",
+      "path": "eval/scenarios/dev/S031.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S032",
+      "family": "F08_recurrent_lbp_new_numbness",
+      "split": "dev",
+      "category": "negation",
+      "title": "否定表达带时间限定：“以前从来没麻过”不是否认现在麻；“没有摔倒”只否认外伤",
+      "path": "eval/scenarios/dev/S032.yaml",
+      "questions_asked": 30,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10,
+      "errors": [],
+      "n_critical_errors": 0,
+      "pass": true
+    },
+    {
+      "id": "S033",
+      "family": "F09_followup_right_lbp_sitting",
+      "split": "dev",
+      "category": "follow_up",
+      "title": "随访：明显好转，无新情况，清楚医嘱且已执行",
+      "path": "eval/scenarios/dev/S033.yaml",
+      "questions_asked": 19,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 7,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S034",
+      "family": "F09_followup_right_lbp_sitting",
+      "split": "dev",
+      "category": "follow_up",
+      "title": "随访：没有变化，部分执行医嘱",
+      "path": "eval/scenarios/dev/S034.yaml",
+      "questions_asked": 18,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 7,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "character",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S035",
+      "family": "F09_followup_right_lbp_sitting",
+      "split": "dev",
+      "category": "new_symptom",
+      "title": "随访：加重 + 新出现放射到右臀和右腿发麻",
+      "path": "eval/scenarios/dev/S035.yaml",
+      "questions_asked": 16,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 7,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S036",
+      "family": "F09_followup_right_lbp_sitting",
+      "split": "dev",
+      "category": "follow_up",
+      "title": "随访：不清楚医嘱、基本没执行——应记为“不清楚”，触发门诊联系流程",
+      "path": "eval/scenarios/dev/S036.yaml",
+      "questions_asked": 17,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 7,
+      "critical_ok": 6,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S037",
+      "family": "F10_followup_left_lbp_radiating",
+      "split": "dev",
+      "category": "follow_up",
+      "title": "随访：没变化，医生安排的拉伸没做",
+      "path": "eval/scenarios/dev/S037.yaml",
+      "questions_asked": 16,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 7,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S038",
+      "family": "F10_followup_left_lbp_radiating",
+      "split": "dev",
+      "category": "red_flag",
+      "title": "随访中出现红旗：小便憋不住 + 左腿没劲——必须立即提示并生成紧急任务",
+      "path": "eval/scenarios/dev/S038.yaml",
+      "questions_asked": 17,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_bladder_bowel"
+      ],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 8,
+      "errors": [],
+      "n_critical_errors": 0,
+      "pass": true
+    },
+    {
+      "id": "S039",
+      "family": "F10_followup_left_lbp_radiating",
+      "split": "dev",
+      "category": "hedged",
+      "title": "随访：好像好一点，但“左腿好像有点发软，不太确定”——无力不确定须人工复核",
+      "path": "eval/scenarios/dev/S039.yaml",
+      "questions_asked": 19,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_uncertain_red_flag"
+      ],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 7,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S040",
+      "family": "F10_followup_left_lbp_radiating",
+      "split": "dev",
+      "category": "many_skips",
+      "title": "随访：只写“还行”，除疼痛程度和大小便外全部跳过",
+      "path": "eval/scenarios/dev/S040.yaml",
+      "questions_asked": 19,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 7,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S041",
+      "family": "F11_central_lbp_programmer",
+      "split": "locked",
+      "category": "normal",
+      "title": "腰部正中酸胀两三周，久坐加重、活动缓解，表达完整、无红旗",
+      "path": "eval/scenarios/locked/S041.yaml",
+      "questions_asked": 29,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 12,
+      "critical_ok": 11,
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "weight_loss",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "cancer_history",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S042",
+      "family": "F11_central_lbp_programmer",
+      "split": "locked",
+      "category": "missing_info",
+      "title": "只写“腰不舒服”，其余基本答不清楚",
+      "path": "eval/scenarios/locked/S042.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S043",
+      "family": "F11_central_lbp_programmer",
+      "split": "locked",
+      "category": "negation",
+      "title": "口语化的多重否认（不往腿上走/腿不麻不软/大小便都正常/没有摔倒撞到…）",
+      "path": "eval/scenarios/locked/S043.yaml",
+      "questions_asked": 29,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 11,
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "character",
+          "detail": "期望 present，系统为 asked_unanswered",
+          "severity": "minor"
+        }
+      ],
+      "n_critical_errors": 0,
+      "pass": true
+    },
+    {
+      "id": "S044",
+      "family": "F11_central_lbp_programmer",
+      "split": "locked",
+      "category": "many_skips",
+      "title": "除大小便和疼痛程度外全部跳过",
+      "path": "eval/scenarios/locked/S044.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "character",
+          "detail": "期望 present，系统为 asked_unanswered",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S045",
+      "family": "F12_left_lbp_radiating_farmer",
+      "split": "locked",
+      "category": "contradiction",
+      "title": "身体图误点右侧、原话说左边——澄清后“位置变了，现在主要是左侧”",
+      "path": "eval/scenarios/locked/S045.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S046",
+      "family": "F12_left_lbp_radiating_farmer",
+      "split": "locked",
+      "category": "contradiction",
+      "title": "半年老问题 vs 前天又疼得厉害——患者回答“两者都对”，本次起病时间记为不确定",
+      "path": "eval/scenarios/locked/S046.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S047",
+      "family": "F12_left_lbp_radiating_farmer",
+      "split": "locked",
+      "category": "contradiction",
+      "title": "身体图标了小腿放射、原话却说“腿不疼”——放射与否必须澄清，不能自动取其一",
+      "path": "eval/scenarios/locked/S047.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S048",
+      "family": "F12_left_lbp_radiating_farmer",
+      "split": "locked",
+      "category": "contradiction",
+      "title": "没有身体图，原话先说左边、又说右边也疼、最后说两边——澄清后为两侧",
+      "path": "eval/scenarios/locked/S048.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S049",
+      "family": "F13_bilateral_lbp_medication_request",
+      "split": "locked",
+      "category": "medication_request",
+      "title": "一直贴膏药、要求开止痛药——只记录用药与诉求，不得生成开药文字",
+      "path": "eval/scenarios/locked/S049.yaml",
+      "questions_asked": 27,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 12,
+      "critical_ok": 11,
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "weight_loss",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "cancer_history",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S050",
+      "family": "F13_bilateral_lbp_medication_request",
+      "split": "locked",
+      "category": "medication_request",
+      "title": "“布洛芬一天两次不管用，能加量吗”——表单如实记录药名，系统不得出现加量/药名建议",
+      "path": "eval/scenarios/locked/S050.yaml",
+      "questions_asked": 26,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 12,
+      "critical_ok": 11,
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "weight_loss",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "cancer_history",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S051",
+      "family": "F13_bilateral_lbp_medication_request",
+      "split": "locked",
+      "category": "hedged",
+      "title": "“右边好像更厉害一点”“右腿好像有点麻”“大小便好像也还行”——模糊表达",
+      "path": "eval/scenarios/locked/S051.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S052",
+      "family": "F13_bilateral_lbp_medication_request",
+      "split": "locked",
+      "category": "normal",
+      "title": "腰两侧痛两个月，骑车久了加重，无放射、无红旗",
+      "path": "eval/scenarios/locked/S052.yaml",
+      "questions_asked": 33,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 12,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "weight_loss",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "cancer_history",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 2,
+      "pass": false
+    },
+    {
+      "id": "S053",
+      "family": "F14_teenager_lbp_out_of_scope",
+      "split": "locked",
+      "category": "out_of_scope",
+      "title": "原话自述 16 岁——超出协议适用范围，系统当前无法识别",
+      "path": "eval/scenarios/locked/S053.yaml",
+      "questions_asked": 33,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_out_of_scope"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_out_of_scope",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S054",
+      "family": "F14_teenager_lbp_out_of_scope",
+      "split": "locked",
+      "category": "out_of_scope",
+      "title": "16 岁 + 模糊表达“腿好像有点麻”",
+      "path": "eval/scenarios/locked/S054.yaml",
+      "questions_asked": 33,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_out_of_scope"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_out_of_scope",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S055",
+      "family": "F14_teenager_lbp_out_of_scope",
+      "split": "locked",
+      "category": "missing_info",
+      "title": "16 岁 + 信息极少：“我16岁，腰疼”",
+      "path": "eval/scenarios/locked/S055.yaml",
+      "questions_asked": 33,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_out_of_scope"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_out_of_scope",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S056",
+      "family": "F14_teenager_lbp_out_of_scope",
+      "split": "locked",
+      "category": "negation",
+      "title": "16 岁 + 否定表达：“腿不麻，大小便正常，没发烧，没摔”",
+      "path": "eval/scenarios/locked/S056.yaml",
+      "questions_asked": 31,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10,
+      "errors": [],
+      "n_critical_errors": 0,
+      "pass": true
+    },
+    {
+      "id": "S057",
+      "family": "F15_chronic_lbp_bilateral_numbness_flags",
+      "split": "locked",
+      "category": "red_flag",
+      "title": "原话没提大小便，表单回答大小便控制有变化——必须立即提示并生成紧急任务",
+      "path": "eval/scenarios/locked/S057.yaml",
+      "questions_asked": 33,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_bilateral_only",
+        "rf_no_improvement"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "weight_loss",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "minor"
+        },
+        {
+          "code": "E4_missed_escalation",
+          "key": "rf_bladder_bowel",
+          "detail": "期望触发的红旗未触发",
+          "severity": "critical"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_bilateral_only",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_no_improvement",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "n_critical_errors": 2,
+      "pass": false
+    },
+    {
+      "id": "S058",
+      "family": "F15_chronic_lbp_bilateral_numbness_flags",
+      "split": "locked",
+      "category": "red_flag",
+      "title": "原话提到“会阴部发麻”——必须立即提示并生成紧急任务",
+      "path": "eval/scenarios/locked/S058.yaml",
+      "questions_asked": 33,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_saddle",
+        "rf_no_improvement"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_no_improvement",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S059",
+      "family": "F15_chronic_lbp_bilateral_numbness_flags",
+      "split": "locked",
+      "category": "red_flag",
+      "title": "“好像肛门周围麻麻的，也说不清楚”——红旗不确定，须人工复核",
+      "path": "eval/scenarios/locked/S059.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_uncertain_red_flag"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S060",
+      "family": "F15_chronic_lbp_bilateral_numbness_flags",
+      "split": "locked",
+      "category": "red_flag",
+      "title": "会阴发麻 + 双腿一天比一天更没劲——两条红旗；本变体患者腿并不麻",
+      "path": "eval/scenarios/locked/S060.yaml",
+      "questions_asked": 31,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_saddle",
+        "rf_ces_bilateral",
+        "rf_bilateral_only",
+        "rf_progressive_weakness",
+        "rf_no_improvement"
+      ],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_ces_bilateral",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_bilateral_only",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_no_improvement",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S061",
+      "family": "F16_fall_down_stairs_trauma",
+      "split": "locked",
+      "category": "red_flag",
+      "title": "前天下楼梯摔倒、疼痛 9 分、起不来——外伤 + 明显疼痛须当天处理",
+      "path": "eval/scenarios/locked/S061.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_trauma_severe"
+      ],
+      "verification_passed": true,
+      "critical_gt": 12,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "night_pain",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "minor"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "weight_loss",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "cancer_history",
+          "detail": "期望 denied，系统为 asked_unanswered",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 2,
+      "pass": false
+    },
+    {
+      "id": "S062",
+      "family": "F16_fall_down_stairs_trauma",
+      "split": "locked",
+      "category": "normal",
+      "title": "昨天滑了一下摔倒，只有 3 分痛、能走能动——有外伤但不应升级",
+      "path": "eval/scenarios/locked/S062.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S063",
+      "family": "F16_fall_down_stairs_trauma",
+      "split": "locked",
+      "category": "red_flag",
+      "title": "三天前摔倒、疼痛 8 分，昨天开始发烧——外伤与发热两条红旗",
+      "path": "eval/scenarios/locked/S063.yaml",
+      "questions_asked": 32,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_fever",
+        "rf_trauma_severe"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10,
+      "errors": [],
+      "n_critical_errors": 0,
+      "pass": true
+    },
+    {
+      "id": "S064",
+      "family": "F16_fall_down_stairs_trauma",
+      "split": "locked",
+      "category": "many_skips",
+      "title": "摔倒后腰疼，但程度等几乎全部跳过——外伤规则因程度未知无法触发",
+      "path": "eval/scenarios/locked/S064.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S065",
+      "family": "F17_lung_cancer_history_back_pain",
+      "split": "locked",
+      "category": "red_flag",
+      "title": "原话提到去年肺癌化疗——肿瘤病史须生成医生复核任务",
+      "path": "eval/scenarios/locked/S065.yaml",
+      "questions_asked": 33,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_weight_loss_or_cancer",
+        "rf_cancer_with_features"
+      ],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_cancer_with_features",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S066",
+      "family": "F17_lung_cancer_history_back_pain",
+      "split": "locked",
+      "category": "red_flag",
+      "title": "三个月瘦了十斤——体重下降须生成复核任务；“三个月”不是起病时间",
+      "path": "eval/scenarios/locked/S066.yaml",
+      "questions_asked": 33,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_weight_loss_or_cancer"
+      ],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S067",
+      "family": "F17_lung_cancer_history_back_pain",
+      "split": "locked",
+      "category": "red_flag",
+      "title": "夜里疼得睡不着、经常痛醒 + 表单确认体重下降和肿瘤史",
+      "path": "eval/scenarios/locked/S067.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_weight_loss_or_cancer"
+      ],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        },
+        {
+          "code": "E9_minor_omission",
+          "key": "weight_loss",
+          "detail": "期望 present，系统为 asked_unanswered",
+          "severity": "minor"
+        },
+        {
+          "code": "E1_critical_omission",
+          "key": "cancer_history",
+          "detail": "期望 present，系统为 asked_unanswered",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 2,
+      "pass": false
+    },
+    {
+      "id": "S068",
+      "family": "F17_lung_cancer_history_back_pain",
+      "split": "locked",
+      "category": "negation",
+      "title": "逐项否认体重下降/夜间痛/肿瘤史/发热/外伤——不应触发红旗",
+      "path": "eval/scenarios/locked/S068.yaml",
+      "questions_asked": 30,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S069",
+      "family": "F18_recurrent_lbp_new_radiation",
+      "split": "locked",
+      "category": "new_symptom",
+      "title": "以前也有过腰痛，这次多了向右大腿后侧串的疼——既往发作与新增放射都要记录",
+      "path": "eval/scenarios/locked/S069.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 11,
+      "critical_ok": 10,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S070",
+      "family": "F18_recurrent_lbp_new_radiation",
+      "split": "locked",
+      "category": "hedged",
+      "title": "“右边屁股好像也有点疼，说不好是不是串过去的”——放射与否应记为不确定",
+      "path": "eval/scenarios/locked/S070.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S071",
+      "family": "F18_recurrent_lbp_new_radiation",
+      "split": "locked",
+      "category": "missing_info",
+      "title": "只写“老毛病，右腿疼”，其余不清楚",
+      "path": "eval/scenarios/locked/S071.yaml",
+      "questions_asked": 34,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 9,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S072",
+      "family": "F18_recurrent_lbp_new_radiation",
+      "split": "locked",
+      "category": "negation",
+      "title": "否定表达：“腿不麻，腿有劲，大小便正常，不发烧，没有外伤”——“没有外伤”只否认外伤",
+      "path": "eval/scenarios/locked/S072.yaml",
+      "questions_asked": 30,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10,
+      "errors": [],
+      "n_critical_errors": 0,
+      "pass": true
+    },
+    {
+      "id": "S073",
+      "family": "F19_followup_central_lbp_teacher",
+      "split": "locked",
+      "category": "follow_up",
+      "title": "随访：好多了、基本不疼，清楚医嘱且已执行",
+      "path": "eval/scenarios/locked/S073.yaml",
+      "questions_asked": 19,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 7,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S074",
+      "family": "F19_followup_central_lbp_teacher",
+      "split": "locked",
+      "category": "follow_up",
+      "title": "随访：跟上次一样、没变化，部分执行医嘱",
+      "path": "eval/scenarios/locked/S074.yaml",
+      "questions_asked": 18,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 7,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S075",
+      "family": "F19_followup_central_lbp_teacher",
+      "split": "locked",
+      "category": "new_symptom",
+      "title": "随访：更疼 + 新出现串到左臀、左腿发麻——主要部位仍是腰正中",
+      "path": "eval/scenarios/locked/S075.yaml",
+      "questions_asked": 17,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 7,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S076",
+      "family": "F19_followup_central_lbp_teacher",
+      "split": "locked",
+      "category": "follow_up",
+      "title": "随访：“医生说的我不太清楚，也忘了要不要复查”——医嘱理解应记为否",
+      "path": "eval/scenarios/locked/S076.yaml",
+      "questions_asked": 18,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 7,
+      "critical_ok": 6,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S077",
+      "family": "F20_followup_right_lbp_calf_driver",
+      "split": "locked",
+      "category": "follow_up",
+      "title": "随访：好一些，但医生安排的理疗一次没去",
+      "path": "eval/scenarios/locked/S077.yaml",
+      "questions_asked": 17,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 7,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S078",
+      "family": "F20_followup_right_lbp_calf_driver",
+      "split": "locked",
+      "category": "red_flag",
+      "title": "随访中出现红旗：会阴部发麻——必须立即提示并生成紧急任务",
+      "path": "eval/scenarios/locked/S078.yaml",
+      "questions_asked": 17,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_saddle"
+      ],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 7,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    },
+    {
+      "id": "S079",
+      "family": "F20_followup_right_lbp_calf_driver",
+      "split": "locked",
+      "category": "hedged",
+      "title": "随访：好像好点了，但“好像有点憋不住尿，不太确定”——须人工复核",
+      "path": "eval/scenarios/locked/S079.yaml",
+      "questions_asked": 19,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_uncertain_red_flag"
+      ],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 8,
+      "errors": [],
+      "n_critical_errors": 0,
+      "pass": true
+    },
+    {
+      "id": "S080",
+      "family": "F20_followup_right_lbp_calf_driver",
+      "split": "locked",
+      "category": "many_skips",
+      "title": "随访：只写“一般”，除疼痛程度和大小便外全部跳过",
+      "path": "eval/scenarios/locked/S080.yaml",
+      "questions_asked": 19,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 8,
+      "critical_ok": 7,
+      "errors": [
+        {
+          "code": "E1_critical_omission",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，系统为 not_asked",
+          "severity": "critical"
+        }
+      ],
+      "n_critical_errors": 1,
+      "pass": false
+    }
+  ]
+}

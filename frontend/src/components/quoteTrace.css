@@ -1,0 +1,378 @@
+/* ------------------------------------------------------------------
+   出处连线 QuoteTrace（QuoteTrace.tsx 自带样式）
+   颜色分工：墨蓝 = 字；迹蓝 #1D5FA5 = 出处连线；信号红 #B3261E = 已触发的红旗；灰 = 没整理到的原话。
+   宿主背景不是白色时，覆盖 --qt-halo（连线交叉处的"让路"描边色）即可。
+   ------------------------------------------------------------------ */
+.qt {
+  --qt-ink: #16233b;
+  --qt-blue: #1d5fa5;
+  --qt-red: #b3261e;
+  --qt-gray: #7c8595;
+  --qt-soft: #5b6576;
+  --qt-line: #dde3ea;
+  --qt-halo: #fff;
+  --qt-warn: #8a5300;
+  --qt-warn-bg: #fff4e0;
+  --qt-warn-line: #f2d19a;
+  position: relative;
+  color: var(--qt-ink);
+  min-width: 0;
+}
+
+.qt-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+.qt-side .qt-grid {
+  grid-template-columns: minmax(0, 1.2fr) minmax(210px, 1fr);
+  column-gap: 72px;
+  align-items: start;
+}
+.qt-compact.qt-side .qt-grid {
+  grid-template-columns: minmax(0, 1.25fr) minmax(190px, 1fr);
+  column-gap: 56px;
+}
+/* 窄布局：原话右边、卡片左边各留一条走线槽，中间留一段横穿的空带 */
+.qt-stack .qt-source {
+  padding-right: var(--qt-gutter, 0px);
+}
+.qt-stack .qt-cards-col {
+  padding-left: var(--qt-gutter, 0px);
+  margin-top: var(--qt-band, 14px);
+}
+
+.qt-col-head {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--qt-gray);
+  margin-bottom: 4px;
+}
+
+/* 原话 */
+.qt-texts {
+  font-size: 16px;
+  line-height: 2.2;
+}
+.qt-compact .qt-texts {
+  font-size: 14.5px;
+  line-height: 2.1;
+}
+.qt-entry + .qt-entry {
+  margin-top: 6px;
+}
+.qt-entry-head {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--qt-gray);
+}
+.qt-text {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.qt-gray {
+  color: var(--qt-gray);
+}
+.qt-u {
+  color: var(--qt-ink);
+  padding-bottom: 1px;
+  border-bottom: 2px solid var(--qt-blue);
+  cursor: default;
+  transition: background-color 0.15s;
+}
+.qt-u.is-red {
+  border-bottom-color: var(--qt-red);
+}
+.qt-u.is-dashed {
+  border-bottom-style: dashed;
+}
+.qt-u.is-hot {
+  background: rgba(29, 95, 165, 0.1);
+}
+.qt-u.is-red.is-hot {
+  background: rgba(179, 38, 30, 0.08);
+}
+.qt-note {
+  margin: 4px 0 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--qt-gray);
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+}
+.qt-note-key {
+  flex: none;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: #eef1f5;
+  color: var(--qt-gray);
+  font-weight: 600;
+}
+.qt-empty {
+  margin: 0;
+  font-size: 13px;
+  color: var(--qt-gray);
+}
+
+/* 事实卡 */
+.qt-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.qt-compact .qt-cards {
+  gap: 6px;
+}
+.qt-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--qt-line);
+  border-left: 3px solid var(--qt-blue);
+  border-radius: 8px;
+  padding: 7px 10px 8px 11px;
+  transition:
+    box-shadow 0.15s,
+    border-color 0.15s;
+}
+.qt-card.is-red {
+  border-left-color: var(--qt-red);
+}
+.qt-card.is-disputed {
+  border-left-style: dashed;
+  border-color: rgba(179, 38, 30, 0.45);
+  border-left-color: var(--qt-red);
+}
+.qt-card.is-unlinked:not(.is-red) {
+  border-left-color: #c5ceda;
+}
+.qt-card.is-warn {
+  border-color: var(--qt-warn-line);
+  border-left-color: var(--qt-warn);
+  background: #fffdf8;
+}
+.qt-card.is-hot {
+  box-shadow: 0 2px 10px rgba(22, 35, 59, 0.1);
+}
+.qt-card-label {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--qt-soft);
+}
+.qt-card-value {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--qt-ink);
+}
+.qt-card.is-disputed .qt-card-value {
+  color: var(--qt-red);
+}
+.qt-card-note {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--qt-soft);
+}
+.qt-compact .qt-card {
+  padding: 5px 9px 6px 10px;
+}
+.qt-compact .qt-card-label,
+.qt-compact .qt-card-value {
+  display: inline;
+}
+.qt-compact .qt-card-label::after {
+  content: '：';
+}
+.qt-compact .qt-card-value {
+  font-size: 14px;
+}
+.qt-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+.qt-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 7px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+.qt-tag-flag {
+  background: var(--qt-red);
+  border-color: var(--qt-red);
+  color: #fff;
+}
+.qt-tag-verify {
+  background: #fff;
+  border-color: var(--qt-red);
+  border-style: dashed;
+  color: var(--qt-red);
+}
+.qt-tag-src {
+  background: #f3f5f8;
+  border-color: #d5dbe4;
+  color: #475467;
+  font-weight: 500;
+}
+.qt-tag-warn {
+  background: var(--qt-warn-bg);
+  border-color: var(--qt-warn-line);
+  color: var(--qt-warn);
+}
+.qt-missing {
+  margin-top: 3px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--qt-warn);
+  overflow-wrap: anywhere;
+}
+.qt-banner {
+  margin: 0 0 8px;
+  padding: 5px 9px;
+  border: 1px solid var(--qt-warn-line);
+  border-radius: 6px;
+  background: var(--qt-warn-bg);
+  color: var(--qt-warn);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+.qt-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 连线层 */
+.qt-wires {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 1;
+}
+.qt-wire {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.qt-wire-halo {
+  stroke: var(--qt-halo);
+  stroke-width: 4.5;
+}
+.qt-wire-line {
+  stroke: var(--qt-blue);
+  stroke-width: 1.6;
+  transition: stroke-width 0.15s;
+}
+.qt-link.is-red .qt-wire-line {
+  stroke: var(--qt-red);
+  stroke-width: 1.8;
+}
+.qt-link.is-dashed .qt-wire-line {
+  stroke-dasharray: 5 4;
+  stroke-linecap: butt;
+}
+.qt-link {
+  transition: opacity 0.15s;
+}
+.qt.has-hot .qt-link:not(.is-hot) {
+  opacity: 0.18;
+}
+.qt-link.is-hot .qt-wire-line {
+  stroke-width: 2.6;
+}
+.qt-dot {
+  fill: var(--qt-blue);
+  stroke: #fff;
+  stroke-width: 1.5;
+}
+.qt-link.is-red .qt-dot {
+  fill: var(--qt-red);
+}
+.qt-link.is-dashed .qt-dot {
+  fill: #fff;
+  stroke: var(--qt-red);
+}
+.qt-reveal {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 12;
+  stroke-linecap: butt;
+  stroke-dasharray: 1 1;
+}
+
+/* 挂载动画：线逐条画出，引文随线"着墨"，卡片在线到达时亮起。终态 = 静态样式 */
+.qt-anim .qt-reveal {
+  animation: qt-draw var(--qt-draw, 600ms) cubic-bezier(0.45, 0.05, 0.3, 1) both;
+}
+.qt-anim .qt-u {
+  animation: qt-ink 420ms ease-out both;
+  animation-delay: var(--qt-d, 0ms);
+}
+.qt-anim .qt-card.is-linked {
+  animation: qt-card 420ms ease-out both;
+  animation-delay: var(--qt-d, 0ms);
+}
+.qt-anim .qt-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: qt-pop 260ms ease-out both;
+}
+@keyframes qt-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes qt-ink {
+  from {
+    color: var(--qt-gray);
+    border-bottom-color: transparent;
+  }
+}
+@keyframes qt-card {
+  from {
+    opacity: 0.35;
+  }
+}
+@keyframes qt-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qt-anim .qt-reveal,
+  .qt-anim .qt-u,
+  .qt-anim .qt-card.is-linked,
+  .qt-anim .qt-dot {
+    animation: none;
+    stroke-dasharray: none;
+  }
+  .qt-u,
+  .qt-card,
+  .qt-link,
+  .qt-wire-line {
+    transition: none;
+  }
+}

@@ -1,0 +1,26 @@
+id: K01
+family: K01_gradual_stairs
+split: knee
+protocol_id: knee_adult_v0.1
+title: 右膝慢慢疼了两三周，上下楼明显，无红旗
+persona: 52 岁超市理货员（模拟）
+kind: pre_visit
+category: normal
+inputs:
+  body_map: [{region_id: knee_right_front, kind: primary}]
+  free_text: "右膝盖疼了两三周，上下楼和蹲下的时候明显，走路没问题，不红不热，没发烧。"
+  answers: {k_calf: "no", k_neuro: "no", k_trauma: "no", k_swelling: "no", k_locking: "no", k_onset_mode: gradual, k_trigger: none_known, k_severity: 4, k_course: stable, k_giving: "no", k_function: mild}
+ground_truth:
+  facts:
+    pain_side: {status: present, value: right}
+    onset_timing: {status: present, value: weeks_2_to_6}
+    weight_bearing: {status: present, value: normal}
+    redness_warmth: {status: denied}
+    fever: {status: denied}
+    calf_swelling_pain: {status: denied}
+    neuro_vascular: {status: denied}
+    trauma_recent: {status: denied}
+    severity_now: {status: present, value: 4}
+  expected_alerts: []
+notes: "第二专科复用示范；AI 起草，待临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

@@ -1,0 +1,36 @@
+id: S071
+family: F18_recurrent_lbp_new_radiation
+split: locked
+title: "只写“老毛病，右腿疼”，其余不清楚"
+persona: "44 岁护士（模拟，非真实患者）"
+kind: pre_visit
+category: missing_info
+inputs:
+  body_map:
+    - {region_id: lower_back_right, kind: primary}
+  free_text: "老毛病，右腿疼。"
+  answers:
+    q_bladder_bowel: "no"
+    q_severity_now: 5
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    prior_episodes: {status: present}
+    pain_side: {status: present, value: right}
+    bladder_bowel_change: {status: denied}
+    severity_now: {status: present, value: 5}
+    saddle_numbness: {status: unknown}
+    leg_weakness: {status: unknown}
+    fever: {status: unknown}
+    trauma_recent: {status: unknown}
+    onset_timing: {status: unknown}
+    radiation_present: {status: unknown}
+    leg_numbness: {status: unknown}
+  must_be_unknown: [onset_mode, trigger, course, weight_loss, cancer_history, night_pain]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核。“右腿疼”提示可能放射，但患者追问时答不清楚，放射事实应保持未知而不是推断为有。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

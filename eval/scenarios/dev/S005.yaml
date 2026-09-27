@@ -1,0 +1,57 @@
+id: S005
+family: F02_right_lbp_radiating_driver
+split: dev
+title: "身体图误点左侧、原话说右边——必须澄清；澄清后主要侧别为右"
+persona: "48 岁长途货车司机（模拟，非真实患者）"
+kind: pre_visit
+category: contradiction
+inputs:
+  body_map:
+    - {region_id: lower_back_left, kind: primary}
+  free_text: "腰右边疼了一个多月，往下串到腿，走路久了右腿发麻。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_onset_mode: gradual
+    q_trigger: prolonged_sitting
+    q_radiation_regions: [thigh_right_back]
+    q_severity_now: 6
+    q_course: worsening
+    q_character: [aching, sharp]
+    q_relieving: [rest]
+    q_function_impact: moderate
+    q_sleep_affected: "yes"
+    q_night_pain: "no"
+  clarifications: {pain_side: keep_second}
+  corrections: []
+ground_truth:
+  facts:
+    pain_side: {status: present, value: right}
+    pain_regions: {status: present, value: [lower_back_right]}
+    onset_timing: {status: present, value: weeks_2_to_6}
+    radiation_present: {status: present}
+    radiation_regions: {status: present, value: [thigh_right_back]}
+    leg_numbness: {status: present}
+    aggravating: {status: present, value: [walking]}
+    severity_now: {status: present, value: 6}
+    course: {status: present, value: worsening}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    onset_mode: {status: present, value: gradual}
+    trigger: {status: present, value: prolonged_sitting}
+    function_impact: {status: present, value: moderate}
+    sleep_affected: {status: present}
+    night_pain: {status: denied}
+  must_be_unknown: []
+  expected_alerts: []
+  expected_conflicts: [pain_side]
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核。患者澄清“之前点错了，应该是右侧”后，疼痛部位也应只保留右腰；若系统仍保留误点的左腰，属部位与侧别未联动。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

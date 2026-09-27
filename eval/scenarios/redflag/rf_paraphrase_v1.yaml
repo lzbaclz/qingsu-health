@@ -1,0 +1,540 @@
+# 红旗换说法 · 开发集 v1（rf_paraphrase_v1）
+#
+# ▶ 这是【开发集】，不作最终证据。
+#   原句由"计算机"专家（AI 模拟人设）写成 v0（会话草稿区 rf_paraphrase_v0.yaml，42 句），
+#   他看过模型的失败之后调过提示词（加了"红旗专查"一遍），所以这里的数字只能叫"开发基线"。
+#   最终证据只看留出集 eval/scenarios/holdout/，规则见 eval/PREREG.md。
+#   本集可以拿来调提示词、调词表、调流程。
+#
+# ▶ 本版由"模拟评测数据负责人"（AI 模拟人设，不是执业医师）从 v0 转写，2026-09-25。
+#   句子一字未改；改的是格式、协议版本和真值。所有句子都是模拟的，不是真实患者。
+#
+# ▶ 格式同 stress_v1：
+#   - family：红旗类别（bladder_bowel / saddle / weakness / fever / weight_loss / cancer / night_pain / negative）。
+#   - truth：患者的真实情况。present 有；denied 患者明确否认；uncertain 患者自己说不准。
+#     value_any 为多个可接受值；多选的 value 表示"至少包含"。
+#   - traps：原话里有诱导、但不能记成"有"或"不确定"的事实。记成"没有"或者不记，都不算错。
+#   - expected_alerts：按 lbp_adult_v0.2 的规则由 truth 推出（脚本用协议自己的表达式求值核过）。
+#     原话层与问卷之后都应如此。
+#
+# ▶ 评测器作答规则（2026-09-25 起）：模拟患者被直接问到红旗时，truth 里没列的答"没有"；
+#   traps 里的答"不清楚"，记为"不确定"。马尾类事实上的"不确定"会触发 rf_uncertain_red_flag。
+#   因此马尾类事实（bladder_bowel_change、bladder_change、bowel_change、saddle_numbness、
+#   bilateral_leg_symptoms、leg_weakness、weakness_progressive）一律不放进 traps，
+#   也不在 truth 里写 unknown；这类诱导靠"原话层多出来的红旗提醒"查。
+#
+# ▶ 大小便三个事实的写法：
+#   - 阳性：bladder_bowel_change（问卷问的那一个）必写；原话明确是小便再加 bladder_change，
+#     明确是大便再加 bowel_change。只抽到其中一个也能触发 rf_bladder_bowel，主指标只看提醒。
+#   - 否认：只写 bladder_bowel_change: denied。细分事实没有诊前问题，写了会造成"未问"的假关键遗漏。
+#
+# ▶ 相对 v0 的改动（模拟临床视角逐条核对；把握不足的写在 note 里）：
+#   1. protocol_id 由 lbp_adult_v0.1 改为 lbp_adult_v0.2，事实 key 按 v0.2。
+#   2. 夜间痛 5 句（RF_N1–N5）：v0.2 起，"休息或夜里痛"只在 50 岁以上才计入 rf_weight_loss_or_cancer。
+#      这 5 句都没说年龄，expected_alerts 由 [rf_weight_loss_or_cancer] 改为 []。仍保留，用来查夜间痛事实抽得对不对。
+#   3. RF_W5 改标为说不准："一天不如一天"没说是没劲还是更疼，腿没劲和是否加重都记 uncertain；
+#      走路打晃是明确的走路不稳。期望提醒改为 [rf_gait, rf_uncertain_red_flag]。
+#   4. RF_W2、RF_W3 另有明确的走路不稳（拖着地、站不稳），v0.2 按 rf_gait 当天联系，期望提醒补上。
+#   5. 反例按原话定 denied 还是 unknown：
+#      明说正常的记 denied（NC1、NC2、NC4、NC5、NC7）；
+#      "腿有点软，没见重"记为腿没劲有、加重否认（NC3）；
+#      "我妈得过……我自己没得过什么大病"记为本人否认（NC6，泛泛的否认，协议照样会直接问一遍）。
+#   6. 按新作答规则，马尾类的诱导不进 traps，例如 RF_B5"撒尿没劲"里的"没劲"（会诱导记成腿没劲）。
+#      它们由"多出来的红旗提醒"来查。
+#
+# ▶ 词表核对（脚本逐字比对 v0.2 词表、事实标签和问法）：v0 当时避开的是 v0.1 词表。
+#   v0.2 补词以后，有 8 句含 v0.2 的词表词或标签用语：
+#   RF_B4（控制不住）、RF_B5（没劲，出现在"撒尿没劲"里）、RF_S1（感觉不到）、RF_W1（一天比一天）、
+#   RF_W3（腿软、站不稳）、RF_W4（使不上劲、踮不起）、RF_F4（三十八度）、RF_NC6（癌）。
+#   所以本集的"词表认出几句"不能再当成"词表外说法"的结果。
+protocol_id: lbp_adult_v0.2
+items:
+  # ---------------- 大小便控制改变（rf_bladder_bowel，紧急）----------------
+  - id: RF_B1
+    family: bladder_bowel
+    source: rf_paraphrase_v0/B1
+    tags: [redflag_dev, bladder_bowel, euphemism]
+    text: "腰疼了一个礼拜，这两天解小手老是解不干净。"
+    truth:
+      bladder_bowel_change: {status: present}
+      bladder_change: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: [rf_bladder_bowel]
+    note: "排空不全，这两天新出现，按有。前列腺增生的老年男性也会这样，但原话说的是新出现。"
+
+  - id: RF_B2
+    family: bladder_bowel
+    source: rf_paraphrase_v0/B2
+    tags: [redflag_dev, bladder_bowel, direct]
+    text: "昨天开始小便滴滴答答的，半天才出来一点，小肚子胀，腰也疼。"
+    truth:
+      bladder_bowel_change: {status: present}
+      bladder_change: {status: present}
+    traps: []
+    expected_alerts: [rf_bladder_bowel]
+    note: "排尿等待、滴沥、小腹胀，是尿潴留的样子。'昨天开始'说的是小便，腰痛从何时开始没说，起病时间不评分。"
+
+  - id: RF_B3
+    family: bladder_bowel
+    source: rf_paraphrase_v0/B3
+    tags: [redflag_dev, bladder_bowel, euphemism]
+    text: "腰这几天特别疼，裤子上老是不知不觉就湿了一块。"
+    truth:
+      bladder_bowel_change: {status: present}
+      bladder_change: {status: present}
+    traps: [onset_mode]
+    expected_alerts: [rf_bladder_bowel]
+    note: "不自觉地漏尿，按有。'不知不觉'说的是漏尿，不是起病方式（词表会把它当成'慢慢出现'）。'这几天特别疼'可能是加重，不一定是起病，起病时间不评分。"
+
+  - id: RF_B4
+    family: bladder_bowel
+    source: rf_paraphrase_v0/B4
+    tags: [redflag_dev, bladder_bowel, euphemism]
+    text: "腰痛两天了，大号控制不住，来不及上厕所。"
+    truth:
+      bladder_bowel_change: {status: present}
+      bowel_change: {status: present}
+      onset_timing: {status: present, value: within_3_days}
+    traps: []
+    expected_alerts: [rf_bladder_bowel]
+
+  - id: RF_B5
+    family: bladder_bowel
+    source: rf_paraphrase_v0/B5
+    tags: [redflag_dev, bladder_bowel, no_punctuation]
+    text: "腰疼三天了然后撒尿没劲尿线很细要使劲才出来"
+    truth:
+      bladder_bowel_change: {status: present}
+      bladder_change: {status: present}
+      onset_timing: {status: present, value: within_3_days}
+    traps: []
+    expected_alerts: [rf_bladder_bowel]
+    note: "'撒尿没劲'是尿线无力，不是腿没劲。腿没劲属马尾类事实，按新作答规则不进 traps；若被抽成腿没劲，只会表现为多余的提醒或事实。"
+
+  # ---------------- 会阴 / 马鞍区麻木（rf_saddle，紧急）----------------
+  - id: RF_S1
+    family: saddle
+    source: rf_paraphrase_v0/S1
+    tags: [redflag_dev, saddle, euphemism]
+    text: "腰疼，这两天擦屁股的时候那块感觉不到纸。"
+    truth:
+      saddle_numbness: {status: present}
+    traps: []
+    expected_alerts: [rf_saddle]
+
+  - id: RF_S2
+    family: saddle
+    source: rf_paraphrase_v0/S2
+    tags: [redflag_dev, saddle, metaphor]
+    text: "坐下去屁股底下像隔了一层东西，没什么知觉，腰也疼。"
+    truth:
+      saddle_numbness: {status: present}
+    traps: []
+    expected_alerts: [rf_saddle]
+    note: "'没什么知觉'是感觉减退，不是'没什么事'。v0 实测里 gpt-oss 读反过。"
+
+  - id: RF_S3
+    family: saddle
+    source: rf_paraphrase_v0/S3
+    tags: [redflag_dev, saddle, direct]
+    text: "腰疼得厉害，裆部那一圈都木了。"
+    truth:
+      saddle_numbness: {status: present}
+    traps: []
+    expected_alerts: [rf_saddle]
+
+  - id: RF_S4
+    family: saddle
+    source: rf_paraphrase_v0/S4
+    tags: [redflag_dev, saddle, metaphor]
+    text: "腰痛一周，骑自行车时坐垫碰到的那块麻麻的，没感觉。"
+    truth:
+      saddle_numbness: {status: present}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: [leg_numbness]
+    expected_alerts: [rf_saddle]
+    note: "'骑自行车时坐垫碰到的那块'是在描述部位，不是'骑车时才麻'，按有。若患者本意是骑车时才麻，那是体位性压迫，另问。没提腿，腿麻是诱导。"
+
+  - id: RF_S5
+    family: saddle
+    source: rf_paraphrase_v0/S5
+    tags: [redflag_dev, saddle, dialect_sichuan]
+    text: "腰杆痛惨了，沟子中间那一坨木起了，摸到都没得感觉。"
+    truth:
+      saddle_numbness: {status: present}
+    traps: []
+    expected_alerts: [rf_saddle]
+
+  # ---------------- 腿无力加重（rf_progressive_weakness，当天）----------------
+  - id: RF_W1
+    family: weakness
+    source: rf_paraphrase_v0/W1
+    tags: [redflag_dev, weakness, direct]
+    text: "腿没力气，一天比一天软，今天上楼都要扶着。"
+    truth:
+      leg_weakness: {status: present}
+      weakness_progressive: {status: present}
+    traps: []
+    expected_alerts: [rf_progressive_weakness]
+    note: "没说是一条腿还是两条腿，两条腿的事实不评分。"
+
+  - id: RF_W2
+    family: weakness
+    source: rf_paraphrase_v0/W2
+    tags: [redflag_dev, weakness, direct]
+    text: "右脚这礼拜抬起来越来越费劲，走路老是拖着地。"
+    truth:
+      leg_weakness: {status: present}
+      weakness_progressive: {status: present}
+      gait_disturbance: {status: present}
+    traps: []
+    expected_alerts: [rf_progressive_weakness, rf_gait]
+    note: "v0 只期望无力加重；拖着地走是明确的走路不稳，v0.2 另按 rf_gait 当天联系。"
+
+  - id: RF_W3
+    family: weakness
+    source: rf_paraphrase_v0/W3
+    tags: [redflag_dev, weakness, direct]
+    text: "腿软的毛病比上周重多了，站都站不稳。"
+    truth:
+      leg_weakness: {status: present}
+      weakness_progressive: {status: present}
+      gait_disturbance: {status: present}
+    traps: []
+    expected_alerts: [rf_progressive_weakness, rf_gait]
+    note: "站不稳是明确的走路不稳，补 rf_gait。是否两条腿没说。"
+
+  - id: RF_W4
+    family: weakness
+    source: rf_paraphrase_v0/W4
+    tags: [redflag_dev, weakness, direct]
+    text: "脚尖使不上劲，前几天还能踮脚，现在踮不起来了。"
+    truth:
+      leg_weakness: {status: present}
+      weakness_progressive: {status: present}
+    traps: []
+    expected_alerts: [rf_progressive_weakness]
+
+  - id: RF_W5
+    family: weakness
+    source: rf_paraphrase_v0/W5
+    tags: [redflag_dev, weakness, dialect_dongbei, relabeled_uncertain]
+    text: "这腿一天不如一天，整得走道直打晃。"
+    truth:
+      leg_weakness: {status: uncertain}
+      weakness_progressive: {status: uncertain}
+      gait_disturbance: {status: present}
+    traps: []
+    expected_alerts: [rf_gait, rf_uncertain_red_flag]
+    note: "改标。'一天不如一天'没说是没劲还是更疼，腿没劲、是否加重都记不确定；走道打晃是明确的走路不稳。若模型把加重读成'有'，会触发 rf_progressive_weakness（同为当天级），按 PREREG 的'向上等价'单列。"
+
+  # ---------------- 发烧或寒战（rf_fever，当天）----------------
+  - id: RF_F1
+    family: fever
+    source: rf_paraphrase_v0/F1
+    tags: [redflag_dev, fever, direct]
+    text: "腰疼，这两天身上滚烫，晚上一身一身出汗。"
+    truth:
+      fever: {status: present}
+    traps: []
+    expected_alerts: [rf_fever]
+    note: "没量体温，但患者自述身上滚烫加出汗，按自述发热记有。"
+
+  - id: RF_F2
+    family: fever
+    source: rf_paraphrase_v0/F2
+    tags: [redflag_dev, fever, dialect_southwest]
+    text: "腰痛，还一阵阵冷得打摆子，额头烫手。"
+    truth:
+      fever: {status: present}
+    traps: []
+    expected_alerts: [rf_fever]
+
+  - id: RF_F3
+    family: fever
+    source: rf_paraphrase_v0/F3
+    tags: [redflag_dev, fever, direct]
+    text: "腰疼得厉害，这两天烧得迷迷糊糊的。"
+    truth:
+      fever: {status: present}
+    traps: []
+    expected_alerts: [rf_fever]
+    note: "精神差属全程紧急提示第⑤条；规则层面仍是 rf_fever（当天）。"
+
+  - id: RF_F4
+    family: fever
+    source: rf_paraphrase_v0/F4
+    tags: [redflag_dev, fever, direct]
+    text: "腰疼，体温计量了三十八度二，吃了退烧药又上来了。"
+    truth:
+      fever: {status: present}
+      current_medication: {status: present}
+    traps: []
+    expected_alerts: [rf_fever]
+
+  - id: RF_F5
+    family: fever
+    source: rf_paraphrase_v0/F5
+    tags: [redflag_dev, fever, dialect_cantonese]
+    text: "条腰好痛，仲有啲发冷，成身滚烫。"
+    truth:
+      fever: {status: present}
+    traps: []
+    expected_alerts: [rf_fever]
+
+  # ---------------- 不明原因体重下降（rf_weight_loss_or_cancer，常规）----------------
+  - id: RF_L1
+    family: weight_loss
+    source: rf_paraphrase_v0/L1
+    tags: [redflag_dev, weight_loss, euphemism]
+    text: "腰背疼了两个月，这阵子吃不下，裤腰都松了一圈。"
+    truth:
+      weight_loss: {status: present}
+      onset_timing: {status: present, value: weeks_6_to_12}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+    note: "没上秤，但裤腰松了一圈加吃不下，按有。'腰背'不等于胸段为主，胸段不评分。"
+
+  - id: RF_L2
+    family: weight_loss
+    source: rf_paraphrase_v0/L2
+    tags: [redflag_dev, weight_loss, direct]
+    text: "腰疼，三个月掉了快二十斤，也没刻意减。"
+    truth:
+      weight_loss: {status: present}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+
+  - id: RF_L3
+    family: weight_loss
+    source: rf_paraphrase_v0/L3
+    tags: [redflag_dev, weight_loss, metaphor]
+    text: "腰一直隐隐作痛，人明显脱了形，衣服都挂不住。"
+    truth:
+      weight_loss: {status: present}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+
+  - id: RF_L4
+    family: weight_loss
+    source: rf_paraphrase_v0/L4
+    tags: [redflag_dev, weight_loss, direct]
+    text: "腰疼，最近称了一下轻了十公斤。"
+    truth:
+      weight_loss: {status: present}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+    note: "没说原因，按不明原因记有；是否主动减重由核对和面诊问。"
+
+  - id: RF_L5
+    family: weight_loss
+    source: rf_paraphrase_v0/L5
+    tags: [redflag_dev, weight_loss, no_punctuation]
+    text: "腰疼了好久了最近没怎么减肥但是一下子轻了好多斤"
+    truth:
+      weight_loss: {status: present}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+    note: "'没怎么减肥'否定的是减肥，不是体重下降。'好久了'时长不清，起病时间不评分。"
+
+  # ---------------- 肿瘤病史（rf_weight_loss_or_cancer，常规）----------------
+  - id: RF_C1
+    family: cancer
+    source: rf_paraphrase_v0/C1
+    tags: [redflag_dev, cancer, euphemism]
+    text: "前年做过乳房切除手术，是恶性的，最近腰疼。"
+    truth:
+      cancer_history: {status: present}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+
+  - id: RF_C2
+    family: cancer
+    source: rf_paraphrase_v0/C2
+    tags: [redflag_dev, cancer, direct]
+    text: "肺上那个恶性结节去年切了，最近背疼得厉害。"
+    truth:
+      cancer_history: {status: present}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+    note: "'背疼'部位不清，是否胸段为主不评分。若被记为胸段，会多出 rf_thoracic 和 rf_cancer_with_features，临床上可以接受，按多余提醒单列。"
+
+  - id: RF_C3
+    family: cancer
+    source: rf_paraphrase_v0/C3
+    tags: [redflag_dev, cancer, direct]
+    text: "前列腺确诊是恶性的，一直在打针治疗，腰疼一个月。"
+    truth:
+      cancer_history: {status: present}
+      current_medication: {status: present}
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+    note: "正在治疗的是前列腺，不是脊柱肿瘤，不属门诊排除范围。"
+
+  - id: RF_C4
+    family: cancer
+    source: rf_paraphrase_v0/C4
+    tags: [redflag_dev, cancer, direct]
+    text: "以前得过淋巴瘤，做过放疗，这两个月腰疼。"
+    truth:
+      cancer_history: {status: present}
+      onset_timing: {status: present, value: weeks_6_to_12}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+
+  - id: RF_C5
+    family: cancer
+    source: rf_paraphrase_v0/C5
+    tags: [redflag_dev, cancer, euphemism]
+    text: "肠子上那个坏东西三年前切掉了，最近腰疼得睡不好。"
+    truth:
+      cancer_history: {status: present}
+      sleep_affected: {status: present}
+    traps: []
+    expected_alerts: [rf_weight_loss_or_cancer]
+    note: "'坏东西'是恶性肿瘤的委婉说法。'睡不好'是影响睡眠，不等于夜里疼醒。"
+
+  # ---------------- 夜间痛（v0 期望 rf_weight_loss_or_cancer；v0.2 起没说年龄时不触发）----------------
+  - id: RF_N1
+    family: night_pain
+    source: rf_paraphrase_v0/N1
+    tags: [redflag_dev, night_pain, v02_no_alert]
+    text: "腰疼，半夜两三点疼得非起来坐着不可。"
+    truth:
+      night_pain: {status: present}
+    traps: []
+    expected_alerts: []
+    note: "v0.2：夜间痛只在 50 岁以上才计入 rf_weight_loss_or_cancer；本句没说年龄，原话层不应有任何红旗提醒。"
+
+  - id: RF_N2
+    family: night_pain
+    source: rf_paraphrase_v0/N2
+    tags: [redflag_dev, night_pain, v02_no_alert]
+    text: "睡到半夜疼得睁开眼，再也睡不着，腰疼一个月了。"
+    truth:
+      night_pain: {status: present}
+      sleep_affected: {status: present}
+      onset_timing: {status: present, value: weeks_2_to_6}
+    traps: []
+    expected_alerts: []
+    note: "同 RF_N1。"
+
+  - id: RF_N3
+    family: night_pain
+    source: rf_paraphrase_v0/N3
+    tags: [redflag_dev, night_pain, v02_no_alert]
+    text: "腰疼得整宿整宿睡不了觉，怎么躺都不行。"
+    truth:
+      rest_or_night_worst: {status: present}
+      sleep_affected: {status: present}
+    traps: []
+    expected_alerts: []
+    note: "躺着也疼、整夜睡不了，按'休息或夜里痛'记有；没说是疼醒，夜里疼醒不评分。没说年龄，不触发。"
+
+  - id: RF_N4
+    family: night_pain
+    source: rf_paraphrase_v0/N4
+    tags: [redflag_dev, night_pain, v02_no_alert]
+    text: "夜里疼得比白天厉害，基本没法合眼。"
+    truth:
+      rest_or_night_worst: {status: present}
+      sleep_affected: {status: present}
+    traps: []
+    expected_alerts: []
+    note: "同 RF_N1。"
+
+  - id: RF_N5
+    family: night_pain
+    source: rf_paraphrase_v0/N5
+    tags: [redflag_dev, night_pain, v02_no_alert, dialect_dongbei]
+    text: "一到后半夜腰就疼得没法整，得起来溜达。"
+    truth:
+      night_pain: {status: present}
+      night_waking_second_half: {status: present}
+    traps: []
+    expected_alerts: []
+    note: "后半夜痛醒、起来活动，是炎性腰背痛线索之一；rf_inflammatory_pattern 需要 18–49 岁、超过 3 个月且两项以上，本句不够，不触发。"
+
+  # ---------------- 反例（不应触发）----------------
+  - id: RF_NC1
+    family: negative
+    source: rf_paraphrase_v0/NC1
+    tags: [redflag_dev, negative, negation]
+    text: "腰疼一周，大小便都挺顺的，没什么变化。"
+    truth:
+      bladder_bowel_change: {status: denied}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: []
+
+  - id: RF_NC2
+    family: negative
+    source: rf_paraphrase_v0/NC2
+    tags: [redflag_dev, negative, negation]
+    text: "坐久了屁股两边有点酸，中间那块一点不麻。"
+    truth:
+      saddle_numbness: {status: denied}
+      aggravating: {status: present, value: [sitting]}
+      character: {status: present, value: [aching]}
+    traps: []
+    expected_alerts: []
+
+  - id: RF_NC3
+    family: negative
+    source: rf_paraphrase_v0/NC3
+    tags: [redflag_dev, negative, chronic_unchanged]
+    text: "腿有点软，但这几天跟之前差不多，没见重。"
+    truth:
+      leg_weakness: {status: present}
+      weakness_progressive: {status: denied}
+    traps: []
+    expected_alerts: []
+    note: "'有点软'是程度，不是拿不准，腿没劲记有；'没见重'是明确否认加重。单独的腿没劲在 v0.2 不触发提醒。"
+
+  - id: RF_NC4
+    family: negative
+    source: rf_paraphrase_v0/NC4
+    tags: [redflag_dev, negative, negation]
+    text: "腰疼，量了体温正常，三十六度五。"
+    truth:
+      fever: {status: denied}
+    traps: []
+    expected_alerts: []
+
+  - id: RF_NC5
+    family: negative
+    source: rf_paraphrase_v0/NC5
+    tags: [redflag_dev, negative, negation]
+    text: "腰疼两个月，胃口挺好，体重没啥变化。"
+    truth:
+      weight_loss: {status: denied}
+      onset_timing: {status: present, value: weeks_6_to_12}
+    traps: []
+    expected_alerts: []
+
+  - id: RF_NC6
+    family: negative
+    source: rf_paraphrase_v0/NC6
+    tags: [redflag_dev, negative, past_or_family]
+    text: "我妈得过乳腺癌，我自己没得过什么大病，腰疼一周。"
+    truth:
+      cancer_history: {status: denied}
+      onset_timing: {status: present, value: days_4_to_14}
+    traps: []
+    expected_alerts: []
+    note: "家人的病史不是本人的。'我自己没得过什么大病'按本人否认记；这是泛泛的否认，协议照样直接问一遍。记成'不清楚'只算漏抽，不算错。"
+
+  - id: RF_NC7
+    family: negative
+    source: rf_paraphrase_v0/NC7
+    tags: [redflag_dev, negative, negation]
+    text: "晚上睡觉倒是不怎么疼，早上起来腰僵。"
+    truth:
+      rest_or_night_worst: {status: denied}
+      night_pain: {status: denied}
+      character: {status: present, value: [stiff]}
+    traps: [morning_stiffness_30min]
+    expected_alerts: []
+    note: "'早上起来腰僵'没说僵多久，'晨僵超过 30 分钟'不能记有。"

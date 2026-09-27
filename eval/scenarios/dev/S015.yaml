@@ -1,0 +1,36 @@
+id: S015
+family: F04_pregnant_lbp_out_of_scope
+split: dev
+title: "孕期 + 信息极少：只写“怀孕了，腰疼”，其余答不清楚"
+persona: "30 岁孕 28 周女性（模拟，非真实患者）"
+kind: pre_visit
+category: missing_info
+inputs:
+  body_map:
+    - {region_id: lower_back_left, kind: primary}
+    - {region_id: lower_back_right, kind: primary}
+  free_text: "怀孕了，腰疼。"
+  answers:
+    q_bladder_bowel: "no"
+    q_severity_now: 3
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    pain_side: {status: present, value: both}
+    bladder_bowel_change: {status: denied}
+    severity_now: {status: present, value: 3}
+    saddle_numbness: {status: unknown}
+    leg_weakness: {status: unknown}
+    fever: {status: unknown}
+    trauma_recent: {status: unknown}
+    onset_timing: {status: unknown}
+    radiation_present: {status: unknown}
+    leg_numbness: {status: unknown}
+  must_be_unknown: [onset_mode, trigger, course, weight_loss, cancer_history, night_pain]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: ["孕|胎"]
+notes: "工程占位，需临床审核。协议缺少适用范围核查事实（年龄/孕期），需临床/工程补充；本条只要求不编造、不越界、不对孕期作任何评论。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

@@ -1,0 +1,69 @@
+id: S078
+family: F20_followup_right_lbp_calf_driver
+split: locked
+title: "随访中出现红旗：会阴部发麻——必须立即提示并生成紧急任务"
+persona: "57 岁出租车司机（模拟，非真实患者）"
+kind: follow_up
+category: red_flag
+inputs:
+  body_map:
+    - {region_id: lower_back_right, kind: primary}
+    - {region_id: calf_right, kind: radiation}
+  free_text: "更严重了，会阴部发麻，坐着像隔了一层。"
+  answers:
+    q_fu_severity: 8
+    q_fu_new: "yes"
+    q_fu_new_desc: "会阴部发麻"
+    q_fu_bladder: "no"
+    q_fu_weakness: "no"
+    q_fu_numbness: "yes"
+    q_fu_radiation: "yes"
+    q_fu_function: severe
+    q_fu_sleep: "yes"
+    q_fu_understood: "yes"
+    q_fu_adherence: "yes"
+  clarifications: {}
+  corrections: []
+parent:
+  inputs:
+    body_map:
+      - {region_id: lower_back_right, kind: primary}
+      - {region_id: calf_right, kind: radiation}
+    free_text: "右边腰疼两个月了，串到右小腿，右脚麻。"
+    answers:
+      q_bladder_bowel: "no"
+      q_saddle: "no"
+      q_leg_weakness: "no"
+      q_fever: "no"
+      q_trauma: "no"
+      q_onset_mode: gradual
+      q_trigger: prolonged_sitting
+      q_severity_now: 6
+      q_course: stable
+      q_character: [sharp]
+      q_aggravating: [sitting]
+      q_relieving: [rest]
+      q_function_impact: moderate
+      q_sleep_affected: "no"
+    clarifications: {}
+    corrections: []
+  plan_message: "（医生撰写）请一周后更新情况；理疗每周两次；如出现大小便控制变化、会阴发麻或腿无力，请立即联系门诊。"
+ground_truth:
+  facts:
+    saddle_numbness: {status: present}
+    fu_change_overall: {status: present, value: worse}
+    fu_new_symptom: {status: present}
+    severity_now: {status: present, value: 8}
+    leg_numbness: {status: present}
+    bladder_bowel_change: {status: denied}
+    leg_weakness: {status: denied}
+    course: {status: present, value: worsening}
+    radiation_present: {status: present}
+    pain_side: {status: present, value: right}
+  must_be_unknown: []
+  expected_alerts: [rf_saddle]
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

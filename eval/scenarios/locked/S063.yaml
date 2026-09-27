@@ -1,0 +1,47 @@
+id: S063
+family: F16_fall_down_stairs_trauma
+split: locked
+title: "三天前摔倒、疼痛 8 分，昨天开始发烧——外伤与发热两条红旗"
+persona: "55 岁保洁员（模拟，非真实患者）"
+kind: pre_visit
+category: red_flag
+inputs:
+  body_map:
+    - {region_id: lower_back_center, kind: primary}
+    - {region_id: sacrum, kind: primary}
+  free_text: "三天前下楼梯摔倒了，腰疼得 8 分，昨天开始发烧，腿不麻，大小便正常。"
+  answers:
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_onset_timing: within_3_days
+    q_onset_mode: sudden
+    q_radiation_present: "no"
+    q_course: worsening
+    q_character: [sharp, dull]
+    q_aggravating: [bending, night]
+    q_relieving: [none]
+    q_function_impact: moderate
+    q_sleep_affected: "yes"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    trauma_recent: {status: present}
+    fever: {status: present}
+    severity_now: {status: present, value: 8}
+    onset_timing: {status: present, value: within_3_days}
+    trigger: {status: present, value: fall_or_trauma}
+    leg_numbness: {status: denied}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    radiation_present: {status: denied}
+    pain_side: {status: present, value: center}
+    course: {status: present, value: worsening}
+  must_be_unknown: []
+  expected_alerts: [rf_fever, rf_trauma_severe]
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

@@ -1,0 +1,31 @@
+# 工程研究原型：病程语义核实。尚未经真实医生审定，不得作为临床验证成果。
+enabled: true
+strategy: action_sensitive
+clinical_review_required: true
+skip_redundant_negative_verification: true
+question: "关于你说的「{quote}」，哪一项更准确？"
+fact_keys:
+  - leg_numbness
+  - leg_weakness
+  - weakness_progressive
+  - bladder_bowel_change
+  - bladder_change
+  - bowel_change
+  - saddle_numbness
+  - bilateral_leg_symptoms
+  - gait_disturbance
+  - fever
+  - trauma_recent
+  - weight_loss
+  - cancer_history
+  - prior_episodes
+lifetime_fact_keys: [cancer_history, prior_episodes]
+new_change_fact_keys: [bladder_bowel_change, bladder_change, bowel_change, saddle_numbness, gait_disturbance]
+review_rules:
+  - id: changed_limb_symptom
+    label: 新增或加重的肢体症状需要医生复核（模拟规则）
+    fact_keys: [leg_numbness, leg_weakness, gait_disturbance]
+    changes: [new, worsening]
+    severity: routine
+    assignee_role: doctor
+    clinical_review_required: true

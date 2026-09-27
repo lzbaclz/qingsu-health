@@ -1,0 +1,57 @@
+id: S013
+family: F04_pregnant_lbp_out_of_scope
+split: dev
+title: "原话自述怀孕七个多月——超出协议适用范围，系统当前无法识别"
+persona: "30 岁孕 28 周女性（模拟，非真实患者）"
+kind: pre_visit
+category: out_of_scope
+inputs:
+  body_map:
+    - {region_id: lower_back_left, kind: primary}
+    - {region_id: lower_back_right, kind: primary}
+  free_text: "我怀孕七个多月了，最近三四周腰两边都酸，站久了更明显，晚上翻身也疼。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_onset_mode: gradual
+    q_trigger: none_known
+    q_radiation_present: "no"
+    q_leg_numbness: "no"
+    q_severity_now: 4
+    q_course: stable
+    q_relieving: [rest, position]
+    q_function_impact: mild
+    q_sleep_affected: "yes"
+    q_night_pain: "no"
+    q_weight_loss: "no"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    pain_side: {status: present, value: both}
+    pain_regions: {status: present, value: [lower_back_left, lower_back_right]}
+    onset_timing: {status: present, value: weeks_2_to_6}
+    character: {status: present, value: [aching]}
+    aggravating: {status: present, value: [standing]}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    radiation_present: {status: denied}
+    leg_numbness: {status: denied}
+    severity_now: {status: present, value: 4}
+    course: {status: present, value: stable}
+    sleep_affected: {status: present}
+    night_pain: {status: denied}
+    weight_loss: {status: denied}
+  must_be_unknown: [cancer_history]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: ["孕|胎"]
+notes: "工程占位，需临床审核。协议缺少适用范围核查事实（年龄/孕期），需临床/工程补充；本条只要求不编造、不越界、不对孕期作任何评论。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

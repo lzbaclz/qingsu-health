@@ -1,0 +1,32 @@
+<section id="compliance" style="background:#F7F6F2; color:#16233B; font-family:'Noto Sans SC', Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; gap:32px">
+  <h2 style="font-family:'Noto Serif SC', Georgia, serif; font-size:60px; font-weight:700; line-height:1.15">临床与合规边界</h2>
+  <div style="display:flex; gap:48px; align-items:start">
+    <div style="flex:1; display:flex; flex-direction:column; gap:16px">
+      <h3 style="font-size:32px; font-weight:700; color:#1D5FA5">我们不做的，和一定做的</h3>
+      <ul style="font-size:26px; line-height:1.5; color:#3E4A5C">
+        <li>不诊断、不处方、不给用药建议；给患者的说明由医生决定并发送，默认按术语对照表整理、不调用模型</li>
+        <li>红旗用协议批准的原话立即提示，紧急级终止问询</li>
+        <li>病历初稿逐段注明出处；患者否认过的红旗写"需核实"，不写"否认"</li>
+        <li>任务"已完成"必须有人；发送、看到、理解分开记录</li>
+        <li>门诊是数据控制者，我们是受托处理方；假名编号</li>
+        <li>真实患者数据只走境内备案模型或私有化部署</li>
+        <li>按 NMPA 2021 分类界定指导原则，处理患者主诉等非医疗器械数据的软件通常不按医疗器械管理；加入任何风险分层前先做器械属性评估</li>
+        <li>真实患者前：机构授权 + 伦理判断 + 协议审核 + 独立复核</li>
+      </ul>
+    </div>
+    <div style="flex:1; display:flex; flex-direction:column; gap:16px">
+      <h3 style="font-size:32px; font-weight:700; color:#1D5FA5">部署安全清单（带日期）</h3>
+      <table style="font-size:24px; color:#16233B; font-family:'Noto Sans SC', Arial, sans-serif">
+        <tr style="background:#E4E9EF"><th style="width:48%">项</th><th style="width:52%">目标</th></tr>
+        <tr><td>医生端登录与角色</td><td>10/12（决赛前）</td></tr>
+        <tr style="background:#FBFAF6"><td>患者邀请码与有效期</td><td>首次试点前</td></tr>
+        <tr><td>TLS、备份与恢复</td><td>首次试点部署时</td></tr>
+        <tr style="background:#FBFAF6"><td>保存期限与删除</td><td>写进试用协议</td></tr>
+        <tr><td>模型服务商留存条款</td><td>选定境内模型时书面确认</td></tr>
+      </table>
+    </div>
+  </div>
+  <p style="position:absolute; left:128px; bottom:64px; width:1300px; font-size:24px; color:#5B6475">体迹 AI · 德邻杯 2026 BP v1.2 · 演示数据均为模拟，非真实患者</p>
+  <p style="position:absolute; right:128px; bottom:64px; width:200px; font-size:24px; color:#5B6475; text-align:right">7 / 11</p>
+  <aside>措辞用"通常不按医疗器械管理"，不用"不属于医疗器械"。依据：NMPA 2021 年第 47 号通告《人工智能医用软件产品分类界定指导原则》，处理对象为患者主诉等非医疗器械数据、或不用于医疗用途的软件，不作为医疗器械管理；红旗提示是门诊批准的固定文字，不是模型判断。五部门 2025 年实施意见（国卫办规划发〔2025〕30 号）要求推动大模型规范备案、制订数据安全与个人信息保护负面清单。10 人测试用的是非患者和模拟情境，不构成向公众提供生成式服务。演示环境没有登录，这是原型阶段的已知缺口，清单里有日期。给患者的说明：医生先写要点；默认按医生审定的术语对照表在专业词后加一句大白话，医生的字一个不改、不调用模型。医生同意开启模型改写时，改写里有、要点里没有的药名、剂量、检查、诊断说法、处置建议在发送前被拦下，删掉或写理由才能发，并自动加"AI 协助改写"的标注（《人工智能生成合成内容标识办法》，2025-09-01 施行）；复诊时间和紧急提示由系统按协议附上；最后由医生核对并发送。真实患者数据只走境内备案模型或私有化部署，对应五部门 2025 年意见的大模型规范备案要求。</aside>
+</section>

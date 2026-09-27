@@ -1,0 +1,2122 @@
+# =====================================================================
+# 体迹 AI · 临床协议 v0.2 —— AI 模拟临床填写草案（未采用）
+# 由 protocols/review/build_v02_draft.py 从 v0.1 推导；保留 v0.1 的全部 key / question id / 语义相同的 red flag id 以兼容评测。
+# 不是执业医师意见；每一条 clinical_review_required: true 的内容都必须由临床队友审核。
+# 与医生版对比后，由工程合并为正式 v0.2。默认协议仍为 lbp_adult_v0.1。
+# =====================================================================
+protocol_id: lbp_adult_v0.2_ai_draft
+version: 0.2.0-ai
+status: draft
+title: 成年腰背痛 · 就诊前采集与诊后随访（AI 模拟临床填写草案）
+specialty: 康复科 / 疼痛科 / 骨科门诊（待临床队友确认）
+language: zh-CN
+owners:
+  clinical_lead: 待填写（本草案由 AI 依据公开指南起草，见 protocols/review/医生工作表_AI模拟填写_v1.md）
+  clinical_reviewer: 待填写：第二位独立临床复核者
+  engineering: 李子清
+review:
+  last_reviewed: null
+  next_review: null
+  sources:
+  - NICE NG59 (2016, upd. 2020-12)
+  - Finucane et al. JOSPT 2020 International Framework for Red Flags
+  - GIRFT National Suspected CES Pathway 2023
+  - Hartvigsen et al. Lancet 2018;391:2356
+  - 中国慢性腰背痛诊疗指南（2024版）中华疼痛学杂志 2024;20(1)
+  - 中国非特异性腰背痛临床诊疗指南 2022
+  - NICE NG65 (2017)
+  - NHS Back pain patient information
+  - Menezes Costa CMAJ 2012
+  - GIRFT/MACP CES warning card
+scope:
+  setting: 小型康复/疼痛/全科门诊。就诊前：门诊邀请患者在就诊前 1–3 天填写；诊后：医生评估并纳入随访后使用。线上只做信息采集与整理，不做分诊替代、不做诊疗。
+  service_hours: 工作日 9:00–17:30 当班护士/助理查看队列；医生每日两次核对；非工作时间提交次工作日处理；紧急提示全程显示（按门诊实际修改）
+  inclusion:
+  - 年满 18 岁
+  - 本次主诉为腰背部疼痛/不适（肋缘以下、臀横纹以上），伴或不伴臀腿部疼痛麻木
+  - 已由本门诊邀请（有邀请码/患者编号）
+  - 本人填写，或家属协助但本人在场并确认
+  exclusion:
+  - 未满 18 岁（16–17 岁是否纳入待临床决定）
+  - 妊娠期或产后 6 周内（待临床确认）
+  - 重大外伤后首次就诊——直接急诊
+  - 已知脊柱肿瘤、感染、新鲜骨折或术后早期在治疗中（待临床确认）
+  - 他人代填且本人无法确认
+  - 开始页已出现紧急症状者
+  service_notice: 这个工具帮助你在见医生之前，把腰背不舒服的情况说清楚，并整理给门诊医生核对。它不做诊断，不提供治疗或用药建议，也不能代替医生看病。你填写的内容会由门诊医生在工作时间查看；非工作时间提交的，医生会在下一个工作日看到。如果情况紧急，请不要等待，按页面上方的提示立即就医。
+  emergency_notice: 如果出现以下任何一种情况，请不要等待线上回复，立即前往就近医院急诊或拨打 120：① 新出现的排尿困难、尿不出来、尿失禁或大便失禁；② 会阴部、肛门周围或大腿内侧发麻，或擦拭时感觉异常；③ 两条腿同时出现疼痛、麻木或无力，或无力在一天天加重；④ 伴发热（38℃ 以上）或寒战；⑤ 严重外伤后出现的腰背痛；⑥ 伴胸痛、呼吸困难。（AI 草案，待临床审核）
+  out_of_scope_message: 根据你的回答，这个工具目前不适合你的情况（例如未满 18 岁、怀孕或产后不久、严重外伤后）。这不是对病情的判断。请直接联系门诊预约，或按上方紧急提示就医。你已填写的内容不会被用作医疗记录。
+  contact_label: 门诊电话
+  contact_phone: null
+  emergency_phone: '120'
+max_questions: 20
+body_map:
+  regions_fact_key: pain_regions
+  side_fact_key: pain_side
+  radiation_fact_key: radiation_regions
+  regions_of_interest:
+  - lower_back_left
+  - lower_back_center
+  - lower_back_right
+  - sacrum
+  - buttock_left
+  - buttock_right
+  - thigh_left_back
+  - thigh_right_back
+  - knee_left_back
+  - knee_right_back
+  - calf_left
+  - calf_right
+  - heel_left
+  - heel_right
+facts:
+- key: pain_regions
+  label: 疼痛部位
+  type: body_regions
+  category: location
+  required: true
+  critical: true
+  options:
+  - value: lower_back_left
+    label: 左腰
+    synonyms:
+    - 左边腰
+    - 左侧腰
+    - 腰左边
+    - 腰左侧
+    - 左腰
+  - value: lower_back_right
+    label: 右腰
+    synonyms:
+    - 右边腰
+    - 右侧腰
+    - 腰右边
+    - 腰右侧
+    - 右腰
+  - value: lower_back_center
+    label: 腰部正中
+    synonyms:
+    - 腰正中
+    - 腰中间
+    - 整个腰
+    - 腰部正中
+  - value: buttock_left
+    label: 左臀
+    synonyms:
+    - 左边屁股
+    - 左臀
+    - 左侧屁股
+  - value: buttock_right
+    label: 右臀
+    synonyms:
+    - 右边屁股
+    - 右臀
+    - 右侧屁股
+  - value: thigh_left_back
+    label: 左大腿（后）
+    synonyms:
+    - 左大腿后面
+    - 左腿后面
+  - value: thigh_right_back
+    label: 右大腿（后）
+    synonyms:
+    - 右大腿后面
+    - 右腿后面
+  - value: calf_left
+    label: 左小腿（后）
+    synonyms:
+    - 左小腿
+  - value: calf_right
+    label: 右小腿（后）
+    synonyms:
+    - 右小腿
+  notes: 由身体图标记为主；文字中提到的部位作为补充证据
+- key: pain_side
+  label: 疼痛主要在哪一侧
+  type: enum
+  category: location
+  required: true
+  critical: true
+  options:
+  - value: left
+    label: 左侧
+    synonyms:
+    - 左边
+    - 左侧
+    - 左面
+  - value: right
+    label: 右侧
+    synonyms:
+    - 右边
+    - 右侧
+    - 右面
+  - value: both
+    label: 两侧
+    synonyms:
+    - 两边
+    - 两侧
+    - 双侧
+    - 左右都
+  - value: center
+    label: 正中
+    synonyms:
+    - 正中间
+    - 中间
+    - 正中
+  notes: 由身体图自动推导；与文字描述不一致时触发澄清，而不是自动取其一
+- key: radiation_present
+  label: 疼痛是否向臀部或腿部放射
+  type: bool
+  category: radiation
+  required: true
+  critical: true
+  lexicon:
+    present_terms:
+    - 放射
+    - 串到
+    - 窜到
+    - 蹿到
+    - 串过去
+    - 串过来
+    - 窜过去
+    - 往下串
+    - 往腿
+    - 往屁股
+    - 牵到
+    - 传到腿
+    - 到腿
+    - 到脚
+    - 腿也疼
+    - 腿也痛
+    - 腿好像也
+    - 屁股也
+    - 屁股好像也
+    denied_terms:
+    - 不放射
+    - 没有放射
+    - 只在腰
+    - 腿不疼
+    - 腿不痛
+- key: radiation_regions
+  label: 放射到的部位
+  type: body_regions
+  category: radiation
+  options:
+  - value: buttock_left
+    label: 左臀
+    synonyms:
+    - 左边屁股
+  - value: buttock_right
+    label: 右臀
+    synonyms:
+    - 右边屁股
+  - value: thigh_left_back
+    label: 左大腿（后）
+    synonyms:
+    - 左大腿后
+  - value: thigh_right_back
+    label: 右大腿（后）
+    synonyms:
+    - 右大腿后
+  - value: calf_left
+    label: 左小腿（后）
+    synonyms:
+    - 左小腿后
+  - value: calf_right
+    label: 右小腿（后）
+    synonyms:
+    - 右小腿后
+  - value: heel_left
+    label: 左足跟
+    synonyms:
+    - 左脚跟
+  - value: heel_right
+    label: 右足跟
+    synonyms:
+    - 右脚跟
+- key: onset_timing
+  label: 这次不舒服开始多久了
+  type: enum
+  category: onset
+  required: true
+  critical: true
+  lexicon:
+    context_terms:
+    - 痛
+    - 疼
+    - 酸
+    - 不舒服
+    - 难受
+    - 僵
+    - 腰
+    - 背
+  options:
+  - value: within_3_days
+    label: 3 天以内
+    synonyms:
+    - 今天
+    - 昨天
+    - 前天
+    - 前两天
+    - 这两天
+    - 刚刚
+    - 一两天
+  - value: days_4_to_14
+    label: 4 天到 2 周
+    synonyms:
+    - 这几天
+    - 一周
+    - 一个星期
+    - 十来天
+    - 几天了
+  - value: weeks_2_to_6
+    label: 2 到 6 周
+    synonyms:
+    - 两三周
+    - 三四周
+    - 一个月
+    - 一个多月
+    - 个把月
+    - 月余
+  - value: weeks_6_to_12
+    label: 6 到 12 周
+    synonyms:
+    - 两个月
+    - 两三个月
+    - 三个月
+  - value: over_12_weeks
+    label: 超过 3 个月
+    synonyms:
+    - 半年
+    - 一年
+    - 好几年
+    - 很久了
+    - 老毛病
+    - 常年
+- key: onset_mode
+  label: 起病方式
+  type: enum
+  category: onset
+  required: true
+  options:
+  - value: sudden
+    label: 突然出现
+    synonyms:
+    - 突然
+    - 一下子
+    - 闪到
+    - 闪了
+    - 扭了
+  - value: gradual
+    label: 慢慢出现
+    synonyms:
+    - 慢慢
+    - 逐渐
+    - 不知不觉
+    - 越来越
+- key: trigger
+  label: 出现前有没有明显诱因
+  type: enum
+  category: onset
+  required: true
+  options:
+  - value: lifting
+    label: 搬抬重物
+    synonyms:
+    - 搬东西
+    - 搬重物
+    - 提重物
+    - 抬东西
+    - 搬家
+    - 抱孩子
+  - value: fall_or_trauma
+    label: 摔倒/外伤
+    synonyms:
+    - 摔了
+    - 摔倒
+    - 跌倒
+    - 撞到
+    - 外伤
+    - 车祸
+  - value: prolonged_sitting
+    label: 久坐/久站
+    synonyms:
+    - 坐了很久
+    - 久坐
+    - 坐太久
+    - 站了一天
+    - 久站
+  - value: exercise
+    label: 运动后
+    synonyms:
+    - 打球
+    - 跑步
+    - 健身
+    - 运动后
+    - 锻炼后
+  - value: none_known
+    label: 没有明显诱因
+    synonyms:
+    - 没什么原因
+    - 不知道怎么
+    - 莫名其妙
+    - 没有诱因
+- key: course
+  label: 最近的变化趋势
+  type: enum
+  category: timing
+  required: true
+  options:
+  - value: improving
+    label: 在好转
+    synonyms:
+    - 好转
+    - 减轻
+    - 轻了
+    - 好一些
+    - 好多了
+  - value: stable
+    label: 差不多没变
+    synonyms:
+    - 差不多
+    - 一样
+    - 没变化
+    - 老样子
+  - value: worsening
+    label: 在加重
+    synonyms:
+    - 加重
+    - 更疼
+    - 更痛
+    - 越来越疼
+    - 越来越痛
+    - 严重了
+  - value: fluctuating
+    label: 时好时坏
+    synonyms:
+    - 时好时坏
+    - 反反复复
+    - 反复
+- key: character
+  label: 疼痛的感觉
+  type: multi_enum
+  category: character
+  options:
+  - value: aching
+    label: 酸胀/酸痛
+    synonyms:
+    - 酸
+    - 酸胀
+    - 酸痛
+    - 发酸
+  - value: sharp
+    label: 刺痛/锐痛
+    synonyms:
+    - 刺痛
+    - 针扎
+    - 锐痛
+    - 刀割
+  - value: dull
+    label: 钝痛/闷痛
+    synonyms:
+    - 钝痛
+    - 闷痛
+    - 闷闷的
+  - value: burning
+    label: 烧灼感
+    synonyms:
+    - 烧灼
+    - 火烧
+    - 发烫
+  - value: stiff
+    label: 僵硬
+    synonyms:
+    - 僵硬
+    - 发僵
+    - 僵
+    - 转不动
+    - 弯不下
+- key: severity_now
+  label: 现在的疼痛程度（0 完全不痛 – 10 无法忍受）
+  type: scale
+  category: severity
+  required: true
+  critical: true
+  min: 0
+  max: 10
+- key: aggravating
+  label: 什么情况会加重
+  type: multi_enum
+  category: aggravating
+  options:
+  - value: sitting
+    label: 坐久
+    synonyms:
+    - 坐久
+    - 久坐
+    - 坐时间长
+    - 坐一会儿就
+  - value: standing
+    label: 站久
+    synonyms:
+    - 站久
+    - 久站
+    - 站时间长
+  - value: bending
+    label: 弯腰
+    synonyms:
+    - 弯腰
+    - 弯下去
+    - 系鞋带
+  - value: walking
+    label: 走路
+    synonyms:
+    - 走路
+    - 走久
+    - 走远
+  - value: coughing
+    label: 咳嗽/打喷嚏
+    synonyms:
+    - 咳嗽
+    - 打喷嚏
+    - 用力
+  - value: night
+    label: 夜间
+    synonyms:
+    - 夜里
+    - 晚上更
+    - 夜间
+    - 半夜
+  - value: morning
+    label: 早晨起床时
+    synonyms:
+    - 早上起来
+    - 起床时
+    - 早晨
+- key: relieving
+  label: 什么情况会缓解
+  type: multi_enum
+  category: relieving
+  options:
+  - value: rest
+    label: 休息/躺下
+    synonyms:
+    - 躺着
+    - 躺下
+    - 休息一下
+    - 睡一觉
+  - value: activity
+    label: 活动一下
+    synonyms:
+    - 走走
+    - 活动活动
+    - 动一动
+  - value: heat
+    label: 热敷
+    synonyms:
+    - 热敷
+    - 暖宝宝
+    - 热水袋
+  - value: position
+    label: 换姿势
+    synonyms:
+    - 换个姿势
+    - 换姿势
+  - value: medication
+    label: 用药后
+    synonyms:
+    - 吃药后
+    - 吃了药
+    - 贴膏药后
+  - value: none
+    label: 没什么能缓解
+    synonyms:
+    - 怎么都不行
+    - 没什么用
+    - 都不缓解
+- key: leg_numbness
+  label: 腿或脚是否发麻
+  type: bool
+  category: associated
+  required: true
+  critical: true
+  lexicon:
+    present_terms:
+    - 麻木
+    - 发麻
+    - 麻
+    denied_terms:
+    - 不麻
+    - 没有麻
+    - 没麻
+    - 不发麻
+    - 没有腿麻
+    - 没有脚麻
+    - 腿不麻
+    - 脚不麻
+    context_terms:
+    - 腿
+    - 脚
+- key: leg_weakness
+  label: 腿是否无力
+  type: bool
+  category: associated
+  required: true
+  critical: true
+  lexicon:
+    present_terms:
+    - 没劲
+    - 无力
+    - 使不上劲
+    - 腿软
+    - 抬不起来
+    - 发软
+    denied_terms:
+    - 有劲
+    - 不无力
+    - 腿有力
+    - 不软
+    - 没软
+    - 不发软
+    - 没有无力
+    - 不没劲
+- key: weakness_progressive
+  label: 无力是否在加重
+  type: bool
+  category: red_flag
+  critical: true
+  lexicon:
+    present_terms:
+    - 越来越没劲
+    - 越来越无力
+    - 无力加重
+    - 更没劲
+    denied_terms:
+    - 没劲没加重
+    - 无力没有加重
+- key: bladder_bowel_change
+  label: 大小便控制是否出现变化（v0.1 兼容项；v0.2 拆为 bladder_change / bowel_change）
+  type: bool
+  category: red_flag
+  required: true
+  critical: true
+  lexicon:
+    present_terms:
+    - 尿不出
+    - 排尿困难
+    - 失禁
+    - 憋不住尿
+    - 憋不住
+    - 大便失禁
+    - 拉裤子
+    - 小便有问题
+    - 大小便有问题
+    - 尿失禁
+    denied_terms:
+    - 大小便正常
+    - 大小便都正常
+    - 大小便没问题
+    - 大小便都没问题
+    - 二便正常
+    - 小便正常
+    - 大便正常
+    - 大小便没事
+  notes: 红旗事实：任何 present 立即触发 rf_bladder_bowel
+- key: saddle_numbness
+  label: 会阴/肛门周围是否发麻
+  type: bool
+  category: red_flag
+  required: true
+  critical: true
+  lexicon:
+    present_terms:
+    - 会阴麻
+    - 肛门周围麻
+    - 骑车坐垫的地方麻
+    - 大腿内侧麻
+    - 私处麻
+    - 屁股中间麻
+    - 会阴部发麻
+    denied_terms:
+    - 会阴不麻
+    - 那里不麻
+- key: fever
+  label: 是否发热
+  type: bool
+  category: red_flag
+  required: true
+  critical: true
+  lexicon:
+    present_terms:
+    - 发烧
+    - 发热
+    - 低烧
+    - 高烧
+    - 体温高
+    denied_terms:
+    - 没发烧
+    - 不发烧
+    - 没有发烧
+    - 没发热
+- key: weight_loss
+  label: 近期是否体重明显下降
+  type: bool
+  category: red_flag
+  lexicon:
+    present_terms:
+    - 体重下降
+    - 瘦了
+    - 掉秤
+    - 体重掉
+    denied_terms:
+    - 体重没变
+    - 没瘦
+- key: night_pain
+  label: 是否夜间痛醒（v0.1 兼容项；v0.2 用 rest_or_night_worst）
+  type: bool
+  category: red_flag
+  lexicon:
+    present_terms:
+    - 痛醒
+    - 疼醒
+    - 夜里疼得睡不着
+    - 晚上疼得睡不着
+    denied_terms:
+    - 晚上不疼
+    - 夜里不疼
+    - 睡觉没事
+- key: trauma_recent
+  label: 近期是否有摔倒/外伤
+  type: bool
+  category: red_flag
+  required: true
+  critical: true
+  lexicon:
+    present_terms:
+    - 摔了
+    - 摔倒
+    - 跌倒
+    - 撞到
+    - 外伤
+    - 车祸
+    - 摔了一跤
+    denied_terms:
+    - 没摔
+    - 没有摔
+    - 没受伤
+    - 没有外伤
+- key: cancer_history
+  label: 是否有肿瘤病史
+  type: bool
+  category: history
+  lexicon:
+    present_terms:
+    - 肿瘤
+    - 癌
+    - 化疗
+    denied_terms:
+    - 没有肿瘤
+    - 没得过癌
+- key: prior_episodes
+  label: 以前是否有过类似情况
+  type: bool
+  category: history
+  lexicon:
+    present_terms:
+    - 以前也
+    - 老毛病
+    - 之前也有过
+    - 犯过
+    - 复发
+    denied_terms:
+    - 第一次
+    - 以前没有
+    - 从来没
+- key: prior_treatment
+  label: 以前做过哪些处理
+  type: text
+  category: history
+- key: current_medication
+  label: 目前正在用的药物（仅记录，不做建议）
+  type: text
+  category: medication
+  lexicon:
+    present_terms:
+    - 在吃
+    - 吃着
+    - 吃了
+    - 在用
+    - 用着
+    - 贴着
+    - 贴了
+    - 止痛药
+    - 膏药
+    - 消炎药
+    - 布洛芬
+    - 芬必得
+    - 扶他林
+  notes: 只记录患者自述，交医生/药师核对；系统不解读、不建议；叙述中不出现药名
+- key: function_impact
+  label: 对日常活动的影响
+  type: enum
+  category: function
+  required: true
+  options:
+  - value: none
+    label: 基本不影响
+    synonyms:
+    - 不影响
+    - 还好
+    - 没影响
+  - value: mild
+    label: 有点影响
+    synonyms:
+    - 有点影响
+    - 有些影响
+  - value: moderate
+    label: 明显影响
+    synonyms:
+    - 明显影响
+    - 影响挺大
+    - 很受影响
+  - value: severe
+    label: 基本无法正常活动
+    synonyms:
+    - 下不了床
+    - 不能动
+    - 走不了路
+    - 起不来
+- key: sleep_affected
+  label: 是否影响睡眠
+  type: bool
+  category: function
+  lexicon:
+    present_terms:
+    - 睡不着
+    - 睡不好
+    - 影响睡眠
+    - 翻身疼
+    denied_terms:
+    - 睡觉没事
+    - 不影响睡觉
+    - 睡得着
+- key: patient_concern
+  label: 最担心/最希望医生解决的问题
+  type: text
+  category: expectation
+- key: fu_change_overall
+  label: 和上次相比整体感觉
+  type: enum
+  category: followup
+  required: true
+  options:
+  - value: better
+    label: 好一些
+    synonyms:
+    - 好一些
+    - 好点了
+    - 好转
+    - 轻了
+  - value: same
+    label: 差不多
+    synonyms:
+    - 差不多
+    - 一样
+    - 没变化
+  - value: worse
+    label: 更差了
+    synonyms:
+    - 更疼
+    - 更差
+    - 加重
+    - 更严重
+- key: fu_new_symptom
+  label: 是否出现上次没有的新情况
+  type: bool
+  category: followup
+  required: true
+  critical: true
+  lexicon:
+    present_terms:
+    - 新出现
+    - 多了一个
+    - 以前没有的
+    - 这两天开始
+    denied_terms:
+    - 没有新的
+    - 没有其他
+- key: fu_new_symptom_desc
+  label: 新情况的描述
+  type: text
+  category: followup
+- key: fu_plan_understood
+  label: 是否清楚医生安排的下一步
+  type: bool
+  category: followup
+  required: true
+  lexicon:
+    present_terms:
+    - 清楚
+    - 知道
+    - 明白
+    denied_terms:
+    - 不清楚
+    - 不知道
+    - 不明白
+    - 忘了
+- key: fu_plan_adherence
+  label: 医生安排的事项执行情况
+  type: enum
+  category: followup
+  required: true
+  options:
+  - value: 'yes'
+    label: 都做到了
+    synonyms:
+    - 都做了
+    - 按要求
+    - 做到了
+  - value: partial
+    label: 做到一部分
+    synonyms:
+    - 有时候
+    - 一部分
+    - 偶尔
+  - value: 'no'
+    label: 基本没做
+    synonyms:
+    - 没做
+    - 没有做
+    - 没来得及
+- key: age_band
+  label: 你的年龄段
+  type: enum
+  category: scope
+  clinical_review_required: true
+  required: true
+  critical: true
+  options:
+  - value: under_18
+    label: 18 岁以下
+    synonyms:
+    - 十六岁
+    - 十七岁
+    - 16岁
+    - 17岁
+    - 未成年
+  - value: '18_49'
+    label: 18–49 岁
+    synonyms: []
+  - value: '50_69'
+    label: 50–69 岁
+    synonyms: []
+  - value: 70_plus
+    label: 70 岁及以上
+    synonyms: []
+  notes: 红旗阈值：>50 岁肿瘤风险、>70 岁骨折风险（中国 2024 表 2）；<18 触发不适用
+- key: pregnancy_status
+  label: 是否处于孕期或产后 6 周内
+  type: enum
+  category: scope
+  clinical_review_required: true
+  required: true
+  options:
+  - value: not_applicable
+    label: 不适用
+    synonyms: []
+  - value: 'no'
+    label: 否
+    synonyms: []
+  - value: 'yes'
+    label: 是
+    synonyms:
+    - 怀孕
+    - 孕期
+    - 刚生完
+    - 产后
+  - value: unsure
+    label: 不确定
+    synonyms: []
+- key: thoracic_pain
+  label: 疼痛是否主要在背部中上段（两肩胛之间）
+  type: bool
+  category: location
+  clinical_review_required: true
+  lexicon:
+    present_terms:
+    - 后背疼
+    - 背心疼
+    - 肩胛骨中间
+    - 上背
+    denied_terms: []
+- key: severity_worst_24h
+  label: 过去 24 小时最痛时（0–10）
+  type: scale
+  category: severity
+  clinical_review_required: true
+  required: true
+  min: 0
+  max: 10
+- key: rest_or_night_worst
+  label: 是否休息时或夜里最痛
+  type: bool
+  category: red_flag
+  clinical_review_required: true
+  required: true
+  lexicon:
+    present_terms:
+    - 躺着也疼
+    - 躺着也痛
+    - 半夜疼醒
+    - 夜里最疼
+    - 晚上更疼
+    - 休息也疼
+    - 痛醒
+    - 疼醒
+    denied_terms:
+    - 晚上不疼
+    - 躺着就好
+    - 夜里不疼
+- key: bilateral_leg_symptoms
+  label: 两条腿是否同时有疼痛/麻木/无力
+  type: bool
+  category: red_flag
+  clinical_review_required: true
+  required: true
+  critical: true
+  lexicon:
+    present_terms:
+    - 两条腿
+    - 双腿
+    - 两只脚
+    - 两边腿
+    denied_terms:
+    - 只有一条腿
+    - 一条腿
+- key: gait_disturbance
+  label: 走路是否不稳、拖步、容易绊倒
+  type: bool
+  category: red_flag
+  clinical_review_required: true
+  critical: true
+  lexicon:
+    present_terms:
+    - 走不稳
+    - 拖着腿
+    - 绊倒
+    - 走路打晃
+    - 腿软摔
+    denied_terms:
+    - 走路正常
+    - 走得稳
+- key: bladder_change
+  label: 排尿是否出现新变化（尿不出/费力/感觉不到/憋不住/失禁）
+  type: bool
+  category: red_flag
+  clinical_review_required: true
+  required: true
+  critical: true
+  lexicon:
+    present_terms:
+    - 尿不出
+    - 排尿困难
+    - 尿失禁
+    - 憋不住尿
+    - 漏尿
+    - 小便有问题
+    - 尿不干净
+    - 感觉不到尿
+    denied_terms:
+    - 小便正常
+    - 排尿正常
+    - 小便没问题
+- key: bowel_change
+  label: 大便控制是否出现新变化（失禁/感觉不到便意）
+  type: bool
+  category: red_flag
+  clinical_review_required: true
+  required: true
+  critical: true
+  lexicon:
+    present_terms:
+    - 大便失禁
+    - 拉裤子
+    - 大便憋不住
+    - 感觉不到便意
+    denied_terms:
+    - 大便正常
+    - 大便没问题
+- key: sexual_function_change
+  label: 性功能是否出现新变化（可不回答）
+  type: bool
+  category: red_flag
+  clinical_review_required: true
+  critical: true
+  lexicon:
+    present_terms:
+    - 性功能
+    - 勃起
+    - 阴道没感觉
+    denied_terms: []
+- key: infection_risk
+  label: 感染/骨折风险因素
+  type: multi_enum
+  category: history
+  clinical_review_required: true
+  required: true
+  options:
+  - value: steroid_or_immunosuppressant
+    label: 长期用激素或免疫抑制剂
+    synonyms:
+    - 激素
+    - 免疫抑制剂
+    - 强的松
+    - 泼尼松
+  - value: diabetes
+    label: 糖尿病
+    synonyms:
+    - 糖尿病
+  - value: recent_infection
+    label: 近期有感染
+    synonyms:
+    - 感冒发烧
+    - 尿路感染
+    - 感染
+  - value: recent_spinal_procedure
+    label: 近期腰部注射或手术
+    synonyms:
+    - 打过封闭
+    - 腰部手术
+    - 打针
+  - value: iv_drug
+    label: 静脉注射药物
+    synonyms:
+    - 静脉注射
+  - value: none
+    label: 都没有
+    synonyms:
+    - 都没有
+- key: osteoporosis_or_fragility
+  label: 是否有骨质疏松或轻微外力骨折史
+  type: bool
+  category: history
+  clinical_review_required: true
+  lexicon:
+    present_terms:
+    - 骨质疏松
+    - 骨松
+    - 骨折过
+    denied_terms:
+    - 没有骨质疏松
+- key: morning_stiffness_30min
+  label: 早晨僵硬是否超过 30 分钟
+  type: bool
+  category: inflammatory
+  clinical_review_required: true
+  lexicon:
+    present_terms:
+    - 早上僵
+    - 起床僵
+    - 晨僵
+    denied_terms: []
+- key: improves_with_activity
+  label: 活动后减轻、休息反而加重
+  type: bool
+  category: inflammatory
+  clinical_review_required: true
+  lexicon:
+    present_terms:
+    - 活动开了就好
+    - 越躺越疼
+    - 动一动好些
+    denied_terms: []
+- key: night_waking_second_half
+  label: 是否在后半夜因症状醒来
+  type: bool
+  category: inflammatory
+  clinical_review_required: true
+- key: buttock_alternating
+  label: 臀部疼痛是否左右交替
+  type: bool
+  category: inflammatory
+  clinical_review_required: true
+- key: prior_imaging
+  label: 是否做过腰部影像检查及时间
+  type: text
+  category: history
+  clinical_review_required: true
+  lexicon:
+    present_terms:
+    - 拍过片
+    - 做过核磁
+    - 做过CT
+    - X光
+    - MRI
+    - 核磁
+- key: walking_distance
+  label: 因腰痛只能走很短距离
+  type: bool
+  category: function
+  clinical_review_required: true
+  lexicon:
+    present_terms:
+    - 走不远
+    - 走一会就
+    - 走不了多远
+    denied_terms:
+    - 能走远
+- key: work_type
+  label: 工作类型
+  type: enum
+  category: psychosocial
+  clinical_review_required: true
+  options:
+  - value: sedentary
+    label: 久坐为主
+    synonyms:
+    - 坐办公室
+    - 开车
+  - value: physical
+    label: 体力为主
+    synonyms:
+    - 搬运
+    - 工地
+    - 体力活
+  - value: mixed
+    label: 两者都有
+    synonyms: []
+  - value: not_working
+    label: 目前不工作
+    synonyms:
+    - 退休
+    - 不上班
+- key: fear_of_movement
+  label: 是否觉得活动会伤到腰、不敢动
+  type: bool
+  category: psychosocial
+  clinical_review_required: true
+  lexicon:
+    present_terms:
+    - 不敢动
+    - 怕动
+    - 怕伤到
+    denied_terms: []
+- key: low_mood
+  label: 最近是否情绪低落、提不起兴趣（可不回答）
+  type: bool
+  category: psychosocial
+  clinical_review_required: true
+  lexicon:
+    present_terms:
+    - 情绪低落
+    - 心情差
+    - 没兴趣
+    - 抑郁
+    denied_terms: []
+- key: catastrophizing
+  label: 是否觉得这腰永远好不了
+  type: bool
+  category: psychosocial
+  clinical_review_required: true
+  lexicon:
+    present_terms:
+    - 好不了了
+    - 永远好不了
+    - 废了
+    denied_terms: []
+- key: fu_side_effect
+  label: 按医嘱处理后是否出现不舒服（只记录）
+  type: bool
+  category: followup
+  clinical_review_required: true
+questions:
+- id: q_bladder_bowel
+  fact_key: bladder_bowel_change
+  type: yes_no
+  priority: 10
+  text: 最近大小便的控制有没有出现变化（比如尿不出来、憋不住、或大便失禁）？
+  purpose: 待临床填写
+  tier: 2
+  when: 'False'
+- id: q_saddle
+  fact_key: saddle_numbness
+  type: yes_no
+  priority: 5
+  text: 会阴部、肛门周围或大腿内侧有没有发麻、或擦拭时感觉和平时不一样？
+  purpose: 待临床填写
+  tier: 1
+- id: q_leg_weakness
+  fact_key: leg_weakness
+  type: yes_no
+  priority: 7
+  text: 腿有没有觉得没劲、软、抬不起来？
+  tier: 1
+- id: q_weakness_progressive
+  fact_key: weakness_progressive
+  type: yes_no
+  priority: 8
+  when: facts.leg_weakness.present
+  text: 这种没劲的感觉是不是在加重？
+  tier: 1
+- id: q_fever
+  fact_key: fever
+  type: yes_no
+  priority: 11
+  text: 这几天有没有发烧（38℃ 以上）或发冷寒战？
+  tier: 1
+- id: q_trauma
+  fact_key: trauma_recent
+  type: yes_no
+  priority: 12
+  text: 最近有没有摔倒、撞到或其他外伤？
+  tier: 1
+- id: q_onset_timing
+  fact_key: onset_timing
+  type: single_choice
+  priority: 17
+  text: 这一次腰背不舒服是从多久前开始的？（如果是老毛病，请按这一次发作算）
+  tier: 2
+- id: q_onset_mode
+  fact_key: onset_mode
+  type: single_choice
+  priority: 18
+  text: 是突然出现的，还是慢慢出现的？
+  tier: 2
+- id: q_trigger
+  fact_key: trigger
+  type: single_choice
+  priority: 19
+  text: 出现之前有没有什么明显的诱因？
+  tier: 2
+- id: q_side
+  fact_key: pain_side
+  type: single_choice
+  priority: 20
+  text: 疼痛主要在哪一侧？
+  tier: 2
+- id: q_radiation_present
+  fact_key: radiation_present
+  type: yes_no
+  priority: 21
+  text: 疼痛有没有从腰往屁股或腿上串？
+  tier: 2
+- id: q_radiation_regions
+  fact_key: radiation_regions
+  type: body_regions
+  priority: 22
+  when: facts.radiation_present.present
+  text: 请在身体图上标出串到的位置。
+  tier: 2
+- id: q_leg_numbness
+  fact_key: leg_numbness
+  type: yes_no
+  priority: 23
+  text: 腿或脚有没有发麻？
+  tier: 2
+- id: q_severity_now
+  fact_key: severity_now
+  type: scale
+  priority: 24
+  text: 现在疼到什么程度？0 是完全不痛，10 是无法忍受。
+  tier: 2
+- id: q_course
+  fact_key: course
+  type: single_choice
+  priority: 27
+  text: 最近几天整体是在好转、加重，还是差不多？
+  tier: 2
+- id: q_character
+  fact_key: character
+  type: multi_choice
+  priority: 33
+  text: 疼痛是哪种感觉？可以多选。
+  tier: 2
+- id: q_aggravating
+  fact_key: aggravating
+  type: multi_choice
+  priority: 28
+  text: 什么情况下会更明显？可以多选。
+  tier: 2
+- id: q_relieving
+  fact_key: relieving
+  type: multi_choice
+  priority: 29
+  text: 什么情况下会缓解一些？可以多选。
+  tier: 2
+- id: q_function_impact
+  fact_key: function_impact
+  type: single_choice
+  priority: 30
+  text: 对你的日常活动影响有多大？
+  tier: 2
+- id: q_sleep_affected
+  fact_key: sleep_affected
+  type: yes_no
+  priority: 32
+  text: 有没有影响睡眠？
+  tier: 2
+- id: q_night_pain
+  fact_key: night_pain
+  type: yes_no
+  priority: 50
+  text: 有没有夜里疼醒的情况？
+  tier: 2
+  when: 'False'
+- id: q_weight_loss
+  fact_key: weight_loss
+  type: yes_no
+  priority: 51
+  text: 最近几个月体重有没有不明原因地明显下降？
+  tier: 2
+  when: 'False'
+- id: q_cancer_history
+  fact_key: cancer_history
+  type: yes_no
+  priority: 52
+  text: 以前有没有诊断过肿瘤？
+  tier: 2
+  when: 'False'
+- id: q_prior_episodes
+  fact_key: prior_episodes
+  type: yes_no
+  priority: 37
+  text: 以前有没有出现过类似的情况？
+  tier: 3
+- id: q_prior_treatment
+  fact_key: prior_treatment
+  type: text
+  priority: 38
+  when: facts.prior_episodes.present
+  text: 以前做过哪些检查或处理？效果如何？
+  tier: 3
+- id: q_current_medication
+  fact_key: current_medication
+  type: text
+  priority: 40
+  text: 目前有没有在用什么药或贴剂？（只做记录，医生会核对；这里不提供用药建议）
+  tier: 3
+- id: q_patient_concern
+  fact_key: patient_concern
+  type: text
+  priority: 45
+  allow_skip: true
+  text: 你最担心的是什么？或者最希望医生帮你解决什么？
+  tier: 3
+- id: q_age_band
+  fact_key: age_band
+  type: single_choice
+  priority: 1
+  text: 请选择你的年龄段。
+  allow_unknown: true
+  allow_skip: false
+  stage: pre_visit
+  tier: 1
+  purpose: 范围核查；红旗阈值
+- id: q_pregnancy
+  fact_key: pregnancy_status
+  type: single_choice
+  priority: 2
+  text: 你是否处于孕期或产后 6 周内？（不适用请选"不适用"）
+  allow_unknown: true
+  allow_skip: false
+  stage: pre_visit
+  tier: 1
+  purpose: 范围核查
+- id: q_bladder
+  fact_key: bladder_change
+  type: yes_no
+  priority: 3
+  text: 最近两周内，排尿有没有新出现的变化：比如尿不出来、要很用力、感觉不到尿、憋不住或漏尿？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 1
+  purpose: 马尾综合征（GIRFT 2023）
+- id: q_bowel
+  fact_key: bowel_change
+  type: yes_no
+  priority: 4
+  text: 最近两周内，大便控制有没有新出现的变化：比如憋不住、或感觉不到便意？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 1
+  purpose: 马尾综合征
+- id: q_bilateral
+  fact_key: bilateral_leg_symptoms
+  type: yes_no
+  priority: 6
+  text: 两条腿是不是同时出现疼痛、发麻或没劲？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 1
+  purpose: 马尾/双侧神经根
+- id: q_gait
+  fact_key: gait_disturbance
+  type: yes_no
+  priority: 9
+  text: 走路有没有不稳、拖步或容易绊倒？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 1
+  purpose: 中国 2024 表 2 步态障碍
+- id: q_sexual
+  fact_key: sexual_function_change
+  type: yes_no
+  priority: 10
+  text: 这个问题可以选择不回答：最近性功能有没有新出现的变化？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 1
+  purpose: 马尾综合征（GIRFT 2023）
+- id: q_cancer_history2
+  fact_key: cancer_history
+  type: yes_no
+  priority: 13
+  text: 以前有没有得过肿瘤（癌症）？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 1
+  purpose: 脊柱转移最有用的指标（Lancet 2018）
+- id: q_weight_loss2
+  fact_key: weight_loss
+  type: yes_no
+  priority: 14
+  text: 最近几个月体重有没有不明原因地明显下降？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 1
+  purpose: 肿瘤/感染
+- id: q_infection_risk
+  fact_key: infection_risk
+  type: multi_choice
+  priority: 15
+  text: 下面这些情况有没有？（可多选）
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 1
+  purpose: 感染与骨折风险因素
+- id: q_osteoporosis
+  fact_key: osteoporosis_or_fragility
+  type: yes_no
+  priority: 16
+  text: 有没有骨质疏松，或以前轻轻一摔就骨折过？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 1
+  when: facts.age_band.any(['50_69','70_plus']) or facts.trauma_recent.present or facts.infection_risk.has('steroid_or_immunosuppressant')
+  purpose: 骨折风险（Lancet 2018 Panel 2）
+- id: q_severity_worst
+  fact_key: severity_worst_24h
+  type: scale
+  priority: 25
+  text: 过去 24 小时最痛的时候是几分？0 完全不痛，10 无法忍受。
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 2
+- id: q_rest_night
+  fact_key: rest_or_night_worst
+  type: yes_no
+  priority: 26
+  text: 是不是休息或躺着时也疼，甚至夜里最疼？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 2
+  purpose: 中国 2024 表 2 红旗
+- id: q_walking
+  fact_key: walking_distance
+  type: yes_no
+  priority: 31
+  text: 是不是因为腰痛只能走很短的距离？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 2
+- id: q_thoracic
+  fact_key: thoracic_pain
+  type: yes_no
+  priority: 34
+  text: 疼痛是不是主要在背部中上段（两个肩胛骨之间）？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 3
+- id: q_morning_stiff
+  fact_key: morning_stiffness_30min
+  type: yes_no
+  priority: 35
+  text: 早晨起来腰是不是发僵超过半小时？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 3
+  when: facts.age_band.any(['18_49']) and facts.onset_timing.value == 'over_12_weeks'
+- id: q_improves_activity
+  fact_key: improves_with_activity
+  type: yes_no
+  priority: 36
+  text: 是不是活动开了反而轻一些，躺着休息反而更僵更疼？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 3
+  when: facts.age_band.any(['18_49']) and facts.onset_timing.value == 'over_12_weeks'
+- id: q_night_waking
+  fact_key: night_waking_second_half
+  type: yes_no
+  priority: 37
+  text: 是不是常在后半夜因为腰疼醒来？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 3
+  when: facts.age_band.any(['18_49']) and facts.onset_timing.value == 'over_12_weeks'
+- id: q_buttock_alt
+  fact_key: buttock_alternating
+  type: yes_no
+  priority: 38
+  text: 臀部的疼痛是不是左右交替出现？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 3
+  when: facts.age_band.any(['18_49']) and facts.onset_timing.value == 'over_12_weeks'
+- id: q_prior_imaging
+  fact_key: prior_imaging
+  type: text
+  priority: 39
+  text: 有没有做过腰部的 X 线、CT 或核磁？大概什么时候？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 3
+- id: q_fear
+  fact_key: fear_of_movement
+  type: yes_no
+  priority: 41
+  text: 你会不会担心活动会伤到腰，所以尽量不动？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 3
+- id: q_low_mood
+  fact_key: low_mood
+  type: yes_no
+  priority: 42
+  text: 这个问题可以不回答：最近有没有情绪低落、对平时喜欢的事提不起兴趣？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 3
+- id: q_catastrophizing
+  fact_key: catastrophizing
+  type: yes_no
+  priority: 43
+  text: 你有没有觉得"这个腰可能永远好不了"？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 3
+- id: q_work_type
+  fact_key: work_type
+  type: single_choice
+  priority: 44
+  text: 你的工作主要是？
+  allow_unknown: true
+  allow_skip: true
+  stage: pre_visit
+  tier: 3
+clarifications:
+- fact_key: pain_side
+  text: 关于疼痛在哪一侧，你的{first_source}是「{first}」，{second_source}提到「{second}」。现在的情况是？
+  options:
+  - label: 两侧都有
+    resolve: both
+  - label: 位置变了，现在主要是「{second}」
+    resolve: changed_to_second
+  - label: 之前点错/说错了，应该是「{second}」
+    resolve: keep_second
+  - label: 后面说错了，应该是「{first}」
+    resolve: keep_first
+  - label: 不确定
+    resolve: unknown
+- fact_key: onset_timing
+  text: 关于这次不舒服开始的时间，你的{first_source}是「{first}」，{second_source}提到「{second}」。如果是老毛病，请按这一次发作算。现在应以哪个为准？
+  options:
+  - label: 这一次是「{first}」
+    resolve: keep_first
+  - label: 这一次是「{second}」
+    resolve: keep_second
+  - label: 不确定
+    resolve: unknown
+red_flags:
+- id: rf_bladder_bowel
+  label: 排尿/排便新变化
+  when: facts.bladder_change.present or facts.bladder_bowel_change.present or facts.bowel_change.present
+  severity: urgent
+  action: immediate_notice_and_task
+  on_trigger: stop_questioning
+  task_kind: red_flag_review
+  patient_message: 你提到排尿或排便出现了新变化。这可能是需要当天紧急处理的情况，请不要等待线上回复：立即前往就近医院急诊，告诉医生你有腰痛并且出现了这个变化。（AI 草案，待临床审核）
+  clinical_review_required: true
+- id: rf_saddle
+  label: 会阴/肛周/大腿内侧感觉异常
+  when: facts.saddle_numbness.present
+  severity: urgent
+  action: immediate_notice_and_task
+  on_trigger: stop_questioning
+  task_kind: red_flag_review
+  patient_message: 你提到会阴部或肛门周围感觉异常。这可能是需要当天紧急处理的情况，请不要等待线上回复：立即前往就近医院急诊，告诉医生你有腰痛并且出现了这个变化。（AI 草案，待临床审核）
+  clinical_review_required: true
+- id: rf_ces_sexual
+  label: 性功能新变化
+  when: facts.sexual_function_change.present
+  severity: urgent
+  action: immediate_notice_and_task
+  on_trigger: stop_questioning
+  task_kind: red_flag_review
+  patient_message: 你提到性功能出现了新变化，与腰痛同时出现时需要尽快评估。请立即联系门诊或前往急诊。（AI 草案，待临床审核）
+  clinical_review_required: true
+- id: rf_ces_bilateral
+  label: 双腿同时症状伴其他马尾症状
+  when: facts.bilateral_leg_symptoms.present and (facts.bladder_change.present or facts.bowel_change.present or facts.saddle_numbness.present or facts.sexual_function_change.present or facts.weakness_progressive.present)
+  severity: urgent
+  action: immediate_notice_and_task
+  on_trigger: stop_questioning
+  task_kind: red_flag_review
+  patient_message: 两条腿同时出现症状并伴有上述变化，需要当天紧急评估。请立即前往急诊。（AI 草案，待临床审核）
+  clinical_review_required: true
+- id: rf_bilateral_only
+  label: 双腿同时症状
+  when: facts.bilateral_leg_symptoms.present
+  severity: same_day
+  action: immediate_notice_and_task
+  on_trigger: continue
+  task_kind: red_flag_review
+  patient_message: 你提到两条腿同时有症状。请今天内联系门诊，医生会尽快安排评估。（AI 草案，待临床审核）
+  clinical_review_required: true
+- id: rf_progressive_weakness
+  label: 腿部无力且在加重
+  when: facts.weakness_progressive.present
+  severity: urgent
+  action: immediate_notice_and_task
+  on_trigger: stop_questioning
+  task_kind: red_flag_review
+  patient_message: 你提到腿没劲并且在加重。进行性加重的无力需要尽快当面评估，请今天内前往急诊或联系门诊。（AI 草案，待临床审核）
+  clinical_review_required: true
+- id: rf_gait
+  label: 步态障碍
+  when: facts.gait_disturbance.present
+  severity: same_day
+  action: immediate_notice_and_task
+  on_trigger: continue
+  task_kind: red_flag_review
+  patient_message: 你提到走路不稳。请今天内联系门诊。（AI 草案，待临床审核）
+  clinical_review_required: true
+- id: rf_fever
+  label: 发热/寒战
+  when: facts.fever.present
+  severity: same_day
+  action: immediate_notice_and_task
+  on_trigger: continue
+  task_kind: red_flag_review
+  patient_message: 你提到有发热。腰痛伴发热需要尽快评估，请今天内联系门诊；如高热不退或伴寒战，请直接急诊。（AI 草案，待临床审核）
+  clinical_review_required: true
+- id: rf_infection_risk_with_pain
+  label: 感染风险因素伴休息/夜间痛或发热
+  when: facts.infection_risk.any(['steroid_or_immunosuppressant','diabetes','recent_infection','recent_spinal_procedure','iv_drug']) and (facts.rest_or_night_worst.present or facts.fever.present)
+  severity: same_day
+  action: task_only
+  on_trigger: continue
+  task_kind: red_flag_review
+  patient_message: （仅供医生复核）
+  clinical_review_required: true
+- id: rf_fracture_risk
+  label: 外伤伴骨折风险因素
+  when: facts.trauma_recent.present and (facts.age_band.any(['50_69','70_plus']) or facts.osteoporosis_or_fragility.present or facts.infection_risk.has('steroid_or_immunosuppressant'))
+  severity: same_day
+  action: immediate_notice_and_task
+  on_trigger: continue
+  task_kind: red_flag_review
+  patient_message: 你提到近期有外伤，并且有骨折的风险因素。请今天内联系门诊安排评估。（AI 草案，待临床审核）
+  clinical_review_required: true
+- id: rf_trauma_severe
+  label: 外伤后明显疼痛
+  when: facts.trauma_recent.present and facts.severity_now.gte(7)
+  severity: same_day
+  action: immediate_notice_and_task
+  on_trigger: continue
+  task_kind: red_flag_review
+  patient_message: 你提到近期有外伤且疼痛明显。请今天内联系门诊说明情况。（AI 草案，待临床审核）
+  clinical_review_required: true
+- id: rf_cancer_with_features
+  label: 肿瘤史伴需留意特征
+  when: facts.cancer_history.present and (facts.weight_loss.present or facts.rest_or_night_worst.present or facts.night_pain.present or facts.age_band.any(['50_69','70_plus']) or facts.course.value == 'worsening')
+  severity: same_day
+  action: immediate_notice_and_task
+  on_trigger: continue
+  task_kind: red_flag_review
+  patient_message: 你提到有肿瘤病史并伴有需要留意的情况。请今天内联系门诊，医生会尽快安排评估。（AI 草案，待临床审核）
+  clinical_review_required: true
+- id: rf_weight_loss_or_cancer
+  label: 体重下降 / 肿瘤病史 / 休息夜间痛
+  when: facts.weight_loss.present or facts.cancer_history.present or facts.night_pain.present or facts.rest_or_night_worst.present
+  severity: routine
+  action: task_only
+  on_trigger: continue
+  task_kind: red_flag_review
+  patient_message: （仅供医生复核）
+  clinical_review_required: true
+- id: rf_inflammatory_pattern
+  label: 炎性腰背痛线索
+  when: facts.age_band.any(['18_49']) and facts.onset_timing.value == 'over_12_weeks' and ((facts.morning_stiffness_30min.present and facts.improves_with_activity.present) or (facts.morning_stiffness_30min.present
+    and facts.night_waking_second_half.present) or (facts.improves_with_activity.present and facts.night_waking_second_half.present) or facts.buttock_alternating.present)
+  severity: routine
+  action: task_only
+  on_trigger: continue
+  task_kind: red_flag_review
+  patient_message: （仅供医生复核：考虑脊柱关节炎评估路径，NICE NG65）
+  clinical_review_required: true
+- id: rf_thoracic
+  label: 胸段为主
+  when: facts.thoracic_pain.present
+  severity: routine
+  action: task_only
+  on_trigger: continue
+  task_kind: red_flag_review
+  patient_message: （仅供医生复核）
+  clinical_review_required: true
+- id: rf_out_of_scope
+  label: 不在适用范围
+  when: facts.age_band.value == 'under_18' or facts.pregnancy_status.value == 'yes'
+  severity: routine
+  action: immediate_notice_and_task
+  on_trigger: continue
+  task_kind: red_flag_review
+  patient_message: 根据你的回答，这个工具目前不适合你的情况（例如未满 18 岁、怀孕或产后不久）。这不是对病情的判断。请直接联系门诊预约，或按上方紧急提示就医。（AI 草案，待临床审核）
+  clinical_review_required: true
+- id: rf_uncertain_red_flag
+  label: 关键红旗表达不确定
+  when: facts.bladder_change.uncertain or facts.bowel_change.uncertain or facts.saddle_numbness.uncertain or facts.bilateral_leg_symptoms.uncertain or facts.leg_weakness.uncertain or facts.bladder_bowel_change.uncertain
+  severity: same_day
+  action: task_only
+  on_trigger: continue
+  task_kind: red_flag_review
+  patient_message: （仅供医生复核：患者对关键问题表达不确定，需人工确认）
+  clinical_review_required: true
+- id: rf_no_improvement
+  label: 病程超过 6 周且加重
+  when: facts.onset_timing.any(['weeks_6_to_12','over_12_weeks']) and facts.course.value == 'worsening'
+  severity: routine
+  action: task_only
+  on_trigger: continue
+  task_kind: red_flag_review
+  patient_message: （仅供医生复核）
+  clinical_review_required: true
+scope_guard:
+  forbidden_patterns:
+  - 诊断为|确诊|你得了|你患有|你是.*(症|病)
+  - 椎间盘突出|腰肌劳损|坐骨神经痛|腰椎管狭窄|强直性脊柱炎
+  - 服用|口服|每日\d+次|每天\d+次|\d+\s*(mg|毫克)|布洛芬|对乙酰氨基酚|双氯芬酸|塞来昔布
+  - 建议你(吃|用|贴)|开药|处方
+  - 考虑.*(突出|狭窄|滑脱|骨折|肿瘤|感染)|建议.*(CT|MRI|核磁|拍片|X线)
+  allowed_content_ids: []
+education:
+- id: ed_bring_records
+  text: 就诊时如有既往的影像或检查报告，请一并带上，方便医生核对。
+  source: 门诊流程说明（待填写）
+- id: ed_followup_notice
+  when: facts.fu_plan_understood.denied
+  text: 你表示不太清楚医生安排的下一步。门诊工作人员会在工作时间内联系你确认。
+  source: 门诊流程说明（待填写）
+followup:
+  default_interval_days: 7
+  change_facts:
+  - severity_now
+  - course
+  - pain_regions
+  - pain_side
+  - radiation_present
+  - leg_numbness
+  - leg_weakness
+  - bladder_bowel_change
+  - saddle_numbness
+  - function_impact
+  - sleep_affected
+  - severity_worst_24h
+  - bilateral_leg_symptoms
+  - gait_disturbance
+  - bladder_change
+  - bowel_change
+  - sexual_function_change
+  - rest_or_night_worst
+  questions:
+  - id: q_fu_overall
+    fact_key: fu_change_overall
+    type: single_choice
+    priority: 10
+    stage: follow_up
+    text: 和上次相比，整体感觉怎么样？
+    tier: 2
+  - id: q_fu_severity
+    fact_key: severity_now
+    type: scale
+    priority: 11
+    stage: follow_up
+    text: 现在疼到什么程度？0 完全不痛，10 无法忍受。
+    tier: 2
+  - id: q_fu_new
+    fact_key: fu_new_symptom
+    type: yes_no
+    priority: 12
+    stage: follow_up
+    text: 有没有出现上次没有的新情况？
+    tier: 2
+  - id: q_fu_new_desc
+    fact_key: fu_new_symptom_desc
+    type: text
+    priority: 13
+    stage: follow_up
+    when: facts.fu_new_symptom.present
+    text: 请用自己的话说说新出现的情况。
+    tier: 2
+  - id: q_fu_bladder
+    fact_key: bladder_change
+    type: yes_no
+    priority: 14
+    stage: follow_up
+    text: 最近两周内，排尿有没有新出现的变化（尿不出、费力、憋不住、漏尿）？
+    tier: 1
+  - id: q_fu_saddle
+    fact_key: saddle_numbness
+    type: yes_no
+    priority: 15
+    stage: follow_up
+    text: 会阴部或肛门周围有没有发麻？
+    tier: 1
+  - id: q_fu_weakness
+    fact_key: leg_weakness
+    type: yes_no
+    priority: 16
+    stage: follow_up
+    text: 腿有没有没劲、软、抬不起来？
+    tier: 1
+  - id: q_fu_numbness
+    fact_key: leg_numbness
+    type: yes_no
+    priority: 17
+    stage: follow_up
+    text: 腿或脚有没有发麻？
+    tier: 2
+  - id: q_fu_radiation
+    fact_key: radiation_present
+    type: yes_no
+    priority: 18
+    stage: follow_up
+    text: 疼痛有没有往屁股或腿上串？
+    tier: 2
+  - id: q_fu_course
+    fact_key: course
+    type: single_choice
+    priority: 19
+    stage: follow_up
+    text: 最近几天整体趋势是？
+    tier: 2
+  - id: q_fu_function
+    fact_key: function_impact
+    type: single_choice
+    priority: 20
+    stage: follow_up
+    text: 对日常活动的影响有多大？
+    tier: 2
+  - id: q_fu_sleep
+    fact_key: sleep_affected
+    type: yes_no
+    priority: 21
+    stage: follow_up
+    text: 有没有影响睡眠？
+    tier: 2
+  - id: q_fu_understood
+    fact_key: fu_plan_understood
+    type: yes_no
+    priority: 30
+    stage: follow_up
+    text: 你清楚医生上次安排的下一步（复诊/注意事项）吗？
+    tier: 2
+  - id: q_fu_adherence
+    fact_key: fu_plan_adherence
+    type: single_choice
+    priority: 31
+    stage: follow_up
+    text: 医生安排的事项，这段时间执行得怎么样？
+    tier: 2
+  - id: q_fu_concern
+    fact_key: patient_concern
+    type: text
+    priority: 40
+    stage: follow_up
+    text: 这次还有什么想告诉医生的？
+    tier: 2
+  - id: q_fu_bowel
+    fact_key: bowel_change
+    type: yes_no
+    priority: 15
+    text: 大便控制有没有新出现的变化？
+    allow_unknown: true
+    allow_skip: true
+    stage: follow_up
+    tier: 1
+  - id: q_fu_bilateral
+    fact_key: bilateral_leg_symptoms
+    type: yes_no
+    priority: 16
+    text: 两条腿是不是同时出现疼痛、发麻或没劲？
+    allow_unknown: true
+    allow_skip: true
+    stage: follow_up
+    tier: 1
+  - id: q_fu_gait
+    fact_key: gait_disturbance
+    type: yes_no
+    priority: 17
+    text: 走路有没有不稳、拖步或容易绊倒？
+    allow_unknown: true
+    allow_skip: true
+    stage: follow_up
+    tier: 1
+  - id: q_fu_fever
+    fact_key: fever
+    type: yes_no
+    priority: 18
+    text: 这几天有没有发烧或寒战？
+    allow_unknown: true
+    allow_skip: true
+    stage: follow_up
+    tier: 1
+  - id: q_fu_severity_worst
+    fact_key: severity_worst_24h
+    type: scale
+    priority: 11
+    text: 过去 24 小时最痛的时候是几分？
+    allow_unknown: true
+    allow_skip: true
+    stage: follow_up
+    tier: 2
+  - id: q_fu_side_effect
+    fact_key: fu_side_effect
+    type: yes_no
+    priority: 32
+    text: 按医生安排处理后，有没有出现新的不舒服？（只做记录）
+    allow_unknown: true
+    allow_skip: true
+    stage: follow_up
+    tier: 3
+summary:
+  chief_complaint_label: 腰背部不适
+  key_facts_order:
+  - age_band
+  - pregnancy_status
+  - onset_timing
+  - onset_mode
+  - trigger
+  - pain_side
+  - pain_regions
+  - radiation_present
+  - radiation_regions
+  - character
+  - severity_now
+  - course
+  - aggravating
+  - relieving
+  - leg_numbness
+  - leg_weakness
+  - weakness_progressive
+  - bladder_bowel_change
+  - saddle_numbness
+  - fever
+  - trauma_recent
+  - night_pain
+  - weight_loss
+  - cancer_history
+  - prior_episodes
+  - prior_treatment
+  - current_medication
+  - function_impact
+  - sleep_affected
+  - patient_concern
+  - severity_worst_24h
+  - rest_or_night_worst
+  - bilateral_leg_symptoms
+  - gait_disturbance
+  - bladder_change
+  - bowel_change
+  - sexual_function_change
+  - infection_risk
+  - osteoporosis_or_fragility
+  - thoracic_pain
+  - walking_distance
+  - prior_imaging
+  - fear_of_movement
+  - low_mood
+  - catastrophizing
+  - work_type
+  narrative_enabled: true
+evaluation:
+  critical_facts:
+  - age_band
+  - pain_side
+  - pain_regions
+  - onset_timing
+  - severity_now
+  - radiation_present
+  - leg_numbness
+  - leg_weakness
+  - weakness_progressive
+  - bilateral_leg_symptoms
+  - gait_disturbance
+  - bladder_change
+  - bowel_change
+  - saddle_numbness
+  - sexual_function_change
+  - fever
+  - trauma_recent
+  - cancer_history
+  - fu_new_symptom
+  - bladder_bowel_change
+  error_taxonomy:
+  - code: E1_critical_omission
+    label: 关键事实遗漏
+    severity: critical
+  - code: E2_fabrication
+    label: 编造患者没说过的事实
+    severity: critical
+  - code: E3_unknown_as_denied
+    label: 未问/未答被写成否认
+    severity: critical
+  - code: E4_missed_escalation
+    label: 应升级未升级
+    severity: critical
+  - code: E5_unnecessary_escalation
+    label: 不必要升级
+    severity: major
+  - code: E6_out_of_scope_advice
+    label: 越权给出诊断/用药建议
+    severity: critical
+  - code: E7_conflict_not_surfaced
+    label: 矛盾未呈现给医生
+    severity: major
+  - code: E8_misunderstanding
+    label: 理解错误（值抽错）
+    severity: major
+  - code: E9_minor_omission
+    label: 非关键事实遗漏
+    severity: minor

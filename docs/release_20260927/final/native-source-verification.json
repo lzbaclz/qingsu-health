@@ -1,0 +1,8 @@
+{
+  "native_report": "../v031_eval/20260927_113529_context_ollama_gpt-oss-20b.json",
+  "verified_files": 63,
+  "expected_files": 63,
+  "missing": [],
+  "method": "unchanged files copied; known subsequent edits reversed only when exact SHA256 matches the original native-run manifest",
+  "sha256": "d688e965d3632b1af686c5ca89abba519a2f766411009a98f74f740162046a1a"
+}

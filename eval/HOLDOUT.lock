@@ -1,0 +1,11 @@
+# 留出集哈希锁（只追加，不修改）
+file: eval/scenarios/holdout/holdout_v1.yaml
+sha256: 7e93d44e9faa9325b1d3f4c74f438d2dcd1353c6256ab69830b4fb37b2c259d5
+written_at: 2026-09-25 09:23:19 +0100
+author: 模拟评测数据负责人（AI 模拟人设，不是执业医师）
+items: 72（含红旗 48 = 6 类 × 8 种说法；像红旗但不是 24 = 8 种 × 3 条）
+protocol_id: lbp_adult_v0.2
+statement: 跑模型前冻结；之后任何修改都要新建 v2，并在报告里注明。
+models_run_on_this_file_before_freeze: 无
+prereg: eval/PREREG.md（提交时 sha256 952f837e0611abfb55cddbb99346461fbcd23eb12503b4f7c67dc1c2d15e2f86，2026-09-25 09:26 +0100）
+verify: shasum -a 256 eval/scenarios/holdout/holdout_v1.yaml

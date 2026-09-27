@@ -1,0 +1,31 @@
+{
+  "disk_default": {
+    "id": "lbp_adult_v0.2",
+    "version": "0.2.0",
+    "status": "draft",
+    "facts": 55,
+    "service_windows": 0,
+    "outcomes": 0,
+    "task_routing": [],
+    "no_response": false,
+    "recovery_rules": 0,
+    "screening_previsit_rows": 0
+  },
+  "candidate_NOT_APPLIED": {
+    "id": "lbp_adult_v0.2",
+    "version": "0.2.0",
+    "status": "draft",
+    "facts": 58,
+    "service_windows": 1,
+    "outcomes": 3,
+    "task_routing": [
+      "urgent",
+      "same_day",
+      "routine",
+      "recovery"
+    ],
+    "no_response": true,
+    "recovery_rules": 3,
+    "screening_previsit_rows": 8
+  }
+}

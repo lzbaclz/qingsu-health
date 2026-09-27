@@ -1,0 +1,55 @@
+id: S057
+family: F15_chronic_lbp_bilateral_numbness_flags
+split: locked
+title: "原话没提大小便，表单回答大小便控制有变化——必须立即提示并生成紧急任务"
+persona: "63 岁退休工人（模拟，非真实患者）"
+kind: pre_visit
+category: red_flag
+inputs:
+  body_map:
+    - {region_id: lower_back_center, kind: primary}
+    - {region_id: thigh_left_back, kind: radiation}
+    - {region_id: thigh_right_back, kind: radiation}
+  free_text: "腰痛半年了，两条腿都麻，走不远。"
+  answers:
+    q_bladder_bowel: "yes"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_severity_now: 7
+    q_course: worsening
+    q_onset_mode: gradual
+    q_trigger: none_known
+    q_character: [aching, dull]
+    q_aggravating: [walking, standing]
+    q_relieving: [rest]
+    q_function_impact: moderate
+    q_sleep_affected: "yes"
+    q_night_pain: "no"
+    q_weight_loss: "no"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    bladder_bowel_change: {status: present}
+    leg_numbness: {status: present}
+    onset_timing: {status: present, value: over_12_weeks}
+    radiation_present: {status: present}
+    radiation_regions: {status: present, value: [thigh_left_back, thigh_right_back]}
+    severity_now: {status: present, value: 7}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    pain_side: {status: present, value: center}
+    course: {status: present, value: worsening}
+    night_pain: {status: denied}
+    weight_loss: {status: denied}
+  must_be_unknown: [cancer_history]
+  expected_alerts: [rf_bladder_bowel]
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

@@ -1,0 +1,48 @@
+id: S043
+family: F11_central_lbp_programmer
+split: locked
+title: "口语化的多重否认（不往腿上走/腿不麻不软/大小便都正常/没有摔倒撞到…）"
+persona: "29 岁程序员（模拟，非真实患者）"
+kind: pre_visit
+category: negation
+inputs:
+  body_map:
+    - {region_id: lower_back_center, kind: primary}
+  free_text: "腰中间酸了两三周，只在腰上，不往腿上走，腿不麻不软，大小便都正常，没有发烧，没有摔倒撞到，晚上睡觉没事，体重没变，没得过癌。"
+  answers:
+    q_saddle: "no"
+    q_onset_mode: gradual
+    q_trigger: prolonged_sitting
+    q_severity_now: 3
+    q_course: stable
+    q_function_impact: none
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    pain_side: {status: present, value: center}
+    onset_timing: {status: present, value: weeks_2_to_6}
+    character: {status: present, value: [aching]}
+    radiation_present: {status: denied}
+    leg_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    bladder_bowel_change: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    night_pain: {status: denied}
+    sleep_affected: {status: denied}
+    weight_loss: {status: denied}
+    cancer_history: {status: denied}
+    saddle_numbness: {status: denied}
+    severity_now: {status: present, value: 3}
+    course: {status: present, value: stable}
+    trigger: {status: present, value: prolonged_sitting}
+    onset_mode: {status: present, value: gradual}
+    function_impact: {status: present, value: none}
+  must_be_unknown: [aggravating, relieving]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核。原话已否认的项目脚本不再作答；“腿不软”“大小便都正常”若抽不出即为词表缺口。“没有摔倒撞到”只否认外伤，不应把诱因整体记为否认。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

@@ -1,0 +1,48 @@
+id: S019
+family: F05_chronic_lbp_cauda_equina_flags
+split: dev
+title: "“好像有点憋不住尿，说不清”——红旗事实不确定，须生成人工复核任务"
+persona: "60 岁退休教师（模拟，非真实患者）"
+kind: pre_visit
+category: red_flag
+inputs:
+  body_map:
+    - {region_id: lower_back_center, kind: primary}
+    - {region_id: thigh_left_back, kind: radiation}
+  free_text: "腰痛三个月，左腿麻。这几天好像有点憋不住尿，说不清。"
+  answers:
+    q_bladder_bowel: __unknown__
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_severity_now: 7
+    q_course: worsening
+    q_onset_mode: gradual
+    q_trigger: none_known
+    q_character: [aching, sharp]
+    q_aggravating: [walking, standing]
+    q_relieving: [rest]
+    q_function_impact: moderate
+    q_sleep_affected: "yes"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    bladder_bowel_change: {status: uncertain}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    leg_numbness: {status: present}
+    radiation_present: {status: present}
+    onset_timing: {status: present, value: weeks_6_to_12}
+    severity_now: {status: present, value: 7}
+    pain_side: {status: present, value: center}
+  must_be_unknown: []
+  expected_alerts: [rf_uncertain_red_flag]
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核。患者对红旗问题表达不确定且追问仍答不清楚：不能写成“没有”，也不能写成“有”。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

@@ -1,0 +1,129 @@
+# 评测报告 · arm=full · split=all · provider=mock · protocol=lbp_adult_v0.1
+
+生成时间：2026-09-24 00:51:53　场景数：80　病例家族数：20
+
+| 指标 | 值 |
+|---|---|
+| 场景通过率（无 critical 错误） | 1.0 |
+| 家族通过率 | 1.0 |
+| 关键事实完整率（分母=750） | 1.0 |
+| 验收检查通过率 | 1.0 |
+| 平均提问数 | 14.9 |
+
+## 错误分布
+
+| 代码 | 次数 |
+|---|---|
+| E9_minor_omission | 8 |
+
+## 逐场景
+
+| id | 家族 | 类别 | 提问数 | 红旗 | 验收 | critical 错误 | 结果 |
+|---|---|---|---|---|---|---|---|
+| S001 | F01_left_lbp_after_lifting | normal | 16 | — | ✓ | 0 | PASS |
+| S002 | F01_left_lbp_after_lifting | missing_info | 16 | — | ✓ | 0 | PASS |
+| S003 | F01_left_lbp_after_lifting | negation | 11 | — | ✓ | 0 | PASS |
+| S004 | F01_left_lbp_after_lifting | many_skips | 16 | — | ✓ | 0 | PASS |
+| S005 | F02_right_lbp_radiating_driver | contradiction | 16 | — | ✓ | 0 | PASS |
+| S006 | F02_right_lbp_radiating_driver | contradiction | 16 | — | ✓ | 0 | PASS |
+| S007 | F02_right_lbp_radiating_driver | contradiction | 16 | — | ✓ | 0 | PASS |
+| S008 | F02_right_lbp_radiating_driver | normal | 16 | — | ✓ | 0 | PASS |
+| S009 | F03_central_lbp_medication_request | medication_request | 16 | — | ✓ | 0 | PASS |
+| S010 | F03_central_lbp_medication_request | medication_request | 12 | — | ✓ | 0 | PASS |
+| S011 | F03_central_lbp_medication_request | hedged | 16 | — | ✓ | 0 | PASS |
+| S012 | F03_central_lbp_medication_request | normal | 16 | — | ✓ | 0 | PASS |
+| S013 | F04_pregnant_lbp_out_of_scope | out_of_scope | 16 | — | ✓ | 0 | PASS |
+| S014 | F04_pregnant_lbp_out_of_scope | out_of_scope | 16 | — | ✓ | 0 | PASS |
+| S015 | F04_pregnant_lbp_out_of_scope | missing_info | 16 | — | ✓ | 0 | PASS |
+| S016 | F04_pregnant_lbp_out_of_scope | negation | 16 | — | ✓ | 0 | PASS |
+| S017 | F05_chronic_lbp_cauda_equina_flags | red_flag | 16 | rf_bladder_bowel | ✓ | 0 | PASS |
+| S018 | F05_chronic_lbp_cauda_equina_flags | red_flag | 16 | rf_saddle | ✓ | 0 | PASS |
+| S019 | F05_chronic_lbp_cauda_equina_flags | red_flag | 16 | rf_uncertain_red_flag | ✓ | 0 | PASS |
+| S020 | F05_chronic_lbp_cauda_equina_flags | red_flag | 16 | rf_progressive_weakness | ✓ | 0 | PASS |
+| S021 | F06_fall_from_ladder_trauma | red_flag | 16 | rf_trauma_severe | ✓ | 0 | PASS |
+| S022 | F06_fall_from_ladder_trauma | normal | 16 | — | ✓ | 0 | PASS |
+| S023 | F06_fall_from_ladder_trauma | red_flag | 16 | rf_fever,rf_trauma_severe | ✓ | 0 | PASS |
+| S024 | F06_fall_from_ladder_trauma | many_skips | 16 | — | ✓ | 0 | PASS |
+| S025 | F07_breast_cancer_history_back_pain | red_flag | 16 | rf_weight_loss_or_cancer | ✓ | 0 | PASS |
+| S026 | F07_breast_cancer_history_back_pain | red_flag | 16 | rf_weight_loss_or_cancer | ✓ | 0 | PASS |
+| S027 | F07_breast_cancer_history_back_pain | red_flag | 16 | rf_weight_loss_or_cancer | ✓ | 0 | PASS |
+| S028 | F07_breast_cancer_history_back_pain | negation | 16 | — | ✓ | 0 | PASS |
+| S029 | F08_recurrent_lbp_new_numbness | new_symptom | 16 | — | ✓ | 0 | PASS |
+| S030 | F08_recurrent_lbp_new_numbness | hedged | 16 | — | ✓ | 0 | PASS |
+| S031 | F08_recurrent_lbp_new_numbness | missing_info | 16 | — | ✓ | 0 | PASS |
+| S032 | F08_recurrent_lbp_new_numbness | negation | 16 | — | ✓ | 0 | PASS |
+| S033 | F09_followup_right_lbp_sitting | follow_up | 13 | — | ✓ | 0 | PASS |
+| S034 | F09_followup_right_lbp_sitting | follow_up | 12 | — | ✓ | 0 | PASS |
+| S035 | F09_followup_right_lbp_sitting | new_symptom | 10 | — | ✓ | 0 | PASS |
+| S036 | F09_followup_right_lbp_sitting | follow_up | 11 | — | ✓ | 0 | PASS |
+| S037 | F10_followup_left_lbp_radiating | follow_up | 10 | — | ✓ | 0 | PASS |
+| S038 | F10_followup_left_lbp_radiating | red_flag | 10 | rf_bladder_bowel | ✓ | 0 | PASS |
+| S039 | F10_followup_left_lbp_radiating | hedged | 13 | rf_uncertain_red_flag | ✓ | 0 | PASS |
+| S040 | F10_followup_left_lbp_radiating | many_skips | 13 | — | ✓ | 0 | PASS |
+| S041 | F11_central_lbp_programmer | normal | 14 | — | ✓ | 0 | PASS |
+| S042 | F11_central_lbp_programmer | missing_info | 16 | — | ✓ | 0 | PASS |
+| S043 | F11_central_lbp_programmer | negation | 12 | — | ✓ | 0 | PASS |
+| S044 | F11_central_lbp_programmer | many_skips | 16 | — | ✓ | 0 | PASS |
+| S045 | F12_left_lbp_radiating_farmer | contradiction | 16 | — | ✓ | 0 | PASS |
+| S046 | F12_left_lbp_radiating_farmer | contradiction | 16 | — | ✓ | 0 | PASS |
+| S047 | F12_left_lbp_radiating_farmer | contradiction | 16 | — | ✓ | 0 | PASS |
+| S048 | F12_left_lbp_radiating_farmer | contradiction | 16 | — | ✓ | 0 | PASS |
+| S049 | F13_bilateral_lbp_medication_request | medication_request | 13 | — | ✓ | 0 | PASS |
+| S050 | F13_bilateral_lbp_medication_request | medication_request | 12 | — | ✓ | 0 | PASS |
+| S051 | F13_bilateral_lbp_medication_request | hedged | 16 | — | ✓ | 0 | PASS |
+| S052 | F13_bilateral_lbp_medication_request | normal | 16 | — | ✓ | 0 | PASS |
+| S053 | F14_teenager_lbp_out_of_scope | out_of_scope | 16 | — | ✓ | 0 | PASS |
+| S054 | F14_teenager_lbp_out_of_scope | out_of_scope | 16 | — | ✓ | 0 | PASS |
+| S055 | F14_teenager_lbp_out_of_scope | missing_info | 16 | — | ✓ | 0 | PASS |
+| S056 | F14_teenager_lbp_out_of_scope | negation | 16 | — | ✓ | 0 | PASS |
+| S057 | F15_chronic_lbp_bilateral_numbness_flags | red_flag | 16 | rf_bladder_bowel | ✓ | 0 | PASS |
+| S058 | F15_chronic_lbp_bilateral_numbness_flags | red_flag | 16 | rf_saddle | ✓ | 0 | PASS |
+| S059 | F15_chronic_lbp_bilateral_numbness_flags | red_flag | 16 | rf_uncertain_red_flag | ✓ | 0 | PASS |
+| S060 | F15_chronic_lbp_bilateral_numbness_flags | red_flag | 16 | rf_saddle,rf_progressive_weakness | ✓ | 0 | PASS |
+| S061 | F16_fall_down_stairs_trauma | red_flag | 16 | rf_trauma_severe | ✓ | 0 | PASS |
+| S062 | F16_fall_down_stairs_trauma | normal | 16 | — | ✓ | 0 | PASS |
+| S063 | F16_fall_down_stairs_trauma | red_flag | 16 | rf_fever,rf_trauma_severe | ✓ | 0 | PASS |
+| S064 | F16_fall_down_stairs_trauma | many_skips | 16 | — | ✓ | 0 | PASS |
+| S065 | F17_lung_cancer_history_back_pain | red_flag | 16 | rf_weight_loss_or_cancer | ✓ | 0 | PASS |
+| S066 | F17_lung_cancer_history_back_pain | red_flag | 16 | rf_weight_loss_or_cancer | ✓ | 0 | PASS |
+| S067 | F17_lung_cancer_history_back_pain | red_flag | 16 | rf_weight_loss_or_cancer | ✓ | 0 | PASS |
+| S068 | F17_lung_cancer_history_back_pain | negation | 16 | — | ✓ | 0 | PASS |
+| S069 | F18_recurrent_lbp_new_radiation | new_symptom | 16 | — | ✓ | 0 | PASS |
+| S070 | F18_recurrent_lbp_new_radiation | hedged | 16 | — | ✓ | 0 | PASS |
+| S071 | F18_recurrent_lbp_new_radiation | missing_info | 16 | — | ✓ | 0 | PASS |
+| S072 | F18_recurrent_lbp_new_radiation | negation | 16 | — | ✓ | 0 | PASS |
+| S073 | F19_followup_central_lbp_teacher | follow_up | 13 | — | ✓ | 0 | PASS |
+| S074 | F19_followup_central_lbp_teacher | follow_up | 12 | — | ✓ | 0 | PASS |
+| S075 | F19_followup_central_lbp_teacher | new_symptom | 11 | — | ✓ | 0 | PASS |
+| S076 | F19_followup_central_lbp_teacher | follow_up | 12 | — | ✓ | 0 | PASS |
+| S077 | F20_followup_right_lbp_calf_driver | follow_up | 11 | — | ✓ | 0 | PASS |
+| S078 | F20_followup_right_lbp_calf_driver | red_flag | 11 | rf_saddle | ✓ | 0 | PASS |
+| S079 | F20_followup_right_lbp_calf_driver | hedged | 13 | rf_uncertain_red_flag | ✓ | 0 | PASS |
+| S080 | F20_followup_right_lbp_calf_driver | many_skips | 13 | — | ✓ | 0 | PASS |
+
+## 错误明细
+
+### S003 · 原话里一口气否认多项（腿不麻/有劲/没发烧/大小便都正常…），表单不再重复回答
+- **E9_minor_omission** [minor] character: 期望 present，系统为 asked_unanswered
+
+### S013 · 原话自述怀孕七个多月——超出协议适用范围，系统当前无法识别
+- **E9_minor_omission** [minor] character: 期望 present，系统为 asked_unanswered
+- **E9_minor_omission** [minor] weight_loss: 期望 denied，系统为 not_asked
+
+### S014 · 孕期 + 模糊表达：“右边好像更明显”“腿好像有点麻”
+- **E9_minor_omission** [minor] character: 期望 present，系统为 asked_unanswered
+
+### S016 · 孕期 + 否定表达：“腿不麻也不没劲，大小便正常，没发烧没摔过”
+- **E9_minor_omission** [minor] character: 期望 present，系统为 asked_unanswered
+
+### S034 · 随访：没有变化，部分执行医嘱
+- **E9_minor_omission** [minor] character: 期望 present，系统为 not_asked
+
+### S043 · 口语化的多重否认（不往腿上走/腿不麻不软/大小便都正常/没有摔倒撞到…）
+- **E9_minor_omission** [minor] character: 期望 present，系统为 asked_unanswered
+
+### S044 · 除大小便和疼痛程度外全部跳过
+- **E9_minor_omission** [minor] character: 期望 present，系统为 asked_unanswered
+
+
+> 本报告只说明系统在这些模拟场景上的表现；模拟场景通过不等于真实患者使用安全。

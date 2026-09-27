@@ -1,0 +1,1569 @@
+{
+  "meta": {
+    "arm": "full",
+    "split": "stress",
+    "provider": "mock",
+    "model": null,
+    "effort": null,
+    "protocol": "lbp_adult_v0.2",
+    "at": "2026-09-27 13:19:38",
+    "seconds": 5.2,
+    "crashed": [],
+    "usage": {
+      "calls": 0,
+      "errors": 0,
+      "fallbacks": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0,
+      "latency_s": {
+        "extract": {
+          "n": 0,
+          "p50": null,
+          "p90": null
+        },
+        "narrative": {
+          "n": 0,
+          "p50": null,
+          "p90": null
+        }
+      }
+    },
+    "workers": 1,
+    "patient": "careless",
+    "usd_total": null,
+    "overlay_items": 0,
+    "usd_per_scenario": null,
+    "text_extraction_scope": "protocol_enabled_text_inputs",
+    "planned_n": 20,
+    "completed_n": 20,
+    "pass_count_with_all_planned_denominator": {
+      "passed": 18,
+      "denominator": 20
+    },
+    "provenance_start": {
+      "files": {
+        "backend/app/__init__.py": "1b8c4bbb75491ef4b7304df852e407a098f85f8f7dae39a0d29ba9079f39fe8b",
+        "backend/app/api/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/api/auth.py": "1138bc6ea2d8e10815ae000b3b8862c0354ac909d08203e29169fd05569fe054",
+        "backend/app/api/dev.py": "6dae791a925de55e6422b8c5143cd8f0f50e1b28696485a1e22554b193ea3cd8",
+        "backend/app/api/doctor.py": "7493e752a75ac100da5576faf203cfa36ae28bb6d15d6c75aeab25c3c583206a",
+        "backend/app/api/patient.py": "7fefd0d6c3e790418703f3bc07ce8a771861b21587e061ee40828c521cc09247",
+        "backend/app/api/protocols.py": "bc4b5b0aa333622fdeb4a48f6cc37485135832e5cc8e3265e995bfc7482047aa",
+        "backend/app/api/schemas.py": "03f2b0579de8169e818f66a5c87048606c6bdb315a56a54a6d9bfe94d0eb2f54",
+        "backend/app/bootstrap_access.py": "ea4685324f2ff154fc40ad0ef985c9a1eeeb0d5030cb385bf0036f187ab1b81b",
+        "backend/app/config.py": "2c96202a0a74f07ad5339e1260ddbbe396c8bec61742476fd52e9b52d74d2077",
+        "backend/app/course/__init__.py": "b4c35f983b8907b2094f538c376416b80370697073f386cac5ff30a32505e7a3",
+        "backend/app/course/goals.py": "c484ebd3928ebb2918773b8bcf896b8e144aef1c0a02870fd72b2e99b08e5667",
+        "backend/app/course/hours.py": "51269138a9799b0c0ea64f0c01a53b1cfda4deba2710782f3c886b2ee4819c39",
+        "backend/app/course/tasks.py": "62a1e295dfdb30f5259fb19504b5d3a7e2a83d7378c08942d652bf2d4d0180d0",
+        "backend/app/course/teachback.py": "dd23c9cdcc49edd173448b1ea77733471d7c42cc508f81c2e990ea1145cfbb8d",
+        "backend/app/course/trajectory.py": "e3a9b539a4dd3c976e40cec45c09e11a01f8a1a6121b77ed45a522d528f4f271",
+        "backend/app/course/worker.py": "742fdd5b5393beae35834f7a7f62649f297c1b67a56c922434ed2ae9fbd51fa2",
+        "backend/app/data_admin.py": "04f3f6b0af2b1e5353604df556dceb937b9b9df25154141d5f08d1ab6a32b325",
+        "backend/app/db.py": "25b55314953d951968ffc9b64e58713d8be5755455f6fe90b6484a366f59e0c5",
+        "backend/app/demo.py": "d19964699cc08e6197cd8e3bacf5a40e6ee00b2e98aeb25fde5a4c8302248748",
+        "backend/app/events/__init__.py": "e2243ede89dcf086cd612df295f558c2e0c504dbdef8d70ca8455462b41dc36b",
+        "backend/app/events/service.py": "7994e9cc9258675bcf882cd4cf9c1ec777b1542e5b7fd604f590412a4d2c5bf0",
+        "backend/app/extraction/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/extraction/service.py": "7d09739c8e3302772b9812e91e5658a3ce5d414023e7174e44f9204dbfa5699c",
+        "backend/app/facts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/facts/store.py": "4cb9b1c72d49c6961be51b26203c5687b3f2854e1c354ced3618d0c90aa1edbc",
+        "backend/app/llm/__init__.py": "aa4a6d6a68b7b09b87167556f4825347fafb26f32aeb138e844528e52c1b9b40",
+        "backend/app/llm/check.py": "0088d2b14f0e7d261d3e25ab13fd28ce44c340c4be07fc55a598a91b00105e5f",
+        "backend/app/llm/provider.py": "6869003ba3ee678eb810d7d4d08e98c0f1a53affcb9aad6f43d3bb8724be9c96",
+        "backend/app/main.py": "69c01ec368e4f94ce0d6091a8c8cfff93999fc80b40b5e6236a81a59250fabf7",
+        "backend/app/models.py": "32d1c96f23d91250df551258824eb0bab360dd5a4964c578c065509458963fce",
+        "backend/app/protocol/__init__.py": "a7fc105eeaf981e348b737d09ecce639f2b7ec109f42caf141f01221f7f39b06",
+        "backend/app/protocol/expr.py": "1f27d23404296404cf02b8c28a1350d6f02f13a3807d01de5f75f96f78670e42",
+        "backend/app/protocol/loader.py": "aeecfeaa0cc01ada3e56c849a0fdf860e2322f96732d7180a5cb5a7660fce653",
+        "backend/app/protocol/preview.py": "8ea1dc65e793a99d38453209d02f585c91fb386de4603ab39f8f68c2fbd36c61",
+        "backend/app/protocol/schema.py": "9e7c6df5fc8a37834c0b8366c3a7352cfac3dd986994d6ab4bc12120a691e556",
+        "backend/app/protocol/triage.py": "93f9e47c70e7671e42a151cd59dae334404ac76533fe66ff4e3934fd6812902d",
+        "backend/app/qr.py": "e6e5fbb5e8964825c4553871a4e4822331ddbfeb9ad5c65c0d099caf90738238",
+        "backend/app/questioning/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/questioning/engine.py": "e697d9ccd86c7c0733f509635ee2fddda9dea00c99de35c1052517355a840ea8",
+        "backend/app/security.py": "fbed59fdb84f6f73c676af1291c413530856d05f0084b25e592a76a501335725",
+        "backend/app/seed.py": "0eb826f86ac072408dea91ab3f937aaff852c37349bf06a8ce79ac032276fbe5",
+        "backend/app/services/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/services/encounter.py": "27ca73c811656d8da2a4b30ec026ab527ab048ca72b33f18d35af55d05f43083",
+        "backend/app/summary/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/summary/brief.py": "869a63fae07dc8319a92eb9a8fe53a4d57c2a9aa5076cae889bdb3691ebda44d",
+        "backend/app/summary/build.py": "5503c7730f48890f3a9b617548d4d85ee50f015d94eca9e7c1f554735fbd763f",
+        "backend/app/tasks/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/tasks/service.py": "dd1b3fb815d77aea81ec718b1a07ab972893d008bcde0aeaa69176b5d78df711",
+        "backend/app/usertest/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/usertest/plant.py": "32e7b98b367a60e167948ab7886ea0241af2c8be3ccd5d3807cd11b15a151f13",
+        "backend/app/util.py": "77671253ec4d6f44db7c4b40ffb20ba469a7d51e4be069220ad4782511edca93",
+        "backend/app/verification/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/verification/checks.py": "63205084859f2ec93377acf50e3097d746c962991f4dbd13c42d00158fd11278",
+        "backend/app/verification/rewrite_guard.py": "e3da9944025783e79876a7f87d18fe76cdb9a1fe277c1ba7887f8f887b2e53e2",
+        "backend/app/verification/scope.py": "dad9b9bb6e579e895ca86b6df7d7a0aaa3dc7c2b36a014cdaf41509ed9a4985a",
+        "backend/pyproject.toml": "b23a48e28b5cfaf9d0d1804b53de7e3c5532c0db6dae9a00948f9ba5bb256633",
+        "eval/context_benchmark.py": "72b4275bc2f7aa8700ebda151f1f23da0dc6ea38f637d7534260e2e893a41455",
+        "eval/evidence_table.py": "d6d1d9f7be2edba40963eca3cf278072c792799b6ffbf3ca82b49e5085608938",
+        "eval/provenance.py": "6b02dbd4947b243e67dffe95849ab704ab32561f36d851fe9b7f11211f043b42",
+        "eval/runner.py": "ebddab01ead3d24983f453bbbe1f8a51f75cd7197cc949d1c78bba3996827e1b",
+        "eval/scenarios/stress/stress_v1.yaml": "6e4667cf435dfa7bd25766c2e56f180f7410c0b0e02c89681bbd941bba93064c",
+        "protocols/lbp_adult_v0.2.yaml": "2c25dccf25405c34c6b3f789f50fbd03b635f3718a6f87aa1bd2dfab4c19707a"
+      },
+      "manifest_sha256": "2891af37f74a81a2d00c67bc7ff321bf72e6d208d12b750b814504b57d084825",
+      "python": "3.13.9",
+      "platform": "macOS-15.7.8-arm64-arm-64bit-Mach-O",
+      "synthetic_only": true
+    },
+    "provenance_end": {
+      "files": {
+        "backend/app/__init__.py": "1b8c4bbb75491ef4b7304df852e407a098f85f8f7dae39a0d29ba9079f39fe8b",
+        "backend/app/api/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/api/auth.py": "1138bc6ea2d8e10815ae000b3b8862c0354ac909d08203e29169fd05569fe054",
+        "backend/app/api/dev.py": "6dae791a925de55e6422b8c5143cd8f0f50e1b28696485a1e22554b193ea3cd8",
+        "backend/app/api/doctor.py": "7493e752a75ac100da5576faf203cfa36ae28bb6d15d6c75aeab25c3c583206a",
+        "backend/app/api/patient.py": "7fefd0d6c3e790418703f3bc07ce8a771861b21587e061ee40828c521cc09247",
+        "backend/app/api/protocols.py": "bc4b5b0aa333622fdeb4a48f6cc37485135832e5cc8e3265e995bfc7482047aa",
+        "backend/app/api/schemas.py": "03f2b0579de8169e818f66a5c87048606c6bdb315a56a54a6d9bfe94d0eb2f54",
+        "backend/app/bootstrap_access.py": "ea4685324f2ff154fc40ad0ef985c9a1eeeb0d5030cb385bf0036f187ab1b81b",
+        "backend/app/config.py": "2c96202a0a74f07ad5339e1260ddbbe396c8bec61742476fd52e9b52d74d2077",
+        "backend/app/course/__init__.py": "b4c35f983b8907b2094f538c376416b80370697073f386cac5ff30a32505e7a3",
+        "backend/app/course/goals.py": "c484ebd3928ebb2918773b8bcf896b8e144aef1c0a02870fd72b2e99b08e5667",
+        "backend/app/course/hours.py": "51269138a9799b0c0ea64f0c01a53b1cfda4deba2710782f3c886b2ee4819c39",
+        "backend/app/course/tasks.py": "62a1e295dfdb30f5259fb19504b5d3a7e2a83d7378c08942d652bf2d4d0180d0",
+        "backend/app/course/teachback.py": "dd23c9cdcc49edd173448b1ea77733471d7c42cc508f81c2e990ea1145cfbb8d",
+        "backend/app/course/trajectory.py": "e3a9b539a4dd3c976e40cec45c09e11a01f8a1a6121b77ed45a522d528f4f271",
+        "backend/app/course/worker.py": "742fdd5b5393beae35834f7a7f62649f297c1b67a56c922434ed2ae9fbd51fa2",
+        "backend/app/data_admin.py": "04f3f6b0af2b1e5353604df556dceb937b9b9df25154141d5f08d1ab6a32b325",
+        "backend/app/db.py": "25b55314953d951968ffc9b64e58713d8be5755455f6fe90b6484a366f59e0c5",
+        "backend/app/demo.py": "d19964699cc08e6197cd8e3bacf5a40e6ee00b2e98aeb25fde5a4c8302248748",
+        "backend/app/events/__init__.py": "e2243ede89dcf086cd612df295f558c2e0c504dbdef8d70ca8455462b41dc36b",
+        "backend/app/events/service.py": "7994e9cc9258675bcf882cd4cf9c1ec777b1542e5b7fd604f590412a4d2c5bf0",
+        "backend/app/extraction/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/extraction/service.py": "7d09739c8e3302772b9812e91e5658a3ce5d414023e7174e44f9204dbfa5699c",
+        "backend/app/facts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/facts/store.py": "4cb9b1c72d49c6961be51b26203c5687b3f2854e1c354ced3618d0c90aa1edbc",
+        "backend/app/llm/__init__.py": "aa4a6d6a68b7b09b87167556f4825347fafb26f32aeb138e844528e52c1b9b40",
+        "backend/app/llm/check.py": "0088d2b14f0e7d261d3e25ab13fd28ce44c340c4be07fc55a598a91b00105e5f",
+        "backend/app/llm/provider.py": "6869003ba3ee678eb810d7d4d08e98c0f1a53affcb9aad6f43d3bb8724be9c96",
+        "backend/app/main.py": "69c01ec368e4f94ce0d6091a8c8cfff93999fc80b40b5e6236a81a59250fabf7",
+        "backend/app/models.py": "32d1c96f23d91250df551258824eb0bab360dd5a4964c578c065509458963fce",
+        "backend/app/protocol/__init__.py": "a7fc105eeaf981e348b737d09ecce639f2b7ec109f42caf141f01221f7f39b06",
+        "backend/app/protocol/expr.py": "1f27d23404296404cf02b8c28a1350d6f02f13a3807d01de5f75f96f78670e42",
+        "backend/app/protocol/loader.py": "aeecfeaa0cc01ada3e56c849a0fdf860e2322f96732d7180a5cb5a7660fce653",
+        "backend/app/protocol/preview.py": "8ea1dc65e793a99d38453209d02f585c91fb386de4603ab39f8f68c2fbd36c61",
+        "backend/app/protocol/schema.py": "9e7c6df5fc8a37834c0b8366c3a7352cfac3dd986994d6ab4bc12120a691e556",
+        "backend/app/protocol/triage.py": "93f9e47c70e7671e42a151cd59dae334404ac76533fe66ff4e3934fd6812902d",
+        "backend/app/qr.py": "e6e5fbb5e8964825c4553871a4e4822331ddbfeb9ad5c65c0d099caf90738238",
+        "backend/app/questioning/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/questioning/engine.py": "e697d9ccd86c7c0733f509635ee2fddda9dea00c99de35c1052517355a840ea8",
+        "backend/app/security.py": "fbed59fdb84f6f73c676af1291c413530856d05f0084b25e592a76a501335725",
+        "backend/app/seed.py": "0eb826f86ac072408dea91ab3f937aaff852c37349bf06a8ce79ac032276fbe5",
+        "backend/app/services/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/services/encounter.py": "27ca73c811656d8da2a4b30ec026ab527ab048ca72b33f18d35af55d05f43083",
+        "backend/app/summary/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/summary/brief.py": "869a63fae07dc8319a92eb9a8fe53a4d57c2a9aa5076cae889bdb3691ebda44d",
+        "backend/app/summary/build.py": "5503c7730f48890f3a9b617548d4d85ee50f015d94eca9e7c1f554735fbd763f",
+        "backend/app/tasks/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/tasks/service.py": "dd1b3fb815d77aea81ec718b1a07ab972893d008bcde0aeaa69176b5d78df711",
+        "backend/app/usertest/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/usertest/plant.py": "32e7b98b367a60e167948ab7886ea0241af2c8be3ccd5d3807cd11b15a151f13",
+        "backend/app/util.py": "77671253ec4d6f44db7c4b40ffb20ba469a7d51e4be069220ad4782511edca93",
+        "backend/app/verification/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "backend/app/verification/checks.py": "63205084859f2ec93377acf50e3097d746c962991f4dbd13c42d00158fd11278",
+        "backend/app/verification/rewrite_guard.py": "e3da9944025783e79876a7f87d18fe76cdb9a1fe277c1ba7887f8f887b2e53e2",
+        "backend/app/verification/scope.py": "dad9b9bb6e579e895ca86b6df7d7a0aaa3dc7c2b36a014cdaf41509ed9a4985a",
+        "backend/pyproject.toml": "b23a48e28b5cfaf9d0d1804b53de7e3c5532c0db6dae9a00948f9ba5bb256633",
+        "eval/context_benchmark.py": "72b4275bc2f7aa8700ebda151f1f23da0dc6ea38f637d7534260e2e893a41455",
+        "eval/evidence_table.py": "d6d1d9f7be2edba40963eca3cf278072c792799b6ffbf3ca82b49e5085608938",
+        "eval/provenance.py": "6b02dbd4947b243e67dffe95849ab704ab32561f36d851fe9b7f11211f043b42",
+        "eval/runner.py": "ebddab01ead3d24983f453bbbe1f8a51f75cd7197cc949d1c78bba3996827e1b",
+        "eval/scenarios/stress/stress_v1.yaml": "6e4667cf435dfa7bd25766c2e56f180f7410c0b0e02c89681bbd941bba93064c",
+        "protocols/lbp_adult_v0.2.yaml": "2c25dccf25405c34c6b3f789f50fbd03b635f3718a6f87aa1bd2dfab4c19707a"
+      },
+      "manifest_sha256": "2891af37f74a81a2d00c67bc7ff321bf72e6d208d12b750b814504b57d084825",
+      "python": "3.13.9",
+      "platform": "macOS-15.7.8-arm64-arm-64bit-Mach-O",
+      "synthetic_only": true
+    },
+    "source_unchanged": true
+  },
+  "aggregate": {
+    "n_scenarios": 20,
+    "n_families": 20,
+    "scenario_pass_rate": 0.9,
+    "family_pass_rate": 0.9,
+    "critical_fact_completeness": 0.889,
+    "critical_denominator": 27,
+    "verification_pass_rate": 1.0,
+    "mean_questions_asked": 9.3,
+    "mean_decisions_shown": 15.2,
+    "urgent_stops": 4,
+    "errors_by_code": {
+      "E2_fabrication": 2,
+      "E5_unnecessary_escalation": 4,
+      "E8_misunderstanding": 3,
+      "E9_minor_omission": 5
+    },
+    "extraction_errors_by_code": {
+      "X1_miss": 19,
+      "X2_fabrication": 1,
+      "X4_text_escalation_miss": 1,
+      "X8_misread": 4
+    },
+    "extraction_clean_rate": 0.9,
+    "infos_by_code": {
+      "S1_not_asked_after_urgent_stop": 3
+    },
+    "verification_decisions": {
+      "confirm": 17
+    },
+    "verification_unverifiable": 0,
+    "provider_used": {
+      "mock": 20
+    }
+  },
+  "results": [
+    {
+      "id": "A1",
+      "family": "stress_A1",
+      "split": "stress",
+      "category": "colloquial,function",
+      "title": "我腰特别难受，走两步就得歇会儿，屁股那块也跟着酸，晚上翻身疼",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "review_appendix_A",
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "mock",
+      "seconds": 0.25,
+      "verify_log": [],
+      "extraction_errors": [
+        {
+          "code": "X1_miss",
+          "key": "aggravating",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "minor"
+        }
+      ],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "aggravating",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 0,
+      "critical_ok": 0
+    },
+    {
+      "id": "A2",
+      "family": "stress_A2",
+      "split": "stress",
+      "category": "red_flag,colloquial,temporal",
+      "title": "上礼拜闪了一下腰，现在直不起来，右边屁股到脚后跟都是麻的，尿",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "review_appendix_A",
+      "questions_asked": 1,
+      "question_metrics": {
+        "screens_shown": 1,
+        "items_shown": 1,
+        "items_answered": 1,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "verification": 1
+      },
+      "confirm_blocked": null,
+      "urgent_stop": true,
+      "provider_used": "mock",
+      "seconds": 0.08,
+      "verify_log": [
+        {
+          "fact_key": "bladder_change",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [
+        {
+          "code": "X1_miss",
+          "key": "onset_timing",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "major"
+        },
+        {
+          "code": "X1_miss",
+          "key": "bladder_bowel_change",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "major"
+        }
+      ],
+      "errors": [],
+      "infos": [
+        {
+          "code": "S1_not_asked_after_urgent_stop",
+          "key": "onset_timing",
+          "detail": "紧急终止后未再问"
+        },
+        {
+          "code": "S1_not_asked_after_urgent_stop",
+          "key": "bladder_bowel_change",
+          "detail": "紧急终止后未再问"
+        }
+      ],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_bladder_bowel"
+      ],
+      "verification_passed": true,
+      "critical_gt": 2,
+      "critical_ok": 2
+    },
+    {
+      "id": "A3",
+      "family": "stress_A3",
+      "split": "stress",
+      "category": "temporal,negation,medication",
+      "title": "腰疼老毛病了，这回是搬花盆闹的，吃了两天芬必得好点，腿脚都利",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "review_appendix_A",
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "mock",
+      "seconds": 0.25,
+      "verify_log": [],
+      "extraction_errors": [
+        {
+          "code": "X1_miss",
+          "key": "trigger",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "minor"
+        },
+        {
+          "code": "X1_miss",
+          "key": "leg_weakness",
+          "detail": "期望 denied，没抽到（问卷可兜住）",
+          "severity": "major"
+        }
+      ],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "trigger",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 2,
+      "critical_ok": 2
+    },
+    {
+      "id": "A4",
+      "family": "stress_A4",
+      "split": "stress",
+      "category": "near_miss,colloquial",
+      "title": "腰不疼了但是两条腿都软，走路像踩棉花，昨天差点摔了。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "review_appendix_A",
+      "questions_asked": 16,
+      "question_metrics": {
+        "screens_shown": 16,
+        "items_shown": 23,
+        "items_answered": 23,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "event_context": 1,
+        "verification": 1,
+        "protocol": 13
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "mock",
+      "seconds": 0.43,
+      "verify_log": [
+        {
+          "fact_key": "trauma_recent",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "bilateral_leg_symptoms",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "gait_disturbance",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [
+        {
+          "code": "X1_miss",
+          "key": "leg_weakness",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "major"
+        },
+        {
+          "code": "X2_fabrication",
+          "key": "trauma_recent",
+          "detail": "原话没说清，却抽成 present:True",
+          "severity": "critical"
+        }
+      ],
+      "errors": [
+        {
+          "code": "E2_fabrication",
+          "key": "trauma_recent",
+          "detail": "系统记录为存在：True",
+          "severity": "critical"
+        },
+        {
+          "code": "E2_fabrication",
+          "key": "trauma_recent",
+          "detail": "系统记录为存在：True",
+          "severity": "critical"
+        },
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_gait",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 2,
+      "pass": false,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_gait"
+      ],
+      "verification_passed": true,
+      "critical_gt": 2,
+      "critical_ok": 1
+    },
+    {
+      "id": "X05",
+      "family": "stress_X05",
+      "split": "stress",
+      "category": "red_flag,colloquial",
+      "title": "解手的时候老觉得尿不干净，得等半天才出来，这几天腰也一直酸。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 1,
+      "question_metrics": {
+        "screens_shown": 1,
+        "items_shown": 1,
+        "items_answered": 1,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "verification": 1
+      },
+      "confirm_blocked": null,
+      "urgent_stop": true,
+      "provider_used": "mock",
+      "seconds": 0.07,
+      "verify_log": [
+        {
+          "fact_key": "bladder_change",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [
+        {
+          "code": "X1_miss",
+          "key": "bladder_bowel_change",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "major"
+        }
+      ],
+      "errors": [],
+      "infos": [
+        {
+          "code": "S1_not_asked_after_urgent_stop",
+          "key": "bladder_bowel_change",
+          "detail": "紧急终止后未再问"
+        }
+      ],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_bladder_bowel"
+      ],
+      "verification_passed": true,
+      "critical_gt": 0,
+      "critical_ok": 0
+    },
+    {
+      "id": "X06",
+      "family": "stress_X06",
+      "split": "stress",
+      "category": "red_flag,colloquial,location",
+      "title": "坐马桶的时候屁股中间那块木木的，没什么感觉，腰这两天疼得厉害",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 1,
+      "question_metrics": {
+        "screens_shown": 1,
+        "items_shown": 1,
+        "items_answered": 1,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "verification": 1
+      },
+      "confirm_blocked": null,
+      "urgent_stop": true,
+      "provider_used": "mock",
+      "seconds": 0.07,
+      "verify_log": [
+        {
+          "fact_key": "saddle_numbness",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [],
+      "errors": [],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_saddle"
+      ],
+      "verification_passed": true,
+      "critical_gt": 3,
+      "critical_ok": 3
+    },
+    {
+      "id": "X07",
+      "family": "stress_X07",
+      "split": "stress",
+      "category": "red_flag,colloquial",
+      "title": "两条腿都没劲，上楼梯抬不起来，而且一天比一天厉害。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 5,
+      "question_metrics": {
+        "screens_shown": 5,
+        "items_shown": 11,
+        "items_answered": 11,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "event_context": 1,
+        "verification": 1,
+        "protocol": 2
+      },
+      "confirm_blocked": null,
+      "urgent_stop": true,
+      "provider_used": "mock",
+      "seconds": 0.16,
+      "verify_log": [
+        {
+          "fact_key": "leg_weakness",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "bilateral_leg_symptoms",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [
+        {
+          "code": "X1_miss",
+          "key": "weakness_progressive",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "major"
+        },
+        {
+          "code": "X4_text_escalation_miss",
+          "key": "rf_progressive_weakness",
+          "detail": "原话层未识别红旗（问卷可兜住）",
+          "severity": "major"
+        }
+      ],
+      "errors": [
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_ces_bilateral",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_ces_bilateral",
+        "rf_progressive_weakness"
+      ],
+      "verification_passed": true,
+      "critical_gt": 2,
+      "critical_ok": 2
+    },
+    {
+      "id": "X08",
+      "family": "stress_X08",
+      "split": "stress",
+      "category": "red_flag,colloquial",
+      "title": "身上一阵冷一阵热的，量了一下三十八度五，腰疼得翻不了身。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 13,
+      "question_metrics": {
+        "screens_shown": 13,
+        "items_shown": 19,
+        "items_answered": 19,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "event_context": 1,
+        "verification": 1,
+        "protocol": 10
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "mock",
+      "seconds": 0.33,
+      "verify_log": [
+        {
+          "fact_key": "fever",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [],
+      "errors": [],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_fever"
+      ],
+      "verification_passed": true,
+      "critical_gt": 1,
+      "critical_ok": 1
+    },
+    {
+      "id": "X09",
+      "family": "stress_X09",
+      "split": "stress",
+      "category": "negation,temporal",
+      "title": "以前从来没麻过，这两天左脚开始发麻，腰也疼。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 12,
+      "question_metrics": {
+        "screens_shown": 12,
+        "items_shown": 19,
+        "items_answered": 19,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "verification": 1,
+        "protocol": 10
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "mock",
+      "seconds": 0.34,
+      "verify_log": [
+        {
+          "fact_key": "leg_numbness",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [],
+      "errors": [],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 1,
+      "critical_ok": 1
+    },
+    {
+      "id": "X10",
+      "family": "stress_X10",
+      "split": "stress",
+      "category": "temporal,negation",
+      "title": "十年前摔过一次，这回没摔也没碰，就是早上起来腰就疼了，今天第",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "mock",
+      "seconds": 0.39,
+      "verify_log": [],
+      "extraction_errors": [
+        {
+          "code": "X1_miss",
+          "key": "onset_timing",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "major"
+        }
+      ],
+      "errors": [],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 2,
+      "critical_ok": 2
+    },
+    {
+      "id": "X11",
+      "family": "stress_X11",
+      "split": "stress",
+      "category": "colloquial,temporal",
+      "title": "腰杆子疼了大半个月，弯腰系鞋带的时候最明显，躺平了就好多了。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "mock",
+      "seconds": 0.22,
+      "verify_log": [],
+      "extraction_errors": [
+        {
+          "code": "X1_miss",
+          "key": "onset_timing",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "major"
+        },
+        {
+          "code": "X1_miss",
+          "key": "relieving",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "minor"
+        }
+      ],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "relieving",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 1,
+      "critical_ok": 1
+    },
+    {
+      "id": "X12",
+      "family": "stress_X12",
+      "split": "stress",
+      "category": "hedge,colloquial",
+      "title": "说不上来是不是麻，就是右腿外侧有点木，腰那里胀得难受。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "mock",
+      "seconds": 0.21,
+      "verify_log": [],
+      "extraction_errors": [
+        {
+          "code": "X1_miss",
+          "key": "leg_numbness",
+          "detail": "期望 uncertain，没抽到（问卷可兜住）",
+          "severity": "major"
+        },
+        {
+          "code": "X1_miss",
+          "key": "character",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "minor"
+        }
+      ],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "character",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 1,
+      "critical_ok": 1
+    },
+    {
+      "id": "X13",
+      "family": "stress_X13",
+      "split": "stress",
+      "category": "red_flag,history,temporal",
+      "title": "前年做过乳腺癌手术，最近两个月腰疼，晚上睡着睡着就疼醒了。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 12,
+      "question_metrics": {
+        "screens_shown": 12,
+        "items_shown": 20,
+        "items_answered": 20,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "verification": 1,
+        "protocol": 10
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "mock",
+      "seconds": 0.32,
+      "verify_log": [
+        {
+          "fact_key": "onset_timing",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "night_pain",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "rest_or_night_worst",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [],
+      "errors": [
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_cancer_with_features",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_cancer_with_features",
+        "rf_weight_loss_or_cancer"
+      ],
+      "verification_passed": true,
+      "critical_gt": 2,
+      "critical_ok": 2
+    },
+    {
+      "id": "X14",
+      "family": "stress_X14",
+      "split": "stress",
+      "category": "red_flag,colloquial",
+      "title": "这半年瘦了十几斤，也没减肥，腰背一直隐隐地疼。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 11,
+      "question_metrics": {
+        "screens_shown": 11,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "verification": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "mock",
+      "seconds": 0.26,
+      "verify_log": [
+        {
+          "fact_key": "weight_loss",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [],
+      "errors": [],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_weight_loss_or_cancer"
+      ],
+      "verification_passed": true,
+      "critical_gt": 0,
+      "critical_ok": 0
+    },
+    {
+      "id": "X15",
+      "family": "stress_X15",
+      "split": "stress",
+      "category": "laterality,location",
+      "title": "腰正中间疼，往左边屁股和大腿后面窜，一直窜到小腿。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 11,
+      "question_metrics": {
+        "screens_shown": 11,
+        "items_shown": 18,
+        "items_answered": 18,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "clarification": 1,
+        "red_flag_grid": 1,
+        "verification": 1,
+        "protocol": 8
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "mock",
+      "seconds": 0.25,
+      "verify_log": [
+        {
+          "fact_key": "radiation_present",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [
+        {
+          "code": "X8_misread",
+          "key": "pain_side",
+          "detail": "抽成 present:left，与既有输入矛盾，引发不必要的澄清",
+          "severity": "major"
+        },
+        {
+          "code": "X8_misread",
+          "key": "radiation_regions",
+          "detail": "期望至少包含 ['buttock_left', 'thigh_left_back', 'calf_left']，抽成 ['buttock_left']",
+          "severity": "major"
+        }
+      ],
+      "errors": [
+        {
+          "code": "E8_misunderstanding",
+          "key": "radiation_regions",
+          "detail": "期望值 ['buttock_left', 'thigh_left_back', 'calf_left']，系统值 ['buttock_left']",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 2,
+      "critical_ok": 2
+    },
+    {
+      "id": "X16",
+      "family": "stress_X16",
+      "split": "stress",
+      "category": "negation,colloquial",
+      "title": "大小便都挺正常的，就是腰酸，坐办公室一坐一天。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "mock",
+      "seconds": 0.22,
+      "verify_log": [],
+      "extraction_errors": [
+        {
+          "code": "X1_miss",
+          "key": "bladder_bowel_change",
+          "detail": "期望 denied，没抽到（问卷可兜住）",
+          "severity": "major"
+        }
+      ],
+      "errors": [],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 1,
+      "critical_ok": 1
+    },
+    {
+      "id": "X17",
+      "family": "stress_X17",
+      "split": "stress",
+      "category": "hedge,negation",
+      "title": "腰疼，腿麻不麻我也说不好，反正没劲是没有的。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 14,
+      "question_metrics": {
+        "screens_shown": 14,
+        "items_shown": 21,
+        "items_answered": 21,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "event_context": 1,
+        "verification": 1,
+        "protocol": 11
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "mock",
+      "seconds": 0.35,
+      "verify_log": [
+        {
+          "fact_key": "leg_numbness",
+          "decision": "confirm",
+          "unverifiable": false
+        },
+        {
+          "fact_key": "leg_weakness",
+          "decision": "confirm",
+          "unverifiable": false
+        }
+      ],
+      "extraction_errors": [
+        {
+          "code": "X8_misread",
+          "key": "leg_numbness",
+          "detail": "期望 uncertain，抽成 denied",
+          "severity": "critical"
+        },
+        {
+          "code": "X8_misread",
+          "key": "leg_weakness",
+          "detail": "期望 denied，抽成 present",
+          "severity": "critical"
+        }
+      ],
+      "errors": [
+        {
+          "code": "E8_misunderstanding",
+          "key": "leg_numbness",
+          "detail": "期望 uncertain，系统为 denied",
+          "severity": "critical"
+        },
+        {
+          "code": "E8_misunderstanding",
+          "key": "leg_weakness",
+          "detail": "期望 denied，系统为 present",
+          "severity": "critical"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 2,
+      "pass": false,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 2,
+      "critical_ok": 0
+    },
+    {
+      "id": "X18",
+      "family": "stress_X18",
+      "split": "stress",
+      "category": "temporal",
+      "title": "开春以后腰就开始疼，到现在快四个月了，最近还越来越重。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "mock",
+      "seconds": 0.22,
+      "verify_log": [],
+      "extraction_errors": [
+        {
+          "code": "X1_miss",
+          "key": "onset_timing",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "major"
+        },
+        {
+          "code": "X1_miss",
+          "key": "course",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "minor"
+        }
+      ],
+      "errors": [
+        {
+          "code": "E5_unnecessary_escalation",
+          "key": "rf_no_improvement",
+          "detail": "触发了不期望的红旗",
+          "severity": "major"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [
+        "rf_no_improvement"
+      ],
+      "verification_passed": true,
+      "critical_gt": 1,
+      "critical_ok": 1
+    },
+    {
+      "id": "X19",
+      "family": "stress_X19",
+      "split": "stress",
+      "category": "temporal,history",
+      "title": "老寒腰了，每年冬天都犯，这次是前天晚上睡觉着凉以后开始的。",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "mock",
+      "seconds": 0.21,
+      "verify_log": [],
+      "extraction_errors": [
+        {
+          "code": "X1_miss",
+          "key": "prior_episodes",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "minor"
+        },
+        {
+          "code": "X1_miss",
+          "key": "onset_timing",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "major"
+        }
+      ],
+      "errors": [
+        {
+          "code": "E9_minor_omission",
+          "key": "prior_episodes",
+          "detail": "期望 present，系统为 not_asked",
+          "severity": "minor"
+        }
+      ],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 1,
+      "critical_ok": 1
+    },
+    {
+      "id": "X20",
+      "family": "stress_X20",
+      "split": "stress",
+      "category": "medication,temporal",
+      "title": "腰疼一个礼拜了，能不能直接给我开点止痛药？布洛芬能不能一次吃",
+      "path": "eval/scenarios/stress/stress_v1.yaml",
+      "source": "new",
+      "questions_asked": 10,
+      "question_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "question_kinds": {
+        "red_flag_grid": 1,
+        "protocol": 9
+      },
+      "confirm_blocked": null,
+      "urgent_stop": false,
+      "provider_used": "mock",
+      "seconds": 0.29,
+      "verify_log": [],
+      "extraction_errors": [
+        {
+          "code": "X1_miss",
+          "key": "onset_timing",
+          "detail": "期望 present，没抽到（问卷可兜住）",
+          "severity": "major"
+        }
+      ],
+      "errors": [],
+      "infos": [],
+      "n_critical_errors": 0,
+      "pass": true,
+      "usage": {
+        "calls": 0,
+        "errors": 0,
+        "fallbacks": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "latencies": {
+          "extract": [],
+          "narrative": []
+        }
+      },
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 1,
+      "critical_ok": 1
+    }
+  ]
+}

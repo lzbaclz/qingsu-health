@@ -1,0 +1,18 @@
+{
+  "v": 4,
+  "createdOnFiles": {"v": 1, "at": "2026-09-24T01:00:31Z"},
+  "title": "体迹 AI · 德邻杯 BP v1",
+  "cover": "cover",
+  "order": ["cover", "problem", "product", "paths", "evidence", "competition", "compliance", "business", "team", "roadmap", "notyet"],
+  "sections": {
+    "s1": {"description": "我们做什么，门诊里的真实问题", "start": "cover"},
+    "s2": {"description": "产品怎么改变流程，以及我们如何证明", "start": "product"},
+    "s3": {"description": "竞争、边界与商业模式", "start": "competition"},
+    "s4": {"description": "团队、路线与还没做到的", "start": "team"}
+  },
+  "faces": {
+    "noto-sans-sc": {"family": "Noto Sans SC", "href": "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},
+    "noto-serif-sc": {"family": "Noto Serif SC", "href": "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&display=swap"}
+  },
+  "designSystems": []
+}

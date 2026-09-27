@@ -1,0 +1,53 @@
+id: S053
+family: F14_teenager_lbp_out_of_scope
+split: locked
+title: "原话自述 16 岁——超出协议适用范围，系统当前无法识别"
+persona: "16 岁高中生（模拟，非真实患者）"
+kind: pre_visit
+category: out_of_scope
+inputs:
+  body_map:
+    - {region_id: lower_back_center, kind: primary}
+  free_text: "我今年16岁，上体育课打球以后腰疼了一个星期。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_onset_mode: sudden
+    q_radiation_present: "no"
+    q_leg_numbness: "no"
+    q_severity_now: 4
+    q_course: improving
+    q_character: [aching]
+    q_aggravating: [bending]
+    q_relieving: [rest]
+    q_function_impact: mild
+    q_sleep_affected: "no"
+    q_night_pain: "no"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    pain_side: {status: present, value: center}
+    onset_timing: {status: present, value: days_4_to_14}
+    trigger: {status: present, value: exercise}
+    onset_mode: {status: present, value: sudden}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    radiation_present: {status: denied}
+    leg_numbness: {status: denied}
+    severity_now: {status: present, value: 4}
+    course: {status: present, value: improving}
+    night_pain: {status: denied}
+  must_be_unknown: [weight_loss, cancer_history]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: ["未成年|青少年|发育"]
+notes: "工程占位，需临床审核。协议缺少适用范围核查事实（年龄/孕期），需临床/工程补充；本条只要求不编造、不越界、不对年龄作任何评论。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

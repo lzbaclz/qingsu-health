@@ -1,0 +1,54 @@
+id: S046
+family: F12_left_lbp_radiating_farmer
+split: locked
+title: "半年老问题 vs 前天又疼得厉害——患者回答“两者都对”，本次起病时间记为不确定"
+persona: "52 岁农民（模拟，非真实患者）"
+kind: pre_visit
+category: contradiction
+inputs:
+  body_map:
+    - {region_id: lower_back_left, kind: primary}
+    - {region_id: calf_left, kind: radiation}
+  free_text: "腰左边疼了半年了。前天下地干活以后腰又疼得厉害了，串到左小腿。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_onset_timing: __unknown__
+    q_onset_mode: sudden
+    q_trigger: lifting
+    q_leg_numbness: "no"
+    q_severity_now: 7
+    q_course: worsening
+    q_character: [sharp]
+    q_aggravating: [bending]
+    q_relieving: [rest]
+    q_function_impact: moderate
+  clarifications: {onset_timing: both}
+  corrections: []
+ground_truth:
+  facts:
+    onset_timing: {status: uncertain}
+    pain_side: {status: present, value: left}
+    pain_regions: {status: present}
+    radiation_present: {status: present}
+    radiation_regions: {status: present, value: [calf_left]}
+    leg_numbness: {status: denied}
+    severity_now: {status: present, value: 7}
+    course: {status: present, value: worsening}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    onset_mode: {status: present, value: sudden}
+    trigger: {status: present, value: lifting}
+  must_be_unknown: [sleep_affected, night_pain, weight_loss, cancer_history]
+  expected_alerts: []
+  expected_conflicts: [onset_timing]
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核。慢性病史上的急性加重，协议的单一“起病时间”无法同时表达，患者选“两者都对”后应记为不确定并交医生判断。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

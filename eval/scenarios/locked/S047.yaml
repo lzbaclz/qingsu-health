@@ -1,0 +1,52 @@
+id: S047
+family: F12_left_lbp_radiating_farmer
+split: locked
+title: "身体图标了小腿放射、原话却说“腿不疼”——放射与否必须澄清，不能自动取其一"
+persona: "52 岁农民（模拟，非真实患者）"
+kind: pre_visit
+category: contradiction
+inputs:
+  body_map:
+    - {region_id: lower_back_left, kind: primary}
+    - {region_id: calf_left, kind: radiation}
+  free_text: "左边腰疼一个多月，腿不疼，就是腰疼。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_onset_mode: gradual
+    q_trigger: lifting
+    q_radiation_present: __unknown__
+    q_leg_numbness: "no"
+    q_severity_now: 5
+    q_course: stable
+    q_character: [aching]
+    q_aggravating: [bending]
+    q_relieving: [rest]
+    q_function_impact: mild
+    q_sleep_affected: "no"
+  clarifications: {radiation_present: unknown}
+  corrections: []
+ground_truth:
+  facts:
+    radiation_present: {status: uncertain}
+    pain_side: {status: present, value: left}
+    pain_regions: {status: present, value: [lower_back_left]}
+    onset_timing: {status: present, value: weeks_2_to_6}
+    leg_numbness: {status: denied}
+    severity_now: {status: present, value: 5}
+    course: {status: present, value: stable}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+  must_be_unknown: []
+  expected_alerts: []
+  expected_conflicts: [radiation_present]
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

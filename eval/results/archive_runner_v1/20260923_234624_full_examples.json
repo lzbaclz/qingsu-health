@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "arm": "full",
+    "split": "examples",
+    "provider": "mock",
+    "at": "2026-09-23 23:46:24",
+    "seconds": 0.9,
+    "crashed": []
+  },
+  "aggregate": {
+    "n_scenarios": 4,
+    "n_families": 4,
+    "scenario_pass_rate": 1.0,
+    "family_pass_rate": 1.0,
+    "critical_fact_completeness": 1.0,
+    "verification_pass_rate": 1.0,
+    "mean_questions_asked": 15.0,
+    "errors_by_code": {}
+  },
+  "results": [
+    {
+      "id": "EX01",
+      "family": "FX01_left_lbp_after_lifting",
+      "split": "examples",
+      "category": "normal",
+      "title": "搬重物后左腰酸痛，无红旗（格式示例）",
+      "path": "eval/scenarios/examples/EX01_normal.yaml",
+      "questions_asked": 16,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 10,
+      "critical_ok": 10,
+      "errors": [],
+      "n_critical_errors": 0,
+      "pass": true
+    },
+    {
+      "id": "EX02",
+      "family": "FX02_side_conflict",
+      "split": "examples",
+      "category": "contradiction",
+      "title": "身体图标左侧、文字说右侧 → 必须澄清，不能自动取其一",
+      "path": "eval/scenarios/examples/EX02_conflict.yaml",
+      "questions_asked": 16,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 3,
+      "critical_ok": 3,
+      "errors": [],
+      "n_critical_errors": 0,
+      "pass": true
+    },
+    {
+      "id": "EX03",
+      "family": "FX03_bladder_red_flag",
+      "split": "examples",
+      "category": "red_flag",
+      "title": "文字提到憋不住尿 → 必须立即提示并生成紧急任务",
+      "path": "eval/scenarios/examples/EX03_red_flag.yaml",
+      "questions_asked": 16,
+      "confirm_blocked": null,
+      "alerts": [
+        "rf_bladder_bowel"
+      ],
+      "verification_passed": true,
+      "critical_gt": 4,
+      "critical_ok": 4,
+      "errors": [],
+      "n_critical_errors": 0,
+      "pass": true
+    },
+    {
+      "id": "EX04",
+      "family": "FX04_followup_worse_new_symptom",
+      "split": "examples",
+      "category": "follow_up",
+      "title": "随访：加重 + 新出现腿麻 + 不清楚医嘱",
+      "path": "eval/scenarios/examples/EX04_followup.yaml",
+      "questions_asked": 12,
+      "confirm_blocked": null,
+      "alerts": [],
+      "verification_passed": true,
+      "critical_gt": 4,
+      "critical_ok": 4,
+      "errors": [],
+      "n_critical_errors": 0,
+      "pass": true
+    }
+  ]
+}

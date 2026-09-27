@@ -1,0 +1,36 @@
+id: S031
+family: F08_recurrent_lbp_new_numbness
+split: dev
+title: "只写“老毛病了，腿麻”，其余不清楚"
+persona: "45 岁中学教师（模拟，非真实患者）"
+kind: pre_visit
+category: missing_info
+inputs:
+  body_map:
+    - {region_id: lower_back_left, kind: primary}
+  free_text: "老毛病了，腿麻。"
+  answers:
+    q_bladder_bowel: "no"
+    q_severity_now: 5
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    leg_numbness: {status: present}
+    prior_episodes: {status: present}
+    bladder_bowel_change: {status: denied}
+    severity_now: {status: present, value: 5}
+    pain_side: {status: present, value: left}
+    saddle_numbness: {status: unknown}
+    leg_weakness: {status: unknown}
+    fever: {status: unknown}
+    trauma_recent: {status: unknown}
+    onset_timing: {status: unknown}
+    radiation_present: {status: unknown}
+  must_be_unknown: [onset_mode, trigger, course, weight_loss, cancer_history, night_pain]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核。“老毛病了”单独成句时没有提到腰痛，起病时间应保持未知而不是推成“超过 3 个月”。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

@@ -1,0 +1,70 @@
+id: S039
+family: F10_followup_left_lbp_radiating
+split: dev
+title: "随访：好像好一点，但“左腿好像有点发软，不太确定”——无力不确定须人工复核"
+persona: "50 岁厨师（模拟，非真实患者）"
+kind: follow_up
+category: hedged
+inputs:
+  body_map:
+    - {region_id: lower_back_left, kind: primary}
+    - {region_id: thigh_left_back, kind: radiation}
+  free_text: "好像好一点，但是左腿好像有点发软，不太确定。"
+  answers:
+    q_fu_overall: better
+    q_fu_severity: 4
+    q_fu_new: __unknown__
+    q_fu_bladder: "no"
+    q_fu_saddle: "no"
+    q_fu_weakness: __unknown__
+    q_fu_numbness: "no"
+    q_fu_radiation: "yes"
+    q_fu_course: improving
+    q_fu_function: mild
+    q_fu_sleep: "no"
+    q_fu_understood: "yes"
+    q_fu_adherence: partial
+  clarifications: {}
+  corrections: []
+parent:
+  inputs:
+    body_map:
+      - {region_id: lower_back_left, kind: primary}
+      - {region_id: thigh_left_back, kind: radiation}
+    free_text: "左边腰疼一个月了，串到左大腿后面，站久了更厉害。"
+    answers:
+      q_bladder_bowel: "no"
+      q_saddle: "no"
+      q_leg_weakness: "no"
+      q_fever: "no"
+      q_trauma: "no"
+      q_onset_mode: gradual
+      q_trigger: prolonged_sitting
+      q_leg_numbness: "no"
+      q_severity_now: 6
+      q_course: stable
+      q_character: [aching]
+      q_relieving: [rest]
+      q_function_impact: moderate
+      q_sleep_affected: "no"
+    clarifications: {}
+    corrections: []
+  plan_message: "（医生撰写）请一周后更新情况；如出现大小便控制变化、会阴发麻或腿无力加重，请立即联系门诊。"
+ground_truth:
+  facts:
+    leg_weakness: {status: uncertain}
+    fu_change_overall: {status: present, value: better}
+    severity_now: {status: present, value: 4}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_numbness: {status: denied}
+    radiation_present: {status: present}
+    fu_new_symptom: {status: unknown}
+    pain_side: {status: present, value: left}
+  must_be_unknown: []
+  expected_alerts: [rf_uncertain_red_flag]
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

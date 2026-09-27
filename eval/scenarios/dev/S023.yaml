@@ -1,0 +1,48 @@
+id: S023
+family: F06_fall_from_ladder_trauma
+split: dev
+title: "上周摔下来后腰痛 7 分，这两天又发烧——外伤与发热两条红旗都要触发"
+persona: "47 岁装修工人（模拟，非真实患者）"
+kind: pre_visit
+category: red_flag
+inputs:
+  body_map:
+    - {region_id: lower_back_right, kind: primary}
+  free_text: "上周从梯子上摔了下来，腰一直疼，这两天还发烧了，疼得 7 分。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_onset_timing: days_4_to_14
+    q_onset_mode: sudden
+    q_radiation_present: "no"
+    q_leg_numbness: "no"
+    q_course: worsening
+    q_character: [sharp, dull]
+    q_aggravating: [bending, night]
+    q_relieving: [none]
+    q_function_impact: moderate
+    q_sleep_affected: "yes"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    trauma_recent: {status: present}
+    fever: {status: present}
+    severity_now: {status: present, value: 7}
+    onset_timing: {status: present, value: days_4_to_14}
+    trigger: {status: present, value: fall_or_trauma}
+    pain_side: {status: present, value: right}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    radiation_present: {status: denied}
+    leg_numbness: {status: denied}
+    course: {status: present, value: worsening}
+  must_be_unknown: []
+  expected_alerts: [rf_fever, rf_trauma_severe]
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

@@ -1,0 +1,34 @@
+{
+  "at": "2026-09-27T11:22:45.273498+00:00",
+  "resume_attempt": 1,
+  "synthetic_only": true,
+  "model_result": {
+    "items": [
+      {
+        "point_id": "p1",
+        "verdict": "consistent",
+        "plan_quote": "请一周后在这里更新情况。",
+        "response_quote": "",
+        "issue": "none"
+      }
+    ]
+  },
+  "result": {
+    "source": "manual_required",
+    "provider": "ollama:qwen3:4b",
+    "items": [
+      {
+        "point_id": "p1",
+        "point_text": "请一周后在这里更新情况。",
+        "plan_quote": "请一周后在这里更新情况。",
+        "response_quote": "",
+        "verdict": "unclear",
+        "label": "无法核实",
+        "issue": "ambiguous"
+      }
+    ],
+    "error": "ValueError",
+    "requires_human_review": true,
+    "note": "只比较表达；不证明实际理解、执行或疗效"
+  }
+}

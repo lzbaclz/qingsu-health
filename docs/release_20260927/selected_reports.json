@@ -1,0 +1,10 @@
+{
+  "selected_by": "latest_complete_per_configuration_in_v031_directory_not_best_score",
+  "reports": [
+    "v031_eval/20260927_113529_context_ollama_gpt-oss-20b.json",
+    "final/eval/20260927_122250_context_mock.json",
+    "final/eval/20260927_131938_full_stress_lbp_adult_v0.2_mock_careless.json",
+    "final/eval/20260927_131944_form_only_dev_lbp_adult_v0.2_mock_truthful.json",
+    "final/eval/20260927_131946_full_dev_lbp_adult_v0.2_mock_truthful.json"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "checks": {
+    "app_versions_match": true,
+    "protocol_final_draft": true,
+    "baseline_questions_loaded": true,
+    "new_symptom_text_enabled": true,
+    "innovations_enabled": true,
+    "tests_218_pass": true,
+    "protocol_reproduced": true,
+    "current_flows_6_pass": true,
+    "native_new_input_evidence": true,
+    "native_source_all_63_match": true,
+    "shared_inference_inputs_identical": true,
+    "founders_and_pending_status_in_bp": true,
+    "stable_run_20260927_131946_full_dev_lbp_adult_v0.2_mock_truthful.json": true,
+    "stable_run_20260927_131944_form_only_dev_lbp_adult_v0.2_mock_truthful.json": true,
+    "stable_run_20260927_122250_context_mock.json": true,
+    "stable_run_20260927_131938_full_stress_lbp_adult_v0.2_mock_careless.json": true,
+    "stable_run_20260927_113529_context_mock.json": true,
+    "stable_run_20260927_113529_context_ollama_gpt-oss-20b.json": true,
+    "stable_run_20260927_123605_full_stress_lbp_adult_v0.2_mock_careless.json": true,
+    "stable_run_20260927_123545_form_only_dev_lbp_adult_v0.2_mock_truthful.json": true,
+    "stable_run_20260927_123549_full_dev_lbp_adult_v0.2_mock_truthful.json": true,
+    "package_matches_current_files": true
+  },
+  "all_engineering_checks_pass": true,
+  "scope": "engineering changes, reproducible evidence and accurate application materials; clinical approval, field trial and residency commitments are separately pending as stated by the user",
+  "changed_after_package": []
+}

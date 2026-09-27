@@ -1,0 +1,23 @@
+id: K05
+family: K05_locking
+split: knee
+protocol_id: knee_adult_v0.1
+title: 半年反复卡住伸不直、打软腿 → 医生当日复核
+persona: 38 岁快递员（模拟）
+kind: pre_visit
+category: red_flag
+inputs:
+  body_map: [{region_id: knee_right_front, kind: primary}]
+  free_text: "右膝盖半年了，最近走着走着会突然卡住伸不直，要晃一晃才能伸开，有时候打软。"
+  answers: {k_redness: "no", k_fever: "no", k_calf: "no", k_neuro: "no", k_trauma: "no", k_weight: normal, k_swelling: "no", k_severity: 5, k_course: worsening, k_function: moderate}
+ground_truth:
+  facts:
+    locking: {status: present}
+    giving_way: {status: present}
+    onset_timing: {status: present, value: over_12_weeks}
+    trauma_recent: {status: denied}
+    weight_bearing: {status: present, value: normal}
+    severity_now: {status: present, value: 5}
+  expected_alerts: [kf_locked]
+notes: "待临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

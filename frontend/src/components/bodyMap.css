@@ -1,0 +1,179 @@
+/* ------------------------------------------------------------------
+   身体地图 · 疼痛轨迹（BodyMap.tsx 自带样式）
+   颜色分工：红橙 = 主要疼痛，琥珀 #F0A030 = 放射与轨迹，迹蓝 = 可点击的描边。
+   外框、工具栏、分段按钮沿用 index.css 的 .bm-map / .bm-toolbar / .seg。
+   ------------------------------------------------------------------ */
+.bm-wrap {
+  --bm-ink: #16233b;
+  --bm-skin-edge: #a3afc0;
+  --bm-detail: #c6cfdb;
+  --bm-pain: #e0452f;
+  --bm-pain-core: #c8372a;
+  --bm-amber: #f0a030;
+  --bm-amber-dark: #c77d12;
+  --bm-link: #1d5fa5;
+}
+
+/* 可见人体 */
+.bm-wrap .bm-skin {
+  stroke: var(--bm-skin-edge);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.bm-detail path,
+.bm-detail circle {
+  fill: none;
+  stroke: var(--bm-detail);
+  stroke-width: 1;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+.bm-detail .bm-detail-dashed {
+  stroke-dasharray: 3 4;
+}
+.bm-detail .bm-detail-dot {
+  fill: var(--bm-detail);
+  stroke: none;
+}
+
+/* 光晕与轨迹：只看不点 */
+.bm-glows,
+.bm-traj {
+  pointer-events: none;
+}
+.bm-traj path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.bm-traj-casing {
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 6;
+}
+.bm-traj-line {
+  stroke: var(--bm-amber);
+  stroke-width: 3;
+}
+.bm-traj-flow {
+  stroke: rgba(255, 255, 255, 0.92);
+  stroke-width: 1.6;
+  stroke-dasharray: 1 11;
+  animation: bm-flow 1.2s linear infinite;
+}
+@keyframes bm-flow {
+  from {
+    stroke-dashoffset: 12;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.bm-traj-node {
+  fill: var(--bm-amber);
+  stroke: #fff;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+.bm-traj-start {
+  fill: var(--bm-pain-core);
+  stroke: #fff;
+  stroke-width: 1.8;
+  vector-effect: non-scaling-stroke;
+}
+
+/* 热区：透明，只在悬停或键盘聚焦时描边 */
+.bm-hit > * {
+  fill: transparent;
+  stroke: transparent;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+  pointer-events: all;
+  transition:
+    stroke 0.12s,
+    fill 0.12s;
+}
+.bm-map.interactive .bm-hit {
+  cursor: pointer;
+}
+.bm-hit:hover > * {
+  stroke: rgba(22, 35, 59, 0.35);
+  stroke-dasharray: 3 3;
+}
+.bm-map.interactive .bm-hit:hover > * {
+  stroke: rgba(29, 95, 165, 0.65);
+  stroke-dasharray: none;
+  fill: rgba(29, 95, 165, 0.06);
+}
+.bm-map.interactive.mode-primary .bm-hit:hover > * {
+  stroke: rgba(200, 55, 42, 0.75);
+  fill: rgba(224, 69, 47, 0.08);
+}
+.bm-map.interactive.mode-radiation .bm-hit:hover > * {
+  stroke: rgba(199, 125, 18, 0.85);
+  fill: rgba(240, 160, 48, 0.1);
+}
+.bm-hit:focus {
+  outline: none;
+}
+.bm-hit:focus-visible > * {
+  stroke: var(--bm-link);
+  stroke-width: 2.2;
+  stroke-dasharray: none;
+}
+
+/* 图例：光晕圆点 + 轨迹短线（患者端"标记类型"按钮里的色块也一起换成光晕） */
+i.bm-swatch.primary,
+i.bm-swatch.radiation {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+i.bm-swatch.primary {
+  background: radial-gradient(circle, #d9392a 0 28%, rgba(236, 96, 57, 0.72) 50%, rgba(245, 137, 75, 0) 72%);
+}
+i.bm-swatch.radiation {
+  background: radial-gradient(circle, #f0a030 0 28%, rgba(243, 176, 74, 0.68) 50%, rgba(246, 196, 110, 0) 72%);
+}
+.bm-swatch-trace {
+  display: inline-block;
+  width: 18px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--bm-amber);
+}
+
+/* 缩略图：约 48×100，列表里用 */
+.bm-wrap.bm-thumb {
+  display: inline-flex;
+  width: 48px;
+  gap: 0;
+  flex: none;
+}
+.bm-wrap.bm-thumb .bm-map {
+  width: 48px;
+  height: 100px;
+  max-height: none;
+  border-radius: 8px;
+}
+.bm-thumb .bm-skin {
+  stroke-width: 0.8;
+}
+.bm-thumb .bm-traj-casing {
+  stroke-width: 3;
+}
+.bm-thumb .bm-traj-line {
+  stroke-width: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bm-traj-flow {
+    animation: none;
+    display: none;
+  }
+  .bm-hit > * {
+    transition: none;
+  }
+}

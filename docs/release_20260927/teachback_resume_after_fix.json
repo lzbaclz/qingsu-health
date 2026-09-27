@@ -1,0 +1,24 @@
+{
+  "at": "2026-09-27T11:24:43.227546+00:00",
+  "resume_attempt": 2,
+  "synthetic_only": true,
+  "result": {
+    "source": "model",
+    "provider": "ollama:qwen3:4b",
+    "items": [
+      {
+        "point_id": "p1",
+        "verdict": "consistent",
+        "plan_quote": "请一周后在这里更新情况。",
+        "response_quote": "我会在七天后在这里说说近况。",
+        "issue": "none",
+        "label": "可能一致，待人工核实",
+        "point_text": "请一周后在这里更新情况。"
+      }
+    ],
+    "error": null,
+    "diagnostic_code": null,
+    "requires_human_review": true,
+    "note": "只比较表达；不证明实际理解、执行或疗效"
+  }
+}

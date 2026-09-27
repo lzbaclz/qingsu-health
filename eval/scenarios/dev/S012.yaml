@@ -1,0 +1,63 @@
+id: S012
+family: F03_central_lbp_medication_request
+split: dev
+title: "腰部正中痛两个月，慢性、无诱因、无放射、无红旗"
+persona: "40 岁快递员（模拟，非真实患者）"
+kind: pre_visit
+category: normal
+inputs:
+  body_map:
+    - {region_id: lower_back_center, kind: primary}
+  free_text: "腰中间疼两个月了，慢慢出现的，没什么原因，坐久了更明显，站起来走走会舒服点，腿不麻，没串到腿上。"
+  answers:
+    q_bladder_bowel: "no"
+    q_saddle: "no"
+    q_leg_weakness: "no"
+    q_fever: "no"
+    q_trauma: "no"
+    q_severity_now: 4
+    q_course: stable
+    q_character: [dull, aching]
+    q_function_impact: mild
+    q_sleep_affected: "no"
+    q_night_pain: "no"
+    q_weight_loss: "no"
+    q_cancer_history: "no"
+    q_prior_episodes: "no"
+    q_current_medication: "止痛药，疼得厉害时吃一片"
+    q_patient_concern: __skip__
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    pain_side: {status: present, value: center}
+    pain_regions: {status: present, value: [lower_back_center]}
+    onset_timing: {status: present, value: weeks_6_to_12}
+    onset_mode: {status: present, value: gradual}
+    trigger: {status: present, value: none_known}
+    aggravating: {status: present, value: [sitting]}
+    relieving: {status: present, value: [activity]}
+    leg_numbness: {status: denied}
+    radiation_present: {status: denied}
+    bladder_bowel_change: {status: denied}
+    saddle_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    severity_now: {status: present, value: 4}
+    course: {status: present, value: stable}
+    character: {status: present, value: [aching, dull]}
+    function_impact: {status: present, value: mild}
+    sleep_affected: {status: denied}
+    night_pain: {status: denied}
+    weight_loss: {status: denied}
+    cancer_history: {status: denied}
+    prior_episodes: {status: denied}
+    current_medication: {status: present, value: "止痛药，疼得厉害时吃一片"}
+  must_be_unknown: [patient_concern]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

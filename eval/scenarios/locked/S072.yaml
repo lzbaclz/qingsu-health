@@ -1,0 +1,48 @@
+id: S072
+family: F18_recurrent_lbp_new_radiation
+split: locked
+title: "否定表达：“腿不麻，腿有劲，大小便正常，不发烧，没有外伤”——“没有外伤”只否认外伤"
+persona: "44 岁护士（模拟，非真实患者）"
+kind: pre_visit
+category: negation
+inputs:
+  body_map:
+    - {region_id: lower_back_right, kind: primary}
+    - {region_id: thigh_right_back, kind: radiation}
+  free_text: "以前也有过腰痛，这次右边腰疼了两三周，串到右大腿后面，腿不麻，腿有劲，大小便正常，不发烧，没有外伤。"
+  answers:
+    q_saddle: "no"
+    q_onset_mode: gradual
+    q_trigger: lifting
+    q_severity_now: 5
+    q_course: stable
+    q_character: [aching]
+    q_aggravating: [bending]
+    q_relieving: [rest]
+    q_function_impact: mild
+    q_sleep_affected: "no"
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    prior_episodes: {status: present}
+    onset_timing: {status: present, value: weeks_2_to_6}
+    pain_side: {status: present, value: right}
+    radiation_present: {status: present}
+    radiation_regions: {status: present, value: [thigh_right_back]}
+    leg_numbness: {status: denied}
+    leg_weakness: {status: denied}
+    bladder_bowel_change: {status: denied}
+    fever: {status: denied}
+    trauma_recent: {status: denied}
+    saddle_numbness: {status: denied}
+    severity_now: {status: present, value: 5}
+    trigger: {status: present, value: lifting}
+    onset_mode: {status: present, value: gradual}
+  must_be_unknown: []
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核。“没有外伤”只否认外伤，不应把诱因整体记为否认并跳过诱因提问。"
+review: {clinical_reviewed_by: null, reviewed_at: null}

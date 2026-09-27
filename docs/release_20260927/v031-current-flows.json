@@ -1,0 +1,965 @@
+{
+  "at_utc": "2026-09-27T12:14:02.652692+00:00",
+  "scope": "当前协议流程和数值完整性，未评估临床阈值有效性、语义模型准确率或界面文字",
+  "planned_n": 6,
+  "completed_n": 6,
+  "passed": 6,
+  "provenance_start": {
+    "files": {
+      "backend/app/__init__.py": "1b8c4bbb75491ef4b7304df852e407a098f85f8f7dae39a0d29ba9079f39fe8b",
+      "backend/app/api/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/app/api/auth.py": "1138bc6ea2d8e10815ae000b3b8862c0354ac909d08203e29169fd05569fe054",
+      "backend/app/api/dev.py": "6dae791a925de55e6422b8c5143cd8f0f50e1b28696485a1e22554b193ea3cd8",
+      "backend/app/api/doctor.py": "7493e752a75ac100da5576faf203cfa36ae28bb6d15d6c75aeab25c3c583206a",
+      "backend/app/api/patient.py": "7fefd0d6c3e790418703f3bc07ce8a771861b21587e061ee40828c521cc09247",
+      "backend/app/api/protocols.py": "bc4b5b0aa333622fdeb4a48f6cc37485135832e5cc8e3265e995bfc7482047aa",
+      "backend/app/api/schemas.py": "03f2b0579de8169e818f66a5c87048606c6bdb315a56a54a6d9bfe94d0eb2f54",
+      "backend/app/bootstrap_access.py": "ea4685324f2ff154fc40ad0ef985c9a1eeeb0d5030cb385bf0036f187ab1b81b",
+      "backend/app/config.py": "2c96202a0a74f07ad5339e1260ddbbe396c8bec61742476fd52e9b52d74d2077",
+      "backend/app/course/__init__.py": "b4c35f983b8907b2094f538c376416b80370697073f386cac5ff30a32505e7a3",
+      "backend/app/course/goals.py": "c484ebd3928ebb2918773b8bcf896b8e144aef1c0a02870fd72b2e99b08e5667",
+      "backend/app/course/hours.py": "51269138a9799b0c0ea64f0c01a53b1cfda4deba2710782f3c886b2ee4819c39",
+      "backend/app/course/tasks.py": "62a1e295dfdb30f5259fb19504b5d3a7e2a83d7378c08942d652bf2d4d0180d0",
+      "backend/app/course/teachback.py": "dd23c9cdcc49edd173448b1ea77733471d7c42cc508f81c2e990ea1145cfbb8d",
+      "backend/app/course/trajectory.py": "e3a9b539a4dd3c976e40cec45c09e11a01f8a1a6121b77ed45a522d528f4f271",
+      "backend/app/course/worker.py": "742fdd5b5393beae35834f7a7f62649f297c1b67a56c922434ed2ae9fbd51fa2",
+      "backend/app/data_admin.py": "04f3f6b0af2b1e5353604df556dceb937b9b9df25154141d5f08d1ab6a32b325",
+      "backend/app/db.py": "25b55314953d951968ffc9b64e58713d8be5755455f6fe90b6484a366f59e0c5",
+      "backend/app/demo.py": "d19964699cc08e6197cd8e3bacf5a40e6ee00b2e98aeb25fde5a4c8302248748",
+      "backend/app/events/__init__.py": "e2243ede89dcf086cd612df295f558c2e0c504dbdef8d70ca8455462b41dc36b",
+      "backend/app/events/service.py": "7994e9cc9258675bcf882cd4cf9c1ec777b1542e5b7fd604f590412a4d2c5bf0",
+      "backend/app/extraction/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/app/extraction/service.py": "7d09739c8e3302772b9812e91e5658a3ce5d414023e7174e44f9204dbfa5699c",
+      "backend/app/facts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/app/facts/store.py": "4cb9b1c72d49c6961be51b26203c5687b3f2854e1c354ced3618d0c90aa1edbc",
+      "backend/app/llm/__init__.py": "aa4a6d6a68b7b09b87167556f4825347fafb26f32aeb138e844528e52c1b9b40",
+      "backend/app/llm/check.py": "0088d2b14f0e7d261d3e25ab13fd28ce44c340c4be07fc55a598a91b00105e5f",
+      "backend/app/llm/provider.py": "6869003ba3ee678eb810d7d4d08e98c0f1a53affcb9aad6f43d3bb8724be9c96",
+      "backend/app/main.py": "69c01ec368e4f94ce0d6091a8c8cfff93999fc80b40b5e6236a81a59250fabf7",
+      "backend/app/models.py": "32d1c96f23d91250df551258824eb0bab360dd5a4964c578c065509458963fce",
+      "backend/app/protocol/__init__.py": "a7fc105eeaf981e348b737d09ecce639f2b7ec109f42caf141f01221f7f39b06",
+      "backend/app/protocol/expr.py": "1f27d23404296404cf02b8c28a1350d6f02f13a3807d01de5f75f96f78670e42",
+      "backend/app/protocol/loader.py": "aeecfeaa0cc01ada3e56c849a0fdf860e2322f96732d7180a5cb5a7660fce653",
+      "backend/app/protocol/preview.py": "8ea1dc65e793a99d38453209d02f585c91fb386de4603ab39f8f68c2fbd36c61",
+      "backend/app/protocol/schema.py": "9e7c6df5fc8a37834c0b8366c3a7352cfac3dd986994d6ab4bc12120a691e556",
+      "backend/app/protocol/triage.py": "93f9e47c70e7671e42a151cd59dae334404ac76533fe66ff4e3934fd6812902d",
+      "backend/app/qr.py": "e6e5fbb5e8964825c4553871a4e4822331ddbfeb9ad5c65c0d099caf90738238",
+      "backend/app/questioning/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/app/questioning/engine.py": "e697d9ccd86c7c0733f509635ee2fddda9dea00c99de35c1052517355a840ea8",
+      "backend/app/security.py": "fbed59fdb84f6f73c676af1291c413530856d05f0084b25e592a76a501335725",
+      "backend/app/seed.py": "0eb826f86ac072408dea91ab3f937aaff852c37349bf06a8ce79ac032276fbe5",
+      "backend/app/services/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/app/services/encounter.py": "27ca73c811656d8da2a4b30ec026ab527ab048ca72b33f18d35af55d05f43083",
+      "backend/app/summary/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/app/summary/brief.py": "869a63fae07dc8319a92eb9a8fe53a4d57c2a9aa5076cae889bdb3691ebda44d",
+      "backend/app/summary/build.py": "5503c7730f48890f3a9b617548d4d85ee50f015d94eca9e7c1f554735fbd763f",
+      "backend/app/tasks/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/app/tasks/service.py": "dd1b3fb815d77aea81ec718b1a07ab972893d008bcde0aeaa69176b5d78df711",
+      "backend/app/usertest/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/app/usertest/plant.py": "32e7b98b367a60e167948ab7886ea0241af2c8be3ccd5d3807cd11b15a151f13",
+      "backend/app/util.py": "77671253ec4d6f44db7c4b40ffb20ba469a7d51e4be069220ad4782511edca93",
+      "backend/app/verification/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/app/verification/checks.py": "63205084859f2ec93377acf50e3097d746c962991f4dbd13c42d00158fd11278",
+      "backend/app/verification/rewrite_guard.py": "e3da9944025783e79876a7f87d18fe76cdb9a1fe277c1ba7887f8f887b2e53e2",
+      "backend/app/verification/scope.py": "dad9b9bb6e579e895ca86b6df7d7a0aaa3dc7c2b36a014cdaf41509ed9a4985a",
+      "backend/pyproject.toml": "b23a48e28b5cfaf9d0d1804b53de7e3c5532c0db6dae9a00948f9ba5bb256633",
+      "docs/release_20260927/check_current_flows.py": "5c1c422afaa5af9284af4ac488a96a18eda734f8fd332a4866d5fe3922cbc7f6",
+      "eval/context_benchmark.py": "72b4275bc2f7aa8700ebda151f1f23da0dc6ea38f637d7534260e2e893a41455",
+      "eval/evidence_table.py": "d6d1d9f7be2edba40963eca3cf278072c792799b6ffbf3ca82b49e5085608938",
+      "eval/provenance.py": "6b02dbd4947b243e67dffe95849ab704ab32561f36d851fe9b7f11211f043b42",
+      "eval/runner.py": "c938d4456872ccdcf8e001de85d02c00e6621a8415a5c345b25fa987955ef4ea",
+      "protocols/lbp_adult_v0.2.yaml": "2c25dccf25405c34c6b3f789f50fbd03b635f3718a6f87aa1bd2dfab4c19707a"
+    },
+    "manifest_sha256": "db0abd1c5f5b7e00ac5ef3a3d79b559397d42c0e889b2149fff5a17e94e4e3f7",
+    "python": "3.13.9",
+    "platform": "macOS-15.7.8-arm64-arm-64bit-Mach-O",
+    "synthetic_only": true
+  },
+  "source_unchanged": true,
+  "results": [
+    {
+      "case": {
+        "id": "FLOW01",
+        "base": 6,
+        "current": 4,
+        "expected": "improved_meaningful",
+        "urgent": false
+      },
+      "actual": {
+        "baseline": 6.0,
+        "current": 4.0,
+        "verdict": "improved_meaningful",
+        "baseline_substitute": null,
+        "urgent_stop": false,
+        "recovery_review": false,
+        "baseline_questions_present": true
+      },
+      "pass": true,
+      "initial_questions": [
+        {
+          "id": "grid:pre_visit:1",
+          "kind": "red_flag_grid",
+          "keys": [
+            "bladder_bowel_change",
+            "saddle_numbness",
+            "bilateral_leg_symptoms",
+            "leg_weakness",
+            "fever",
+            "trauma_recent",
+            "cancer_history",
+            "weight_loss"
+          ]
+        },
+        {
+          "id": "q_age_band",
+          "kind": "protocol",
+          "keys": [
+            "age_band"
+          ]
+        },
+        {
+          "id": "q_pv_pain_avg_7d",
+          "kind": "protocol",
+          "keys": [
+            "pain_avg_7d"
+          ]
+        },
+        {
+          "id": "q_pv_interference_7d",
+          "kind": "protocol",
+          "keys": [
+            "interference_7d"
+          ]
+        },
+        {
+          "id": "q_onset_timing",
+          "kind": "protocol",
+          "keys": [
+            "onset_timing"
+          ]
+        },
+        {
+          "id": "q_radiation_present",
+          "kind": "protocol",
+          "keys": [
+            "radiation_present"
+          ]
+        },
+        {
+          "id": "q_leg_numbness",
+          "kind": "protocol",
+          "keys": [
+            "leg_numbness"
+          ]
+        },
+        {
+          "id": "q_severity_now",
+          "kind": "protocol",
+          "keys": [
+            "severity_now"
+          ]
+        },
+        {
+          "id": "q_course",
+          "kind": "protocol",
+          "keys": [
+            "course"
+          ]
+        },
+        {
+          "id": "q_rest_night",
+          "kind": "protocol",
+          "keys": [
+            "rest_or_night_worst"
+          ]
+        }
+      ],
+      "followup_questions": [
+        {
+          "id": "grid:follow_up:1",
+          "kind": "red_flag_grid",
+          "keys": [
+            "bladder_bowel_change",
+            "saddle_numbness",
+            "leg_weakness",
+            "bilateral_leg_symptoms",
+            "fever",
+            "trauma_recent"
+          ]
+        },
+        {
+          "id": "q_ci_pgic",
+          "kind": "protocol",
+          "keys": [
+            "pgic"
+          ]
+        },
+        {
+          "id": "q_ci_pain_avg_7d",
+          "kind": "protocol",
+          "keys": [
+            "pain_avg_7d"
+          ]
+        },
+        {
+          "id": "q_ci_interference_7d",
+          "kind": "protocol",
+          "keys": [
+            "interference_7d"
+          ]
+        },
+        {
+          "id": "q_fu_new",
+          "kind": "protocol",
+          "keys": [
+            "fu_new_symptom"
+          ]
+        }
+      ],
+      "initial_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "followup_metrics": {
+        "screens_shown": 5,
+        "items_shown": 10,
+        "items_answered": 10,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      }
+    },
+    {
+      "case": {
+        "id": "FLOW02",
+        "base": 6,
+        "current": 8,
+        "expected": "worse_meaningful",
+        "urgent": false
+      },
+      "actual": {
+        "baseline": 6.0,
+        "current": 8.0,
+        "verdict": "worse_meaningful",
+        "baseline_substitute": null,
+        "urgent_stop": false,
+        "recovery_review": true,
+        "baseline_questions_present": true
+      },
+      "pass": true,
+      "initial_questions": [
+        {
+          "id": "grid:pre_visit:1",
+          "kind": "red_flag_grid",
+          "keys": [
+            "bladder_bowel_change",
+            "saddle_numbness",
+            "bilateral_leg_symptoms",
+            "leg_weakness",
+            "fever",
+            "trauma_recent",
+            "cancer_history",
+            "weight_loss"
+          ]
+        },
+        {
+          "id": "q_age_band",
+          "kind": "protocol",
+          "keys": [
+            "age_band"
+          ]
+        },
+        {
+          "id": "q_pv_pain_avg_7d",
+          "kind": "protocol",
+          "keys": [
+            "pain_avg_7d"
+          ]
+        },
+        {
+          "id": "q_pv_interference_7d",
+          "kind": "protocol",
+          "keys": [
+            "interference_7d"
+          ]
+        },
+        {
+          "id": "q_onset_timing",
+          "kind": "protocol",
+          "keys": [
+            "onset_timing"
+          ]
+        },
+        {
+          "id": "q_radiation_present",
+          "kind": "protocol",
+          "keys": [
+            "radiation_present"
+          ]
+        },
+        {
+          "id": "q_leg_numbness",
+          "kind": "protocol",
+          "keys": [
+            "leg_numbness"
+          ]
+        },
+        {
+          "id": "q_severity_now",
+          "kind": "protocol",
+          "keys": [
+            "severity_now"
+          ]
+        },
+        {
+          "id": "q_course",
+          "kind": "protocol",
+          "keys": [
+            "course"
+          ]
+        },
+        {
+          "id": "q_rest_night",
+          "kind": "protocol",
+          "keys": [
+            "rest_or_night_worst"
+          ]
+        }
+      ],
+      "followup_questions": [
+        {
+          "id": "grid:follow_up:1",
+          "kind": "red_flag_grid",
+          "keys": [
+            "bladder_bowel_change",
+            "saddle_numbness",
+            "leg_weakness",
+            "bilateral_leg_symptoms",
+            "fever",
+            "trauma_recent"
+          ]
+        },
+        {
+          "id": "q_ci_pgic",
+          "kind": "protocol",
+          "keys": [
+            "pgic"
+          ]
+        },
+        {
+          "id": "q_ci_pain_avg_7d",
+          "kind": "protocol",
+          "keys": [
+            "pain_avg_7d"
+          ]
+        },
+        {
+          "id": "q_ci_interference_7d",
+          "kind": "protocol",
+          "keys": [
+            "interference_7d"
+          ]
+        },
+        {
+          "id": "q_fu_new",
+          "kind": "protocol",
+          "keys": [
+            "fu_new_symptom"
+          ]
+        }
+      ],
+      "initial_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "followup_metrics": {
+        "screens_shown": 5,
+        "items_shown": 10,
+        "items_answered": 10,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      }
+    },
+    {
+      "case": {
+        "id": "FLOW03",
+        "base": null,
+        "current": 4,
+        "expected": "insufficient",
+        "urgent": false
+      },
+      "actual": {
+        "baseline": null,
+        "current": 4.0,
+        "verdict": "insufficient",
+        "baseline_substitute": null,
+        "urgent_stop": false,
+        "recovery_review": false,
+        "baseline_questions_present": true
+      },
+      "pass": true,
+      "initial_questions": [
+        {
+          "id": "grid:pre_visit:1",
+          "kind": "red_flag_grid",
+          "keys": [
+            "bladder_bowel_change",
+            "saddle_numbness",
+            "bilateral_leg_symptoms",
+            "leg_weakness",
+            "fever",
+            "trauma_recent",
+            "cancer_history",
+            "weight_loss"
+          ]
+        },
+        {
+          "id": "q_age_band",
+          "kind": "protocol",
+          "keys": [
+            "age_band"
+          ]
+        },
+        {
+          "id": "q_pv_pain_avg_7d",
+          "kind": "protocol",
+          "keys": [
+            "pain_avg_7d"
+          ]
+        },
+        {
+          "id": "q_pv_interference_7d",
+          "kind": "protocol",
+          "keys": [
+            "interference_7d"
+          ]
+        },
+        {
+          "id": "q_onset_timing",
+          "kind": "protocol",
+          "keys": [
+            "onset_timing"
+          ]
+        },
+        {
+          "id": "q_radiation_present",
+          "kind": "protocol",
+          "keys": [
+            "radiation_present"
+          ]
+        },
+        {
+          "id": "q_leg_numbness",
+          "kind": "protocol",
+          "keys": [
+            "leg_numbness"
+          ]
+        },
+        {
+          "id": "q_severity_now",
+          "kind": "protocol",
+          "keys": [
+            "severity_now"
+          ]
+        },
+        {
+          "id": "q_course",
+          "kind": "protocol",
+          "keys": [
+            "course"
+          ]
+        },
+        {
+          "id": "q_rest_night",
+          "kind": "protocol",
+          "keys": [
+            "rest_or_night_worst"
+          ]
+        }
+      ],
+      "followup_questions": [
+        {
+          "id": "grid:follow_up:1",
+          "kind": "red_flag_grid",
+          "keys": [
+            "bladder_bowel_change",
+            "saddle_numbness",
+            "leg_weakness",
+            "bilateral_leg_symptoms",
+            "fever",
+            "trauma_recent"
+          ]
+        },
+        {
+          "id": "q_ci_pgic",
+          "kind": "protocol",
+          "keys": [
+            "pgic"
+          ]
+        },
+        {
+          "id": "q_ci_pain_avg_7d",
+          "kind": "protocol",
+          "keys": [
+            "pain_avg_7d"
+          ]
+        },
+        {
+          "id": "q_ci_interference_7d",
+          "kind": "protocol",
+          "keys": [
+            "interference_7d"
+          ]
+        },
+        {
+          "id": "q_fu_new",
+          "kind": "protocol",
+          "keys": [
+            "fu_new_symptom"
+          ]
+        }
+      ],
+      "initial_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "followup_metrics": {
+        "screens_shown": 5,
+        "items_shown": 10,
+        "items_answered": 10,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      }
+    },
+    {
+      "case": {
+        "id": "FLOW04",
+        "base": 6,
+        "current": null,
+        "expected": "insufficient",
+        "urgent": false
+      },
+      "actual": {
+        "baseline": 6.0,
+        "current": null,
+        "verdict": "insufficient",
+        "baseline_substitute": null,
+        "urgent_stop": false,
+        "recovery_review": false,
+        "baseline_questions_present": true
+      },
+      "pass": true,
+      "initial_questions": [
+        {
+          "id": "grid:pre_visit:1",
+          "kind": "red_flag_grid",
+          "keys": [
+            "bladder_bowel_change",
+            "saddle_numbness",
+            "bilateral_leg_symptoms",
+            "leg_weakness",
+            "fever",
+            "trauma_recent",
+            "cancer_history",
+            "weight_loss"
+          ]
+        },
+        {
+          "id": "q_age_band",
+          "kind": "protocol",
+          "keys": [
+            "age_band"
+          ]
+        },
+        {
+          "id": "q_pv_pain_avg_7d",
+          "kind": "protocol",
+          "keys": [
+            "pain_avg_7d"
+          ]
+        },
+        {
+          "id": "q_pv_interference_7d",
+          "kind": "protocol",
+          "keys": [
+            "interference_7d"
+          ]
+        },
+        {
+          "id": "q_onset_timing",
+          "kind": "protocol",
+          "keys": [
+            "onset_timing"
+          ]
+        },
+        {
+          "id": "q_radiation_present",
+          "kind": "protocol",
+          "keys": [
+            "radiation_present"
+          ]
+        },
+        {
+          "id": "q_leg_numbness",
+          "kind": "protocol",
+          "keys": [
+            "leg_numbness"
+          ]
+        },
+        {
+          "id": "q_severity_now",
+          "kind": "protocol",
+          "keys": [
+            "severity_now"
+          ]
+        },
+        {
+          "id": "q_course",
+          "kind": "protocol",
+          "keys": [
+            "course"
+          ]
+        },
+        {
+          "id": "q_rest_night",
+          "kind": "protocol",
+          "keys": [
+            "rest_or_night_worst"
+          ]
+        }
+      ],
+      "followup_questions": [
+        {
+          "id": "grid:follow_up:1",
+          "kind": "red_flag_grid",
+          "keys": [
+            "bladder_bowel_change",
+            "saddle_numbness",
+            "leg_weakness",
+            "bilateral_leg_symptoms",
+            "fever",
+            "trauma_recent"
+          ]
+        },
+        {
+          "id": "q_ci_pgic",
+          "kind": "protocol",
+          "keys": [
+            "pgic"
+          ]
+        },
+        {
+          "id": "q_ci_pain_avg_7d",
+          "kind": "protocol",
+          "keys": [
+            "pain_avg_7d"
+          ]
+        },
+        {
+          "id": "q_ci_interference_7d",
+          "kind": "protocol",
+          "keys": [
+            "interference_7d"
+          ]
+        },
+        {
+          "id": "q_fu_new",
+          "kind": "protocol",
+          "keys": [
+            "fu_new_symptom"
+          ]
+        }
+      ],
+      "initial_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "followup_metrics": {
+        "screens_shown": 5,
+        "items_shown": 10,
+        "items_answered": 10,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      }
+    },
+    {
+      "case": {
+        "id": "FLOW05",
+        "base": 0,
+        "current": 0,
+        "expected": "no_meaningful_change",
+        "urgent": false
+      },
+      "actual": {
+        "baseline": 0.0,
+        "current": 0.0,
+        "verdict": "no_meaningful_change",
+        "baseline_substitute": null,
+        "urgent_stop": false,
+        "recovery_review": false,
+        "baseline_questions_present": true
+      },
+      "pass": true,
+      "initial_questions": [
+        {
+          "id": "grid:pre_visit:1",
+          "kind": "red_flag_grid",
+          "keys": [
+            "bladder_bowel_change",
+            "saddle_numbness",
+            "bilateral_leg_symptoms",
+            "leg_weakness",
+            "fever",
+            "trauma_recent",
+            "cancer_history",
+            "weight_loss"
+          ]
+        },
+        {
+          "id": "q_age_band",
+          "kind": "protocol",
+          "keys": [
+            "age_band"
+          ]
+        },
+        {
+          "id": "q_pv_pain_avg_7d",
+          "kind": "protocol",
+          "keys": [
+            "pain_avg_7d"
+          ]
+        },
+        {
+          "id": "q_pv_interference_7d",
+          "kind": "protocol",
+          "keys": [
+            "interference_7d"
+          ]
+        },
+        {
+          "id": "q_onset_timing",
+          "kind": "protocol",
+          "keys": [
+            "onset_timing"
+          ]
+        },
+        {
+          "id": "q_radiation_present",
+          "kind": "protocol",
+          "keys": [
+            "radiation_present"
+          ]
+        },
+        {
+          "id": "q_leg_numbness",
+          "kind": "protocol",
+          "keys": [
+            "leg_numbness"
+          ]
+        },
+        {
+          "id": "q_severity_now",
+          "kind": "protocol",
+          "keys": [
+            "severity_now"
+          ]
+        },
+        {
+          "id": "q_course",
+          "kind": "protocol",
+          "keys": [
+            "course"
+          ]
+        },
+        {
+          "id": "q_rest_night",
+          "kind": "protocol",
+          "keys": [
+            "rest_or_night_worst"
+          ]
+        }
+      ],
+      "followup_questions": [
+        {
+          "id": "grid:follow_up:1",
+          "kind": "red_flag_grid",
+          "keys": [
+            "bladder_bowel_change",
+            "saddle_numbness",
+            "leg_weakness",
+            "bilateral_leg_symptoms",
+            "fever",
+            "trauma_recent"
+          ]
+        },
+        {
+          "id": "q_ci_pgic",
+          "kind": "protocol",
+          "keys": [
+            "pgic"
+          ]
+        },
+        {
+          "id": "q_ci_pain_avg_7d",
+          "kind": "protocol",
+          "keys": [
+            "pain_avg_7d"
+          ]
+        },
+        {
+          "id": "q_ci_interference_7d",
+          "kind": "protocol",
+          "keys": [
+            "interference_7d"
+          ]
+        },
+        {
+          "id": "q_fu_new",
+          "kind": "protocol",
+          "keys": [
+            "fu_new_symptom"
+          ]
+        }
+      ],
+      "initial_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "followup_metrics": {
+        "screens_shown": 5,
+        "items_shown": 10,
+        "items_answered": 10,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      }
+    },
+    {
+      "case": {
+        "id": "FLOW06",
+        "base": 6,
+        "current": null,
+        "expected": "insufficient",
+        "urgent": true
+      },
+      "actual": {
+        "baseline": 6.0,
+        "current": null,
+        "verdict": "insufficient",
+        "baseline_substitute": null,
+        "urgent_stop": true,
+        "recovery_review": false,
+        "baseline_questions_present": true
+      },
+      "pass": true,
+      "initial_questions": [
+        {
+          "id": "grid:pre_visit:1",
+          "kind": "red_flag_grid",
+          "keys": [
+            "bladder_bowel_change",
+            "saddle_numbness",
+            "bilateral_leg_symptoms",
+            "leg_weakness",
+            "fever",
+            "trauma_recent",
+            "cancer_history",
+            "weight_loss"
+          ]
+        },
+        {
+          "id": "q_age_band",
+          "kind": "protocol",
+          "keys": [
+            "age_band"
+          ]
+        },
+        {
+          "id": "q_pv_pain_avg_7d",
+          "kind": "protocol",
+          "keys": [
+            "pain_avg_7d"
+          ]
+        },
+        {
+          "id": "q_pv_interference_7d",
+          "kind": "protocol",
+          "keys": [
+            "interference_7d"
+          ]
+        },
+        {
+          "id": "q_onset_timing",
+          "kind": "protocol",
+          "keys": [
+            "onset_timing"
+          ]
+        },
+        {
+          "id": "q_radiation_present",
+          "kind": "protocol",
+          "keys": [
+            "radiation_present"
+          ]
+        },
+        {
+          "id": "q_leg_numbness",
+          "kind": "protocol",
+          "keys": [
+            "leg_numbness"
+          ]
+        },
+        {
+          "id": "q_severity_now",
+          "kind": "protocol",
+          "keys": [
+            "severity_now"
+          ]
+        },
+        {
+          "id": "q_course",
+          "kind": "protocol",
+          "keys": [
+            "course"
+          ]
+        },
+        {
+          "id": "q_rest_night",
+          "kind": "protocol",
+          "keys": [
+            "rest_or_night_worst"
+          ]
+        }
+      ],
+      "followup_questions": [
+        {
+          "id": "grid:follow_up:1",
+          "kind": "red_flag_grid",
+          "keys": [
+            "bladder_bowel_change",
+            "saddle_numbness",
+            "leg_weakness",
+            "bilateral_leg_symptoms",
+            "fever",
+            "trauma_recent"
+          ]
+        }
+      ],
+      "initial_metrics": {
+        "screens_shown": 10,
+        "items_shown": 17,
+        "items_answered": 17,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      },
+      "followup_metrics": {
+        "screens_shown": 1,
+        "items_shown": 6,
+        "items_answered": 6,
+        "note": "不含适用范围、身体图、自由描述与最终确认；一屏每一行单独计数"
+      }
+    }
+  ]
+}

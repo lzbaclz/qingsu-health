@@ -1,0 +1,52 @@
+id: S044
+family: F11_central_lbp_programmer
+split: locked
+title: "除大小便和疼痛程度外全部跳过"
+persona: "29 岁程序员（模拟，非真实患者）"
+kind: pre_visit
+category: many_skips
+inputs:
+  body_map:
+    - {region_id: lower_back_center, kind: primary}
+  free_text: "坐久了腰中间酸。"
+  answers:
+    q_bladder_bowel: "no"
+    q_severity_now: 3
+    q_saddle: __skip__
+    q_leg_weakness: __skip__
+    q_fever: __skip__
+    q_trauma: __skip__
+    q_onset_timing: __skip__
+    q_onset_mode: __skip__
+    q_trigger: __skip__
+    q_radiation_present: __skip__
+    q_leg_numbness: __skip__
+    q_course: __skip__
+    q_relieving: __skip__
+    q_function_impact: __skip__
+    q_sleep_affected: __skip__
+    q_night_pain: __skip__
+  clarifications: {}
+  corrections: []
+ground_truth:
+  facts:
+    pain_side: {status: present, value: center}
+    pain_regions: {status: present, value: [lower_back_center]}
+    aggravating: {status: present, value: [sitting]}
+    character: {status: present, value: [aching]}
+    bladder_bowel_change: {status: denied}
+    severity_now: {status: present, value: 3}
+    saddle_numbness: {status: unknown}
+    leg_weakness: {status: unknown}
+    fever: {status: unknown}
+    trauma_recent: {status: unknown}
+    onset_timing: {status: unknown}
+    radiation_present: {status: unknown}
+    leg_numbness: {status: unknown}
+  must_be_unknown: [onset_mode, trigger, course, relieving, function_impact, sleep_affected, night_pain, weight_loss, cancer_history]
+  expected_alerts: []
+  expected_conflicts: []
+  expect_confirm_blocked: false
+  forbidden_output_patterns: []
+notes: "工程占位，需临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

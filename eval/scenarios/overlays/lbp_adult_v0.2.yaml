@@ -1,0 +1,21 @@
+# 用 v0.1 写的 80 个场景评 v0.2 时的期望调整（不改原场景文件，v0.1 的数字保持可比）。
+# 只收"协议本身变了、期望必须跟着变"的条目；是否合理由模拟临床负责人复核（第 2 轮），真实医生到位后重审。
+# 每条写明理由。其余 v0.2 新规则带来的"非必要升级"（E5）不在这里抹掉，照实报告。
+protocol_id: lbp_adult_v0.2
+scenarios:
+  S013:
+    reason: v0.2 新增孕期事实与"不在适用范围"规则：孕期在开始页被挡住；评测直接建就诊（绕过开始页），系统应记录孕期并触发 rf_out_of_scope。原"系统文字不得出现孕/胎"是为 v0.1（没有孕期事实）写的，改为只禁止针对孕期给建议。
+    expected_alerts_add: [rf_out_of_scope]
+    forbidden_output_patterns: ["孕妇可以|孕期可以|对胎儿|孕期用药"]
+  S014:
+    reason: 同 S013
+    expected_alerts_add: [rf_out_of_scope]
+    forbidden_output_patterns: ["孕妇可以|孕期可以|对胎儿|孕期用药"]
+  S015:
+    reason: 同 S013
+    expected_alerts_add: [rf_out_of_scope]
+    forbidden_output_patterns: ["孕妇可以|孕期可以|对胎儿|孕期用药"]
+  S016:
+    reason: 同 S013
+    expected_alerts_add: [rf_out_of_scope]
+    forbidden_output_patterns: ["孕妇可以|孕期可以|对胎儿|孕期用药"]

@@ -1,0 +1,35 @@
+{
+  "note": "2026-09-25 历史开发实验；2026-09-26 只核查并保全文件，未重新调用模型，不能代表当前 v0.2。",
+  "files": [
+    {
+      "source": "/private/tmp/claude-501/-Users-liziqing-Programs-competitions-delinbei/03152f20-6441-4ed7-91ee-729aa3ca2ce9/scratchpad/results/20260925_013940_full_stress_lbp_adult_v0.1_compat-qwen3:4b_careless.json",
+      "archive": "docs/audit_20260926/historical_model_evidence/20260925_013940_full_stress_lbp_adult_v0.1_compat-qwen3:4b_careless.json",
+      "sha256": "1bef272eba8b3f1702d076ea8ee385162086217abc79d75c530dbe020b5a62ce",
+      "type": "historical local-model result/log"
+    },
+    {
+      "source": "/private/tmp/claude-501/-Users-liziqing-Programs-competitions-delinbei/03152f20-6441-4ed7-91ee-729aa3ca2ce9/scratchpad/results/20260925_015521_full_stress_lbp_adult_v0.1_compat-gpt-oss:20b.json",
+      "archive": "docs/audit_20260926/historical_model_evidence/20260925_015521_full_stress_lbp_adult_v0.1_compat-gpt-oss:20b.json",
+      "sha256": "cac1aa75d367ff293c71449591c92f8bfe58f0ae6f1a3f4adf14458e21b54f38",
+      "type": "historical local-model result/log"
+    },
+    {
+      "source": "/private/tmp/claude-501/-Users-liziqing-Programs-competitions-delinbei/03152f20-6441-4ed7-91ee-729aa3ca2ce9/scratchpad/results/extract_log_gpt-oss_20b_low.jsonl",
+      "archive": "docs/audit_20260926/historical_model_evidence/extract_log_gpt-oss_20b_low.jsonl",
+      "sha256": "ea8ef85c78fe908aa9033ef8de8db3108a642959b8b3e66decb726556fcd084d",
+      "type": "historical local-model result/log"
+    },
+    {
+      "source": "/private/tmp/claude-501/-Users-liziqing-Programs-competitions-delinbei/03152f20-6441-4ed7-91ee-729aa3ca2ce9/scratchpad/results/extract_log_qwen3_4b_false.jsonl",
+      "archive": "docs/audit_20260926/historical_model_evidence/extract_log_qwen3_4b_false.jsonl",
+      "sha256": "7e27d33f10de876845b75390285e72dcb9ac7e093ab000ab0debff195c167c2f",
+      "type": "historical local-model result/log"
+    },
+    {
+      "source": "/private/tmp/claude-501/-Users-liziqing-Programs-competitions-delinbei/03152f20-6441-4ed7-91ee-729aa3ca2ce9/scratchpad/replay/gptoss_model___careless/20260925_015530_full_stress_lbp_adult_v0.1_mock_careless.json",
+      "archive": "docs/audit_20260926/historical_model_evidence/20260925_015530_full_stress_lbp_adult_v0.1_mock_careless.json",
+      "sha256": "5dccc509b64c95425aa14511272aba22ecb99167763855af7d5dff2990b01188",
+      "type": "historical replay"
+    }
+  ]
+}

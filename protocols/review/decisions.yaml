@@ -1,0 +1,451 @@
+# 医生审核决定（交付物 #1 适用范围、#3 事实清单、#4 红旗与处理流程）
+# 取值：pending（未审）| adopt（采纳）| modify（按 overrides 修改）| drop（删除）。note 写理由——分歧理由是评审最想看的。
+# 标 ⚠ 的是 AI 自认没把握的条目（对应 protocols/review/对比表_AI版_vs_医生版.md 的行号），请优先审。
+# 改完运行：make protocol-v02   → 生成 protocols/lbp_adult_v0.2.yaml 与 protocols/review/v0.2_审核报告.md
+# 【模拟】2026-09-25 本文件的全部决定由「模拟临床负责人」（AI 以康复医学与疼痛科主任医师视角模拟，非执业医师意见）填写，
+#        meta.simulated: true。每条 note 以「模拟：」开头，给患者看的文字以「（模拟临床稿）」结尾；换成真实医生时逐条复核后替换。
+#        完整理由与分歧说明见 docs/team/round1/模拟临床负责人.md。
+
+meta:
+  simulated: true              # 模拟：以下决定来自 AI 医学视角的模拟临床负责人，不是真实医生；不得在 BP、视频或演示里称为"医生已决定"
+  reviewed_on: 2026-09-25      # 审核日期，如 2026-09-26
+  clinical_lead:               # 临床产品负责人（BP 团队页会用到）
+    name: "模拟临床负责人（AI 医学视角，待真实医生替换）"
+    title: "模拟"                # 职称
+    department: "模拟"
+    institution: "模拟"
+    hours_per_week: null
+  clinical_reviewer:           # 第二位独立复核者
+    name: null
+    title: null
+  sources_confirmed:           # 医生确认采用的资料（可从 AI 版 15 条里挑，也可补充科室流程文件）——模拟临床负责人采用，原文均待真实医生核对
+    - "中国慢性腰背痛诊疗指南（2024 版），中华疼痛学杂志 2024;20(1)：定义、表 2 红旗征、表 3 黄旗征、量表"
+    - "中国非特异性腰背痛临床诊疗指南，中国脊柱脊髓杂志 2022;32(3)：定义与分期、病史要点（红旗表为图片，原文待核对）"
+    - "GIRFT National Suspected Cauda Equina Syndrome Pathway（英国，2023-02）：马尾综合征红旗与时限"
+    - "Finucane LM 等，International Framework for Red Flags，JOSPT 2020;50(7)：红旗分级思路"
+    - "Hartvigsen J 等，Lancet 2018;391:2356：定义、特异性病因比例、Panel 2"
+    - "NICE NG59 Low back pain and sciatica in over 16s（2016，2020-12 更新）：不常规影像、自我管理（条文待核对原文）"
+    - "NICE NG65 Spondyloarthritis in over 16s（2017）：炎性腰背痛转诊标准（条文待核对原文）"
+    - "NHS Back pain 患者信息页：何时急诊的患者版措辞（只借鉴结构，文字按国内习惯重写）"
+    - "East Sussex MSK MACP 马尾综合征警示卡：患者版警示措辞参考"
+    - "Menezes Costa 等，CMAJ 2012;184(11)：急性与持续性腰痛的自然病程"
+    - "WHO 成人慢性原发性腰痛非手术管理指南（2023-12）：以人为本、教育与保持活动"
+    - "国家卫健委、国家中医药局《互联网诊疗监管细则（试行）》（2022）：AI 不得替代接诊"
+
+settings:
+  max_questions: 6             # 模拟：第二、三层合计最多 6 题（必问题另计）。必问题精简到人人 9 题（年龄、大小便、下身发麻、两条腿、腿没劲、发烧、外伤、肿瘤史、体重），其余 5 题只在相关时追问；非红旗患者最多 15 题，与 v0.1 平均 14.4 题持平，但红旗覆盖更全。第二层按「多久、串不串、麻不麻、几分、趋势、休息痛、影响多大、最担心什么」排序，身体图和原话已说清的自动跳过；其余留给面诊。
+
+scope:                         # 交付物 #1
+  decision: modify
+  overrides:
+    inclusion:
+      - "年满 18 岁"
+      - "本次主诉为腰背部疼痛或不适（肋缘以下、臀横纹以上），伴或不伴臀部、腿部疼痛或麻木"
+      - "已由本门诊邀请（有邀请码或患者编号）"
+      - "本人填写，或家属协助但本人在场并确认"
+    exclusion:
+      - "未满 18 岁（16–17 岁不纳入）"
+      - "怀孕、可能怀孕或产后 6 周内（产褥期）"
+      - "严重外伤（车祸、高处坠落、重物砸伤）后尚未在医院检查过——开始页直接引导急诊；已检查过、在康复期的由门诊安排"
+      - "正在治疗中的脊柱肿瘤、脊柱感染、新鲜骨折，或腰椎手术后 3 个月内——门诊邀请时排除，按原治疗团队的流程随访"
+      - "他人代填且本人无法确认"
+      - "开始页已出现紧急症状者——直接显示紧急提示，不进入采集"
+    service_hours: "开诊时间内（示例：周一至周六 8:30–17:30，以门诊实际为准）由当班护士或医助查看队列：紧急类收到提醒后 30 分钟内电话，当天类 2 小时内电话，常规类由医生每天两次核对（上午开诊前、下午停诊前）；停诊时间和节假日提交的，下一个开诊日上午优先处理；紧急提示全程显示，不依赖有人在线。（模拟临床稿，上线前按门诊实际人手改）"
+    service_notice: "这个工具帮你在见医生之前，把腰背不舒服的情况说清楚，并整理给门诊医生核对。它不做诊断，不提供治疗或用药建议，也不能代替医生看病。你填的内容不会有人实时查看：开诊时间内门诊工作人员会查看，停诊时间提交的，下一个开诊日处理。情况紧急时请不要等回复，按页面上的紧急提示立即就医。（模拟临床稿）"
+    emergency_notice: "出现下面任何一种情况，请不要等线上回复，立即去附近有急诊的综合医院，或拨打 120：① 小便新出现尿不出来、要很用力才尿得出、憋不住或漏尿，或大便憋不住、感觉不到要大便；② 两腿之间、肛门周围或大腿根内侧新出现发麻、感觉变迟钝，或上厕所擦拭时感觉和平时不一样；③ 两条腿突然都没劲，或站不稳、走不了路；④ 车祸、从高处摔下、被重物砸到等严重外伤后腰背痛；⑤ 腰背痛同时发高烧、发冷打寒战，或精神明显变差；⑥ 突然出现、从来没有过的剧烈疼痛，或伴胸痛、胸闷、呼吸困难、腹痛、出冷汗、头晕要晕倒。（模拟临床稿）"
+    out_of_scope_message: "根据你的回答，这个工具暂时不适合你的情况（比如未满 18 岁、怀孕或刚生完孩子 6 周内、严重外伤后）。这不代表对病情的判断，请直接打电话联系门诊安排就诊。如果出现页面上列出的紧急情况，请立即去急诊。（模拟临床稿）"
+    contact_label: "演示门诊·占位号"
+    contact_phone: "0755-00000000"
+    emergency_phone: "120"
+    eligibility:
+      - id: adult
+        text: "我已年满 18 岁"
+        no_label: "不对，还没满 18 岁"
+        if_not: "这个工具目前只适用于 18 岁及以上的成年人。未成年人的腰背痛需要医生直接看，请由家长陪同联系门诊；情况紧急请拨打 120。（模拟临床稿）"
+      - id: not_pregnant
+        text: "我目前没有怀孕，也不在产后 6 周内"
+        no_label: "不对，正在怀孕、可能怀孕或产后 6 周内"
+        if_not: "怀孕期间和产后 6 周内的腰背痛需要医生直接看，这个工具暂不适用。请直接联系门诊或你的产科医生；如果腰腹痛得厉害、阴道流血或流水、发烧，请立即去急诊。（模拟临床稿）"
+      - id: no_major_trauma
+        text: "这次腰背痛不是严重外伤引起的（如车祸、从高处摔下、被重物砸到）"
+        no_label: "不对，是严重外伤后开始的"
+        if_not: "严重外伤后的腰背痛需要先在医院检查，这个工具不适用。受伤后还没去医院检查过的，请立即去附近有急诊的综合医院，行动不便请拨打 120；已经检查过、正在康复的，请直接联系门诊安排。（模拟临床稿）"
+  note: "模拟：修改。① 16–17 岁不纳入：青少年腰痛的严重病因谱（峡部裂、感染、肿瘤）与成人不同，且需要监护人同意；② 怀孕、可能怀孕与产后 6 周内（产褥期）都不纳入，开始页挡住并给产科急症提示——本协议的红旗不覆盖先兆早产、胎盘早剥、宫外孕这类情况，工具会给出虚假的安心；③ 严重外伤在开始页单独确认：未检查过的直接去急诊，已检查、在康复期的交门诊安排；④ 正在治疗的脊柱肿瘤、感染、新鲜骨折和腰椎术后 3 个月内，由门诊邀请时排除，不再给患者加一道开始页题目；⑤ 门诊电话保留演示占位号；⑥ 全程紧急提示只列真正要立即去急诊的情况，与各条红旗的级别对齐（AI 草案把发烧、两条腿有症状、无力加重都写成立即急诊，而对应红旗却是当天联系，患者会看到两种相反的指示）；⑦ 去掉「填写内容不会被用作医疗记录」这句我们兑现不了的承诺。"
+
+facts:                         # 交付物 #3
+  pain_regions: {decision: adopt, note: "模拟：采纳；以身体图为主、文字补充，符合门诊习惯。"}    # 疼痛部位
+  pain_side: {decision: adopt, note: "模拟：采纳；身体图与原话不一致时先请患者澄清、不自动取其一，同意。"}    # 疼痛主要在哪一侧
+  radiation_present: {decision: modify, overrides: {label: "疼痛是否从腰串到屁股或腿上"}, note: "模拟：事实采纳；标签会在一键核对和确认页直接给患者看，「放射」是术语，改成「串」。"}    # 疼痛是否向臀部或腿部放射
+  radiation_regions:           # 放射到的部位
+    decision: modify
+    overrides:
+      label: "串到的部位"
+      options:
+        - {value: buttock_left, label: "左臀", synonyms: [左边屁股]}
+        - {value: buttock_right, label: "右臀", synonyms: [右边屁股]}
+        - {value: thigh_left_back, label: "左大腿（后）", synonyms: [左大腿后]}
+        - {value: thigh_right_back, label: "右大腿（后）", synonyms: [右大腿后]}
+        - {value: calf_left, label: "左小腿（后）", synonyms: [左小腿后, 左小腿肚]}
+        - {value: calf_right, label: "右小腿（后）", synonyms: [右小腿后, 右小腿肚]}
+        - {value: heel_left, label: "左足跟", synonyms: [左脚跟, 左脚后跟]}
+        - {value: heel_right, label: "右足跟", synonyms: [右脚跟, 右脚后跟]}
+        - {value: thigh_left_front, label: "左大腿（前）", synonyms: [左大腿前面, 左大腿前边]}
+        - {value: thigh_right_front, label: "右大腿（前）", synonyms: [右大腿前面, 右大腿前边]}
+        - {value: shin_left, label: "左小腿（前、外侧）", synonyms: [左小腿前面, 左小腿外侧, 左边迎面骨]}
+        - {value: shin_right, label: "右小腿（前、外侧）", synonyms: [右小腿前面, 右小腿外侧, 右边迎面骨]}
+        - {value: foot_left_top, label: "左足背", synonyms: [左脚背]}
+        - {value: foot_right_top, label: "右足背", synonyms: [右脚背]}
+    note: "模拟：原选项只有腿后侧，漏了大腿前面、小腿前外侧和脚背——这是 L3–L5 神经根最常见的串痛部位；补上以便文字抽取（身体图本身已支持这些区域）。"
+  onset_timing:                # 这次不舒服开始多久了
+    decision: modify
+    overrides:
+      options:
+        - {value: within_3_days, label: "3 天以内", synonyms: [今天, 昨天, 前天, 前两天, 这两天, 刚刚, 一两天]}
+        - {value: days_4_to_14, label: "4 天到 2 周", synonyms: [这几天, 一周, 一个星期, 十来天, 几天了]}
+        - {value: weeks_2_to_6, label: "2 到 6 周", synonyms: [两三周, 三四周, 一个月, 一个多月, 个把月, 月余]}
+        - {value: weeks_6_to_12, label: "6 到 12 周", synonyms: [两个月, 两三个月, 三个月]}
+        - {value: over_12_weeks, label: "超过 3 个月", synonyms: [半年, 一年, 好几年, 很久了, 常年]}
+    note: "模拟：从「超过 3 个月」的同义词里删掉「老毛病」——它只说明以前犯过（已在 prior_episodes 里），不说明这一次从哪天开始；压力集里的真实错抽和卡 B 的植入错抽都是这一型。分期界限（<6 周急性、6–12 周亚急性、>12 周慢性）采纳。"
+  onset_mode: {decision: modify, overrides: {required: false}, note: "模拟：保留；但不是诊前必须的信息，常被题数上限挤掉，不设必答，免得确认页每次都列成「未回答」。"}    # 起病方式
+  trigger: {decision: modify, overrides: {required: false}, note: "模拟：同起病方式；外伤另有必问题，这里不设必答。"}    # 出现前有没有明显诱因
+  course: {decision: adopt, note: "模拟：采纳；多条红旗规则要用「在加重」。"}    # 最近的变化趋势
+  character: {decision: adopt, note: "模拟：采纳；烧灼、过电样提示神经病理性成分，对疼痛科有用，但排在第二层最后。"}    # 疼痛的感觉
+  severity_now: {decision: adopt, note: "模拟：采纳；诊前只留这一个 0–10 分。"}    # 现在的疼痛程度（0 完全不痛 – 10 无法忍受）
+  aggravating: {decision: adopt, note: "模拟：采纳；咳嗽打喷嚏加重、走路加重坐下缓解对面诊有提示意义。"}    # 什么情况会加重
+  relieving: {decision: adopt, note: "模拟：采纳。"}    # 什么情况会缓解
+  leg_numbness: {decision: adopt, note: "模拟：采纳；只在提到腿、脚的句子里抽，避免把下身发麻记成腿麻，同意。"}    # 腿或脚是否发麻
+  leg_weakness: {decision: modify, overrides: {label: "腿或脚是否使不上劲"}, note: "模拟：标签给患者看，「无力」改成「使不上劲」；问法改成踮脚尖、抬脚尖、上楼这类具体动作，减少把疼得不敢用力当成没劲。"}    # 腿是否无力
+  weakness_progressive:        # 无力是否在加重
+    decision: modify
+    overrides:
+      label: "腿使不上劲是否一天比一天明显"
+      lexicon:
+        present_terms: [越来越没劲, 越来越无力, 无力加重, 更没劲, 一天比一天没劲, 越来越使不上劲, 越来越抬不起来]
+    note: "模拟：标签改口语，补「一天比一天没劲」等说法。"
+  bladder_bowel_change: {decision: modify, overrides: {label: "大小便是否新出现变化（尿不出来、要用力、憋不住、漏尿，或大便控制不住）"}, note: "模拟：v0.2 改回用这一个事实问大小便（见 q_bladder_bowel）：国内门诊习惯把大小便一起问；原标签里的「v0.1 兼容项」字样会在核对和确认页直接显示给患者，改成口语。"}    # 大小便控制是否出现变化（v0.1 兼容项；v0.2 拆为 bladder_change / bowel_change）
+  saddle_numbness:             # 会阴/肛门周围是否发麻
+    decision: modify
+    overrides:
+      label: "两腿之间、肛门周围或大腿根内侧是否新出现发麻、感觉变迟钝"
+      lexicon:
+        present_terms: [会阴麻, 会阴木, 会阴部发麻, 会阴部麻木, 肛门周围麻, 肛门周围木, 骑车坐垫的地方麻, 大腿内侧麻, 大腿根内侧麻, 私处麻, 屁股中间麻, 屁股中间木, 屁股中间那块木, 下身麻, 下身发麻, 裆部麻, 擦屁股没感觉, 擦的时候没感觉]
+        denied_terms: [会阴不麻, 那里不麻, 下身不麻, 屁股中间不麻, 肛门周围不麻]
+    note: "模拟：「会阴」患者看不懂；标签与问法统一成「两腿之间、肛门周围或大腿根内侧」，补「下身麻」「擦屁股没感觉」「屁股中间那块木」等国内患者的说法。"
+  fever:                       # 是否发热
+    decision: modify
+    overrides:
+      lexicon:
+        present_terms: [发烧, 发热, 低烧, 高烧, 体温高, 一阵冷一阵热, 打寒战, 打冷战, 寒战, 三十八度, 三十九度, 38度, 39度, 38℃, 39℃]
+    note: "模拟：事实采纳；补「一阵冷一阵热」「三十八度五」这类国内患者描述发烧、寒战的说法（压力集 X08 原来认不出）。不加单独的「发冷」——「老寒腰」的人常说腰发冷，那不是发烧。"
+  weight_loss: {decision: adopt, note: "模拟：采纳；国内还要想到脊柱结核，保留为人人必问。"}    # 近期是否体重明显下降
+  night_pain: {decision: modify, overrides: {label: "夜里是否会疼醒"}, note: "模拟：兼容项，不再单独问；原标签含工程说明、抽到时会在核对页给患者看，改成口语。临床上与「休息时或夜里最痛」合并看。"}    # 是否夜间痛醒（v0.1 兼容项；v0.2 用 rest_or_night_worst）
+  trauma_recent: {decision: adopt, note: "模拟：采纳；问法补「哪怕只是轻轻摔了一下」，老年人轻微跌倒也可能骨折。"}    # 近期是否有摔倒/外伤
+  cancer_history: {decision: modify, overrides: {label: "本人以前是否得过肿瘤（癌症）"}, note: "模拟：标签加「本人」，避免把家人得过癌记成患者本人的病史。"}    # 是否有肿瘤病史
+  prior_episodes: {decision: adopt, note: "模拟：采纳。"}    # 以前是否有过类似情况
+  prior_treatment: {decision: adopt, note: "模拟：采纳。"}    # 以前做过哪些处理
+  current_medication: {decision: adopt, note: "模拟：采纳；只记录。问法里点名防血栓药，疼痛科做注射前必须知道。"}    # 目前正在用的药物（仅记录，不做建议）
+  function_impact: {decision: adopt, note: "模拟：采纳；诊前最有用的几项之一。"}    # 对日常活动的影响
+  sleep_affected: {decision: adopt, note: "模拟：采纳，排在后面。"}    # 是否影响睡眠
+  patient_concern: {decision: adopt, note: "模拟：采纳；患者最担心什么对面诊很重要，问题提到第二层。"}    # 最担心/最希望医生解决的问题
+  fu_change_overall: {decision: adopt, note: "模拟：采纳；随访里最稳的一项。"}    # 和上次相比整体感觉
+  fu_new_symptom: {decision: adopt, note: "模拟：采纳。"}    # 是否出现上次没有的新情况
+  fu_new_symptom_desc: {decision: adopt, note: "模拟：采纳。"}    # 新情况的描述
+  fu_plan_understood: {decision: adopt, note: "模拟：采纳；「发送≠理解」的核心，随访里提前问。"}    # 是否清楚医生安排的下一步
+  fu_plan_adherence: {decision: adopt, note: "模拟：采纳。"}    # 医生安排的事项执行情况
+  age_band: {decision: adopt, note: "模拟：采纳分段而不是具体年龄：够判断 50 岁、70 岁两个阈值，也少收个人信息；「18 岁以下」选项保留作开始页之后的兜底。"}    # 你的年龄段  ⚠ T1-3/T2-1
+  pregnancy_status: {decision: modify, overrides: {required: false}, note: "模拟：孕期与产后 6 周在开始页就挡住，不再逐人发问（对男性和老年患者问怀孕不合适）；事实保留给文字抽取与不适用规则，不设必答。"}    # 是否处于孕期或产后 6 周内  ⚠ T1-4/T2-2
+  thoracic_pain: {decision: adopt, note: "模拟：采纳；胸段痛为主不属于本协议典型人群，交医生复核。"}    # 疼痛是否主要在背部中上段（两肩胛之间）
+  severity_worst_24h: {decision: drop, note: "模拟：删除，与 AI 草案分歧。诊前一个「现在几分」加上面诊足够；多一题 0–10 分增加负担，随访对比用「和上次比整体怎样」更稳。"}    # 过去 24 小时最痛时（0–10）  ⚠ T2-13
+  rest_or_night_worst: {decision: adopt, note: "模拟：采纳；单独出现特异性低，只在 50 岁以上或有肿瘤、感染风险时参与规则。"}    # 是否休息时或夜里最痛
+  bilateral_leg_symptoms: {decision: adopt, note: "模拟：采纳；马尾综合征与椎管狭窄的重要线索，人人必问。"}    # 两条腿是否同时有疼痛/麻木/无力
+  gait_disturbance:            # 走路是否不稳、拖步、容易绊倒
+    decision: modify
+    overrides:
+      label: "最近是否新出现走路不稳、拖着脚走或容易绊倒"
+      lexicon:
+        present_terms: [走不稳, 拖着腿, 拖着脚, 绊倒, 走路打晃, 腿软摔, 踩棉花, 走路发飘, 差点摔, 站不稳]
+        denied_terms: [走路正常, 走得稳, 走路稳]
+    note: "模拟：标签加「新出现」；补「走路像踩棉花」「差点摔」等国内患者常说的话（「踩棉花」还提示脊髓受压，医生要特别看）。"
+  bladder_change:              # 排尿是否出现新变化（尿不出/费力/感觉不到/憋不住/失禁）
+    decision: modify
+    overrides:
+      label: "小便是否新出现变化（尿不出来、要很用力、感觉不到、憋不住或漏尿）"
+      required: false
+      lexicon:
+        present_terms: [尿不出, 尿不下来, 排尿困难, 尿失禁, 憋不住尿, 小便憋不住, 漏尿, 尿裤子, 小便有问题, 尿不干净, 感觉不到尿, 尿尿没感觉, 小便没感觉, 尿有点费劲, 尿费劲, 尿得费劲, 小便费劲, 解小便费劲, 撒尿费劲, 等半天才出来]
+        denied_terms: [小便正常, 小便都正常, 排尿正常, 小便没问题, 尿尿正常]
+    note: "模拟：保留为文字抽取的细分事实；诊前改由 q_bladder_bowel 一题问大小便，所以不设必答。标签加「新出现」、去掉「失禁」这类术语；补「尿有点费劲」「小便憋不住」「等半天才出来」（视频与压力集里的真实说法）。「尿不干净」在前列腺增生的老年男性里很常见，靠「新出现」的标签和核对兜住。"
+  bowel_change:                # 大便控制是否出现新变化（失禁/感觉不到便意）  ⚠ T2-3
+    decision: modify
+    overrides:
+      label: "大便是否新出现憋不住，或感觉不到要大便"
+      required: false
+      lexicon:
+        present_terms: [大便失禁, 拉裤子, 拉在裤子里, 大便憋不住, 大便控制不住, 感觉不到便意, 感觉不到要大便, 大便没感觉, 解大便没感觉]
+        denied_terms: [大便正常, 大便都正常, 大便没问题]
+    note: "模拟：与 AI 草案分歧——不单独成题，和小便合成 q_bladder_bowel 一题（国内门诊问「二便」的习惯；任何一项「有」都走同一条紧急规则）；事实保留给文字抽取，不设必答。"
+  sexual_function_change:      # 性功能是否出现新变化（可不回答）  ⚠ T2-4
+    decision: modify
+    overrides:
+      label: "性功能或性生活时的感觉是否新出现变化（可不回答）"
+      lexicon:
+        present_terms: [性功能, 勃起, 勃起困难, 硬不起来, 阴道没感觉, 同房没感觉, 性生活没感觉]
+        denied_terms: [性功能正常, 性功能没问题, 性功能没变化, 那方面没问题]
+    note: "模拟：保留事实以接住患者主动说的话；补否认词，避免「性功能正常」被当成有。问法改为只在两条腿都有症状时问。"
+  infection_risk:              # 感染/骨折风险因素  ⚠ T2-8
+    decision: modify
+    overrides:
+      label: "以下情况是否有（激素或免疫抑制药、糖尿病、近 3 个月感染、近 3 个月腰部打针或手术）"
+      required: false
+      options:
+        - {value: steroid_or_immunosuppressant, label: "长期用激素（如泼尼松）或免疫抑制药（如器官移植后、风湿病用药）", synonyms: [激素, 免疫抑制剂, 强的松, 泼尼松, 地塞米松, 甲泼尼龙]}
+        - {value: diabetes, label: "糖尿病", synonyms: [糖尿病, 血糖高]}
+        - {value: recent_infection, label: "最近 3 个月有过需要治疗的感染（如尿路感染、肺炎、皮肤化脓）", synonyms: [尿路感染, 肺炎, 化脓, 感染]}
+        - {value: recent_spinal_procedure, label: "最近 3 个月腰背部打过针（如封闭）或做过手术", synonyms: [打过封闭, 封闭针, 腰上打过针, 腰部手术, 腰椎手术]}
+        - {value: "none", label: "以上都没有", synonyms: [都没有, 以上都没有]}
+    note: "模拟：删掉「静脉注射药物」——国内患者会把输液、打吊瓶当成它，误报远多于真正用毒品的人，这类情况在怀疑感染时面诊问；「近期感染」「近期腰部注射或手术」写明 3 个月并举例；去掉同义词「打针」「感冒发烧」（太泛）；改为有发热、休息痛或外伤时才问，不设必答。"
+  osteoporosis_or_fragility: {decision: adopt, note: "模拟：采纳；只在有外伤时追问。「骨折过」包括车祸等暴力骨折，面诊时再分。"}    # 是否有骨质疏松或轻微外力骨折史
+  morning_stiffness_30min: {decision: adopt, note: "模拟：采纳；只对 18–49 岁、超过 3 个月的人问（NG65 为 45 岁前起病，年龄段只能近似）。"}    # 早晨僵硬是否超过 30 分钟  ⚠ T2-10
+  improves_with_activity: {decision: adopt, note: "模拟：采纳；同上。"}    # 活动后减轻、休息反而加重
+  night_waking_second_half: {decision: adopt, note: "模拟：采纳；同上。"}    # 是否在后半夜因症状醒来
+  buttock_alternating: {decision: adopt, note: "模拟：采纳；同上。"}    # 臀部疼痛是否左右交替
+  prior_imaging: {decision: adopt, note: "模拟：采纳；帮医生避免重复检查、提醒带片子。"}    # 是否做过腰部影像检查及时间
+  walking_distance: {decision: adopt, note: "模拟：采纳；走一段就得歇是椎管狭窄的线索，排在后面。"}    # 因腰痛只能走很短距离
+  work_type: {decision: pending, note: "模拟：拿不准——职业对康复和复工安排有用，但放进诊前问卷是否值得多一题，要看 10 人测试的负担数据和真实医生意见。"}    # 工作类型  ⚠ T2-14
+  fear_of_movement: {decision: adopt, note: "模拟：采纳；怕动、不敢动是康复最该早知道的心理因素，放第三层。正式分层需要取得 STarT Back 授权。"}    # 是否觉得活动会伤到腰、不敢动  ⚠ T2-14
+  low_mood: {decision: adopt, note: "模拟：事实保留，只接住患者主动说的话；不主动问（问题已删）——问出情绪低落却没有回应路径是风险。"}    # 最近是否情绪低落、提不起兴趣（可不回答）  ⚠ T2-14
+  catastrophizing: {decision: adopt, note: "模拟：事实保留，只接住患者主动说的话；不主动问（问题已删）。"}    # 是否觉得这腰永远好不了  ⚠ T2-14
+  fu_side_effect: {decision: adopt, note: "模拟：采纳；问题提到随访第二层，并请工程加一条当天复核规则（见审核意见）。"}    # 按医嘱处理后是否出现不舒服（只记录）
+
+questions:                     # 问法与顺序（交付物 #2，可后审）
+  q_bladder_bowel:             # 最近大小便的控制有没有出现变化（比如尿不出来、憋不住、或大便
+    decision: modify
+    overrides:
+      when: null
+      tier: 1
+      priority: 3
+      stage: pre_visit
+      allow_unknown: true
+      allow_skip: false
+      purpose: "马尾综合征：新出现的排尿、排便变化（GIRFT 2023；中国 2024 表 2）"
+      text: "这次腰背痛以来，大小便有没有新出现的变化？比如尿不出来、要很用力才尿得出、尿的时候感觉不到、憋不住或漏尿，或者大便憋不住、感觉不到要大便。（以前就有、一直没变的不算）"
+    note: "模拟：与 AI 草案分歧——大小便合成一题人人必问：国内门诊习惯问「二便」，一题列全具体表现，任何一项「有」都走同一条紧急规则，少一题；去掉「最近两周内」，症状三周前开始的人会答「没有」，是漏诊口子；不允许跳过，可选不清楚。"
+  q_saddle: {decision: modify, overrides: {allow_skip: false, text: "两腿之间、肛门周围或大腿根内侧，最近有没有新出现发麻、感觉变迟钝，或者上厕所擦拭时感觉和平时不一样？"}, note: "模拟：去掉「会阴」术语，加「新出现」和「擦拭时感觉不一样」；不允许跳过，可选不清楚。"}    # 会阴部、肛门周围或大腿内侧有没有发麻、或擦拭时感觉和平时不一
+  q_leg_weakness: {decision: modify, overrides: {allow_skip: false, text: "腿或脚有没有使不上劲的情况？比如踮不起脚尖、脚尖抬不起来、上楼时腿发软。"}, note: "模拟：用具体动作问，减少把疼得不敢用力当成没劲；必问。"}    # 腿有没有觉得没劲、软、抬不起来？
+  q_weakness_progressive: {decision: modify, overrides: {allow_skip: false, when: "facts.leg_weakness.present or facts.leg_weakness.uncertain", text: "这种使不上劲是不是一天比一天明显？比如脚越来越抬不起来、走路越来越容易拖脚或绊到。"}, note: "模拟：加具体表现；腿没劲「不确定」时也追问。"}    # 这种没劲的感觉是不是在加重？
+  q_fever: {decision: adopt, note: "模拟：采纳，必问。"}    # 这几天有没有发烧（38℃ 以上）或发冷寒战？
+  q_trauma: {decision: modify, overrides: {text: "这次腰背痛开始前后，有没有摔倒、撞到或受过其他外伤（哪怕只是轻轻摔了一下）？"}, note: "模拟：「最近」不明确，改成「这次腰背痛开始前后」，并提示轻轻摔一下也算。"}    # 最近有没有摔倒、撞到或其他外伤？
+  q_onset_timing: {decision: adopt, note: "模拟：采纳；「按这一次发作算」的提示很关键；第二层第一个问。"}    # 这一次腰背不舒服是从多久前开始的？（如果是老毛病，请按这一次
+  q_onset_mode: {decision: modify, overrides: {priority: 34}, note: "模拟：往后放；原话里常已说清，题数紧张时让位给功能影响和患者顾虑。"}    # 是突然出现的，还是慢慢出现的？
+  q_trigger: {decision: modify, overrides: {priority: 35}, note: "模拟：往后放，理由同上。"}    # 出现之前有没有什么明显的诱因？
+  q_side: {decision: adopt, note: "模拟：采纳；有身体图时自动跳过。"}    # 疼痛主要在哪一侧？
+  q_radiation_present: {decision: modify, overrides: {priority: 18}, note: "模拟：提前到第二层第二个。"}    # 疼痛有没有从腰往屁股或腿上串？
+  q_radiation_regions: {decision: adopt, note: "模拟：采纳。"}    # 请在身体图上标出串到的位置。
+  q_leg_numbness: {decision: adopt, note: "模拟：采纳。"}    # 腿或脚有没有发麻？
+  q_severity_now: {decision: adopt, note: "模拟：采纳。"}    # 现在疼到什么程度？0 是完全不痛，10 是无法忍受。
+  q_course: {decision: modify, overrides: {priority: 25}, note: "模拟：提前；多条规则要用「在加重」。"}    # 最近几天整体是在好转、加重，还是差不多？
+  q_character: {decision: modify, overrides: {priority: 40}, note: "模拟：放到第二层最后。"}    # 疼痛是哪种感觉？可以多选。
+  q_aggravating: {decision: modify, overrides: {priority: 36}, note: "模拟：往后放。"}    # 什么情况下会更明显？可以多选。
+  q_relieving: {decision: modify, overrides: {priority: 37}, note: "模拟：往后放。"}    # 什么情况下会缓解一些？可以多选。
+  q_function_impact: {decision: modify, overrides: {priority: 27}, note: "模拟：提前；对日常生活的影响决定面诊的轻重缓急。"}    # 对你的日常活动影响有多大？
+  q_sleep_affected: {decision: modify, overrides: {priority: 39}, note: "模拟：往后放。"}    # 有没有影响睡眠？
+  q_night_pain: {decision: drop, note: "模拟：兼容占位（when: False），永远不会问到；由 q_rest_night 代替。"}    # 有没有夜里疼醒的情况？
+  q_weight_loss: {decision: drop, note: "模拟：兼容占位（when: False），由 q_weight_loss2 代替。"}    # 最近几个月体重有没有不明原因地明显下降？
+  q_cancer_history: {decision: drop, note: "模拟：兼容占位（when: False），由 q_cancer_history2 代替。"}    # 以前有没有诊断过肿瘤？
+  q_prior_episodes: {decision: adopt, note: "模拟：采纳，第三层。"}    # 以前有没有出现过类似的情况？
+  q_prior_treatment: {decision: adopt, note: "模拟：采纳，第三层。"}    # 以前做过哪些检查或处理？效果如何？
+  q_current_medication: {decision: modify, overrides: {tier: 2, priority: 29, text: "目前有没有在用什么药或贴剂？特别是防血栓的药（比如阿司匹林、氯吡格雷、华法林）、激素或止痛药。（只做记录，医生会核对；这里不提供用药建议）"}, note: "模拟：提到第二层；点名防血栓药、激素和止痛药——疼痛科做注射前必须知道。只记录。"}    # 目前有没有在用什么药或贴剂？（只做记录，医生会核对；这里不提
+  q_patient_concern: {decision: modify, overrides: {tier: 2, priority: 28}, note: "模拟：提到第二层；患者最担心什么，是面诊最有用的一句话。"}    # 你最担心的是什么？或者最希望医生帮你解决什么？
+  q_age_band: {decision: adopt, note: "模拟：采纳，必问；建议工程把它并进开始页的年龄确认。"}    # 请选择你的年龄段。
+  q_pregnancy: {decision: drop, note: "模拟：开始页已确认「没有怀孕、不在产后 6 周内」，不再对每个人（包括男性、老人）问一遍。"}    # 你是否处于孕期或产后 6 周内？（不适用请选"不适用"）
+  q_bladder: {decision: drop, note: "模拟：与 AI 草案分歧——并入 q_bladder_bowel 一题问大小便。"}    # 最近两周内，排尿有没有新出现的变化：比如尿不出来、要很用力、
+  q_bowel: {decision: drop, note: "模拟：与 AI 草案分歧——并入 q_bladder_bowel 一题问大小便。"}    # 最近两周内，大便控制有没有新出现的变化：比如憋不住、或感觉不
+  q_bilateral: {decision: modify, overrides: {allow_skip: false, text: "是不是两条腿都有疼痛、发麻或没劲（不是只有一条腿）？"}, note: "模拟：「同时」容易理解成同一时刻，改成「两条腿都有」；必问，不允许跳过。"}    # 两条腿是不是同时出现疼痛、发麻或没劲？
+  q_gait: {decision: modify, overrides: {when: "facts.leg_weakness.present or facts.leg_weakness.uncertain or facts.leg_numbness.present or facts.bilateral_leg_symptoms.present or facts.bilateral_leg_symptoms.uncertain", text: "这次腰背痛以来，走路有没有新出现不稳、拖着脚走或容易绊倒？"}, note: "模拟：加「新出现」；只在腿有症状（没劲、发麻、两条腿都有）时追问，不再人人必问。"}    # 走路有没有不稳、拖步或容易绊倒？
+  q_sexual: {decision: modify, overrides: {when: "facts.bilateral_leg_symptoms.present or facts.bilateral_leg_symptoms.uncertain", text: "这个问题可以不回答：这次腰背痛以来，性功能或性生活时的感觉，有没有新出现的变化？"}, note: "模拟：与 AI 草案分歧——不再人人必问；只在两条腿都有症状（或不确定）时问，此时答「有」会升为紧急；仍可不回答。"}    # 这个问题可以选择不回答：最近性功能有没有新出现的变化？
+  q_cancer_history2: {decision: modify, overrides: {text: "你本人以前有没有得过肿瘤（癌症）？"}, note: "模拟：加「你本人」；必问——既往肿瘤史是脊柱转移最有用的单项线索。"}    # 以前有没有得过肿瘤（癌症）？
+  q_weight_loss2: {decision: adopt, note: "模拟：采纳，必问。"}    # 最近几个月体重有没有不明原因地明显下降？
+  q_infection_risk: {decision: modify, overrides: {when: "facts.fever.present or facts.rest_or_night_worst.present or facts.trauma_recent.present", text: "下面这些情况，你有没有？（可多选）"}, note: "模拟：只在有发烧、休息痛或外伤时问——这些情况下它才会改变处理；不再人人必问。"}    # 下面这些情况有没有？（可多选）
+  q_osteoporosis: {decision: modify, overrides: {when: "facts.trauma_recent.present"}, note: "模拟：只在有外伤时追问；50 岁以上本身已算骨折风险。"}    # 有没有骨质疏松，或以前轻轻一摔就骨折过？
+  q_severity_worst: {decision: drop, note: "模拟：随事实 severity_worst_24h 一并删除。"}    # 过去 24 小时最痛的时候是几分？0 完全不痛，10 无法忍
+  q_rest_night: {decision: adopt, note: "模拟：采纳，第二层靠前。"}    # 是不是休息或躺着时也疼，甚至夜里最疼？
+  q_walking: {decision: modify, overrides: {priority: 38}, note: "模拟：往后放。"}    # 是不是因为腰痛只能走很短的距离？
+  q_thoracic: {decision: adopt, note: "模拟：采纳，第三层；建议工程用身体图上背、中背的标记自动带出，不必问。"}    # 疼痛是不是主要在背部中上段（两个肩胛骨之间）？
+  q_morning_stiff: {decision: adopt, note: "模拟：采纳，第三层，条件问。"}    # 早晨起来腰是不是发僵超过半小时？
+  q_improves_activity: {decision: adopt, note: "模拟：采纳，第三层，条件问。"}    # 是不是活动开了反而轻一些，躺着休息反而更僵更疼？
+  q_night_waking: {decision: adopt, note: "模拟：采纳，第三层，条件问。"}    # 是不是常在后半夜因为腰疼醒来？
+  q_buttock_alt: {decision: adopt, note: "模拟：采纳，第三层，条件问。"}    # 臀部的疼痛是不是左右交替出现？
+  q_prior_imaging: {decision: adopt, note: "模拟：采纳，第三层。"}    # 有没有做过腰部的 X 线、CT 或核磁？大概什么时候？
+  q_fear: {decision: adopt, note: "模拟：采纳，第三层。"}    # 你会不会担心活动会伤到腰，所以尽量不动？
+  q_low_mood: {decision: drop, note: "模拟：与 AI 草案分歧——删除主动询问：问出情绪低落却没有回应路径（例如有轻生念头时谁来接）是风险；等有授权量表和转介流程再加。"}    # 这个问题可以不回答：最近有没有情绪低落、对平时喜欢的事提不起
+  q_catastrophizing: {decision: drop, note: "模拟：单题未经验证，问法本身可能强化「好不了」的想法；诊前不问，面诊时医生判断。"}    # 你有没有觉得"这个腰可能永远好不了"？
+  q_work_type: {decision: pending, note: "模拟：拿不准，同 work_type。"}    # 你的工作主要是？
+  q_fu_overall: {decision: adopt, note: "模拟：采纳。"}    # 和上次相比，整体感觉怎么样？
+  q_fu_severity: {decision: adopt, note: "模拟：采纳。"}    # 现在疼到什么程度？0 完全不痛，10 无法忍受。
+  q_fu_new: {decision: adopt, note: "模拟：采纳。"}    # 有没有出现上次没有的新情况？
+  q_fu_new_desc: {decision: adopt, note: "模拟：采纳。"}    # 请用自己的话说说新出现的情况。
+  q_fu_bladder: {decision: modify, overrides: {fact_key: bladder_bowel_change, allow_skip: false, text: "上次看病以后，大小便有没有新出现的变化？比如尿不出来、要很用力才尿得出、憋不住或漏尿，或者大便憋不住、感觉不到要大便。"}, note: "模拟：与诊前一致，大小便一题；随访间隔默认 7 天，「最近两周内」会把上次就诊前的情况也算进来，改成「上次看病以后」。"}    # 最近两周内，排尿有没有新出现的变化（尿不出、费力、憋不住、漏
+  q_fu_saddle: {decision: modify, overrides: {allow_skip: false, text: "上次看病以后，两腿之间、肛门周围或大腿根内侧有没有新出现发麻、感觉变迟钝？"}, note: "模拟：去掉「会阴」，与诊前问法一致。"}    # 会阴部或肛门周围有没有发麻？
+  q_fu_weakness: {decision: modify, overrides: {text: "腿或脚有没有使不上劲的情况？比如踮不起脚尖、脚尖抬不起来、上楼时腿发软。"}, note: "模拟：与诊前问法一致。随访缺「是否在加重」的追问，请工程补一题。"}    # 腿有没有没劲、软、抬不起来？
+  q_fu_numbness: {decision: modify, overrides: {priority: 15}, note: "模拟：提前到「清不清楚下一步」之后——6 题上限下，按原顺序它会被挤掉（复测随访场景 S033/S034/S073 出现关键事实未问）；新出现的腿麻是随访最要看的变化之一。"}    # 腿或脚有没有发麻？
+  q_fu_radiation: {decision: modify, overrides: {priority: 16}, note: "模拟：同上，提前。"}    # 疼痛有没有往屁股或腿上串？
+  q_fu_course: {decision: adopt, note: "模拟：采纳。"}    # 最近几天整体趋势是？
+  q_fu_function: {decision: adopt, note: "模拟：采纳。"}    # 对日常活动的影响有多大？
+  q_fu_sleep: {decision: adopt, note: "模拟：采纳。"}    # 有没有影响睡眠？
+  q_fu_understood: {decision: modify, overrides: {priority: 14, text: "医生上次交代的下一步（什么时候复诊、要注意什么），你现在还清楚吗？"}, note: "模拟：提前，避免被题数上限挤掉（卡 D 测的就是这一条）；问法改口语。"}    # 你清楚医生上次安排的下一步（复诊/注意事项）吗？
+  q_fu_adherence: {decision: modify, overrides: {priority: 17}, note: "模拟：排在腿麻、串痛之后；6 题上限下常问不到，面诊时补问（执行情况不涉及安全）。"}    # 医生安排的事项，这段时间执行得怎么样？
+  q_fu_concern: {decision: adopt, note: "模拟：采纳；随访开头已有自由描述，这题放最后。"}    # 这次还有什么想告诉医生的？
+  q_fu_bowel: {decision: drop, note: "模拟：并入 q_fu_bladder 一题问大小便。"}    # 大便控制有没有新出现的变化？
+  q_fu_bilateral: {decision: modify, overrides: {allow_skip: false, text: "是不是两条腿都有疼痛、发麻或没劲（不是只有一条腿）？"}, note: "模拟：与诊前问法一致。"}    # 两条腿是不是同时出现疼痛、发麻或没劲？
+  q_fu_gait: {decision: modify, overrides: {when: "facts.leg_weakness.present or facts.leg_weakness.uncertain or facts.leg_numbness.present or facts.bilateral_leg_symptoms.present or facts.bilateral_leg_symptoms.uncertain", text: "上次看病以后，走路有没有新出现不稳、拖着脚走或容易绊倒？"}, note: "模拟：与诊前一致，只在腿有症状时追问。"}    # 走路有没有不稳、拖步或容易绊倒？
+  q_fu_fever: {decision: adopt, note: "模拟：采纳；做过注射、手术的患者随访时尤其要问。"}    # 这几天有没有发烧或寒战？
+  q_fu_severity_worst: {decision: drop, note: "模拟：随事实 severity_worst_24h 一并删除。"}    # 过去 24 小时最痛的时候是几分？
+  q_fu_side_effect: {decision: modify, overrides: {tier: 2, priority: 18, text: "按医生上次的安排处理以后（比如用药、锻炼、理疗），有没有出现新的不舒服？"}, note: "模拟：提到第二层——用药后的不良反应（如黑便、皮疹、头晕）是随访里的安全信息；去掉「只做记录」，并请工程加当天复核规则。6 题上限下排在腿麻、串痛之后，「有没有新情况」一题先兜住。"}    # 按医生安排处理后，有没有出现新的不舒服？（只做记录）
+
+red_flags:                     # 交付物 #4：条件、级别、给患者的原话、是否终止问询
+  rf_bladder_bowel:            # [urgent] 排尿/排便新变化  ⚠ T4-1/T4-2
+    decision: modify
+    overrides:
+      label: "大小便新变化"
+      patient_message: "你提到小便或大便最近有了新变化。腰背痛时出现这种变化，需要今天就当面检查：请不要等线上回复，现在就去附近有急诊的综合医院，告诉医生「我腰痛，最近大小便有变化」。行动不便请拨打 120。（模拟临床稿）"
+    note: "模拟：级别、终止问询采纳 AI 草案——所有新出现的大小便变化都按急诊，不按是否 2 周内区分：患者说不准起病日子，超过 2 周的马尾症状也要当天影像评估，漏诊代价是永久失禁。改动：原话更口语，告诉患者去哪、对接诊医生说什么；问法去掉「最近两周内」。"
+  rf_saddle:                   # [urgent] 会阴/肛周/大腿内侧感觉异常  ⚠ T4-1
+    decision: modify
+    overrides:
+      label: "下身（两腿之间、肛门周围）感觉变化"
+      patient_message: "你提到两腿之间、肛门周围或大腿根内侧发麻或感觉变了。腰背痛时出现这种变化，需要今天就当面检查：请不要等线上回复，现在就去附近有急诊的综合医院，告诉医生「我腰痛，最近下身发麻」。行动不便请拨打 120。（模拟临床稿）"
+    note: "模拟：急诊、终止问询采纳。「骑自行车坐垫接触的部位」这类说明可以用（患者普遍听得懂），但主问法用「两腿之间、肛门周围或大腿根内侧」加「擦拭时感觉不一样」更直接；标签和原话去掉「会阴」「肛周」。"
+  rf_ces_sexual:               # [urgent] 性功能新变化  ⚠ T4-1
+    decision: modify
+    overrides:
+      severity: same_day
+      on_trigger: continue
+      action: task_only
+      patient_message: "（仅供医生复核：患者提到性功能新变化，未同时报两条腿症状。请当天电话，私下再问一次大小便和下身感觉；有任何一项即按紧急处理。）（模拟临床稿）"
+    note: "模拟：与 AI 草案分歧，中等把握。单独的性功能变化特异性低（疼痛本身、止痛药、原有勃起问题都会引起），按急诊终止问询会大量误报，还会让后面的大小便、下身感觉题问不到；改为当天电话、继续问询，让必问的马尾题照常问。与两条腿症状同时出现仍由 rf_ces_bilateral 按急诊处理。不给患者弹出页顶红条（手机上显示「性功能」字样有隐私问题）。若真实医生坚持按 GIRFT 原文急诊，请至少保留「继续问询」。"
+  rf_ces_bilateral:            # [urgent] 双腿同时症状伴其他马尾症状
+    decision: modify
+    overrides:
+      label: "两条腿都有症状，并伴其他变化"
+      patient_message: "你提到两条腿都有症状，同时还有其他需要当天检查的变化（比如腿越来越没劲、大小便或下身感觉有变化）。请不要等线上回复，现在就去附近有急诊的综合医院，告诉医生「我腰痛，两条腿都有症状」。行动不便请拨打 120。（模拟临床稿）"
+    note: "模拟：条件与急诊级别采纳；「上述变化」患者看不懂，原话改成具体说明；标签去掉「马尾」术语。"
+  rf_bilateral_only:           # [same_day] 双腿同时症状  ⚠ T4-3
+    decision: modify
+    overrides:
+      when: "facts.bilateral_leg_symptoms.present and (facts.onset_timing.any(['within_3_days', 'days_4_to_14', 'weeks_2_to_6', 'weeks_6_to_12']) or facts.onset_timing.uncertain or facts.course.value == 'worsening')"
+      label: "两条腿都有症状"
+      patient_message: "你提到两条腿都有疼痛、发麻或没劲。请今天内打电话联系门诊，让医生判断要不要尽快检查。如果两条腿突然都没劲、站不稳，或者出现大小便变化、下身发麻，请不要等待，立即去急诊。（模拟临床稿）"
+    note: "模拟：当天联系采纳（不升急诊，也不放宽到两周内专科）；与 AI 草案分歧在条件：只在这次起病 3 个月内、起病时间说不准或在加重时触发。疼痛科、康复科里双下肢症状最常见的是慢性、稳定的腰椎管狭窄老人，全部当天电话会压垮护士、也吓到患者；慢性且不在加重的照样进摘要，由面诊处理。残留风险：起病时间答「不清楚」（系统记为未回答）又没说加重的新发双侧症状会漏掉——靠必问的大小便、下身发麻题和全程紧急提示兜底，并请工程修「不清楚」的记录方式。"
+  rf_progressive_weakness:     # [urgent] 腿部无力且在加重  ⚠ T4-4
+    decision: modify
+    overrides:
+      severity: same_day
+      on_trigger: continue
+      label: "腿越来越使不上劲"
+      patient_message: "你提到腿越来越使不上劲。请今天内打电话联系门诊，医生会判断要不要尽快检查；门诊已下班的，请今天去急诊。如果几个小时内明显加重、两条腿都没劲、站不稳，或出现大小便变化、下身发麻，请立即去急诊或拨打 120。（模拟临床稿）"
+    note: "模拟：与 AI 草案分歧，回到 v0.1 的当天联系，中等把握。单侧进行性无力（如足下垂加重）需要 24 小时内专科评估，不一定要急诊；自述「越来越没劲」常是疼痛导致的不敢用力。双侧进行性无力仍由 rf_ces_bilateral 按急诊处理；原话写明下班后当天去急诊、快速加重立即去；继续问询让马尾必问题照常问到。发烧伴进行性无力（硬膜外脓肿）目前只靠原话兜底，请工程支持新增一条紧急规则。"
+  rf_gait:                     # [same_day] 步态障碍
+    decision: modify
+    overrides:
+      label: "走路不稳"
+      patient_message: "你提到最近走路不稳、拖着脚走或容易绊倒。请今天内打电话联系门诊，让医生判断要不要尽快检查，这段时间注意防摔。如果站不稳、走不了路，或同时出现两条腿没劲、大小便变化，请立即去急诊。（模拟临床稿）"
+    note: "模拟：当天联系采纳；原话补防摔和升级条件。问法加「新出现」，只在腿有症状时追问。"
+  rf_fever:                    # [same_day] 发热/寒战
+    decision: modify
+    overrides:
+      label: "发烧"
+      patient_message: "你提到有发烧。腰背痛同时发烧，需要今天就去医院查清原因：请今天到医院的发热门诊或急诊就诊，并打电话告诉门诊。如果发冷打寒战、高烧不退、精神很差，或出现腿没劲、大小便变化，请立即去急诊或拨打 120。（模拟临床稿）"
+    note: "模拟：当天级别采纳；改动在去向——康复、疼痛门诊处理不了发烧，按国内习惯让患者今天去发热门诊或急诊，而不是「联系门诊」；寒战、精神差、伴神经症状写明立即急诊（与全程紧急提示一致）。"
+  rf_infection_risk_with_pain: # [same_day] 感染风险因素伴休息/夜间痛或发热
+    decision: modify
+    overrides:
+      when: "facts.infection_risk.any(['steroid_or_immunosuppressant', 'recent_infection', 'recent_spinal_procedure']) and (facts.rest_or_night_worst.present or facts.fever.present)"
+      patient_message: "（仅供医生复核：有感染风险因素——长期激素或免疫抑制药、近 3 个月感染、近 3 个月腰部打针或手术——并伴休息或夜间痛、或发热。请当天电话了解体温和近期情况。）（模拟临床稿）"
+    note: "模拟：与 AI 草案分歧——触发条件去掉糖尿病和静脉注射药物。糖尿病在中老年腰痛患者里很常见，「糖尿病＋夜里痛」会天天触发当天电话；糖尿病＋发烧已由 rf_fever 当天处理，糖尿病＋休息痛由 50 岁以上的常规复核接住。静脉注射药物选项已删除（见事实 infection_risk）。"
+  rf_fracture_risk:            # [same_day] 外伤伴骨折风险因素
+    decision: modify
+    overrides:
+      label: "受伤后需要留意骨折"
+      patient_message: "你提到最近摔过或受过伤，而且年龄或骨骼情况让骨折的可能需要多留意。请今天内打电话联系门诊，让医生判断下一步怎么检查。如果疼得动不了，或出现腿麻、腿没劲、大小便变化，请直接去急诊。（模拟临床稿）"
+    note: "模拟：条件（外伤＋50 岁以上／骨质疏松／长期激素）与当天级别采纳；原话改口语并补升级条件。70 岁以上无外伤、突然剧痛的骨质疏松性压缩骨折没有被覆盖，交面诊，拿不准是否要单列。"
+  rf_trauma_severe:            # [same_day] 外伤后明显疼痛
+    decision: modify
+    overrides:
+      label: "受伤后疼得明显"
+      patient_message: "你提到最近受过伤，现在疼得比较厉害。请今天内打电话联系门诊说明情况。如果是车祸、从高处摔下这类严重外伤，或疼得动不了、腿麻没劲、大小便有变化，请直接去急诊或拨打 120。（模拟临床稿）"
+    note: "模拟：条件与当天级别采纳（严重外伤已在开始页分流去急诊，这里剩下的是轻微外伤后明显疼痛）；原话补严重外伤和神经症状的升级条件。"
+  rf_cancer_with_features:     # [same_day] 肿瘤史伴需留意特征
+    decision: modify
+    overrides:
+      when: "facts.cancer_history.present and (facts.weight_loss.present or facts.rest_or_night_worst.present or facts.night_pain.present or facts.age_band.any(['50_69', '70_plus']) or facts.course.value == 'worsening' or facts.thoracic_pain.present)"
+      label: "以前得过肿瘤，需要尽早了解"
+      patient_message: "你提到以前得过肿瘤。结合你这次说的情况，医生希望尽早了解：请今天内打电话联系门诊，门诊会尽快安排。这是为了稳妥，不代表已经有了结论。如果出现腿没劲、走路不稳或大小便变化，请立即去急诊。（模拟临床稿）"
+    note: "模拟：当天级别采纳；条件补「胸段痛为主」（肿瘤患者的胸背痛是脊髓压迫的警示，参照 NICE 转移性脊髓压迫指南思路，原文待核对）；原话避免吓人（「不代表已经有了结论」），并补脊髓压迫的升级条件。"
+  rf_weight_loss_or_cancer:    # [routine] 体重下降 / 肿瘤病史 / 休息夜间痛  ⚠ T4-10
+    decision: modify
+    overrides:
+      when: "facts.weight_loss.present or facts.cancer_history.present or ((facts.rest_or_night_worst.present or facts.night_pain.present) and facts.age_band.any(['50_69', '70_plus']))"
+      label: "体重下降 / 肿瘤史 / 50 岁以上休息或夜间痛"
+      patient_message: "（仅供医生复核：不明原因体重下降、本人肿瘤史，或 50 岁以上休息时、夜里最痛。面诊时重点询问，必要时提前安排。）（模拟临床稿）"
+    note: "模拟：⚠ 问题的回答——50 岁以上不升为当天联系，保持常规复核：没有神经症状时，怀疑肿瘤的处理时限是「两周内完成评估」这一级，当天电话改变不了什么（诊前患者 1–3 天内就会来面诊）；肿瘤史加任何一项特征已由 rf_cancer_with_features 当天处理。与 AI 草案分歧在条件：休息或夜间痛只在 50 岁以上才计入——年轻人单独的夜间痛特异性很低，会让常规任务泛滥、医生不再看。"
+  rf_inflammatory_pattern:     # [routine] 炎性腰背痛线索
+    decision: modify
+    overrides:
+      when: "facts.age_band.any(['18_49']) and facts.onset_timing.value == 'over_12_weeks' and ((facts.morning_stiffness_30min.present and facts.improves_with_activity.present) or (facts.morning_stiffness_30min.present and facts.night_waking_second_half.present) or (facts.improves_with_activity.present and facts.night_waking_second_half.present) or (facts.buttock_alternating.present and (facts.morning_stiffness_30min.present or facts.improves_with_activity.present or facts.night_waking_second_half.present)))"
+      patient_message: "（仅供医生复核：18–49 岁、超过 3 个月，炎性腰背痛线索中有两项及以上；可按 NICE NG65 考虑是否转风湿免疫科。）（模拟临床稿）"
+    note: "模拟：常规复核采纳；条件改成严格的「四项中至少两项」——AI 草案里单独一项「臀部左右交替痛」也会触发。"
+  rf_thoracic: {decision: adopt, overrides: {}, note: "模拟：采纳常规复核、只给医生看。胸背痛伴胸痛、气短、出冷汗的急症提示已写进全程紧急提示；现在的页顶提示条不分级别都是红色，给常规情况弹红条会吓人，所以不改成给患者看。"}    # [routine] 胸段为主
+  rf_out_of_scope:             # [routine] 不在适用范围  ⚠ T4-12
+    decision: modify
+    overrides:
+      patient_message: "根据你的回答，这个工具暂时不适合你的情况（比如未满 18 岁、怀孕或刚生完孩子 6 周内）。这不代表对病情的判断，请直接打电话联系门诊安排就诊。如果出现页面上列出的紧急情况，请立即去急诊。（模拟临床稿）"
+    note: "模拟：⚠ 问题的回答——说明基本合适，改得更口语，去掉「你已填写的内容不会被用作医疗记录」这句我们兑现不了的承诺。开始页已挡住大多数人，这条只兜底文字里提到的情况。理应终止问询，但现在的终止页只有「急救电话」样式，对孕妇显示会吓人，暂保留继续问询，请工程做一个不紧急的「不适用」结束页后改成终止。"
+  rf_uncertain_red_flag:       # [same_day] 关键红旗表达不确定
+    decision: modify
+    overrides:
+      when: "facts.bladder_change.uncertain or facts.bowel_change.uncertain or facts.saddle_numbness.uncertain or facts.bilateral_leg_symptoms.uncertain or facts.leg_weakness.uncertain or facts.weakness_progressive.uncertain or facts.bladder_bowel_change.uncertain"
+      action: immediate_notice_and_task
+      label: "关键情况说不准，需要电话确认"
+      patient_message: "你对小便、大便、下身感觉或腿的情况说得还不太确定。门诊会在开诊时间内打电话和你确认。接到电话前，如果情况变得明确或加重（比如尿不出来、憋不住、下身发麻、腿越来越没劲），请不要等电话，立即去急诊。（模拟临床稿）"
+    note: "模拟：当天级别采纳，两处分歧：① 改成也给患者看——关于马尾症状说不准的人，最需要被明确告诉接下来会发生什么、什么情况不要等；② 条件加上「无力是否加重不确定」。曾考虑去掉「腿没劲不确定」（确定没劲不触发、不确定反而触发，看似不一致），复测随访场景 S039（「左腿好像有点发软，不太确定」）后保留：随访里没有「是否在加重」的追问，这条是随访中新出现无力的唯一安全网。另：患者在问题里点「不清楚」目前被记为「未回答」，这条规则接不住，需要工程修（见审核意见 P0）。"
+  rf_no_improvement: {decision: adopt, overrides: {}, note: "模拟：采纳常规复核：6 周后仍在加重需要重新评估，但不是当天的事。"}    # [routine] 病程超过 6 周且加重
+
+policies:                      # 第三轮评审新增：这些处理方式由医生拍板（adopt 采纳 / modify 按 overrides 修改 / drop 不要）；note 写一句理由
+  disputed_red_flag:           # 原话提到红旗、核对时患者说"不对"：现在按原级别（紧急）排在最前、标"待电话核实"、摘要列"待核实"、病历初稿写"需核实"而不是"否认"
+    decision: adopt
+    overrides: {}              # 例：{downgrade_to: same_day}（若医生认为可以降级）
+    note: "模拟：采纳，不降级。患者否认可能是抽错，也可能是怕被叫去急诊而不愿承认；此时没有任何人在行动，这通电话是唯一的安全网，打一次电话的成本很低。这类情况会很少，不会稀释紧急通道。患者端已有「提示仍保留」一行，建议把其中「医生也会复核」改成「门诊会打电话和你确认」。"
+  callback_time:               # 红旗任务多久内由谁电话联系患者：紧急类 / 当天类 / 常规类；服务时间外怎么办
+    decision: modify
+    overrides:                 # 例：{urgent: "护士 15 分钟内", same_day: "当天 17:30 前", routine: "医生下次核对时", after_hours: "页面提示自行急诊，次日首个处理"}
+      urgent: "开诊时间内：当班护士收到提醒后 30 分钟内打电话，确认患者已经或正在去急诊、需不需要帮忙叫 120，结果告诉医生；两次打不通，由医生决定下一步并记录。停诊时间不回电（患者页面已要求立即就医），下一个开诊日第一件事回访结果。"
+      same_day: "开诊时间内 2 小时内由护士或医助打电话问清情况，按医生意见安排当天或次日就诊；停诊前 1 小时内或停诊后提交的，下一个开诊日上午第一批处理。"
+      routine: "医生在下一次核对时查看（每天至少两次：上午开诊前、下午停诊前），面诊时当面确认；不单独打电话。"
+      after_hours: "页面已显示全程紧急提示和各条红旗原话，系统不承诺有人在线；停诊期间产生的红旗任务，下一个开诊日上午按紧急程度排序处理。"
+      closure: "每条红旗任务必须由人标记结果：已联系且已就医 / 已联系、按医生意见安排 / 两次未联系上（写明时间）；系统不能自动关闭。"
+      precondition: "30 分钟和 2 小时的承诺以有手机提醒为前提（如企业微信或短信通知当班护士）；提醒上线前，对患者只说「开诊时间内会尽快联系」，不写具体分钟数。"
+    note: "模拟：与 AI 草案分歧——紧急类从「15 分钟」改为「30 分钟」：患者页面已经让他立即去急诊，这通电话的作用是确认他去了、帮他叫 120，不是分诊；小门诊护士同时在接诊，15 分钟做不到，做不到的承诺比宽一点但能兑现的承诺更危险。当天类给出 2 小时的具体窗口，便于考核；加上「由人关闭任务」和「先有提醒再承诺时限」。"
+  patient_rewrite_mode:        # 给患者的说明：glossary = 医生审定的术语对照表，不调用模型（现在的默认）；llm = 模型改写措辞，新增内容被拦下并加 AI 标注
+    decision: adopt
+    overrides: {mode: glossary}  # 例：{mode: glossary}
+    note: "模拟：采纳术语对照表，决赛演示和以后试点都用它：医生的字一个不改、没有新增内容、责任清楚。模型改写先不给患者用，等有 50 条以上改写经两位医生双盲核对、新增内容为零之后再议。"
+  plain_language:              # 12 条术语对照（protocols/lbp_adult_v0.1.yaml 的 followup.plain_language），逐条采纳 / 修改 / 删除
+    decision: modify
+    overrides:                 # 例：{热敷: "删除", 会阴: "两腿之间靠近肛门的部位"}
+      复查: "回来再检查一次，看看恢复得怎么样"
+      复诊: "采纳"
+      随访: "按约好的时间，把最近的情况告诉医生（在手机上填写，或者门诊打电话问你）"
+      放射痛: "采纳"
+      麻木: "采纳"
+      会阴: "两腿之间、私处到肛门这一片（骑自行车时碰到车座的地方）"
+      核心肌群: "采纳"
+      急性期: "采纳"
+      热敷: "用热毛巾或热水袋隔着一层布敷在疼的地方，别太烫"
+      冷敷: "采纳"
+      保守治疗: "不做手术的治疗办法"
+      影像检查: "采纳"
+    note: "模拟：采纳 7 条、修改 5 条、不删。复查与复诊原来解释成一样，复查在国内常指回来再做检查，分开；随访不只在手机上填，也可能是电话；会阴原解释「肛门前面」不准确，改成患者能对上的范围；热敷补「隔一层布、别太烫」——老人、糖尿病和腿麻的人常被热水袋、暖宝宝低温烫伤；保守治疗去掉「先」，免得暗示以后要开刀。"
+  usertest_card_b:             # 任务卡 B 新增"去年也闪过一次腰，休息几天就好了"（用于隐蔽型植入错抽）：情境是否真实、会不会误导参与者
+    decision: modify
+    overrides: {card_b_sentence: "去年也闪过一次腰，那次休息几天就好了。"}
+    note: "模拟：这句话很自然（「闪了腰」是常见说法），卡片前一句已写明「这次一个多月」，参与者自己把这次当成很久的可能性低；改一个词，加「那次」，把两次发作分得更清楚。卡片里没有任何与「超过 3 个月」相符的描述，可以用。"

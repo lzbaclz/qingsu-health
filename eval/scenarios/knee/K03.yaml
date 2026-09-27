@@ -1,0 +1,26 @@
+id: K03
+family: K03_twist_cannot_bear_weight
+split: knee
+protocol_id: knee_adult_v0.1
+title: 扭伤后马上肿、一步都走不了 → 当日评估
+persona: 24 岁研究生（模拟）
+kind: pre_visit
+category: red_flag
+inputs:
+  body_map: [{region_id: knee_right_front, kind: primary}]
+  free_text: "昨天下楼梯的时候右膝盖扭了一下，马上就肿了，现在一步都走不了。"
+  answers: {k_redness: "no", k_fever: "no", k_calf: "no", k_neuro: "no", k_locking: "no", k_severity: 7, k_course: stable, k_giving: "yes", k_function: severe}
+ground_truth:
+  facts:
+    trauma_recent: {status: present}
+    weight_bearing: {status: present, value: cannot_4_steps}
+    swelling: {status: present}
+    swelling_onset: {status: present, value: within_2h}
+    redness_warmth: {status: denied}
+    fever: {status: denied}
+    calf_swelling_pain: {status: denied}
+    neuro_vascular: {status: denied}
+    severity_now: {status: present, value: 7}
+  expected_alerts: [kf_cannot_bear_weight, kf_rapid_swelling]
+notes: "Ottawa 膝关节规则的一条（伤后走不了 4 步）；待临床审核"
+review: {clinical_reviewed_by: null, reviewed_at: null}

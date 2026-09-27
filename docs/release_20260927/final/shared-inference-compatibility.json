@@ -1,0 +1,25 @@
+{
+  "native_run": "v031_eval/20260927_113529_context_ollama_gpt-oss-20b.json",
+  "native_protocol": "0.2.5",
+  "release_protocol": "0.2.6",
+  "checks": {
+    "main_prompt_equal": true,
+    "red_flag_prompt_equal": true,
+    "facts_equal": true,
+    "red_flags_equal": true,
+    "event_rules_equal": true,
+    "task_routes_equal": true,
+    "shared_core_hashes_equal": true
+  },
+  "unchanged_core_files": [
+    "backend/app/llm/provider.py",
+    "backend/app/extraction/service.py",
+    "backend/app/events/service.py",
+    "backend/app/facts/store.py",
+    "backend/app/protocol/expr.py",
+    "backend/app/protocol/triage.py",
+    "backend/app/models.py",
+    "eval/context_benchmark.py"
+  ],
+  "scope": "原生24句证据仅适用于相同的抽取和事件处理路径；0.2.6文本题接入与轨迹显示另行测试，不当作本次原生推理已覆盖。此核查没有进行新推理。"
+}
